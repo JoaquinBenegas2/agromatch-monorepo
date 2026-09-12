@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import type {
   CreateReviewBody,
   MatchBoard,
@@ -24,8 +24,12 @@ import { ErrorMessage } from '@/components/ui/error-message';
 import { FilterChips } from '@/components/ui/filter-chips';
 import { OfferCard } from '@/components/ui/offer-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { StarRating } from '@/components/ui/star-rating';
 import { Textarea } from '@/components/ui/textarea';
 import { VerificationBadge } from '@/components/ui/verification-badge';
+import { cn } from '@/lib/utils';
+
+const EXCLUDED_PAGE_SIZE = 3;
 
 type SortMode = 'engine' | 'reputation' | 'price';
 
@@ -50,10 +54,12 @@ export function ResultSkeleton() {
   );
 }
 
-function providerReputation(provider: PublicProvider): string {
-  return provider.reputation.avg === null
-    ? 'Sin valoraciones'
-    : `${provider.reputation.avg.toLocaleString('es-AR', { maximumFractionDigits: 1 })} · ${provider.reputation.jobs}`;
+function providerReputation(provider: PublicProvider): ReactNode {
+  return provider.reputation.avg === null ? (
+    'Sin valoraciones'
+  ) : (
+    <StarRating value={provider.reputation.avg} jobs={provider.reputation.jobs} />
+  );
 }
 
 /**
@@ -147,10 +153,10 @@ function RequestDialog({
           <>
             <div className="rounded-md border border-border bg-muted/40 p-4">
               {request.contact.phone ? (
-                <p className="flex items-center gap-2 font-mono text-[13px]"><Phone className="size-4 text-primary" />{request.contact.phone}</p>
+                <p className="flex items-center gap-2 text-[13px]"><Phone className="size-4 text-primary" />{request.contact.phone}</p>
               ) : null}
               {request.contact.email ? (
-                <p className="mt-2 flex items-center gap-2 font-mono text-[13px]"><Mail className="size-4 text-primary" />{request.contact.email}</p>
+                <p className="mt-2 flex items-center gap-2 text-[13px]"><Mail className="size-4 text-primary" />{request.contact.email}</p>
               ) : null}
               {!hasContact ? (
                 <p className="text-[12.5px] text-muted-foreground">El proveedor responderá por el canal de la solicitud.</p>
@@ -182,6 +188,110 @@ function RequestDialog({
   );
 }
 
+/**
+ * Una única card para incluidos y excluidos (mismo diseño): un excluido se
+ * distingue con un look apagado y una acción deshabilitada, nunca con un
+ * componente distinto.
+ */
+function ResultOfferCard({
+  candidate,
+  provider,
+  need,
+  totalRanked,
+  excluded,
+  requesting,
+  alreadyRequested,
+  onRequestClick,
+}: {
+  candidate: MatchCandidate;
+  provider: PublicProvider;
+  need: Need;
+  totalRanked: number;
+  excluded: boolean;
+  requesting: boolean;
+  alreadyRequested: boolean;
+  onRequestClick: () => void;
+}) {
+  const explanation = excluded
+    ? {
+        text: candidate.filters.find((filter) => !filter.passed)?.detail ?? candidate.reasons.join(' '),
+        source: 'FALLBACK' as const,
+      }
+    : (candidate.explanation ?? { text: candidate.reasons.join(' '), source: 'FALLBACK' as const });
+
+  return (
+    <OfferCard
+      className={cn(
+        'group shadow-[0_8px_28px_rgba(27,28,27,0.04)] transition-transform duration-200',
+        excluded ? 'grayscale opacity-60' : 'hover:-translate-y-0.5',
+      )}
+      image={
+        <div className="relative flex size-full items-end overflow-hidden bg-[linear-gradient(135deg,var(--muted)_25%,transparent_25%),linear-gradient(225deg,var(--muted)_25%,transparent_25%),linear-gradient(45deg,var(--muted)_25%,transparent_25%),linear-gradient(315deg,var(--muted)_25%,var(--card)_25%)] bg-[length:18px_18px] bg-[position:9px_0,9px_0,0_0,0_0] p-3">
+          {provider.imageUrl ? (
+            <img
+              src={provider.imageUrl}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 size-full object-cover"
+              onError={(event) => {
+                event.currentTarget.hidden = true;
+              }}
+            />
+          ) : null}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+          {provider.imageUrl ? (
+            <Badge variant="solid" className="absolute top-3 right-3 bg-card/90 text-foreground shadow-sm">
+              Imagen ilustrativa
+            </Badge>
+          ) : null}
+          <Badge variant="solid" className="bg-card text-foreground shadow-sm">
+            <MapPin /> {candidate.reasons.join(' ').match(/[\d.,]+\s*km/i)?.[0] ?? provider.base.label}
+          </Badge>
+        </div>
+      }
+      title={provider.name}
+      subtitle={`${need.what} · ${provider.base.label}`}
+      rank={excluded ? undefined : { position: candidate.rank, total: totalRanked }}
+      badges={
+        <>
+          {excluded ? <Badge variant="neutral">Excluido</Badge> : <VerificationBadge status={providerStatus(provider)} />}
+          {!provider.verified ? <Badge variant="warn">Semilla</Badge> : null}
+        </>
+      }
+      stats={[
+        { label: 'Disponibilidad', value: candidate.fit.availability > 0 ? 'Consultar fecha' : 'No disponible' },
+        { label: 'Reputación', value: providerReputation(provider) },
+      ]}
+      price={excluded ? undefined : 'A cotizar'}
+      explanation={<AiExplanation text={explanation.text} source={explanation.source} />}
+      secondaryAction={
+        <Button asChild variant="ghost" size="sm" className="px-2">
+          <a href={provider.source} target="_blank" rel="noreferrer" aria-label={`Ver fuente pública de ${provider.name}`}>
+            <ExternalLink />
+          </a>
+        </Button>
+      }
+      primaryAction={
+        excluded ? (
+          <Button type="button" className="flex-1" variant="secondary" disabled>
+            No cumple los filtros
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            className="flex-1"
+            variant={candidate.rank === 1 ? 'primary' : 'secondary'}
+            disabled={requesting}
+            onClick={onRequestClick}
+          >
+            {alreadyRequested ? 'Ver solicitud · Valorar' : 'Pedir fecha'}
+          </Button>
+        )
+      }
+    />
+  );
+}
+
 export function MarketResults({
   need,
   board,
@@ -206,6 +316,7 @@ export function MarketResults({
   onReview: (requestId: string, body: CreateReviewBody) => Promise<void>;
 }) {
   const [sortMode, setSortMode] = useState<SortMode>('engine');
+  const [excludedShown, setExcludedShown] = useState(0);
   const [request, setRequest] = useState<ServiceRequest>();
   const [selectedProvider, setSelectedProvider] = useState<PublicProvider>();
   // Solicitudes hechas en esta sesión, por proveedor: permiten reabrir el
@@ -277,66 +388,20 @@ export function MarketResults({
             const provider = providerById.get(candidate.providerId);
             if (!provider) return null;
             return (
-              <OfferCard
+              <ResultOfferCard
                 key={candidate.capabilityId}
-                className="group shadow-[0_8px_28px_rgba(27,28,27,0.04)] transition-transform duration-200 hover:-translate-y-0.5"
-                image={
-                  <div className="relative flex size-full items-end overflow-hidden bg-[linear-gradient(135deg,var(--muted)_25%,transparent_25%),linear-gradient(225deg,var(--muted)_25%,transparent_25%),linear-gradient(45deg,var(--muted)_25%,transparent_25%),linear-gradient(315deg,var(--muted)_25%,var(--card)_25%)] bg-[length:18px_18px] bg-[position:9px_0,9px_0,0_0,0_0] p-3">
-                    {provider.imageUrl ? (
-                      <img
-                        src={provider.imageUrl}
-                        alt=""
-                        loading="lazy"
-                        className="absolute inset-0 size-full object-cover"
-                        onError={(event) => {
-                          event.currentTarget.hidden = true;
-                        }}
-                      />
-                    ) : null}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
-                    {provider.imageUrl ? (
-                      <Badge variant="solid" className="absolute top-3 right-3 bg-card/90 font-sans text-foreground shadow-sm">
-                        Imagen ilustrativa
-                      </Badge>
-                    ) : null}
-                    <Badge variant="solid" className="bg-card font-sans text-foreground shadow-sm"><MapPin /> {candidate.reasons.join(' ').match(/[\d.,]+\s*km/i)?.[0] ?? provider.base.label}</Badge>
-                  </div>
-                }
-                title={provider.name}
-                subtitle={`${need.what} · ${provider.base.label}`}
-                rank={{ position: candidate.rank, total: board.ranked.length }}
-                badges={
-                  <>
-                    <VerificationBadge status={providerStatus(provider)} />
-                    {!provider.verified ? <Badge variant="warn">Semilla</Badge> : null}
-                  </>
-                }
-                stats={[
-                  { label: 'Disponibilidad', value: candidate.fit.availability > 0 ? 'Consultar fecha' : 'No disponible' },
-                  { label: 'Reputación', value: providerReputation(provider) },
-                ]}
-                price="A cotizar"
-                explanation={<AiExplanation text={candidate.reasons.join(' ')} source="FALLBACK" />}
-                secondaryAction={
-                  <Button asChild variant="ghost" size="sm" className="px-2">
-                    <a href={provider.source} target="_blank" rel="noreferrer" aria-label={`Ver fuente pública de ${provider.name}`}><ExternalLink /></a>
-                  </Button>
-                }
-                primaryAction={
-                  <Button
-                    type="button"
-                    className="flex-1"
-                    variant={candidate.rank === 1 ? 'primary' : 'secondary'}
-                    disabled={requesting}
-                    onClick={() => {
-                      // Ya solicitado: se reabre para ver el contacto y valorar el trabajo.
-                      setRequest(sentRequests.get(provider.id));
-                      setSelectedProvider(provider);
-                    }}
-                  >
-                    {sentRequests.has(provider.id) ? 'Ver solicitud · Valorar' : 'Pedir fecha'}
-                  </Button>
-                }
+                candidate={candidate}
+                provider={provider}
+                need={need}
+                totalRanked={board.ranked.length}
+                excluded={false}
+                requesting={requesting}
+                alreadyRequested={sentRequests.has(provider.id)}
+                onRequestClick={() => {
+                  // Ya solicitado: se reabre para ver el contacto y valorar el trabajo.
+                  setRequest(sentRequests.get(provider.id));
+                  setSelectedProvider(provider);
+                }}
               />
             );
           })}
@@ -344,21 +409,45 @@ export function MarketResults({
       ) : null}
 
       {board.excluded.length > 0 ? (
-        <details className="group rounded-lg border border-border bg-card">
-          <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-[12.5px] font-semibold">
-            <Ban className="size-4 text-muted-foreground" /> Excluidos ({board.excluded.length})
-          </summary>
-          <div className="border-t border-border-soft px-4 py-3">
-            {board.excluded.map((candidate: MatchCandidate) => (
-              <div key={candidate.capabilityId} className="flex gap-3 border-b border-border-soft py-2 last:border-0">
-                <span className="font-medium">{providerById.get(candidate.providerId)?.name ?? candidate.providerId}</span>
-                <span className="text-muted-foreground">
-                  {candidate.filters.find((filter) => !filter.passed)?.detail ?? candidate.reasons.join(' ')}
-                </span>
-              </div>
-            ))}
-          </div>
-        </details>
+        <div className="flex flex-col gap-3">
+          <p className="flex items-center gap-2 text-[12.5px] font-semibold text-muted-foreground">
+            <Ban className="size-4" /> Excluidos ({board.excluded.length})
+          </p>
+
+          {excludedShown > 0 ? (
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {board.excluded.slice(0, excludedShown).map((candidate) => {
+                const provider = providerById.get(candidate.providerId);
+                if (!provider) return null;
+                return (
+                  <ResultOfferCard
+                    key={candidate.capabilityId}
+                    candidate={candidate}
+                    provider={provider}
+                    need={need}
+                    totalRanked={board.ranked.length}
+                    excluded
+                    requesting={false}
+                    alreadyRequested={false}
+                    onRequestClick={() => undefined}
+                  />
+                );
+              })}
+            </div>
+          ) : null}
+
+          {excludedShown < board.excluded.length ? (
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setExcludedShown((current) => Math.min(current + EXCLUDED_PAGE_SIZE, board.excluded.length))}
+            >
+              {excludedShown === 0
+                ? `Cargar excluidos (${board.excluded.length})`
+                : `Cargar ${Math.min(EXCLUDED_PAGE_SIZE, board.excluded.length - excludedShown)} más (${board.excluded.length - excludedShown} restantes)`}
+            </Button>
+          ) : null}
+        </div>
       ) : null}
 
       <RequestDialog

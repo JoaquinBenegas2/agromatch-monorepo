@@ -14,7 +14,7 @@ function StatCard({ className, label, value, meta, icon, ...props }: StatCardPro
   return (
     <Card data-slot="stat-card" className={cn('flex flex-col gap-2 p-4', className)} {...props}>
       <div className="flex items-center justify-between gap-2">
-        <span className="font-mono text-[9.5px] font-semibold tracking-[0.14em] text-ink-3 uppercase">
+        <span className="text-[9.5px] font-semibold tracking-[0.14em] text-ink-3 uppercase">
           {label}
         </span>
         {icon && <span className="text-ink-3">{icon}</span>}

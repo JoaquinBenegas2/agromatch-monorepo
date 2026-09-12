@@ -51,7 +51,7 @@ function FilterChips({ className, chips, value, onValueChange, multiple = true, 
           >
             {chip.label}
             {chip.count !== undefined && (
-              <span className={cn('font-mono text-[10px]', active ? 'text-primary' : 'text-ink-4')}>
+              <span className={cn('text-[10px]', active ? 'text-primary' : 'text-ink-4')}>
                 {chip.count}
               </span>
             )}

@@ -79,7 +79,7 @@ function FarmCard({ summary, onOpen }: { summary: FarmSummary; onOpen: (farmId: 
             <div key={tier} className="flex items-center gap-2">
               <span className="w-32 shrink-0 text-[11px] text-muted-foreground">{TIER_LABELS[tier]}</span>
               <Progress value={share} className="flex-1" />
-              <span className="w-8 shrink-0 text-right font-mono text-[11px]">{count}</span>
+              <span className="w-8 shrink-0 text-right text-[11px]">{count}</span>
             </div>
           );
         })}
@@ -119,7 +119,7 @@ function TraitsComparison({ summaries }: { summaries: FarmSummary[] }) {
                 <div key={farm.id} className="flex items-center gap-2">
                   <span className="w-32 shrink-0 truncate text-[11px] text-muted-foreground">{farm.name}</span>
                   <Progress value={traitPercent(value, min, max)} className="flex-1" />
-                  <span className="w-14 shrink-0 text-right font-mono text-[11px]">{value.toFixed(1)}</span>
+                  <span className="w-14 shrink-0 text-right text-[11px]">{value.toFixed(1)}</span>
                 </div>
               ))}
             </div>
