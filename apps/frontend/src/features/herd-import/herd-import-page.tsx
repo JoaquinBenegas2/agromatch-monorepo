@@ -61,9 +61,28 @@ export function HerdImportPage({ farmId }: { farmId: string }) {
         <EmptyState
           icon={<CheckCircle2 />}
           title="Rodeo importado"
-          description={`${confirm.data.rowsOk} filas importadas.`}
+          description={
+            // Honestidad: lo que quedó afuera se dice, con la fila y el motivo.
+            `${confirm.data.rowsOk} filas importadas` +
+            (confirm.data.rowsRejected.length
+              ? ` · ${confirm.data.rowsRejected.length} rechazada${confirm.data.rowsRejected.length === 1 ? '' : 's'}: ` +
+                confirm.data.rowsRejected.map((r) => `fila ${r.row} (${r.reason})`).join('; ')
+              : '') +
+            (confirm.data.warnings.length ? ` · ${confirm.data.warnings.length} avisos` : '') +
+            '.'
+          }
           action={<Button onClick={() => navigate('/motor-genetico/tablero')}>Ir al tablero</Button>}
         />
+        {confirm.data.warnings.length > 0 && (
+          <details className="rounded-lg border border-border bg-card px-4 py-3 text-[12px] text-muted-foreground">
+            <summary className="cursor-pointer font-semibold">Avisos de la importación ({confirm.data.warnings.length})</summary>
+            <ul className="mt-2 list-disc pl-5">
+              {confirm.data.warnings.map((w) => (
+                <li key={w}>{w}</li>
+              ))}
+            </ul>
+          </details>
+        )}
       </div>
     );
   }
