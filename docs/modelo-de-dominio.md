@@ -288,5 +288,5 @@ export interface VerticalEngine<TFacts> {
 | D4 | Login real o usuarios simulados | RN-38 |
 | ~~D5~~ ✅ | **Resuelta:** Anthropic Claude, modelo **Haiku 4.5** (`claude-haiku-4-5`), vía `@anthropic-ai/sdk`, detrás del puerto `LlmClient` | Módulo `ai` |
 | D6 | Plan automático simple o con restricciones | F4 |
-| **D7** | **Nombre del producto.** "Torinder" queda como el vertical genético; el marketplace necesita el suyo. | Pitch, dominio, marca |
-| **D8** | **Categorías del MVP:** cuáles 3 llevan proveedores semilla | N2, demo |
+| ~~D7~~ 🟡 | **Propuesto: AgroMatch** (producto) + **Torinder** (vertical genético). Falta que el equipo lo confirme; no bloquea nada. Ver [definiciones-de-negocio.md](definiciones-de-negocio.md) N1 | Pitch, dominio, marca |
+| ~~D8~~ ✅ | **Resuelta: maquinaria, veterinaria y genética.** Insumos queda afuera del MVP: ahí Agrofy, Agroads y Mercado Libre ya dominan | N2, M7, demo |

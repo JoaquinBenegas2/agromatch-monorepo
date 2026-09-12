@@ -16,6 +16,7 @@
 | Archivo | Contenido |
 |---|---|
 | [conceptos-dominio-y-negocio.md](conceptos-dominio-y-negocio.md) | **Empezar por acá.** Dominio del tambo, genética explicada para devs y modelo de negocio |
+| [definiciones-de-negocio.md](definiciones-de-negocio.md) | **Negocio cerrado.** Nombre, categorías del MVP, quién paga, neutralidad, verificación, qué no hacemos, los 5 números del pitch y las métricas |
 | [plan-de-trabajo.md](plan-de-trabajo.md) | **Plan del MVP para 4 devs.** Contratos de T0, tareas A1–D7 con criterios de aceptación, dependencias, hitos I1/I2 y reglas de trabajo |
 | [skills/torinder-notion-sync/SKILL.md](skills/torinder-notion-sync/SKILL.md) | Skill **obligatoria** para los agentes: sincroniza cada tarea con la base "Tareas Torinder" de Notion y publica contratos. En T0 se copia a `.claude/skills/` del monorepo |
 | [modelo-de-dominio.md](modelo-de-dominio.md) | **Base para las tareas y la arquitectura.** Lenguaje ubicuo, entidades, reglas de negocio (RN-xx), flujos (Fx), módulos del monorepo, alcance del MVP y decisiones abiertas |
