@@ -1,0 +1,153 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { matchNeed } from '@org/matching-core';
+import {
+  computeTraitStats,
+  GeneticsVertical,
+  makeGeneticsNeed,
+} from '@org/genetics-core';
+import type {
+  BreedingGoal,
+  GenomicProfile,
+  MatchBoard,
+  Need,
+} from '@org/shared-types';
+import { DomainError } from '../../common/errors/domain-error.js';
+import { BULL_REPO, type BullRepo } from '../../repos/bull.port.js';
+import {
+  CLASSIFICATION_REPO,
+  type ClassificationRepo,
+} from '../../repos/classification.port.js';
+import { FARM_REPO, type FarmRepo } from '../../repos/farm.port.js';
+import { FEMALE_REPO, type FemaleRepo } from '../../repos/female.port.js';
+import { NEED_REPO, type NeedRepo } from '../../repos/need.port.js';
+import { PROVIDER_REPO, type ProviderRepo } from '../../repos/provider.port.js';
+
+/**
+ * B4 (ADR-0002): el único lugar donde se llama a `matchNeed` con el vertical
+ * genético registrado. Nunca se llama a `scoreCandidates`/`scoreOneCandidate`
+ * directo (REQ-D-01).
+ *
+ * Se llama `GeneticMatching*` (no `Matching*`) porque `mvp-b-need` (M5) ya
+ * publicó en `develop` un `apps/backend/src/app/matching/` propio para
+ * `POST /needs/:id/matches` con exactamente esos mismos nombres de clase —
+ * colisión real detectada al mergear esta rama, no un simple duplicado
+ * trivial como los de `goals.controller.ts`. Se renombra este (el de B4,
+ * todavía sin mergear) en vez de tocar el de M5 (ya en `develop`).
+ */
+@Injectable()
+export class GeneticMatchingService {
+  constructor(
+    @Inject(FEMALE_REPO) private readonly femaleRepo: FemaleRepo,
+    @Inject(CLASSIFICATION_REPO)
+    private readonly classificationRepo: ClassificationRepo,
+    @Inject(NEED_REPO) private readonly needRepo: NeedRepo,
+    @Inject(BULL_REPO) private readonly bullRepo: BullRepo,
+    @Inject(PROVIDER_REPO) private readonly providerRepo: ProviderRepo,
+    @Inject(FARM_REPO) private readonly farmRepo: FarmRepo,
+  ) {}
+
+  async getBoard(
+    farmId: string,
+    femaleId: string,
+    goal: BreedingGoal,
+  ): Promise<MatchBoard> {
+    const female = await this.femaleRepo.findById(farmId, femaleId);
+    if (!female) {
+      throw new DomainError(
+        'FEMALE_NOT_FOUND',
+        'No encontramos esa hembra en el tambo',
+        404,
+        {
+          farmId,
+          femaleId,
+        },
+      );
+    }
+
+    const classificationRecord =
+      await this.classificationRepo.listByFarm(farmId);
+    const classification = classificationRecord?.items.find(
+      (c) => c.femaleId === femaleId,
+    );
+    if (!classification) {
+      throw new DomainError(
+        'HERD_NOT_CLASSIFIED',
+        'Clasificá el rodeo antes de buscar toros',
+        409,
+        { farmId, femaleId },
+      );
+    }
+    if (classification.semenType === null)
+      throw new DomainError(
+        'FEMALE_NOT_ELIGIBLE',
+        'Esta vaca tiene una alerta de salud y no tiene un destino reproductivo asignado. Revisala con tu asesor antes de matchear.',
+        409,
+        { farmId, femaleId, reasons: classification.reasons },
+      );
+
+    // RN-06 (facilidad de parto para vaquillonas y crías) necesita el umbral
+    // del tambo: sin `farm` el vertical no aplica ese filtro y una vaquillona
+    // podría recibir un toro que la regla prohíbe. Se exige, no se omite.
+    const farm = await this.farmRepo.findById(farmId);
+    if (!farm) {
+      throw new DomainError(
+        'FARM_NOT_FOUND',
+        'No encontramos el establecimiento',
+        404,
+        { farmId },
+      );
+    }
+
+    const need = await this.getOrCreateSyntheticNeed(farmId, femaleId, goal);
+
+    const bulls = (await this.bullRepo.list()).filter((b) =>
+      b.semenTypes.includes(
+        classification.semenType as (typeof b.semenTypes)[number],
+      ),
+    );
+    const bullNaabs = new Set(bulls.map((b) => b.naab));
+
+    const [caps, provs] = await Promise.all([
+      this.providerRepo
+        .listCapabilities({ category: 'GENETICS' })
+        .then((all) => all.filter((c) => bullNaabs.has(c.id))),
+      this.providerRepo.list({ category: 'GENETICS' }),
+    ]);
+
+    const females = await this.femaleRepo.listByFarm(farmId);
+    const profiles: GenomicProfile[] = females
+      .map((f) => f.profile)
+      .filter((p): p is GenomicProfile => p !== null);
+    const stats = computeTraitStats(profiles);
+
+    // `farm` habilita el filtro de facilidad de parto (RN-06) en el vertical:
+    // así el matching de una hembra y el plan automático (B5) usan las mismas
+    // reglas y no difieren en qué toros compiten.
+    return matchNeed(need, caps, provs, [GeneticsVertical], {
+      female,
+      classification,
+      bulls,
+      stats,
+      farm,
+    });
+  }
+
+  /** REQ-D-03: el Need sintético se reutiliza por hembra+establecimiento, nunca se duplica. */
+  private async getOrCreateSyntheticNeed(
+    farmId: string,
+    femaleId: string,
+    goal: BreedingGoal,
+  ): Promise<Need> {
+    const id = `synthetic:${farmId}:${femaleId}`;
+    const existing = await this.needRepo.findById(id);
+    if (existing) {
+      // El objetivo puede cambiar entre pedidos ("Procesar" con otro texto): se
+      // actualiza el mismo Need en vez de crear uno nuevo.
+      if (JSON.stringify(existing.goal) === JSON.stringify(goal))
+        return existing;
+      return this.needRepo.update({ ...existing, goal });
+    }
+    const need = { ...makeGeneticsNeed(farmId, femaleId, goal), id };
+    return this.needRepo.create(need);
+  }
+}

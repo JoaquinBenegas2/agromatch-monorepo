@@ -1,0 +1,26 @@
+[
+  {
+    "id": "tambero-a",
+    "name": "Tambero A",
+    "role": "FARMER",
+    "farmIds": ["farm-a"]
+  },
+  {
+    "id": "tambero-b",
+    "name": "Tambero B",
+    "role": "FARMER",
+    "farmIds": ["farm-b"]
+  },
+  {
+    "id": "asesor-1",
+    "name": "Asesor 1",
+    "role": "ADVISOR",
+    "farmIds": ["farm-a", "farm-b", "farm-c"]
+  },
+  {
+    "id": "admin",
+    "name": "Admin",
+    "role": "ADMIN",
+    "farmIds": ["farm-a", "farm-b", "farm-c"]
+  }
+]

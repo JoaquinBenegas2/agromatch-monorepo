@@ -1,0 +1,176 @@
+{
+  "name": "@org/backend",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "db-generate",
+          "^build"
+        ]
+      },
+      "typecheck": {
+        "dependsOn": [
+          "db-generate",
+          "^typecheck"
+        ]
+      },
+      "prune-lockfile": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "executor": "@nx/js:prune-lockfile",
+        "outputs": [
+          "{workspaceRoot}/apps/backend/dist/package.json",
+          "{workspaceRoot}/apps/backend/dist/package-lock.json"
+        ],
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "copy-workspace-modules": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "outputs": [
+          "{workspaceRoot}/apps/backend/dist/workspace_modules"
+        ],
+        "executor": "@nx/js:copy-workspace-modules",
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules"
+        ],
+        "executor": "nx:noop"
+      },
+      "serve": {
+        "continuous": true,
+        "executor": "nx:run-commands",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "cwd": "apps/backend",
+          "parallel": true,
+          "commands": [
+            "webpack-cli build --watch",
+            "node --watch --env-file-if-exists=../../.env dist/main.js"
+          ]
+        }
+      },
+      "test": {
+        "options": {
+          "passWithNoTests": true
+        }
+      },
+      "db-generate": {
+        "executor": "nx:run-commands",
+        "cache": true,
+        "outputs": [
+          "{projectRoot}/src/generated/prisma"
+        ],
+        "options": {
+          "command": "npm exec prisma -- generate --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-migrate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- migrate dev --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-validate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- validate --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-deploy": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- migrate deploy --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-studio": {
+        "continuous": true,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- studio --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-up": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker compose up --build --wait --wait-timeout 120 postgres"
+        }
+      },
+      "db-setup": {
+        "dependsOn": [
+          "db-up"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- migrate deploy --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-down": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker compose down"
+        }
+      },
+      "db-seed": {
+        "dependsOn": [
+          "db-generate",
+          "^build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsx apps/backend/prisma/seed.ts"
+        }
+      },
+      "db-reset": {
+        "dependsOn": [
+          "db-generate",
+          "^build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "commands": [
+            "npm exec prisma -- migrate reset --force --config apps/backend/prisma7.config.ts",
+            "npx tsx apps/backend/prisma/seed.ts"
+          ],
+          "parallel": false
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@org/ai": "0.0.1",
+    "@org/genetics-core": "0.0.1",
+    "@org/matching-core": "0.0.1",
+    "@org/shared-types": "0.0.1",
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "dotenv": "^16.4.5",
+    "pg": "8.23.0",
+    "reflect-metadata": "^0.2.0",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^11.0.0",
+    "@types/multer": "^2.2.0",
+    "@types/pg": "8.23.1"
+  }
+}

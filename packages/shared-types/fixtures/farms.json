@@ -1,0 +1,29 @@
+[
+  {
+    "id": "farm-a",
+    "name": "Tambo A (anonimizado)",
+    "location": "Cuenca lechera de Córdoba (demo)",
+    "tierQuotas": { "sexedPct": 25, "beefPct": 30 },
+    "calvingEaseMaxHeifer": 2.5,
+    "scsGrayZone": { "from": 3.1, "to": 3.18 },
+    "plGrayZone": { "from": 0.0, "to": 0.2 }
+  },
+  {
+    "id": "farm-b",
+    "name": "Tambo B (demo sintético)",
+    "location": "Cuenca lechera de Santa Fe (demo)",
+    "tierQuotas": { "sexedPct": 25, "beefPct": 30 },
+    "calvingEaseMaxHeifer": 2.5,
+    "scsGrayZone": { "from": 3.1, "to": 3.18 },
+    "plGrayZone": { "from": 0.0, "to": 0.2 }
+  },
+  {
+    "id": "farm-c",
+    "name": "Tambo C (demo sintético)",
+    "location": "Cuenca lechera de Buenos Aires (demo)",
+    "tierQuotas": { "sexedPct": 25, "beefPct": 30 },
+    "calvingEaseMaxHeifer": 2.5,
+    "scsGrayZone": { "from": 3.1, "to": 3.18 },
+    "plGrayZone": { "from": 0.0, "to": 0.2 }
+  }
+]

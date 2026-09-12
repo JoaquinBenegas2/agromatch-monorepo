@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgroMatch · Panel lateral (scaffolding)</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+.brand{display:flex;align-items:center;gap:10px;padding:18px 16px 16px}
+.brand-mark{width:30px;height:30px;border-radius:var(--r-lg);background:var(--action);color:#fff;display:flex;align-items:center;justify-content:center;font:700 14px/1 var(--sans)}
+.brand-name{font:700 15px/1.1 var(--sans);letter-spacing:-.01em}
+.brand-sub{font:400 10.5px/1.2 var(--sans);color:var(--ink-3)}
+.nav-scroll{flex:1;overflow-y:auto;padding:6px 0 12px}
+.sidebar-footer{border-top:1px solid var(--border);padding:12px}
+.account-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-lg)}
+.account-row:hover{background:var(--row-off)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--border);background:var(--card)}
+.crumb{font:400 12px/1 var(--sans);color:var(--ink-3)}
+.crumb b{color:var(--ink);font-weight:600}
+.content{padding:28px 32px;display:flex;flex-direction:column;gap:20px;width:100%}
+.score-cell{display:inline-flex;min-width:34px;justify-content:center;font:600 11px/1 var(--mono);padding:5px 6px;border-radius:var(--r-sm)}
+.score-hi{background:var(--action-soft);color:var(--action)}
+.score-mid{background:var(--warn-soft);color:var(--warn)}
+.score-lo{background:var(--row-off);color:var(--danger)}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div><div class="brand-name">AgroMatch</div><div class="brand-sub">Tambo La Esperanza</div></div>
+    </div>
+    <nav class="nav-scroll"><div class="nav-group">
+    <div class="nav-group-label">Mi establecimiento <span style="text-transform:none;font-weight:400">· valor / setup</span></div>
+    <a class="nav-item" href="#">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.2 1.8-2.5 3.5"/><circle cx="12" cy="17" r=".2"/></svg>
+  <span class="label">Setup conversacional</span><span class="tag-version">pendiente</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mercado y oportunidades <span style="text-transform:none;font-weight:400">· mercado general</span></div>
+    <a class="nav-item" href="../AgroMatch Home Conversacional.dc.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 20v-5h6v5"/></svg>
+  <span class="label">Home marketplace general</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Motor genético <span style="text-transform:none;font-weight:400">· motor técnico</span></div>
+    <a class="nav-item active" href="../AgroMatch Motor Genetico.dc.html">
+  <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+  <span class="label">Matching genético</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Negociación y tratos <span style="text-transform:none;font-weight:400">· transacciones</span></div>
+    <a class="nav-item" href="#">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 12l5-5 3 3 4-4 6 6"/><circle cx="19" cy="6" r="1.6"/><path d="M3 18h18"/></svg>
+  <span class="label">Mis matches / mensajes</span><span class="tag-version">pendiente</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mis ofertas <span style="text-transform:none;font-weight:400">· catálogo propio</span></div>
+    <a class="nav-item" href="#">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 17l5-9 4 6 3-4 6 7"/><path d="M3 20h18"/></svg>
+  <span class="label">Cargar lotes / servicios</span><span class="tag-version">pendiente</span>
+</a>
+  </div></nav>
+    <div class="sidebar-footer">
+      <hr class="divider" style="margin:0 0 8px">
+      <div class="account-row">
+        <div class="avatar" style="width:32px;height:32px;font-size:12px">JB</div>
+        <div style="min-width:0">
+          <div style="font:600 12px/1.2 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Joaquín Benegas</div>
+          <div style="font:400 10.5px/1.2 var(--sans);color:var(--ink-3)">Productor · Cabaña</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">Motor genético / <b>Matching genético</b></div>
+      <div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JB</div></div>
+    </div>
+    <div class="content">
+
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+  <span class="btn" style="background:var(--ink);color:var(--card);padding:8px 14px">Matching genético</span>
+  <span class="btn btn-ghost" style="padding:8px 14px">Tablero del rodeo <span class="tag-version" style="margin-left:4px">pendiente</span></span>
+  <span class="btn btn-ghost" style="padding:8px 14px;opacity:.75">Panel del asesor <span class="tag-version" style="margin-left:4px">asesor · pendiente</span></span>
+</div>
+<p class="t-meta" style="margin:0">Tabs dentro del módulo "Motor genético": las 3 pantallas técnicas de <code>docs/pantallas.md</code> (Swipe/matching, Tablero del rodeo, Panel del asesor) conviven acá adentro en vez de ser 3 ítems propios del sidebar.</p>
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+  <div><h1 class="t-title">Matching genético</h1><p class="t-meta" style="margin:4px 0 0">Ranking relativo por lote receptor · ordenado por score, no por probabilidad · ver <a href="../AgroMatch Motor Genetico.dc.html">AgroMatch Motor Genetico.dc.html</a> para el mockup completo</p></div>
+  <span class="badge badge-neutral">v3</span>
+</div>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px;"><span class="t-label">COMPATIBILIDAD · LOTE "RODEO A" × CATÁLOGO DE REPRODUCTORES</span>
+  <table class="table">
+  <thead><tr><th>Reproductor</th><th class="num">DEP destete</th><th class="num">Consang.</th><th class="num">Riesgo parto</th><th class="num">Score</th></tr></thead>
+  <tbody><tr><td>Toro 4412 · Angus</td><td class="num">+14</td><td class="num">1,2%</td><td class="num">bajo</td><td class="num"><span class="score-cell score-hi">95</span></td></tr><tr><td>Toro 3187 · Braford</td><td class="num">+9</td><td class="num">2,8%</td><td class="num">medio</td><td class="num"><span class="score-cell score-mid">78</span></td></tr><tr><td>Toro 5502 · Angus</td><td class="num">+6</td><td class="num">6,1%</td><td class="num">medio</td><td class="num"><span class="score-cell score-lo">54</span></td></tr></tbody>
+</table>
+  <div style="display:flex;flex-direction:column;gap:5px">
+  <div style="display:flex;justify-content:space-between" class="t-body"><span>Peso al nacer</span><span class="mono" style="font-size:11px"><span style="color:var(--ink-3)">límite</span> +1,8 · −1,2</span></div>
+  <div class="tol-track"><div class="tol-fill" style="width:22%"></div><div class="tol-limit" style="left:62%"></div></div>
+</div></div>
+<p class="t-meta" style="margin:0">Sidebar-scaffolding · 5 pantallas no más: el panel lateral izquierdo es el navegador estricto de exactamente 5 módulos — <strong>Mi establecimiento</strong> (valor/setup), <strong>Mercado y oportunidades</strong> (mercado general), <strong>Motor genético</strong> (motor técnico, activo acá), <strong>Negociación y tratos</strong> (transacciones), <strong>Mis ofertas</strong> (catálogo propio) — un solo destino de sidebar por módulo. Las pantallas reales del MVP (<code>docs/pantallas.md §1</code>: ¿Qué necesitás?, Carga del rodeo, Tablero del rodeo, Swipe, Plan de servicios, Panel del asesor) no desaparecen: viven <strong>adentro</strong> del módulo que les corresponde, como tabs de contenido — nunca como ítems propios del sidebar. Mapeo: Mi establecimiento ⊃ Setup conversacional; Mercado y oportunidades ⊃ ¿Qué necesitás? (Home marketplace general); Motor genético ⊃ Swipe (Matching genético) + Tablero del rodeo + Panel del asesor; Negociación y tratos ⊃ Mis matches/mensajes + Plan de servicios; Mis ofertas ⊃ Cargar lotes/servicios (sin pantalla real equivalente en el MVP todavía). Las 21 pantallas viejas de <code>/designs</code> (02 a 22) quedan <strong>deprecadas</strong> como referencia histórica de estilo. "Home marketplace general" y "Matching genético" ya tienen mockup completo (<a href="../AgroMatch Home Conversacional.dc.html">Home Conversacional</a>, <a href="../AgroMatch Motor Genetico.dc.html">Motor Genetico</a>); el resto está <strong>pendiente</strong>.</p>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

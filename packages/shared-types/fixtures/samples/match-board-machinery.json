@@ -1,0 +1,20 @@
+{
+  "ranked": [
+    {
+      "needId": "need-sample-1",
+      "capabilityId": "cap-arada-1",
+      "providerId": "prov-contractor-1",
+      "score": 88,
+      "compatibility": 88,
+      "rank": 1,
+      "fit": { "proximity": 0.95, "availability": 0.9, "capacity": 0.85, "price": 0.8, "reputation": 0.84 },
+      "filters": [],
+      "reasons": [
+        "Cubre la zona de Río Cuarto",
+        "Disponible en la ventana de tiempo pedida",
+        "Capacidad diaria suficiente para las 40 ha"
+      ]
+    }
+  ],
+  "excluded": []
+}

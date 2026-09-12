@@ -1,0 +1,38 @@
+[
+  {
+    "femaleId": "f-3021",
+    "tier": "COMMERCIAL",
+    "semenType": "SEXED",
+    "ciPercentile": 54,
+    "tags": [],
+    "corrective": ["scs", "pl"],
+    "reasons": [
+      "CI en el percentil 54 del tambo: rango comercial",
+      "SCS y PL levemente por debajo del promedio: se buscan toros que corrijan esos rasgos"
+    ]
+  },
+  {
+    "femaleId": "f-3022",
+    "tier": "ELITE",
+    "semenType": "SEXED",
+    "ciPercentile": 92,
+    "tags": ["A2_NUCLEUS"],
+    "corrective": [],
+    "reasons": [
+      "CI en el percentil 92 del tambo: candidata a semen sexado",
+      "A2/A2 confirmado: aporta al núcleo A2"
+    ]
+  },
+  {
+    "femaleId": "f-3023",
+    "tier": "CULL_ALERT",
+    "semenType": null,
+    "ciPercentile": 8,
+    "tags": ["MASTITIS_RISK", "SHORT_LIFE"],
+    "corrective": [],
+    "reasons": [
+      "CI en el percentil 8 del tambo, por debajo del piso de continuidad",
+      "SCS alto y PL bajo: riesgo de mastitis y vida productiva corta"
+    ]
+  }
+]

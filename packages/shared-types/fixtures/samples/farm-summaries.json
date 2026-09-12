@@ -1,0 +1,50 @@
+[
+  {
+    "farm": {
+      "id": "farm-a",
+      "name": "Tambo A (anonimizado)",
+      "location": "Cuenca lechera de Córdoba (demo)",
+      "tierQuotas": { "sexedPct": 25, "beefPct": 30 },
+      "calvingEaseMaxHeifer": 2.5,
+      "scsGrayZone": { "from": 3.1, "to": 3.18 },
+      "plGrayZone": { "from": 0.0, "to": 0.2 }
+    },
+    "total": 293,
+    "byTier": { "ELITE": 42, "COMMERCIAL": 178, "BEEF": 58, "CULL_ALERT": 15 },
+    "avgTraits": { "ci": 560, "milk": 690, "fat": 1.1, "pro": 20, "pl": 1.3, "scs": 2.95 },
+    "a2a2Share": 0.31,
+    "bbShare": 0.22
+  },
+  {
+    "farm": {
+      "id": "farm-b",
+      "name": "Tambo B (demo sintético)",
+      "location": "Cuenca lechera de Santa Fe (demo)",
+      "tierQuotas": { "sexedPct": 25, "beefPct": 30 },
+      "calvingEaseMaxHeifer": 2.5,
+      "scsGrayZone": { "from": 3.1, "to": 3.18 },
+      "plGrayZone": { "from": 0.0, "to": 0.2 }
+    },
+    "total": 150,
+    "byTier": { "ELITE": 20, "COMMERCIAL": 95, "BEEF": 25, "CULL_ALERT": 10 },
+    "avgTraits": { "ci": 545, "milk": 670, "fat": 1.0, "pro": 19.5, "pl": 1.2, "scs": 2.9 },
+    "a2a2Share": 0.28,
+    "bbShare": 0.19
+  },
+  {
+    "farm": {
+      "id": "farm-c",
+      "name": "Tambo C (demo sintético)",
+      "location": "Cuenca lechera de Buenos Aires (demo)",
+      "tierQuotas": { "sexedPct": 25, "beefPct": 30 },
+      "calvingEaseMaxHeifer": 2.5,
+      "scsGrayZone": { "from": 3.1, "to": 3.18 },
+      "plGrayZone": { "from": 0.0, "to": 0.2 }
+    },
+    "total": 150,
+    "byTier": { "ELITE": 18, "COMMERCIAL": 90, "BEEF": 30, "CULL_ALERT": 12 },
+    "avgTraits": { "ci": 550, "milk": 675, "fat": 1.05, "pro": 19.8, "pl": 1.25, "scs": 2.92 },
+    "a2a2Share": 0.29,
+    "bbShare": 0.2
+  }
+]

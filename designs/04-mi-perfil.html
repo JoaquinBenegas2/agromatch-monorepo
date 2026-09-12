@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[DEPRECADO] AgroMatch · Mi perfil</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+.brand{display:flex;align-items:center;gap:10px;padding:18px 16px 16px}
+.brand-mark{width:30px;height:30px;border-radius:var(--r-lg);background:var(--action);color:#fff;display:flex;align-items:center;justify-content:center;font:700 14px/1 var(--sans)}
+.brand-name{font:700 15px/1.1 var(--sans);letter-spacing:-.01em}
+.brand-sub{font:400 10.5px/1.2 var(--sans);color:var(--ink-3)}
+.nav-scroll{flex:1;overflow-y:auto;padding:6px 0 12px}
+.sidebar-footer{border-top:1px solid var(--border);padding:12px}
+.account-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-lg)}
+.account-row:hover{background:var(--row-off)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--border);background:var(--card)}
+.crumb{font:400 12px/1 var(--sans);color:var(--ink-3)}
+.crumb b{color:var(--ink);font-weight:600}
+.content{padding:28px 32px;display:flex;flex-direction:column;gap:20px;width:100%}
+.score-cell{display:inline-flex;min-width:34px;justify-content:center;font:600 11px/1 var(--mono);padding:5px 6px;border-radius:var(--r-sm)}
+.score-hi{background:var(--action-soft);color:var(--action)}
+.score-mid{background:var(--warn-soft);color:var(--warn)}
+.score-lo{background:var(--row-off);color:var(--danger)}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div><div class="brand-name">AgroMatch</div><div class="brand-sub">Tambo La Esperanza</div></div>
+    </div>
+    <nav class="nav-scroll"><div class="nav-group">
+    <div class="nav-group-label">Mi establecimiento</div>
+    <a class="nav-item" href="02-panel-resumen.html">
+  <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  <span class="label">Panel resumen</span><span class="tag-version">v2</span>
+</a>
+<a class="nav-item" href="03-mis-lotes.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 17l5-9 4 6 3-4 6 7"/><path d="M3 20h18"/></svg>
+  <span class="label">Mis lotes</span>
+</a>
+<a class="nav-item active" href="04-mi-perfil.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/></svg>
+  <span class="label">Mi perfil</span>
+</a>
+<a class="nav-item" href="05-verificacion.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 7.8-7 10-4-2.2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+  <span class="label">Verificación</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mercado y oportunidades</div>
+    <a class="nav-item" href="06-home-marketplace.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 20v-5h6v5"/></svg>
+  <span class="label">Home marketplace</span>
+</a>
+<a class="nav-item" href="07-busqueda-avanzada.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg>
+  <span class="label">Búsqueda avanzada</span>
+</a>
+<a class="nav-item" href="08-publicar-oferta-ia.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M12 4v6l4 2"/><circle cx="12" cy="12" r="9"/><path d="M19 5l1.3 1.3M4 5L2.7 6.3"/></svg>
+  <span class="label">Publicar oferta c/IA</span><span class="tag-version">v2</span>
+</a>
+<a class="nav-item" href="09-publicar-requerimiento.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 11l16-6-4 16-4-7-8-3z"/></svg>
+  <span class="label">Requerimiento abierto</span>
+</a>
+<a class="nav-item" href="10-mis-publicaciones.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M8 9h8M8 13h5"/></svg>
+  <span class="label">Mis publicaciones</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Motor genético</div>
+    <a class="nav-item" href="11-matriz-compatibilidad.html">
+  <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+  <span class="label">Matriz de compatibilidad</span><span class="tag-version">v3</span>
+</a>
+<a class="nav-item" href="12-parametros-rodeo.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13"/><circle cx="17" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="14" cy="18" r="1.6"/></svg>
+  <span class="label">Parámetros del rodeo</span>
+</a>
+<a class="nav-item" href="13-ficha-reproductor.html">
+  <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="2"/><path d="M6 15c.6-1.6 2-2.3 3.2-2s2 1 3 1.3M14 9h5M14 13h5"/></svg>
+  <span class="label">Ficha técnica reproductor</span>
+</a>
+<a class="nav-item" href="14-simulador-f1.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M6 8.4V15.6M8.2 7l7.6 3.6M8.2 17l7.6-3.6"/></svg>
+  <span class="label">Simulador F1 progenie</span>
+</a>
+<a class="nav-item" href="15-comparador-toros.html">
+  <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="16" rx="1"/><rect x="14" y="4" width="6" height="16" rx="1"/></svg>
+  <span class="label">Comparador de toros</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Negociación y tratos</div>
+    <a class="nav-item" href="16-mis-matches.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 12l5-5 3 3 4-4 6 6"/><circle cx="19" cy="6" r="1.6"/><path d="M3 18h18"/></svg>
+  <span class="label">Mis matches</span>
+</a>
+<a class="nav-item" href="17-chat-transaccional.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>
+  <span class="label">Chat transaccional</span>
+</a>
+<a class="nav-item" href="18-resumen-trato.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 13l2 2 4-4"/></svg>
+  <span class="label">Resumen de trato</span>
+</a>
+<a class="nav-item" href="19-historial-transacciones.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+  <span class="label">Historial de transacciones</span>
+</a>
+<a class="nav-item" href="20-logistica-flete.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+  <span class="label">Logística y flete</span>
+</a>
+  </div></nav>
+    <div class="sidebar-footer">
+      <div class="nav-group" style="padding:0 0 6px"><a class="nav-item" href="21-onboarding.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.2 1.8-2.5 3.5"/><circle cx="12" cy="17" r=".2"/></svg>
+  <span class="label">Onboarding</span><span class="tag-version">v2</span>
+</a>
+<a class="nav-item" href="22-configuracion.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.2-1.6l2-1.5-2-3.4-2.3.9a7 7 0 00-2.8-1.6L13.3 2h-2.6l-.4 2.8a7 7 0 00-2.8 1.6l-2.3-.9-2 3.4 2 1.5A7 7 0 005 12c0 .5.1 1.1.2 1.6l-2 1.5 2 3.4 2.3-.9c.8.7 1.8 1.3 2.8 1.6l.4 2.8h2.6l.4-2.8c1-.3 2-.9 2.8-1.6l2.3.9 2-3.4-2-1.5c.1-.5.2-1.1.2-1.6z"/></svg>
+  <span class="label">Configuración</span>
+</a></div>
+      <hr class="divider" style="margin:8px 0">
+      <div class="account-row">
+        <div class="avatar" style="width:32px;height:32px;font-size:12px">JB</div>
+        <div style="min-width:0">
+          <div style="font:600 12px/1.2 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Joaquín Benegas</div>
+          <div style="font:400 10.5px/1.2 var(--sans);color:var(--ink-3)">Productor · Cabaña</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">Mi establecimiento / <b>Mi perfil</b></div>
+      <div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JB</div></div>
+    </div>
+    <div class="content">
+      
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px;"><div style="display:flex;gap:16px;align-items:center">
+  <div class="avatar" style="width:64px;height:64px;font-size:24px">TE</div>
+  <div style="flex:1"><div class="t-card" style="font-size:18px">Tambo La Esperanza</div><div class="t-meta">Productor · Cabaña · Río Cuarto, Córdoba</div>
+    <div style="display:flex;gap:6px;margin-top:8px"><span class="badge badge-ok">SENASA verificado</span><span class="badge badge-ok">CUIT verificado</span></div>
+  </div>
+  <span class="btn btn-ghost" >Editar perfil</span>
+</div></div>
+<div style="display:flex;gap:8px"><span class="badge badge-solid-ink" style="background:var(--ink);color:#fff">Datos generales</span><span class="badge badge-neutral" style="">Certificaciones</span><span class="badge badge-neutral" style="">Catálogo</span></div>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px;"><span class="t-label">DATOS GENERALES</span>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 24px">
+    <div><div class="t-meta">Razón social</div><div class="t-body" style="font-weight:600">Tambo La Esperanza SRL</div></div>
+    <div><div class="t-meta">CUIT</div><div class="mono">30-71234567-8</div></div>
+    <div><div class="t-meta">RENSPA</div><div class="mono">22.045.0.00234/01</div></div>
+    <div><div class="t-meta">Ubicación</div><div class="t-body" style="font-weight:600">Río Cuarto, Córdoba</div></div>
+  </div></div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
