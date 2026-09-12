@@ -47,7 +47,7 @@ function toUpdateBody(need: Need): UpdateNeedBody {
 
 function LoadingInterpretation() {
   return (
-    <div className="mx-auto flex w-full max-w-[640px] flex-col gap-4 py-10">
+    <div className="mx-auto flex w-full max-w-[640px] flex-1 flex-col">
       <CowLoader label="Interpretando tu necesidad…" />
     </div>
   );
@@ -111,7 +111,7 @@ export function MarketplacePage() {
   if (need) {
     const searching = updateNeed.isPending || matchNeed.isPending;
     return (
-      <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-4 py-5 sm:py-7">
+      <div className="mx-auto flex w-full max-w-[1180px] flex-1 flex-col gap-4 py-5 sm:py-7">
         <NeedFilterBar
           need={need}
           onChange={setNeed}

@@ -172,7 +172,51 @@ body {
   will-change: left, top;
 }
 
-@keyframes cow-leg {
-  0%, 100% { transform: rotate(-12deg); }
-  50% { transform: rotate(12deg); }
+@media (prefers-reduced-motion: no-preference) {
+  .cow-loader-body {
+    animation: cow-loader-step 0.6s ease-in-out infinite;
+  }
+
+  .cow-loader-leg {
+    animation: cow-loader-walk 1.2s ease-in-out infinite;
+  }
+
+  .cow-loader-leg-back {
+    animation-delay: -0.6s;
+  }
+
+  .cow-loader-tail {
+    transform-origin: 131px 39px;
+    animation: cow-loader-tail 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes cow-loader-step {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes cow-loader-walk {
+  0%,
+  100% {
+    transform: rotate(-11deg);
+  }
+  50% {
+    transform: rotate(11deg);
+  }
+}
+
+@keyframes cow-loader-tail {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
 }

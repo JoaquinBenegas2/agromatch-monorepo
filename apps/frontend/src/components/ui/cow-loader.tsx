@@ -5,59 +5,104 @@ export interface CowLoaderProps extends React.ComponentProps<'div'> {
   label?: string;
 }
 
-/**
- * Loader temático: una vaquita flat design caminando mientras se resuelve la
- * búsqueda. Placeholder simple a propósito (RN: nada 3D todavía); pensado
- * para reemplazarse por una versión 3D más adelante.
- */
-function CowLoader({ className, label = 'Buscando soluciones para tu necesidad…', ...props }: CowLoaderProps) {
+/** Flat bovine silhouette with a gentle walking cycle. */
+function CowLoader({
+  className,
+  label = 'Buscando soluciones para tu necesidad…',
+  ...props
+}: CowLoaderProps) {
   return (
     <div
       data-slot="cow-loader"
       role="status"
       aria-label={label}
-      className={cn('flex flex-col items-center justify-center gap-4 py-16', className)}
+      className={cn(
+        'flex w-full flex-1 flex-col items-center justify-center gap-5 py-16',
+        className,
+      )}
       {...props}
     >
-      <div className="relative h-24 w-28 animate-bounce [animation-duration:1.1s]">
-        <svg viewBox="0 0 120 100" className="h-full w-full" aria-hidden="true">
-          {/* patas */}
-          <rect x="30" y="70" width="8" height="18" rx="3" fill="#3f3a36" className="origin-top animate-[cow-leg_0.55s_ease-in-out_infinite]" />
-          <rect x="82" y="70" width="8" height="18" rx="3" fill="#3f3a36" className="origin-top animate-[cow-leg_0.55s_ease-in-out_infinite_0.28s]" />
-          <rect x="46" y="72" width="8" height="16" rx="3" fill="#5a5450" className="origin-top animate-[cow-leg_0.55s_ease-in-out_infinite_0.28s]" />
-          <rect x="66" y="72" width="8" height="16" rx="3" fill="#5a5450" className="origin-top animate-[cow-leg_0.55s_ease-in-out_infinite]" />
+      <div className="flex flex-col items-center gap-4" aria-hidden="true">
+        <div className="cow-loader-body">
+          <svg
+            viewBox="0 0 160 104"
+            className="h-[109px] w-[168px] text-primary"
+            fill="none"
+            focusable="false"
+          >
+            {/* Far legs and tail share a quiet secondary tone. */}
+            <path
+              d="M58 62H68L65 92H58Z"
+              fill="var(--muted-foreground)"
+              className="cow-loader-leg cow-loader-leg-back"
+              style={{ transformOrigin: '63px 62px' }}
+            />
+            <path
+              d="M113 62H123L127 92H120Z"
+              fill="var(--muted-foreground)"
+              className="cow-loader-leg"
+              style={{ transformOrigin: '118px 62px' }}
+            />
+            <g className="cow-loader-tail">
+              <path
+                d="M131 39C142 42 137 60 143 69"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+              <path
+                d="M142 65Q150 70 146 78Q138 75 142 65Z"
+                fill="currentColor"
+              />
+            </g>
 
-          {/* cola */}
-          <path d="M100 45 q14 4 10 20" stroke="#f4f1ea" strokeWidth="4" fill="none" strokeLinecap="round" />
-          <circle cx="110" cy="65" r="4" fill="#3f3a36" />
+            <path
+              d="M50 61H64L56 92H47Z"
+              fill="currentColor"
+              className="cow-loader-leg"
+              style={{ transformOrigin: '57px 61px' }}
+            />
+            <path
+              d="M120 62H133L128 92H119Z"
+              fill="currentColor"
+              className="cow-loader-leg cow-loader-leg-back"
+              style={{ transformOrigin: '126px 62px' }}
+            />
 
-          {/* cuerpo */}
-          <ellipse cx="62" cy="55" rx="40" ry="24" fill="#f4f1ea" stroke="#2f2b28" strokeWidth="2.5" />
-          <ellipse cx="46" cy="48" rx="8" ry="6" fill="#2f2b28" />
-          <ellipse cx="72" cy="62" rx="10" ry="7" fill="#2f2b28" />
-          <ellipse cx="90" cy="46" rx="6" ry="5" fill="#2f2b28" />
+            {/* A single flat profile keeps the silhouette legible at small sizes. */}
+            <path
+              d="M36 30L49 36H117Q133 36 133 51V62Q133 69 120 69H64L50 61L40 47L34 57Q32 61 27 60L15 56Q11 54 14 49L23 35L25 27Z"
+              fill="currentColor"
+            />
+            <path
+              d="M28 30Q22 25 26 17L33 28Z"
+              fill="var(--muted-foreground)"
+            />
+            <path d="M35 31Q41 22 49 27Q46 36 37 36Z" fill="currentColor" />
 
-          {/* cabeza */}
-          <g>
-            <ellipse cx="24" cy="42" rx="19" ry="16" fill="#f4f1ea" stroke="#2f2b28" strokeWidth="2.5" />
-            {/* orejas */}
-            <ellipse cx="10" cy="28" rx="6" ry="4" fill="#f4f1ea" stroke="#2f2b28" strokeWidth="2" transform="rotate(-25 10 28)" />
-            <ellipse cx="34" cy="26" rx="6" ry="4" fill="#f4f1ea" stroke="#2f2b28" strokeWidth="2" transform="rotate(20 34 26)" />
-            {/* cuernos */}
-            <path d="M14 26 q-2 -6 2 -9" stroke="#d8cdb8" strokeWidth="3" fill="none" strokeLinecap="round" />
-            <path d="M32 25 q3 -6 -1 -9" stroke="#d8cdb8" strokeWidth="3" fill="none" strokeLinecap="round" />
-            {/* hocico */}
-            <ellipse cx="14" cy="50" rx="10" ry="8" fill="#f2c9c2" stroke="#2f2b28" strokeWidth="2" />
-            <ellipse cx="10.5" cy="49" rx="1.6" ry="2.2" fill="#2f2b28" />
-            <ellipse cx="17.5" cy="49" rx="1.6" ry="2.2" fill="#2f2b28" />
-            {/* ojos */}
-            <circle cx="18" cy="36" r="2.2" fill="#2f2b28" />
-            <circle cx="30" cy="36" r="2.2" fill="#2f2b28" />
-          </g>
-        </svg>
+            {/* Broad markings replace the cartoon spots and outlined features. */}
+            <path
+              d="M64 36H86L81 46Q79 50 74 50H69Q63 50 62 45Z"
+              fill="var(--secondary)"
+            />
+            <path
+              d="M101 69L98 61Q96 54 102 51L109 48Q116 46 120 53L123 59L120 69Z"
+              fill="var(--secondary)"
+            />
+            <path
+              d="M17 44L31 50L27 60L15 56Q11 54 14 49Z"
+              fill="var(--secondary)"
+            />
+            <circle cx="29" cy="39" r="1.5" fill="var(--secondary)" />
+            <path d="M91 69H107L104 75H95Z" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="h-0.5 w-20 rounded-full bg-secondary" />
       </div>
 
-      <p className="text-[12.5px] font-medium text-muted-foreground">{label}</p>
+      <p className="max-w-sm px-4 text-center text-[15px] font-medium leading-relaxed text-muted-foreground">
+        {label}
+      </p>
     </div>
   );
 }
