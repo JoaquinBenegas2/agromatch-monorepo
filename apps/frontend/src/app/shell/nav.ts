@@ -28,18 +28,6 @@ export interface NavModule {
 /** Mapa de navegación (REQ-FS-01): exactamente 5 módulos, tabs adentro. */
 export const NAV_MODULES: NavModule[] = [
   {
-    id: 'establecimiento',
-    label: 'Mi establecimiento',
-    subtitle: 'Tu lugar de trabajo',
-    tabs: [
-      {
-        label: 'Perfil del establecimiento',
-        path: '/establecimiento',
-        status: 'live',
-      },
-    ],
-  },
-  {
     id: 'mercado',
     label: 'Mercado y oportunidades',
     subtitle: 'Encontrá quién lo resuelve',
@@ -76,6 +64,12 @@ export const NAV_MODULES: NavModule[] = [
         spec: 'mvp-c-herd',
       },
       {
+        label: 'Plan de servicios',
+        path: '/motor-genetico/plan',
+        status: 'live',
+        spec: 'mvp-d-match',
+      },
+      {
         label: 'Panel del asesor',
         path: '/motor-genetico/asesor',
         status: 'live',
@@ -94,12 +88,6 @@ export const NAV_MODULES: NavModule[] = [
         path: '/negociacion/matches',
         status: 'live',
       },
-      {
-        label: 'Plan de servicios',
-        path: '/negociacion/plan',
-        status: 'live',
-        spec: 'mvp-d-match',
-      },
     ],
   },
   {
@@ -111,6 +99,18 @@ export const NAV_MODULES: NavModule[] = [
         label: 'Cargar lotes / servicios',
         path: '/ofertas',
         status: 'pending',
+      },
+    ],
+  },
+  {
+    id: 'establecimiento',
+    label: 'Mi establecimiento',
+    subtitle: 'Tu lugar de trabajo',
+    tabs: [
+      {
+        label: 'Perfil del establecimiento',
+        path: '/establecimiento',
+        status: 'live',
       },
     ],
   },

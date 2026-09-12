@@ -41,9 +41,13 @@ describe('fixtures validate against their zod schemas (REQ-SC-05)', () => {
     }
   });
 
-  it('users.json → 4 usuarios', () => {
+  it('users.json → 4 usuarios + una cuenta PROVIDER por ficha de proveedor', () => {
     const parsed = z.array(UserSchema).parse(users);
-    expect(parsed).toHaveLength(4);
+    const humans = parsed.filter((u) => u.role !== 'PROVIDER');
+    const providerAccounts = parsed.filter((u) => u.role === 'PROVIDER');
+    expect(humans).toHaveLength(4);
+    expect(providerAccounts).toHaveLength(providers.length);
+    expect(providerAccounts.every((u) => u.providerId)).toBe(true);
     expect(parsed.find((u) => u.id === 'asesor-1')?.farmIds).toEqual([
       'farm-a',
       'farm-b',
