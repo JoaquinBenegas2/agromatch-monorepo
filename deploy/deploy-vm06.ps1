@@ -93,6 +93,14 @@ try {
             Copy-Item -LiteralPath $main -Destination (Join-Path $dest 'main.js') -Force
             $i = Get-Item (Join-Path $dest 'main.js')
             Write-Host ("    back -> {0}  ({1:N1} MB)" -f $i.FullName, ($i.Length / 1MB)) -ForegroundColor Green
+            # La plantilla del .env se deja SOLO si no existe: ahi vive la ANTHROPIC_API_KEY y no se pisa.
+            $envShare = Join-Path $dest '.env'
+            if (-not (Test-Path -LiteralPath $envShare)) {
+                Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'backend.env.example') -Destination $envShare -Force
+                Write-Host "    backend\.env creado desde la plantilla: pegar la ANTHROPIC_API_KEY ahi" -ForegroundColor Yellow
+            } else {
+                Write-Host "    backend\.env ya existe en el share: se conserva" -ForegroundColor Green
+            }
         }
     }
 
@@ -109,5 +117,5 @@ try {
 
 Paso 'Listo'
 Write-Host 'Copiado. Del lado de VM06 (PowerShell como administrador):' -ForegroundColor Yellow
-Write-Host '    C:\shared\hackaton\actualizar-vm06.ps1 -AnthropicKey "sk-ant-..."   # la primera vez'
-Write-Host '    C:\shared\hackaton\actualizar-vm06.ps1                              # redeploys'
+Write-Host '    1. Pegar la ANTHROPIC_API_KEY en C:\shared\hackaton\backend\.env (solo la primera vez)'
+Write-Host '    2. C:\shared\hackaton\actualizar-vm06.ps1'

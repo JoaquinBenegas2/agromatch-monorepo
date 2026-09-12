@@ -1,11 +1,13 @@
 <#
     Actualiza AgroMatch en VM06 con lo que haya en el share.
 
+    Antes de la primera vez: pegar la ANTHROPIC_API_KEY en C:\shared\hackaton\backend\.env
+
     Correr EN LA VM, en PowerShell como administrador:
-        C:\shared\hackaton\actualizar-vm06.ps1 -AnthropicKey 'sk-ant-...'   # primera vez (o para cambiar la key)
-        C:\shared\hackaton\actualizar-vm06.ps1                              # redeploys: conserva la key ya cargada
+        C:\shared\hackaton\actualizar-vm06.ps1                              # deploy / redeploy completo
         C:\shared\hackaton\actualizar-vm06.ps1 -SoloFront                   # cambio solo el front, no corta el backend
         C:\shared\hackaton\actualizar-vm06.ps1 -Check                       # solo diagnostica, no toca nada
+        C:\shared\hackaton\actualizar-vm06.ps1 -AnthropicKey 'sk-ant-...'   # fuerza la key por parametro (pisa la del .env)
 
     Que hace:
       1. Verifica Node, NSSM, el sitio IIS y que el puerto del backend este libre (o sea nuestro).
@@ -122,6 +124,24 @@ Copy-Item -LiteralPath $srcMain -Destination (Join-Path $backDir 'main.js') -For
 $i = Get-Item (Join-Path $backDir 'main.js')
 Ok ('main.js {0:N1} MB  {1}' -f ($i.Length / 1MB), $i.LastWriteTime)
 
+# .env: vive en el share (backend\.env, ahi se pega la ANTHROPIC_API_KEY) y se copia
+# junto al main.js; el bundle lo lee al arrancar (dotenv) desde su AppDirectory.
+$srcEnv  = Join-Path $Share 'backend\.env'
+$destEnv = Join-Path $backDir '.env'
+$keyEnv  = $null
+if (Test-Path -LiteralPath $srcEnv) {
+    Copy-Item -LiteralPath $srcEnv -Destination $destEnv -Force
+    $linea = Get-Content -LiteralPath $srcEnv | Where-Object { $_ -match '^\s*ANTHROPIC_API_KEY\s*=' } | Select-Object -First 1
+    if ($linea) { $keyEnv = ($linea -split '=', 2)[1].Trim().Trim('"') }
+    Ok ".env copiado a $destEnv"
+} elseif (Test-Path -LiteralPath $destEnv) {
+    Aviso "No hay backend\.env en el share; se conserva el que ya estaba en $destEnv"
+    $linea = Get-Content -LiteralPath $destEnv | Where-Object { $_ -match '^\s*ANTHROPIC_API_KEY\s*=' } | Select-Object -First 1
+    if ($linea) { $keyEnv = ($linea -split '=', 2)[1].Trim().Trim('"') }
+} else {
+    Aviso "No hay backend\.env ni en el share ni en $backDir"
+}
+
 # ── 4. Servicio NSSM ─────────────────────────────────────────────────────────
 Paso "Servicio $Servicio (NSSM)"
 if (-not $svc) {
@@ -144,18 +164,12 @@ if (-not $svc) {
 & $Nssm set $Servicio AppExit Default Restart | Out-Null
 & $Nssm set $Servicio AppRestartDelay 3000 | Out-Null
 
-# Variables de entorno del servicio. AppEnvironmentExtra REEMPLAZA el bloque entero,
-# por eso la key de Anthropic se conserva leyendo la actual si no vino por parametro.
-$ErrorActionPreference = 'Continue'
-$actual = & $Nssm get $Servicio AppEnvironmentExtra 2>$null
-$ErrorActionPreference = 'Stop'
-$keyActual = $null
-if ($actual) {
-    $keyActual = (($actual -replace "`0", '') -split "`r?`n" | Where-Object { $_ -match '^\s*ANTHROPIC_API_KEY=' } | Select-Object -First 1)
-    if ($keyActual) { $keyActual = ($keyActual -split '=', 2)[1].Trim() }
-}
-if ($AnthropicKey) { $key = $AnthropicKey } else { $key = $keyActual }
-if (-not $key) { Aviso 'Sin ANTHROPIC_API_KEY: el backend arranca, pero todo lo que usa Claude va a devolver 502 LLM_UNAVAILABLE. Pasar -AnthropicKey.' }
+# Variables de entorno del servicio (red de seguridad: dotenv NO pisa lo que ya viene
+# del entorno, asi que el perfil y el puerto quedan fijados aca aunque el .env diga otra cosa).
+# La ANTHROPIC_API_KEY normalmente sale del .env; -AnthropicKey la fuerza por encima.
+$key = $AnthropicKey
+if (-not $key -and $keyEnv) { $key = $keyEnv }
+if (-not $key) { Aviso 'Sin ANTHROPIC_API_KEY: el backend arranca, pero todo lo que usa Claude va a devolver 502 LLM_UNAVAILABLE. Pegala en backend\.env del share.' }
 if ($key -and $key -notmatch '^sk-ant-') { Aviso 'La key no empieza con "sk-ant-". Seguimos, pero revisala.' }
 
 $vars = @(
@@ -164,10 +178,10 @@ $vars = @(
     "PORT=$Puerto",
     'NODE_ENV=production'
 )
-if ($key) { $vars += "ANTHROPIC_API_KEY=$key" }
+if ($AnthropicKey) { $vars += "ANTHROPIC_API_KEY=$AnthropicKey" }
 & $Nssm set $Servicio AppEnvironmentExtra $vars | Out-Null
 if ($LASTEXITCODE -ne 0) { Morir "nssm set AppEnvironmentExtra fallo (exit $LASTEXITCODE)" }
-Ok ('entorno: PERSISTENCE=memory AI_MODE=live PORT={0} ANTHROPIC_API_KEY={1}' -f $Puerto, $(if ($key) { '...' + $key.Substring($key.Length - 4) } else { '(vacia)' }))
+Ok ('entorno: PERSISTENCE=memory AI_MODE=live PORT={0} ANTHROPIC_API_KEY={1}' -f $Puerto, $(if ($key) { '...' + $key.Substring($key.Length - 4) + $(if ($AnthropicKey) { ' (parametro)' } else { ' (.env)' }) } else { '(vacia)' }))
 
 # ── 5. ARR: proxy + server variables (idempotente) ───────────────────────────
 Paso 'ARR / URL Rewrite'

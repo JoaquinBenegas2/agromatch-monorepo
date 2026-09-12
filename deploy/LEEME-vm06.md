@@ -25,15 +25,18 @@ El backend **no se expone** a internet; se llega a él a través del sitio.
 
 ## En VM06 (PowerShell como administrador)
 
+1. Pegar la key de Anthropic en `C:\shared\hackaton\backend\.env` (`ANTHROPIC_API_KEY=sk-ant-...`). Solo la primera vez.
+2. Correr:
+
 ```powershell
+C:\shared\hackaton\actualizar-vm06.ps1                               # deploy / redeploy completo
 C:\shared\hackaton\actualizar-vm06.ps1 -Check                        # diagnóstico, no toca nada
-C:\shared\hackaton\actualizar-vm06.ps1 -AnthropicKey 'sk-ant-...'    # primera vez (carga la key en el servicio)
-C:\shared\hackaton\actualizar-vm06.ps1                               # redeploys (conserva la key)
 C:\shared\hackaton\actualizar-vm06.ps1 -SoloFront                    # solo cambió el front
+C:\shared\hackaton\actualizar-vm06.ps1 -AnthropicKey 'sk-ant-...'    # fuerza la key por parámetro (pisa la del .env)
 ```
 
-La key **no** viaja por el share ni queda en ningún archivo: va como variable de
-entorno del servicio NSSM.
+El script copia `backend\.env` del share a `C:\apps\hackaton\backend\.env`; el
+servicio lo lee al arrancar. `deploy-vm06.ps1` nunca pisa ese `.env` del share.
 
 ## Verificar
 
