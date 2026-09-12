@@ -19,6 +19,7 @@
 | [definiciones-de-negocio.md](definiciones-de-negocio.md) | **Negocio cerrado.** Nombre, categorías del MVP, quién paga, neutralidad, verificación, qué no hacemos, los 5 números del pitch y las métricas |
 | [plan-de-trabajo.md](plan-de-trabajo.md) | **Plan del MVP para 4 devs.** Contratos de T0, tareas A1–D7 con criterios de aceptación, dependencias, hitos I1/I2 y reglas de trabajo |
 | [skills/torinder-notion-sync/SKILL.md](skills/torinder-notion-sync/SKILL.md) | Skill **obligatoria** para los agentes: sincroniza cada tarea con la base "Tareas Torinder" de Notion y publica contratos. En T0 se copia a `.claude/skills/` del monorepo |
+| [motor-datos-de-toros.md](motor-datos-de-toros.md) | **El motor por dentro.** Qué datos del toro entran al match, cómo los usa cada paso, de dónde salen y qué falta (haplotipos, abuelo materno) |
 | [modelo-de-dominio.md](modelo-de-dominio.md) | **Base para las tareas y la arquitectura.** Lenguaje ubicuo, entidades, reglas de negocio (RN-xx), flujos (Fx), módulos del monorepo, alcance del MVP y decisiones abiertas |
 | [analisis-idea-04-matching-reproductivo.md](analisis-idea-04-matching-reproductivo.md) | Análisis de la idea y del documento de mercado, simulación de las reglas sobre el rodeo real, fórmula de compatibilidad y arquitectura |
 | [validacion-mercado.md](validacion-mercado.md) | Competidores, mercado argentino, diferencial y evidencia del dolor |
