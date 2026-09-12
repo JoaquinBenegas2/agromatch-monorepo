@@ -7,9 +7,14 @@
     "build": "nx run-many -t build -p frontend backend",
     "test": "nx run-many -t test -p frontend backend",
     "lint": "nx run-many -t lint",
-    "db:generate": "prisma generate --config apps/backend/prisma7.config.ts",
-    "db:migrate": "prisma migrate dev --config apps/backend/prisma7.config.ts",
-    "db:studio": "prisma studio --config apps/backend/prisma7.config.ts"
+    "db:setup": "nx run @org/backend:db-setup",
+    "db:up": "nx run @org/backend:db-up",
+    "db:down": "nx run @org/backend:db-down",
+    "db:generate": "nx run @org/backend:db-generate",
+    "db:validate": "nx run @org/backend:db-validate",
+    "db:migrate": "nx run @org/backend:db-migrate",
+    "db:deploy": "nx run @org/backend:db-deploy",
+    "db:studio": "nx run @org/backend:db-studio"
   },
   "private": true,
   "devDependencies": {
@@ -75,7 +80,6 @@
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
-    "@prisma/adapter-better-sqlite3": "7.10.0",
     "@prisma/client": "7.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
