@@ -16,7 +16,7 @@ import { FEMALE_REPO, type FemaleRepo } from '../../repos/female.port.js';
 const TIERS: Tier[] = ['ELITE', 'COMMERCIAL', 'BEEF', 'CULL_ALERT'];
 const TRAIT_KEYS = Object.keys(TRAIT_DIRECTION) as Array<keyof TraitVector>;
 
-type FemaleWithProfile = Female & { profile: GenomicProfile };
+type FemaleWithProfile = Omit<Female, 'profile'> & { profile: GenomicProfile };
 
 function hasProfile(female: Female): female is FemaleWithProfile {
   return female.profile !== null;
@@ -26,12 +26,19 @@ function emptyByTier(): Record<Tier, number> {
   return Object.fromEntries(TIERS.map((tier) => [tier, 0])) as Record<Tier, number>;
 }
 
+/** Promedia cada rasgo solo sobre las hembras que lo declaran (algunos, como `ci`/`fs`/`rfi`, son opcionales). */
 function averageTraits(females: FemaleWithProfile[]): Partial<TraitVector> {
-  if (females.length === 0) return {};
   const result: Partial<TraitVector> = {};
   for (const key of TRAIT_KEYS) {
-    const sum = females.reduce((acc, female) => acc + female.profile.traits[key], 0);
-    result[key] = sum / females.length;
+    let sum = 0;
+    let count = 0;
+    for (const female of females) {
+      const value = female.profile.traits[key];
+      if (value === undefined) continue;
+      sum += value;
+      count += 1;
+    }
+    if (count > 0) result[key] = sum / count;
   }
   return result;
 }
