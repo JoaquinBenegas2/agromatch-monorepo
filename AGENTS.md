@@ -1,3 +1,21 @@
+# Git workflow
+
+## Branching (Git Flow)
+
+- `main` — always deployable/production. Only receives merges from `release/*` and `hotfix/*`. Every merge into `main` is tagged with a version (e.g. `v1.2.0`).
+- `develop` — integration branch. All finished features merge here first.
+- `feature/<name>` — branches off `develop`, merges back into `develop` via PR (e.g. `feature/scaffold-monorepo`).
+- `release/<version>` — branches off `develop` when preparing a release (version bump, last fixes). Merges into both `main` and `develop`.
+- `hotfix/<name>` — branches off `main` for urgent production fixes. Merges into both `main` and `develop`.
+
+## Commit messages (Conventional Commits)
+
+Format: `<type>(<scope opcional>): <descripción corta>`
+
+Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `style`, `perf`, `ci`, `build`.
+
+Example: `feat(backend): add users module` or `fix(frontend): correct proxy config for /api`.
+
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
 
