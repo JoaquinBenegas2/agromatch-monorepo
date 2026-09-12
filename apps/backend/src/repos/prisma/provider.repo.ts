@@ -104,4 +104,15 @@ export class PrismaProviderRepo implements ProviderRepo {
     });
     return rows.map(capabilityToDomain);
   }
+
+  async updateReputation(
+    id: string,
+    reputation: Provider['reputation'],
+  ): Promise<Provider> {
+    const row = await this.prisma.provider.update({
+      where: { id },
+      data: { reputationAvg: reputation.avg, reputationJobs: reputation.jobs },
+    });
+    return providerToDomain(row);
+  }
 }

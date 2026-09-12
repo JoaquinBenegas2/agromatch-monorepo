@@ -1,11 +1,9 @@
 import type { Provider } from '@nestjs/common';
-import type { LlmClient, LlmPrompt } from '@org/shared-types';
-import { AnthropicLlmClient } from '@org/ai';
+import type { LlmClient, LlmPrompt, NeedIntakePort } from '@org/shared-types';
+import { AiNeedIntake, AnthropicExplainer, AnthropicGoalParser, AnthropicLlmClient } from '@org/ai';
 import type { ZodType } from 'zod';
 import {
   FakeChat,
-  FakeExplainer,
-  FakeGoalParser,
   FakeHerdIngestion,
   FakeLlmClient,
   FakeNeedIntake,
@@ -48,14 +46,26 @@ export const AI_PROVIDERS: Provider[] = [
     provide: LLM_CLIENT,
     useFactory: (): LlmClient => (isLive() ? createLazyLiveLlmClient() : FakeLlmClient),
   },
-  // EXPLAINER_PORT: real de mvp-d-match (C4). Hasta que exista, el fake.
-  { provide: EXPLAINER_PORT, useValue: FakeExplainer },
-  // GOAL_PARSER_PORT: real de mvp-d-match (C5). Hasta que exista, el fake.
-  { provide: GOAL_PARSER_PORT, useValue: FakeGoalParser },
+  // EXPLAINER_PORT: real de mvp-d-match (C4).
+  {
+    provide: EXPLAINER_PORT,
+    useFactory: (llm: LlmClient) => new AnthropicExplainer(llm),
+    inject: [LLM_CLIENT],
+  },
+  // GOAL_PARSER_PORT: real de mvp-d-match (C5).
+  {
+    provide: GOAL_PARSER_PORT,
+    useFactory: (llm: LlmClient) => new AnthropicGoalParser(llm),
+    inject: [LLM_CLIENT],
+  },
   // HERD_INGESTION_PORT: real de mvp-c-herd (C2). Hasta que exista, el fake.
   { provide: HERD_INGESTION_PORT, useValue: FakeHerdIngestion },
-  // NEED_INTAKE_PORT: real de mvp-b-need (M4). Hasta que exista, el fake.
-  { provide: NEED_INTAKE_PORT, useValue: FakeNeedIntake },
+  {
+    provide: NEED_INTAKE_PORT,
+    inject: [LLM_CLIENT],
+    useFactory: (llm: LlmClient): NeedIntakePort =>
+      isLive() ? new AiNeedIntake(llm) : FakeNeedIntake,
+  },
   // CHAT_PORT: real de mvp-a-core (C6). Hasta que exista, el fake.
   { provide: CHAT_PORT, useValue: FakeChat },
 ];

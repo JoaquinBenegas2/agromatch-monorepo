@@ -36,9 +36,10 @@ const SEMEN_LABEL: Record<string, string> = {
  * directo con `FemaleRepo`/`ClassificationRepo`.
  */
 export function PlanScreen() {
-  const [farmId] = useActiveFarmId();
+  const [activeFarmId] = useActiveFarmId();
+  const farmId = activeFarmId ?? '';
   const navigate = useNavigate();
-  const { data: plan, isLoading, isError, error } = usePlan(farmId);
+  const { data: plan, isLoading, isError, error } = usePlan(activeFarmId);
   const { data: bulls } = useBulls();
   const removeItem = useRemovePlanItem(farmId);
   const autoPlan = useAutoPlan(farmId);
