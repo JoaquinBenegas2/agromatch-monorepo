@@ -11,6 +11,7 @@ import { GeneticMatchingService } from './genetic-matching.service';
 import { DomainError } from '../../common/errors/domain-error';
 import type { BullRepo } from '../../repos/bull.port';
 import type { ClassificationRepo } from '../../repos/classification.port';
+import type { FarmRepo } from '../../repos/farm.port';
 import type { FemaleRepo } from '../../repos/female.port';
 import type { NeedRepo } from '../../repos/need.port';
 import type { ProviderRepo } from '../../repos/provider.port';
@@ -72,11 +73,9 @@ const provider: Provider = {
   id: 'prov-genetics-norte',
   name: 'Central Genética Norte',
   type: 'SEMEN_COMPANY',
-  // `makeGeneticsNeed` (B4) arma la Need sintética con `where: {lat:0,lng:0}`
-  // (placeholder, no la ubicación real del tambo todavía) -- el proveedor se
-  // ubica ahí mismo para que el filtro de cobertura real de M2 (hardFilters)
-  // no descarte al candidato por distancia.
-  base: { lat: 0, lng: 0, label: 'Establecimiento' },
+  // La Need sintética (B4) es `synthetic: true`: `hardFilters` (M2) no aplica
+  // radio ni ventana, así que la base del proveedor puede ser la real.
+  base: { lat: -32.944, lng: -60.65, label: 'Rosario, Santa Fe' },
   verified: false,
   reputation: { avg: 4.5, jobs: 130 },
   contact: {},
@@ -126,7 +125,21 @@ function makeService(overrides: {
     updateReputation: jest.fn(async () => provider),
   };
 
-  const service = new GeneticMatchingService(femaleRepo, classificationRepo, needRepo, bullRepo, providerRepo);
+  // Sin `farm` el vertical no aplica RN-06 (facilidad de parto): estos tests
+  // cubren contrato y flujo, no ese filtro.
+  const farmRepo: FarmRepo = {
+    findById: jest.fn(async () => null),
+    findByIds: jest.fn(async () => []),
+  };
+
+  const service = new GeneticMatchingService(
+    femaleRepo,
+    classificationRepo,
+    needRepo,
+    bullRepo,
+    providerRepo,
+    farmRepo,
+  );
   return { service, needRepo, needs };
 }
 

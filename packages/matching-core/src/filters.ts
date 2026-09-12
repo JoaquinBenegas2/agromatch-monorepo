@@ -38,20 +38,29 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
       : { rule: 'RN-31', passed: false, detail: `Categoría ${cap.category} no coincide con la necesidad ${need.category}` },
   );
 
-  const distanceKm = haversineKm(where, prov.base);
-  const radiusKm = cap.coverageRadiusKm;
-  results.push(
-    distanceKm <= radiusKm
-      ? { rule: 'RN-31', passed: true, detail: `A ${distanceKm.toFixed(1)} km, dentro del radio de cobertura de ${radiusKm} km` }
-      : { rule: 'RN-31', passed: false, detail: `A ${distanceKm.toFixed(1)} km, fuera del radio de cobertura de ${radiusKm} km` },
-  );
+  // Una necesidad sintética (la arma un vertical para una hembra puntual,
+  // ADR-0002) no tiene un lugar ni una fecha reales: el `where`/`window` son
+  // marcadores. Radio y ventana no aplican; el vertical decide con sus
+  // propios filtros (RN-05/RN-06/RN-13).
+  if (need.synthetic) {
+    results.push({ rule: 'RN-31', passed: true, detail: 'Necesidad sintética: la cobertura geográfica no aplica' });
+    results.push({ rule: 'RN-31', passed: true, detail: 'Necesidad sintética: la ventana de fechas no aplica' });
+  } else {
+    const distanceKm = haversineKm(where, prov.base);
+    const radiusKm = cap.coverageRadiusKm;
+    results.push(
+      distanceKm <= radiusKm
+        ? { rule: 'RN-31', passed: true, detail: `A ${distanceKm.toFixed(1)} km, dentro del radio de cobertura de ${radiusKm} km` }
+        : { rule: 'RN-31', passed: false, detail: `A ${distanceKm.toFixed(1)} km, fuera del radio de cobertura de ${radiusKm} km` },
+    );
 
-  const hasOverlap = cap.availability.length === 0 || cap.availability.some((slot) => overlaps(window, slot));
-  results.push(
-    hasOverlap
-      ? { rule: 'RN-31', passed: true, detail: 'Disponible dentro de la ventana solicitada' }
-      : { rule: 'RN-31', passed: false, detail: 'Sin disponibilidad que se superponga con la ventana solicitada' },
-  );
+    const hasOverlap = cap.availability.length === 0 || cap.availability.some((slot) => overlaps(window, slot));
+    results.push(
+      hasOverlap
+        ? { rule: 'RN-31', passed: true, detail: 'Disponible dentro de la ventana solicitada' }
+        : { rule: 'RN-31', passed: false, detail: 'Sin disponibilidad que se superponga con la ventana solicitada' },
+    );
+  }
 
   if (need.magnitude && cap.capacityPerDay) {
     const days = daysInWindow(window);

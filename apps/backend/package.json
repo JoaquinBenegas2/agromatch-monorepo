@@ -52,22 +52,17 @@
       },
       "serve": {
         "continuous": true,
-        "executor": "@nx/js:node",
-        "defaultConfiguration": "development",
+        "executor": "nx:run-commands",
         "dependsOn": [
           "build"
         ],
         "options": {
-          "buildTarget": "@org/backend:build",
-          "runBuildTargetDependencies": false
-        },
-        "configurations": {
-          "development": {
-            "buildTarget": "@org/backend:build:development"
-          },
-          "production": {
-            "buildTarget": "@org/backend:build:production"
-          }
+          "cwd": "apps/backend",
+          "parallel": true,
+          "commands": [
+            "webpack-cli build --watch",
+            "node --watch --env-file-if-exists=../../.env dist/main.js"
+          ]
         }
       },
       "test": {
@@ -144,7 +139,7 @@
         "executor": "nx:run-commands",
         "options": {
           "commands": [
-            "npm exec prisma -- migrate reset --force --skip-seed --config apps/backend/prisma7.config.ts",
+            "npm exec prisma -- migrate reset --force --config apps/backend/prisma7.config.ts",
             "npx tsx apps/backend/prisma/seed.ts"
           ],
           "parallel": false

@@ -1,4 +1,5 @@
 import type { BreedingGoal, Classification, Farm, Female, GenomicProfile, SemenType, Tag, Tier, TraitKey } from '@org/shared-types';
+import { resolveGoal } from '../matching/presets.js';
 
 type ProfiledFemale = Female & { profile: GenomicProfile };
 const add = <T>(items: T[], item: T) => { if (!items.includes(item)) items.push(item); };
@@ -7,7 +8,8 @@ const percentile = (index: number, total: number) => total <= 1 ? 100 : Math.rou
 const semen = (tier: Tier): SemenType | null => tier === 'CULL_ALERT' ? null : tier === 'ELITE' ? 'SEXED' : tier === 'BEEF' ? 'BEEF' : 'CONVENTIONAL';
 
 /** RN-07 through RN-12. Classification is deterministic and farm-local. */
-export function classifyHerd(females: Female[], farm: Farm, goal: BreedingGoal): Classification[] {
+export function classifyHerd(females: Female[], farm: Farm, rawGoal: BreedingGoal): Classification[] {
+  const goal = resolveGoal(rawGoal);
   const animals = ranked(females); const n = animals.length;
   const elite = Math.min(Math.round(n * farm.tierQuotas.sexedPct / 100), n);
   const beef = Math.min(Math.round(n * farm.tierQuotas.beefPct / 100), n - elite);

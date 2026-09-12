@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Compass, Dna } from 'lucide-react';
 import type { BreedingGoal, GoalPreset, MatchCandidate } from '@org/shared-types';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,7 @@ import { useActiveFarmId } from '../../shared/user/user-context.js';
 import { useMatchBoard } from '../../shared/api/hooks/use-match-board.js';
 import { useAddPlanItem, useRemovePlanItem } from '../../shared/api/hooks/use-plan-item-mutations.js';
 import { useGoalParse } from '../../shared/api/hooks/use-goal-parse.js';
+import { usePlan } from '../../shared/api/hooks/use-plan.js';
 import { MatchRow } from './match-row.js';
 
 const PRESETS: { id: GoalPreset; label: string }[] = [
@@ -28,23 +29,41 @@ function presetGoal(preset: GoalPreset): BreedingGoal {
   return { preset, weights: {}, wantBetaA2: preset === 'A2_MILK', wantKappaBB: false };
 }
 
+/** El home del mercado (M6) deriva una necesidad GENETICS acá con su objetivo ya interpretado. */
+function isBreedingGoal(value: unknown): value is BreedingGoal {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'preset' in value &&
+    'weights' in value &&
+    typeof (value as { weights: unknown }).weights === 'object'
+  );
+}
+
 export function MatchingScreen() {
   const { femaleId } = useParams<{ femaleId?: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeFarmId] = useActiveFarmId();
-  const [text, setText] = useState('');
-  const [preset, setPreset] = useState<GoalPreset>('BALANCED');
-  const [goal, setGoal] = useState<BreedingGoal>(presetGoal('BALANCED'));
+  const incomingGoal = isBreedingGoal((location.state as { goal?: unknown } | null)?.goal)
+    ? (location.state as { goal: BreedingGoal }).goal
+    : null;
+  const [text, setText] = useState(incomingGoal?.rawText ?? '');
+  const [preset, setPreset] = useState<GoalPreset>(
+    incomingGoal && incomingGoal.preset !== 'CUSTOM' ? incomingGoal.preset : 'BALANCED',
+  );
+  const [goal, setGoal] = useState<BreedingGoal>(incomingGoal ?? presetGoal('BALANCED'));
   const [searchId, setSearchId] = useState('');
-  // Sin GET /farms/:farmId/plan todavía (milestone B5+D5): estado local de
-  // "elegido" hasta que esa pantalla exista de verdad.
-  const [chosenNaab, setChosenNaab] = useState<string | null>(null);
 
   const farmId = activeFarmId ?? '';
   const board = useMatchBoard(farmId, femaleId, goal);
   const addItem = useAddPlanItem(farmId);
   const removeItem = useRemovePlanItem(farmId);
   const goalParse = useGoalParse();
+  // REQ-D-14: el toro "En el plan" sale del plan real (B5), no de un estado
+  // local — así al entrar desde /negociacion/plan ya viene marcado.
+  const plan = usePlan(activeFarmId);
+  const chosenNaab = plan.data?.items.find((item) => item.femaleId === femaleId)?.bullNaab ?? null;
 
   function handleProcesar() {
     // REQ-D-07: con texto vacío, usa el preset elegido sin llamar al LLM.
@@ -61,23 +80,21 @@ export function MatchingScreen() {
   function handleChoose(candidate: MatchCandidate) {
     if (!femaleId) return;
     if (chosenNaab === candidate.capabilityId) {
-      removeItem.mutate(femaleId, { onSuccess: () => setChosenNaab(null) });
-      setChosenNaab(null);
+      removeItem.mutate(femaleId);
       return;
     }
     const facts = candidate.verticalFacts as { semenType?: string } | undefined;
-    addItem.mutate(
-      {
-        femaleId,
-        bullNaab: candidate.capabilityId,
-        semenType: (facts?.semenType as never) ?? 'CONVENTIONAL',
-        compatibility: candidate.compatibility,
-        pricePerDose: null,
-      },
-      { onError: () => setChosenNaab(candidate.capabilityId) },
-    );
-    setChosenNaab(candidate.capabilityId);
+    // El precio lo completa el backend desde el catálogo (los hechos no lo traen).
+    addItem.mutate({
+      femaleId,
+      bullNaab: candidate.capabilityId,
+      semenType: (facts?.semenType as never) ?? 'CONVENTIONAL',
+      compatibility: candidate.compatibility,
+      pricePerDose: null,
+    });
   }
+
+  const planError = addItem.error ?? removeItem.error;
 
   const ranked = board.data?.ranked ?? [];
   const excluded = board.data?.excluded ?? [];
@@ -171,6 +188,7 @@ export function MatchingScreen() {
       )}
 
       {board.isError && <ErrorMessage message={(board.error as Error).message} />}
+      {planError && <ErrorMessage message={(planError as Error).message} />}
 
       {board.isSuccess && ranked.length === 0 && excluded.length === 0 && (
         <EmptyState icon={<Compass />} title="Sin candidatos" description="No hay toros evaluados todavía para esta hembra." />

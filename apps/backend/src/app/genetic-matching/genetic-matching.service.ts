@@ -5,6 +5,7 @@ import type { BreedingGoal, GenomicProfile, MatchBoard, Need } from '@org/shared
 import { DomainError } from '../../common/errors/domain-error.js';
 import { BULL_REPO, type BullRepo } from '../../repos/bull.port.js';
 import { CLASSIFICATION_REPO, type ClassificationRepo } from '../../repos/classification.port.js';
+import { FARM_REPO, type FarmRepo } from '../../repos/farm.port.js';
 import { FEMALE_REPO, type FemaleRepo } from '../../repos/female.port.js';
 import { NEED_REPO, type NeedRepo } from '../../repos/need.port.js';
 import { PROVIDER_REPO, type ProviderRepo } from '../../repos/provider.port.js';
@@ -29,6 +30,7 @@ export class GeneticMatchingService {
     @Inject(NEED_REPO) private readonly needRepo: NeedRepo,
     @Inject(BULL_REPO) private readonly bullRepo: BullRepo,
     @Inject(PROVIDER_REPO) private readonly providerRepo: ProviderRepo,
+    @Inject(FARM_REPO) private readonly farmRepo: FarmRepo,
   ) {}
 
   async getBoard(farmId: string, femaleId: string, goal: BreedingGoal): Promise<MatchBoard> {
@@ -65,13 +67,25 @@ export class GeneticMatchingService {
       this.providerRepo.list({ category: 'GENETICS' }),
     ]);
 
-    const females = await this.femaleRepo.listByFarm(farmId);
+    const [females, farm] = await Promise.all([
+      this.femaleRepo.listByFarm(farmId),
+      this.farmRepo.findById(farmId),
+    ]);
     const profiles: GenomicProfile[] = females
       .map((f) => f.profile)
       .filter((p): p is GenomicProfile => p !== null);
     const stats = computeTraitStats(profiles);
 
-    return matchNeed(need, caps, provs, [GeneticsVertical], { female, classification, bulls, stats });
+    // `farm` habilita el filtro de facilidad de parto (RN-06) en el vertical:
+    // así el matching de una hembra y el plan automático (B5) usan las mismas
+    // reglas y no difieren en qué toros compiten.
+    return matchNeed(need, caps, provs, [GeneticsVertical], {
+      female,
+      classification,
+      bulls,
+      stats,
+      farm: farm ?? undefined,
+    });
   }
 
   /** REQ-D-03: el Need sintético se reutiliza por hembra+establecimiento, nunca se duplica. */

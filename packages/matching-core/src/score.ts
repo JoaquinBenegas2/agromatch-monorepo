@@ -25,6 +25,10 @@ function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 function daysInWindow(from: string, to: string): number {
   return Math.max(0, (new Date(to).getTime() - new Date(from).getTime()) / (1000 * 60 * 60 * 24));
 }
@@ -43,7 +47,9 @@ export function scoreCandidate(
   }
   const distanceKm = haversineKm(need.where, prov.base);
   const radiusKm = cap.coverageRadiusKm || need.radiusKm || 100;
-  const proximity = clamp01(1 - distanceKm / Math.max(radiusKm, 1));
+  // Necesidad sintética (ADR-0002): el lugar es un marcador, la distancia no
+  // significa nada; el vertical reemplaza este score de todas formas.
+  const proximity = need.synthetic ? 1 : clamp01(1 - distanceKm / Math.max(radiusKm, 1));
 
   let capacity = 1;
   if (need.magnitude && cap.capacityPerDay) {
@@ -54,7 +60,9 @@ export function scoreCandidate(
 
   const price = need.budget && cap.priceFrom ? clamp01(1 - cap.priceFrom / need.budget) : 1;
 
-  const reasons: string[] = [`A ${distanceKm.toFixed(1)} km de distancia, dentro del radio de cobertura de ${radiusKm} km`];
+  const reasons: string[] = need.synthetic
+    ? []
+    : [`A ${distanceKm.toFixed(1)} km de distancia, dentro del radio de cobertura de ${radiusKm} km`];
   let reputation: number;
   if (prov.reputation.avg !== null) {
     reputation = clamp01(prov.reputation.avg / 5);
@@ -163,7 +171,13 @@ export function matchNeed(
   const ranked: MatchCandidate[] = passing.map((entry, i) => {
     const compatibility = n <= 1 || spread === 0 ? 100 : Math.round((100 * (entry.rawScore - min)) / spread);
     const fit = entry.hasVertical ? { ...entry.candidate.fit, vertical: compatibility / 100 } : entry.candidate.fit;
-    return { ...entry.candidate, score: entry.rawScore, compatibility, rank: i + 1, fit };
+    // Los hechos del vertical (ExplanationFacts) llevan el ranking final para
+    // que la explicación hable de "#k de N · compatibilidad" reales (RN-18):
+    // el vertical no puede saberlos antes del reescalado, se completan acá.
+    const verticalFacts = isPlainObject(entry.candidate.verticalFacts)
+      ? { ...entry.candidate.verticalFacts, compatibility, rank: i + 1, totalCandidates: n }
+      : entry.candidate.verticalFacts;
+    return { ...entry.candidate, score: entry.rawScore, compatibility, rank: i + 1, fit, verticalFacts };
   });
 
   return { ranked, excluded };
