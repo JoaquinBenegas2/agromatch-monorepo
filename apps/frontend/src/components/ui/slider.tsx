@@ -29,7 +29,7 @@ function Slider({
       )}
       {...props}
     >
-      <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-sm bg-[#ECECEB]">
+      <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-[#DEE3D1]">
         <SliderPrimitive.Range className="absolute h-full bg-primary" />
       </SliderPrimitive.Track>
       {values.map((_, index) => (

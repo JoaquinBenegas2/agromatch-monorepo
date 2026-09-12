@@ -3,54 +3,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 
 /*
- * Tokens de AgroMatch (ver /designs/tokens.css, fuente de verdad visual).
+ * Tokens de AgroMatch (ver /designs/tokens.css, fuente de verdad visual —
+ * dirección "Futuros": designs/visual-lab/index.html, especialmente #/mercado).
  * Se exponen como variables semánticas al estilo shadcn/ui para que la
  * librería de componentes en src/components/ui use clases utilitarias
  * (bg-primary, text-muted-foreground, border-border, etc.) en vez de
  * hex hardcodeados.
  */
 :root {
-  --background: #fafafa;
-  --foreground: #1b1c1b;
+  --background: #eeefe4;
+  --foreground: #17352c;
 
-  --card: #ffffff;
-  --card-foreground: #1b1c1b;
+  --card: #fbfbf4;
+  --card-foreground: #17352c;
 
-  --popover: #ffffff;
-  --popover-foreground: #1b1c1b;
+  --popover: #fbfbf4;
+  --popover-foreground: #17352c;
 
-  --primary: #23573d;
-  --primary-hover: #194029;
-  --primary-foreground: #ffffff;
+  --primary: #1e4c3a;
+  --primary-hover: #296a4b;
+  --primary-foreground: #d6f27b;
 
-  --secondary: #eaeeeb;
-  --secondary-foreground: #23573d;
-  --secondary-border: #c8d5cc;
+  --secondary: #e3ead8;
+  --secondary-foreground: #1e4c3a;
+  --secondary-border: #bfd0a9;
 
-  --muted: #f6f6f5;
-  --muted-foreground: #5a5c59;
+  --muted: #f1f2e7;
+  --muted-foreground: #556358;
 
-  --accent: #eaeeeb;
-  --accent-foreground: #23573d;
+  --accent: #e3ead8;
+  --accent-foreground: #1e4c3a;
 
-  --destructive: #98392b;
+  --lime: #d6f27b;
+  --lime-foreground: #1e4c3a;
+  --clay: #c77c58;
+  --clay-soft: #f3e3d8;
+
+  --destructive: #8f3a2a;
   --destructive-foreground: #ffffff;
+  --destructive-soft: #f2e2dc;
 
-  --warning: #6d5a18;
-  --warning-soft: #f1f0ea;
+  --warning: #7a5a22;
+  --warning-soft: #f1ead3;
 
-  --border: #e1e1df;
-  --border-soft: #ededec;
-  --input: #e1e1df;
-  --ring: #23573d;
+  --border: #d7dccb;
+  --border-soft: #e4e7db;
+  --input: #d7dccb;
+  --ring: #1e4c3a;
 
-  --ink-3: #6e706c;
-  --ink-4: #9b9d9a;
-  --row-off: #f6f6f5;
+  --ink-3: #6c7a6c;
+  --ink-4: #9aa495;
+  --row-off: #f1f2e7;
 
   --font-sans: 'Instrument Sans', system-ui, sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
 
-  --radius: 4px;
+  --radius: 14px;
+  --radius-pill: 999px;
 }
 
 @theme inline {
@@ -79,9 +88,15 @@
 
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-soft: var(--destructive-soft);
 
   --color-warning: var(--warning);
   --color-warning-soft: var(--warning-soft);
+
+  --color-lime: var(--lime);
+  --color-lime-foreground: var(--lime-foreground);
+  --color-clay: var(--clay);
+  --color-clay-soft: var(--clay-soft);
 
   --color-border: var(--border);
   --color-border-soft: var(--border-soft);
@@ -93,11 +108,13 @@
   --color-row-off: var(--row-off);
 
   --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 
-  --radius-sm: calc(var(--radius) - 1px);
+  --radius-sm: calc(var(--radius) - 6px);
   --radius-md: var(--radius);
-  --radius-lg: var(--radius);
-  --radius-xl: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 10px);
+  --radius-full: var(--radius-pill);
 }
 
 * {

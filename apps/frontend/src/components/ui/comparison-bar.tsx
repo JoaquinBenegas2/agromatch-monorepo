@@ -53,9 +53,9 @@ function ComparisonBar({
           </span>
         </span>
       </div>
-      <div className="relative h-2 w-full rounded-sm bg-[#ECECEB]">
+      <div className="relative h-2 w-full rounded-full bg-[#DEE3D1]">
         <div
-          className={cn('absolute inset-y-0 left-0 rounded-sm', improves ? 'bg-primary' : 'bg-destructive')}
+          className={cn('absolute inset-y-0 left-0 rounded-full', improves ? 'bg-primary' : 'bg-destructive')}
           style={{ width: `${toPct}%` }}
         />
         <div

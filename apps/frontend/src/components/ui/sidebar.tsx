@@ -20,7 +20,7 @@ function Sidebar({ className, ...props }: React.ComponentProps<'aside'>) {
     <aside
       data-slot="sidebar"
       className={cn(
-        'sticky top-0 flex h-screen w-[264px] shrink-0 flex-col border-r border-border bg-card',
+        'sticky top-0 flex h-screen w-[264px] shrink-0 flex-col border-r border-border bg-[#E4E8D8]',
         className,
       )}
       {...props}
@@ -37,7 +37,7 @@ interface SidebarBrandProps extends React.ComponentProps<'div'> {
 function SidebarBrand({ className, mark, name, subtitle, ...props }: SidebarBrandProps) {
   return (
     <div data-slot="sidebar-brand" className={cn('flex items-center gap-2.5 px-4 pt-[18px] pb-4', className)} {...props}>
-      <div className="flex size-[30px] shrink-0 items-center justify-center rounded-md bg-primary text-[14px] font-bold text-primary-foreground">
+      <div className="flex size-[30px] shrink-0 items-center justify-center rounded-[4px_14px_4px_4px] bg-primary text-[14px] font-bold text-primary-foreground">
         {mark}
       </div>
       <div className="min-w-0">
@@ -97,10 +97,10 @@ function SidebarNavItem({
       data-slot="sidebar-nav-item"
       data-active={active ? 'true' : undefined}
       className={cn(
-        'flex items-center gap-2.5 rounded-md border-l-2 border-transparent px-2.5 py-2.5 text-[12.5px] font-medium text-muted-foreground transition-colors',
+        'flex items-center gap-2.5 rounded-full px-3 py-2.5 text-[12.5px] font-medium text-muted-foreground transition-[background-color,color,transform] duration-200',
         '[&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:text-ink-3 [&_svg]:transition-colors',
-        'hover:bg-muted hover:text-foreground hover:[&_svg]:text-current',
-        'data-[active=true]:border-l-primary data-[active=true]:bg-accent data-[active=true]:font-semibold data-[active=true]:text-primary data-[active=true]:[&_svg]:text-current',
+        'hover:translate-x-0.5 hover:bg-border-soft hover:text-foreground hover:[&_svg]:text-current',
+        'data-[active=true]:bg-primary data-[active=true]:font-semibold data-[active=true]:text-primary-foreground data-[active=true]:shadow-[0_8px_18px_-10px_rgba(30,76,58,0.6)] data-[active=true]:[&_svg]:text-current',
         className,
       )}
       {...props}

@@ -26,11 +26,11 @@ function ToleranceBar({ className, value, min = 0, max = 100, limit, ...props }:
       aria-valuemin={min}
       aria-valuemax={max}
       aria-valuenow={value}
-      className={cn('relative h-2 w-full rounded-sm bg-[#ECECEB]', className)}
+      className={cn('relative h-2 w-full rounded-full bg-[#DEE3D1]', className)}
       {...props}
     >
       <div
-        className="absolute inset-y-0 left-0 rounded-sm bg-primary"
+        className="absolute inset-y-0 left-0 rounded-full bg-primary"
         style={{ width: `${fillPct}%` }}
       />
       {limitPct !== undefined && (
