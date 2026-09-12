@@ -27,9 +27,6 @@ function daysInWindow(window: TimeWindow): number {
  */
 export function hardFilters(need: Need, cap: Capability, prov: Provider): FilterResult[] {
   const { where, window } = need;
-  if (!where || !window) {
-    throw new Error('Cannot evaluate hardFilters on an unconfirmed need without location and time window');
-  }
   const results: FilterResult[] = [];
 
   results.push(
@@ -38,22 +35,33 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
       : { rule: 'RN-31', passed: false, detail: `Categoría ${cap.category} no coincide con la necesidad ${need.category}` },
   );
 
-  const distanceKm = haversineKm(where, prov.base);
-  const radiusKm = cap.coverageRadiusKm;
-  results.push(
-    distanceKm <= radiusKm
-      ? { rule: 'RN-31', passed: true, detail: `A ${distanceKm.toFixed(1)} km, dentro del radio de cobertura de ${radiusKm} km` }
-      : { rule: 'RN-31', passed: false, detail: `A ${distanceKm.toFixed(1)} km, fuera del radio de cobertura de ${radiusKm} km` },
-  );
+  // Una necesidad que no declara dónde (el matching genético, por ejemplo: el
+  // semen viaja por correo) no se puede medir contra un radio de cobertura.
+  // No se inventa una ubicación ni se descarta al candidato: el filtro no aplica.
+  if (!where) {
+    results.push({ rule: 'RN-31', passed: true, detail: 'La necesidad no declara ubicación: no se evalúa cobertura' });
+  } else {
+    const distanceKm = haversineKm(where, prov.base);
+    const radiusKm = cap.coverageRadiusKm;
+    results.push(
+      distanceKm <= radiusKm
+        ? { rule: 'RN-31', passed: true, detail: `A ${distanceKm.toFixed(1)} km, dentro del radio de cobertura de ${radiusKm} km` }
+        : { rule: 'RN-31', passed: false, detail: `A ${distanceKm.toFixed(1)} km, fuera del radio de cobertura de ${radiusKm} km` },
+    );
+  }
 
-  const hasOverlap = cap.availability.length === 0 || cap.availability.some((slot) => overlaps(window, slot));
-  results.push(
-    hasOverlap
-      ? { rule: 'RN-31', passed: true, detail: 'Disponible dentro de la ventana solicitada' }
-      : { rule: 'RN-31', passed: false, detail: 'Sin disponibilidad que se superponga con la ventana solicitada' },
-  );
+  if (!window) {
+    results.push({ rule: 'RN-31', passed: true, detail: 'La necesidad no declara ventana: no se evalúa disponibilidad' });
+  } else {
+    const hasOverlap = cap.availability.length === 0 || cap.availability.some((slot) => overlaps(window, slot));
+    results.push(
+      hasOverlap
+        ? { rule: 'RN-31', passed: true, detail: 'Disponible dentro de la ventana solicitada' }
+        : { rule: 'RN-31', passed: false, detail: 'Sin disponibilidad que se superponga con la ventana solicitada' },
+    );
+  }
 
-  if (need.magnitude && cap.capacityPerDay) {
+  if (need.magnitude && cap.capacityPerDay && window) {
     const days = daysInWindow(window);
     const capacityInWindow = cap.capacityPerDay.value * days;
     const enough = capacityInWindow >= need.magnitude.value;

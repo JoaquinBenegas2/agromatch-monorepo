@@ -72,11 +72,9 @@ const provider: Provider = {
   id: 'prov-genetics-norte',
   name: 'Central Genética Norte',
   type: 'SEMEN_COMPANY',
-  // `makeGeneticsNeed` (B4) arma la Need sintética con `where: {lat:0,lng:0}`
-  // (placeholder, no la ubicación real del tambo todavía) -- el proveedor se
-  // ubica ahí mismo para que el filtro de cobertura real de M2 (hardFilters)
-  // no descarte al candidato por distancia.
-  base: { lat: 0, lng: 0, label: 'Establecimiento' },
+  // Ubicación real: la Need sintética de `makeGeneticsNeed` (B4) no declara
+  // `where`, así que RN-31 no evalúa cobertura y la distancia es irrelevante.
+  base: { lat: -32.944, lng: -60.65, label: 'Rosario' },
   verified: false,
   reputation: { avg: 4.5, jobs: 130 },
   contact: {},

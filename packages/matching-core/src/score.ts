@@ -38,15 +38,24 @@ export function scoreCandidate(
   cap: Capability,
   prov: Provider,
 ): { score: number; fit: FitBreakdown; reasons: string[] } {
-  if (!need.where || !need.window) {
-    throw new Error('Cannot score an unconfirmed need without location and time window');
+  const reasons: string[] = [];
+
+  // Sin ubicación declarada no hay distancia que medir. El término de cercanía
+  // NO participa del puntaje (y se renormaliza sobre los pesos que sí se usan),
+  // en vez de inventarle un 0 o un 1 que mentiría en los dos sentidos.
+  const hasLocation = need.where !== undefined;
+  let proximity = 0;
+  if (hasLocation) {
+    const distanceKm = haversineKm(need.where!, prov.base);
+    const radiusKm = cap.coverageRadiusKm || need.radiusKm || 100;
+    proximity = clamp01(1 - distanceKm / Math.max(radiusKm, 1));
+    reasons.push(`A ${distanceKm.toFixed(1)} km de distancia, dentro del radio de cobertura de ${radiusKm} km`);
+  } else {
+    reasons.push('La necesidad no depende de la ubicación: la cercanía no participa del puntaje');
   }
-  const distanceKm = haversineKm(need.where, prov.base);
-  const radiusKm = cap.coverageRadiusKm || need.radiusKm || 100;
-  const proximity = clamp01(1 - distanceKm / Math.max(radiusKm, 1));
 
   let capacity = 1;
-  if (need.magnitude && cap.capacityPerDay) {
+  if (need.magnitude && cap.capacityPerDay && need.window) {
     const days = daysInWindow(need.window.from, need.window.to);
     const capacityInWindow = cap.capacityPerDay.value * days;
     capacity = need.magnitude.value > 0 ? clamp01(capacityInWindow / need.magnitude.value) : 1;
@@ -54,7 +63,6 @@ export function scoreCandidate(
 
   const price = need.budget && cap.priceFrom ? clamp01(1 - cap.priceFrom / need.budget) : 1;
 
-  const reasons: string[] = [`A ${distanceKm.toFixed(1)} km de distancia, dentro del radio de cobertura de ${radiusKm} km`];
   let reputation: number;
   if (prov.reputation.avg !== null) {
     reputation = clamp01(prov.reputation.avg / 5);
@@ -64,13 +72,14 @@ export function scoreCandidate(
   }
 
   const fit: FitBreakdown = { proximity, availability: 1, capacity, price, reputation };
-  const score =
-    100 *
-    (WEIGHTS.proximity * fit.proximity +
-      WEIGHTS.availability * fit.availability +
-      WEIGHTS.capacity * fit.capacity +
-      WEIGHTS.price * fit.price +
-      WEIGHTS.reputation * fit.reputation);
+  const weighted =
+    (hasLocation ? WEIGHTS.proximity * fit.proximity : 0) +
+    WEIGHTS.availability * fit.availability +
+    WEIGHTS.capacity * fit.capacity +
+    WEIGHTS.price * fit.price +
+    WEIGHTS.reputation * fit.reputation;
+  const totalWeight = hasLocation ? 1 : 1 - WEIGHTS.proximity;
+  const score = 100 * (weighted / totalWeight);
 
   return { score, fit, reasons };
 }
@@ -93,8 +102,12 @@ export function matchNeed(
   verticals: VerticalEngine[] = listVerticals(),
   ctx?: unknown,
 ): MatchBoard {
-  if (!need.where || !need.window) {
-    throw new Error('Cannot match an unconfirmed need without location and time window');
+  // Una necesidad en DRAFT todavía no se matchea (RN-30): le faltan campos que
+  // el intake no pudo completar. Una necesidad confirmada que simplemente no
+  // declara ubicación/ventana (el matching genético) sí se matchea: esos
+  // filtros no aplican, ver `hardFilters`.
+  if (need.status === 'DRAFT') {
+    throw new Error('Cannot match a DRAFT need: confirm it first (RN-30)');
   }
   const vertical = verticals.find((v) => v.canHandle(need));
   const relevantCaps = caps.filter((c) => c.category === need.category);

@@ -136,6 +136,48 @@ describe('matchNeed con vertical registrado (RN-35, ADR-0002)', () => {
   });
 });
 
+describe('necesidad sin geografía (RN-31: el filtro que no aplica no descarta)', () => {
+  // Una pajuela de semen viaja por correo: la necesidad genética no declara
+  // `where` ni `window`. Antes se rellenaban con {lat:0,lng:0} y el núcleo
+  // descartaba el catálogo entero por distancia.
+  const noGeoNeed: Need = { ...need, where: undefined, window: undefined };
+
+  it('no descarta a nadie por cobertura ni por disponibilidad, y lo dice en el detalle', () => {
+    const cap = makeCapability({ coverageRadiusKm: 1, availability: [{ from: '1999-01-01', to: '1999-01-02' }] });
+    const prov = makeProvider({ base: { lat: 60.1, lng: 24.9, label: 'Helsinki' } });
+
+    const board = matchNeed(noGeoNeed, [cap], [prov], []);
+
+    expect(board.excluded).toHaveLength(0);
+    expect(board.ranked).toHaveLength(1);
+    const details = board.ranked[0].filters.map((f) => f.detail).join(' | ');
+    expect(details).toContain('no declara ubicación');
+    expect(details).toContain('no declara ventana');
+  });
+
+  it('la distancia no mueve el puntaje: dos proveedores iguales salvo por su base empatan', () => {
+    const caps = [makeCapability({ id: 'cap-cerca', providerId: 'prov-cerca' }), makeCapability({ id: 'cap-lejos', providerId: 'prov-lejos' })];
+    const provs = [
+      makeProvider({ id: 'prov-cerca', base: { lat: -32.9, lng: -63.6, label: 'Río Cuarto' } }),
+      makeProvider({ id: 'prov-lejos', base: { lat: 60.1, lng: 24.9, label: 'Helsinki' } }),
+    ];
+
+    const board = matchNeed(noGeoNeed, caps, provs, []);
+
+    expect(board.ranked).toHaveLength(2);
+    expect(board.ranked[0].score).toBe(board.ranked[1].score);
+    // El término de cercanía se renormaliza (no se cuenta como 0): con
+    // availability, capacity y price en 1 y reputación 4/5, el score vive
+    // muy por encima del 65 que daría contar la cercanía como cero.
+    expect(board.ranked[0].score).toBeCloseTo(95.38, 1);
+    expect(board.ranked[0].reasons.join(' ')).toContain('no depende de la ubicación');
+  });
+
+  it('una necesidad en DRAFT sigue sin poder matchearse (RN-30)', () => {
+    expect(() => matchNeed({ ...noGeoNeed, status: 'DRAFT' }, [makeCapability()], [makeProvider()], [])).toThrow(/DRAFT/);
+  });
+});
+
 describe('registerVertical + listVerticals (RN-35)', () => {
   it('registran sin duplicar por categoría', () => {
     const TestVertical: VerticalEngine<{ note: string }> = {

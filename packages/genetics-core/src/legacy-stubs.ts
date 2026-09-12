@@ -23,7 +23,18 @@ export { classifyHerd, classifyHerdClassic } from './lib/classification.js';
  * `scoreCandidates` (Hito 3: A4+A5+M3) y las reglas REQ-D-10/REQ-D-11.
  */
 
-/** Stub B4 (mvp-d-match): Need sintética para el matching de una hembra puntual. */
+/**
+ * B4 (mvp-d-match): Need sintética para el matching de una hembra puntual.
+ *
+ * NO declara `where` ni `window` a propósito. Una pajuela de semen viaja por
+ * correo: ni la distancia al proveedor ni una ventana de fechas deciden si un
+ * toro sirve para esta vaca. Antes se rellenaban con `{lat:0,lng:0}` y una
+ * ventana de ancho cero; cuando `hardFilters` dejó de ser un stub, ese
+ * placeholder (Golfo de Guinea) quedaba a 7.580 km de cualquier proveedor
+ * argentino y RN-31 descartaba el catálogo entero: el swipe mostraba cero
+ * toros. Ambos campos son opcionales desde `contracts-v1`, así que la
+ * necesidad simplemente no los declara y el núcleo no evalúa esos filtros.
+ */
 export function makeGeneticsNeed(farmId: string, femaleId: string, goal: BreedingGoal): Need {
   const now = new Date().toISOString();
   return {
@@ -32,8 +43,6 @@ export function makeGeneticsNeed(farmId: string, femaleId: string, goal: Breedin
     rawText: goal.rawText ?? `Necesidad sintética de matching genético para ${femaleId}`,
     category: 'GENETICS',
     what: 'matching genético',
-    where: { lat: 0, lng: 0, label: 'Establecimiento' },
-    window: { from: now, to: now },
     constraints: [],
     status: 'OPEN',
     goal,
