@@ -8,6 +8,7 @@ import { RepositoriesModule } from '../repos/repositories.module.js';
 import { ClassificationModule } from '../classification/classification.module.js';
 import { HerdImportModule } from '../herd-import/herd-import.module.js';
 import { HerdModule } from '../herd/herd.module.js';
+import { AdvisorModule } from './advisor/advisor.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ChatModule } from './chat/chat.module.js';
@@ -35,6 +36,7 @@ import { SmokeController } from './smoke.controller.js';
     HerdImportModule,
     ClassificationModule,
     HerdModule,
+    AdvisorModule,
   ],
   controllers: [AppController, SmokeController],
   providers: [AppService, { provide: APP_FILTER, useClass: ApiExceptionFilter }],

@@ -25,9 +25,9 @@
 
 ## 4. Anexo: panel del asesor — B6 + D6
 
-- [ ] 4.1 B6 Implementar `GET /advisor/overview` calculando `FarmSummary[]` solo para `farmIds` del usuario, con tiers en cero si faltan clasificaciones y guardas `ADVISOR`/`ADMIN`; verificar que `asesor-1` recibe tres tambos con `farm-a.total: 293` y `a2a2Share` ≈ 0,50, y que `tambero-a` recibe `ROLE_FORBIDDEN`.
-- [ ] 4.2 D6 Implementar `features/advisor` y sus handlers MSW con tarjetas, distribución por tier, A2/A2, BB y comparación de `avgTraits` usando componentes existentes; verificar los cuatro estados y tres tambos en `/motor-genetico/asesor` con mocks.
-- [ ] 4.3 D6 Reemplazar el placeholder de la ruta preservando la visibilidad de la tab solo para `ADVISOR`/`ADMIN`; verificar que un FARMER no renderiza la tab/pantalla y completar build/typecheck/lint Nx más captura para la PR.
+- [x] 4.1 B6 Implementar `GET /advisor/overview` calculando `FarmSummary[]` solo para `farmIds` del usuario, con tiers en cero si faltan clasificaciones y guardas `ADVISOR`/`ADMIN`; verificar que `asesor-1` recibe tres tambos con `farm-a.total: 293` y `a2a2Share` ≈ 0,50, y que `tambero-a` recibe `ROLE_FORBIDDEN`.
+- [x] 4.2 D6 Implementar `features/advisor` y sus handlers MSW con tarjetas, distribución por tier, A2/A2, BB y comparación de `avgTraits` usando componentes existentes; verificar los cuatro estados y tres tambos en `/motor-genetico/asesor` con mocks.
+- [x] 4.3 D6 Reemplazar el placeholder de la ruta preservando la visibilidad de la tab solo para `ADVISOR`/`ADMIN`; verificar que un FARMER no renderiza la tab/pantalla y completar build/typecheck/lint Nx más captura para la PR.
 
 ## 5. Validación integral
 
