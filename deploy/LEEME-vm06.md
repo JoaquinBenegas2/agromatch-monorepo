@@ -57,4 +57,12 @@ No hay login: el front manda `x-user-id`. `tambero-a` (rodeo real, 293 animales)
 
 - No tocar el `web.config` a mano: viaja dentro de `front\` en cada deploy y lo pisa.
 - No cambiar el puerto solo en un lado: el `web.config` y el servicio tienen que coincidir (`-Puerto` del script ajusta los dos).
-- No pretender persistencia: es memoria. Para persistir hace falta Postgres y `PERSISTENCE=postgres` con `DATABASE_URL`.
+- No pretender persistencia mientras esté en memoria: lo cargado se pierde al reiniciar el servicio.
+
+## Pasar a Postgres real (más adelante)
+
+Prisma ya viaja dentro del `main.js`; no hay que recompilar nada.
+
+1. Desde la máquina dev, con `DATABASE_URL` apuntando a esa base: `npm run db:deploy` (migraciones) y `npx nx run @org/backend:db-seed` (fixtures).
+2. En `C:\shared\hackaton\backend\.env`: `PERSISTENCE=postgres` y `DATABASE_URL=postgresql://...`.
+3. `C:\shared\hackaton\actualizar-vm06.ps1` (el script aborta si `PERSISTENCE=postgres` y `DATABASE_URL` está vacía).

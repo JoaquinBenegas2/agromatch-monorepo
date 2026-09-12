@@ -153,7 +153,7 @@ if (-not $svc) {
 & $Nssm set $Servicio AppParameters   'main.js'        | Out-Null
 & $Nssm set $Servicio AppDirectory    $backDir         | Out-Null
 & $Nssm set $Servicio DisplayName     'AgroMatch API (hackaton.vylaris.com.ar)' | Out-Null
-& $Nssm set $Servicio Description     'Backend NestJS de AgroMatch. PERSISTENCE=memory: sin base de datos, fixtures en memoria.' | Out-Null
+& $Nssm set $Servicio Description     'Backend NestJS de AgroMatch. Perfil (memory | postgres) y secretos en C:\apps\hackaton\backend\.env.' | Out-Null
 & $Nssm set $Servicio Start           SERVICE_AUTO_START | Out-Null
 & $Nssm set $Servicio AppStdout       "$backDir\logs\stdout.log" | Out-Null
 & $Nssm set $Servicio AppStderr       "$backDir\logs\stderr.log" | Out-Null
@@ -164,24 +164,35 @@ if (-not $svc) {
 & $Nssm set $Servicio AppExit Default Restart | Out-Null
 & $Nssm set $Servicio AppRestartDelay 3000 | Out-Null
 
-# Variables de entorno del servicio (red de seguridad: dotenv NO pisa lo que ya viene
-# del entorno, asi que el perfil y el puerto quedan fijados aca aunque el .env diga otra cosa).
-# La ANTHROPIC_API_KEY normalmente sale del .env; -AnthropicKey la fuerza por encima.
+# Variables de entorno del servicio. Solo el puerto (tiene que coincidir con el web.config)
+# y NODE_ENV. Todo lo demas — PERSISTENCE (memory | postgres), DATABASE_URL, AI_MODE,
+# ANTHROPIC_API_KEY — sale del .env: cambiar de memoria a Postgres es editar ese archivo
+# y volver a correr este script. dotenv NO pisa lo que ya viene del entorno, por eso
+# el puerto se fija aca y no en el .env. -AnthropicKey fuerza la key por encima del .env.
 $key = $AnthropicKey
 if (-not $key -and $keyEnv) { $key = $keyEnv }
 if (-not $key) { Aviso 'Sin ANTHROPIC_API_KEY: el backend arranca, pero todo lo que usa Claude va a devolver 502 LLM_UNAVAILABLE. Pegala en backend\.env del share.' }
 if ($key -and $key -notmatch '^sk-ant-') { Aviso 'La key no empieza con "sk-ant-". Seguimos, pero revisala.' }
 
+$perfil = 'memory'
+$fuenteEnv = if (Test-Path -LiteralPath $destEnv) { $destEnv } else { $null }
+if ($fuenteEnv) {
+    $lp = Get-Content -LiteralPath $fuenteEnv | Where-Object { $_ -match '^\s*PERSISTENCE\s*=' } | Select-Object -First 1
+    if ($lp) { $perfil = ($lp -split '=', 2)[1].Trim().Trim('"') }
+    if ($perfil -eq 'postgres') {
+        $ld = Get-Content -LiteralPath $fuenteEnv | Where-Object { $_ -match '^\s*DATABASE_URL\s*=\s*\S' } | Select-Object -First 1
+        if (-not $ld) { Morir 'PERSISTENCE=postgres pero DATABASE_URL esta vacia en el .env: el backend no va a arrancar.' }
+    }
+}
+
 $vars = @(
-    'PERSISTENCE=memory',
-    'AI_MODE=live',
     "PORT=$Puerto",
     'NODE_ENV=production'
 )
 if ($AnthropicKey) { $vars += "ANTHROPIC_API_KEY=$AnthropicKey" }
 & $Nssm set $Servicio AppEnvironmentExtra $vars | Out-Null
 if ($LASTEXITCODE -ne 0) { Morir "nssm set AppEnvironmentExtra fallo (exit $LASTEXITCODE)" }
-Ok ('entorno: PERSISTENCE=memory AI_MODE=live PORT={0} ANTHROPIC_API_KEY={1}' -f $Puerto, $(if ($key) { '...' + $key.Substring($key.Length - 4) + $(if ($AnthropicKey) { ' (parametro)' } else { ' (.env)' }) } else { '(vacia)' }))
+Ok ('entorno: PERSISTENCE={0} (.env) PORT={1} ANTHROPIC_API_KEY={2}' -f $perfil, $Puerto, $(if ($key) { '...' + $key.Substring($key.Length - 4) + $(if ($AnthropicKey) { ' (parametro)' } else { ' (.env)' }) } else { '(vacia)' }))
 
 # ── 5. ARR: proxy + server variables (idempotente) ───────────────────────────
 Paso 'ARR / URL Rewrite'
@@ -238,4 +249,4 @@ try {
 Write-Host ''
 Write-Host "Listo. Abrir http://$HostName/ (Ctrl+Shift+R para descartar cache)." -ForegroundColor Yellow
 Write-Host "Logs del backend: $backDir\logs\   Reiniciar: Restart-Service $Servicio" -ForegroundColor Yellow
-Write-Host 'Recorda: PERSISTENCE=memory -> lo que se carga o clasifica se pierde al reiniciar el servicio.' -ForegroundColor Yellow
+if ($perfil -eq 'memory') { Write-Host 'Recorda: PERSISTENCE=memory -> lo que se carga o clasifica se pierde al reiniciar el servicio.' -ForegroundColor Yellow }
