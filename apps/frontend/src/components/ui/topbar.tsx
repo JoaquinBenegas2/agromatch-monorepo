@@ -7,7 +7,7 @@ function Topbar({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="topbar"
       className={cn(
-        'flex items-center justify-between border-b border-border bg-card px-8 py-4',
+        'flex flex-wrap items-center justify-between gap-2 border-b border-border bg-card px-4 py-3 sm:px-8 sm:py-4',
         className,
       )}
       {...props}

@@ -1,4 +1,10 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useMe } from '../../shared/api/hooks/use-me.js';
 import { useActiveFarmId, useUser } from '../../shared/user/user-context.js';
 
@@ -14,7 +20,7 @@ export function FarmSelect() {
 
   return (
     <Select value={activeFarmId ?? undefined} onValueChange={setActiveFarmId}>
-      <SelectTrigger className="w-[220px]">
+      <SelectTrigger className="w-full min-w-0 sm:w-[220px]">
         <SelectValue placeholder="Elegí un tambo" />
       </SelectTrigger>
       <SelectContent>
