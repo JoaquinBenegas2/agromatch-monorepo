@@ -1,0 +1,2 @@
+import { HerdService } from './herd.service.js';
+describe('HerdService', () => { it('returns every female with its classification or null', async () => { const service = new HerdService({ listByFarm: jest.fn().mockResolvedValue([{ id: 'a' }, { id: 'b' }]) } as never, { listByFarm: jest.fn().mockResolvedValue({ items: [{ femaleId: 'a', tier: 'ELITE' }] }) } as never); const result = await service.list('farm'); expect(result[0]?.classification).toMatchObject({ tier: 'ELITE' }); expect(result[1]?.classification).toBeNull(); }); });
