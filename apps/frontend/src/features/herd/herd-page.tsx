@@ -9,8 +9,8 @@ import { ErrorMessage } from '@/components/ui/error-message';
 import { Input } from '@/components/ui/input';
 import { PageHeader } from '@/components/ui/page-header';
 import { Skeleton } from '@/components/ui/skeleton';
-import { StatCard } from '@/components/ui/stat-card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { SpatialScene } from '@/components/spatial/spatial-scene';
 import { ApiClientError } from '../../shared/api/client.js';
 import { useClassificationSummary, useClassifyHerd, useFemales } from '../../shared/api/hooks/use-herd.js';
 import { UploadHerdButton } from '../herd-import/herd-import-page.js';
@@ -61,8 +61,12 @@ export function HerdPage({ farmId }: { farmId: string }) {
   return (
     <div className="flex flex-col gap-5">
       <PageHeader
-        title="Tablero del rodeo"
-        description={`${females.data.length} hembras cargadas`}
+        title={
+          <>
+            Un rodeo, <span className="font-serif text-primary italic">{females.data.length} decisiones.</span>
+          </>
+        }
+        description="Del conjunto a cada animal, sin perder el contexto."
         actions={
           <Button variant="secondary" onClick={() => void classify.mutateAsync(goal)} disabled={classify.isPending}>
             {classify.isPending ? 'Clasificando…' : unclassified ? 'Clasificar' : 'Reclasificar'}
@@ -78,16 +82,26 @@ export function HerdPage({ farmId }: { farmId: string }) {
 
       {summary.data && (
         <>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {Object.entries(summary.data.byTier).map(([tier, total]) => (
-              <StatCard
-                key={tier}
-                label={tier.replace('_', ' ')}
-                value={String(total)}
-                meta={<Badge variant={TIER_BADGE[tier] ?? 'neutral'}>{tier.replace('_', ' ')}</Badge>}
-              />
-            ))}
-          </div>
+          <SpatialScene
+            kind="herd"
+            className="h-[280px] w-full rounded-lg border border-border bg-[#d7e2c5]"
+          >
+            <div className="pointer-events-none absolute inset-x-4 top-4 z-[2] flex flex-wrap gap-6">
+              {Object.entries(summary.data.byTier).map(([tier, total]) => (
+                <div key={tier} className="border-l-2 border-[#385e45] pl-2.5">
+                  <span className="block text-[9px] font-semibold tracking-[0.08em] text-[#3a4a35] uppercase">
+                    {tier.replace('_', ' ')}
+                  </span>
+                  <strong className="block font-serif text-[32px] leading-none font-normal text-[#1e3a2b] italic">
+                    {total}
+                  </strong>
+                </div>
+              ))}
+            </div>
+            <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#4f6b45]">
+              Vista conceptual · no representa la posición real del rodeo
+            </span>
+          </SpatialScene>
           <p className="text-[11.5px] text-muted-foreground">
             Con las reglas clásicas,{' '}
             <span className="font-semibold text-foreground">
