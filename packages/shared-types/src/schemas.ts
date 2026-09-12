@@ -315,6 +315,9 @@ export const ProviderSchema = z.object({
   source: z.string(),
 });
 
+/** Proyección segura para listados y matching: RN-36 prohíbe exponer contacto. */
+export const PublicProviderSchema = ProviderSchema.omit({ contact: true });
+
 export const CapabilitySchema = z.object({
   id: z.string(),
   // En GENETICS: id = bull.naab (ADR-0002).
@@ -483,11 +486,11 @@ export const UpdateNeedBodySchema = NeedSchema.partial().extend({
 
 export const CreateServiceRequestBodySchema = z.object({
   providerId: z.string(),
-  message: z.string(),
+  message: z.string().min(1),
 });
 
 export const CreateReviewBodySchema = z.object({
-  rating: z.number(),
+  rating: z.number().int().min(1).max(5),
   comment: z.string(),
 });
 

@@ -76,6 +76,7 @@ export interface Provider {
   contact: { phone?: string; email?: string }; // solo se expone dentro de ServiceRequest (RN-36)
   source: string;
 }
+export type PublicProvider = Omit<Provider, 'contact'>; // respuesta de GET /providers
 export interface Capability {
   id: string; providerId: string;        // en GENETICS: id = bull.naab (ADR-0002)
   category: NeedCategory;
@@ -137,7 +138,7 @@ export function listVerticals(): VerticalEngine[];                              
 | `PATCH /needs/:id` | `Partial<Need>` + `{ confirm?: true }` | `Need` (`DRAFT`, o `OPEN` si confirma) | 404 `NEED_NOT_FOUND` · 409 `NEED_INCOMPLETE` (falta `where` o `window`) |
 | `GET /needs` | `?farmId=` | `Need[]` (nunca los `Need` sintéticos de genética) | — |
 | `POST /needs/:id/matches` | — | `MatchBoard` | 409 `NEED_NOT_CONFIRMED` si sigue en `DRAFT` |
-| `GET /providers` | `?category=` | `Provider[]` (sin `contact`) | — |
+| `GET /providers` | `?category=` | `PublicProvider[]` | — |
 | `POST /needs/:id/requests` | `{ providerId: string; message: string }` | `ServiceRequest` (con `contact`) | 404 `PROVIDER_NOT_FOUND` · 409 `NEED_NOT_CONFIRMED` |
 | `POST /requests/:id/review` | `{ rating: number; comment: string }` | `Review` | 404 `REQUEST_NOT_FOUND` · 400 `VALIDATION_ERROR` (rating fuera de 1..5) |
 | `GET /advisor/overview` | — | `FarmSummary[]` | 403 `ROLE_FORBIDDEN` |
@@ -184,6 +185,8 @@ export interface FarmSummary {
 
 ### Requirement: REQ-B-02 Nada se busca hasta que el productor confirma
 `POST /needs` SHALL crear la `Need` en `DRAFT` y SHALL no ejecutar ningún matching. `PATCH /needs/:id` con `confirm: true` SHALL aplicar las correcciones del productor, SHALL validar que `where` y `window` estén completos, y SHALL pasar la necesidad a `OPEN`. `POST /needs/:id/matches` sobre una necesidad en `DRAFT` SHALL responder 409.
+
+Para `GENETICS`, la confirmación SHALL permitir `where` y `window` ausentes porque REQ-B-10 deriva al motor genético y no ejecuta el matching genérico. `POST /needs/:id/matches` mantiene la precondición de ambos campos para cualquier categoría.
 
 #### Scenario: Crear y confirmar
 - **WHEN** `tambero-a` hace `POST /needs { rawText, farmId: 'farm-a' }` y después `PATCH /needs/:id { where: {...}, confirm: true }`

@@ -13,6 +13,7 @@ import {
   ProviderContactSchema,
   ProviderSchema,
   ProviderTypeSchema,
+  PublicProviderSchema,
   ReviewSchema,
   ServiceRequestSchema,
   ServiceRequestStatusSchema,
@@ -33,6 +34,7 @@ export type PriceModel = z.infer<typeof PriceModelSchema>;
 export type ProviderType = z.infer<typeof ProviderTypeSchema>;
 export type ProviderContact = z.infer<typeof ProviderContactSchema>;
 export type Provider = z.infer<typeof ProviderSchema>;
+export type PublicProvider = z.infer<typeof PublicProviderSchema>;
 export type Capability = z.infer<typeof CapabilitySchema>;
 
 export type FitBreakdown = z.infer<typeof FitBreakdownSchema>;

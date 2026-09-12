@@ -33,8 +33,8 @@ Ninguna.
 - **`packages/ai`:** `src/need-intake.ts` (adaptador real de `NeedIntakePort`). Cambia una línea de `apps/backend/src/ai/ai.providers.ts` (`NEED_INTAKE_PORT`).
 - **`apps/backend`:** módulos `needs/`, `providers/`, `matching/`, `requests/` y, para el anexo, `advisor/`. Usan `NeedRepo`, `ProviderRepo`, `ServiceRequestRepo`, `ReviewRepo`, `FarmRepo`, `FemaleRepo`, `ClassificationRepo` de `api-skeleton`. Llaman a `matchNeed` de `@org/matching-core` (el stub hasta I2).
 - **`apps/frontend`:** `features/market/` y, para el anexo, `features/advisor/`. Handlers MSW propios de cada feature. Las rutas y la barra de tabs las deja `frontend-shell`; este flujo llena `/mercado` y `/motor-genetico/asesor`.
-- **`packages/shared-types`:** `NeedSchema` admite `where`/`window` ausentes en `DRAFT`; `UpdateNeedBodySchema.confirm` es opcional.
-- **`apps/backend/prisma`:** las columnas JSON de lugar y ventana admiten `NULL` mientras la necesidad está en `DRAFT`.
+- **`packages/shared-types`:** `NeedSchema` admite `where`/`window` ausentes en `DRAFT`; `UpdateNeedBodySchema.confirm` es opcional; `PublicProvider` representa la respuesta sin contacto.
+- **`apps/backend/prisma`:** las columnas JSON de lugar y ventana admiten `NULL` mientras la necesidad está en `DRAFT`, y `lastMatchBoard` conserva la trazabilidad RN-39.
 - **`packages/shared-types/fixtures/providers.json`:** M7 reemplaza la semilla de T0 con el mismo esquema.
 - **Sin dependencias nuevas.**
 
