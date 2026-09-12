@@ -616,11 +616,20 @@
   gap: 24px;
   flex-wrap: wrap;
 }
+/* `overflow-wrap: anywhere` (global) borra el piso de min-content que
+   frenaría el shrink normal de flexbox: sin flex-basis fijo, el heading se
+   angosta hasta partir palabras letra por letra ("encuentro" + "s"). El
+   texto es el contenido principal de la pantalla: se lleva el espacio que
+   sobra, el modelo 3D queda como acento fijo y chico a la derecha. */
+.gx-plan-top .gx-heading {
+  flex: 1 1 420px;
+  max-width: 460px;
+}
 .gx-plan-world {
   position: relative;
-  flex: 1 1 320px;
-  min-width: 260px;
-  height: 280px;
+  flex: 0 0 240px;
+  width: 240px;
+  height: 200px;
 }
 .gx-plan-world .spatial-label {
   padding: 6px 14px;
