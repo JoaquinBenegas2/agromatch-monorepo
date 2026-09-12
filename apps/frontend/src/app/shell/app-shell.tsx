@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Building2, Dna, Handshake, Package, Store } from 'lucide-react';
+import { Building2, Dna, Handshake, Leaf, Package, Store } from 'lucide-react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   Shell,
@@ -44,15 +44,16 @@ export function AppShell() {
   return (
     <Shell>
       <Sidebar>
-        <SidebarBrand mark="AM" name="AgroMatch" subtitle="Torinder" />
+        <SidebarBrand mark={<Leaf className="size-4" />} name="AgroMatch" subtitle="Torinder" />
         <SidebarNav>
-          <SidebarNavGroup>
+          <SidebarNavGroup label="Tu espacio de trabajo">
             {NAV_MODULES.map((mod) => (
               <SidebarNavItem
                 key={mod.id}
                 href={mod.tabs[0].path}
                 icon={MODULE_ICONS[mod.id]}
                 active={activeModule?.id === mod.id}
+                subtitle={mod.subtitle}
                 onClick={(e) => {
                   e.preventDefault();
                   navigate(mod.tabs[0].path);

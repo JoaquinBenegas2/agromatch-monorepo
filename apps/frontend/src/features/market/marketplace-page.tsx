@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
+import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
 import { useActiveFarmId, useUser } from '../../shared/user/user-context.js';
 import { NeedInterpretation } from './need-interpretation.js';
 import { MarketResults } from './market-results.js';
@@ -141,6 +142,20 @@ export function MarketplacePage() {
     <div className="relative isolate flex min-h-[calc(100vh-112px)] items-center justify-center overflow-hidden px-4 py-12">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_42%,var(--card)_0,transparent_46%)]" />
       <div className="flex w-full max-w-[680px] flex-col items-center gap-8 text-center">
+        <SpatialScene
+          kind="market"
+          className="hidden h-[220px] w-full rounded-xl border border-border bg-primary sm:block"
+        >
+          <SpatialLabel anchor="need" className="-translate-x-1/2">
+            <span className="inline-flex items-center rounded-full bg-[#0d3027cc] px-2.5 py-1 text-[9px] font-semibold tracking-[0.08em] text-lime uppercase backdrop-blur">
+              Tu necesidad
+            </span>
+          </SpatialLabel>
+          <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#d4e9b5]">
+            Vista conceptual, no representa proveedores reales
+          </span>
+        </SpatialScene>
+
         <div className="space-y-2">
           <p className="text-[11px] font-semibold tracking-[0.12em] text-muted-foreground uppercase">Hora de empezar, {user.name}</p>
           <h1 className="text-balance text-[30px] leading-tight font-bold tracking-[-0.035em] sm:text-[38px]">

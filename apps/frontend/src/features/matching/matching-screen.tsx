@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Compass, Dna } from 'lucide-react';
-import type { BreedingGoal, GoalPreset, MatchCandidate } from '@org/shared-types';
+import type { BreedingGoal, ExplanationFacts, GoalPreset, MatchCandidate } from '@org/shared-types';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -9,12 +9,33 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { EmptyState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ErrorMessage } from '@/components/ui/error-message';
+import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
 import { useActiveFarmId } from '../../shared/user/user-context.js';
 import { useMatchBoard } from '../../shared/api/hooks/use-match-board.js';
 import { useAddPlanItem, useRemovePlanItem } from '../../shared/api/hooks/use-plan-item-mutations.js';
 import { useGoalParse } from '../../shared/api/hooks/use-goal-parse.js';
 import { usePlan } from '../../shared/api/hooks/use-plan.js';
 import { MatchRow } from './match-row.js';
+
+/** Anima 0→1 (o 1→0) en ~1.2s; se lee por ref en cada frame, sin re-render. */
+function useRevealProgress(active: boolean) {
+  const progressRef = useRef(active ? 1 : 0);
+  useEffect(() => {
+    const from = progressRef.current;
+    const target = active ? 1 : 0;
+    const duration = 1200;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      progressRef.current = from + (target - from) * t;
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [active]);
+  return progressRef;
+}
 
 const PRESETS: { id: GoalPreset; label: string }[] = [
   { id: 'BALANCED', label: 'Balanceado' },
@@ -64,6 +85,7 @@ export function MatchingScreen() {
   // local — así al entrar desde /negociacion/plan ya viene marcado.
   const plan = usePlan(activeFarmId);
   const chosenNaab = plan.data?.items.find((item) => item.femaleId === femaleId)?.bullNaab ?? null;
+  const revealRef = useRevealProgress(Boolean(chosenNaab));
 
   function handleProcesar() {
     // REQ-D-07: con texto vacío, usa el preset elegido sin llamar al LLM.
@@ -98,6 +120,10 @@ export function MatchingScreen() {
 
   const ranked = board.data?.ranked ?? [];
   const excluded = board.data?.excluded ?? [];
+  const sceneCandidate = ranked.find((c) => c.capabilityId === chosenNaab) ?? ranked[0];
+  const sceneBullName =
+    (sceneCandidate?.verticalFacts as ExplanationFacts | undefined)?.bull.name ??
+    sceneCandidate?.capabilityId;
 
   const objectiveBar = (
     <div className="flex items-center gap-3">
@@ -178,6 +204,36 @@ export function MatchingScreen() {
           Cambiar hembra
         </Button>
       </div>
+
+      {ranked.length > 0 && (
+        <SpatialScene
+          kind="genetic"
+          className="h-[280px] w-full rounded-lg border border-border bg-[radial-gradient(ellipse_at_48%_15%,#38664d_0%,#164737_48%,#103c31_100%)]"
+          options={{
+            progress: () => revealRef.current,
+            projected: () => true,
+          }}
+        >
+          <SpatialLabel anchor="mother" className="-translate-x-1/2">
+            <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">
+              Tu hembra
+            </span>
+            <strong className="block text-[15px] font-medium text-[#f0f5dc]">{femaleId}</strong>
+          </SpatialLabel>
+          <SpatialLabel anchor="bull" className="-translate-x-1/2">
+            <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">
+              {chosenNaab ? 'Toro elegido' : 'Toro mejor rankeado'}
+            </span>
+            <strong className="block text-[15px] font-medium text-[#f0f5dc]">{sceneBullName}</strong>
+          </SpatialLabel>
+          <SpatialLabel anchor="calf" className="-translate-x-1/2">
+            <span className="block text-[8px] font-semibold tracking-[0.1em] text-lime uppercase">Cría proyectada</span>
+          </SpatialLabel>
+          <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#b5ceb1]">
+            Representación conceptual. No predice sexo, pelaje ni resultado reproductivo.
+          </span>
+        </SpatialScene>
+      )}
 
       {board.isPending && (
         <div className="flex flex-col gap-3">
