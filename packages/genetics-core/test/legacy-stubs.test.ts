@@ -1,13 +1,12 @@
-import { matchNeed } from '@org/matching-core';
-import type { Bull, Capability, Classification, Farm, Female, Need, Provider, TraitStats } from '@org/shared-types';
-import { GOAL_PRESETS, GeneticsVertical, buildAutoPlan, classifyHerd, scoreCandidates } from '../src/legacy-stubs.js';
+import type { Bull, Classification, Farm, Female, TraitStats } from '@org/shared-types';
+import { GOAL_PRESETS } from '../src/matching/presets.js';
+import { buildAutoPlan, classifyHerd } from '../src/legacy-stubs.js';
 import { computeTraitStats } from '../src/traits.js';
 
 /**
- * Cobertura que ya existía para los stubs de T0 fuera de alcance de A
- * (`classifyHerd`, `buildAutoPlan`) y para `scoreCandidates`/`GeneticsVertical`
- * mientras siguen siendo stub (Hito 3 los reemplaza por la implementación
- * real y estos casos se actualizan ahí).
+ * Cobertura de los stubs de T0 fuera de alcance de `mvp-a-core`
+ * (`classifyHerd` es B2/`mvp-c-herd`) y de `buildAutoPlan` (B5/`mvp-d-match`),
+ * que desde el Hito 3 usa la implementación real de `scoreCandidates`.
  */
 
 const farm: Farm = {
@@ -61,8 +60,8 @@ function makeBull(overrides: Partial<Bull> = {}): Bull {
   };
 }
 
-describe('legacy stubs (fuera de alcance de mvp-a-core, se relocan sin tocar la lógica)', () => {
-  it('classifyHerd reparte en tercios por CI', () => {
+describe('classifyHerd (B2, fuera de alcance de A, se relocó intacto)', () => {
+  it('reparte en tercios por CI', () => {
     const females = [
       makeFemale({ id: 'f-1', profile: { ...makeFemale().profile!, traits: { ...makeFemale().profile!.traits, ci: 900 } } }),
       makeFemale({ id: 'f-2', profile: { ...makeFemale().profile!, traits: { ...makeFemale().profile!.traits, ci: 500 } } }),
@@ -73,34 +72,10 @@ describe('legacy stubs (fuera de alcance de mvp-a-core, se relocan sin tocar la 
     expect(classifications.find((c) => c.femaleId === 'f-1')?.tier).toBe('ELITE');
     expect(classifications.find((c) => c.femaleId === 'f-3')?.tier).toBe('CULL_ALERT');
   });
+});
 
-  it('scoreCandidates (stub) devuelve MatchBoard ordenado con compatibility del #1 en 100', () => {
-    const female = makeFemale();
-    const classification: Classification = {
-      femaleId: female.id,
-      tier: 'COMMERCIAL',
-      semenType: 'CONVENTIONAL',
-      ciPercentile: 50,
-      tags: [],
-      corrective: [],
-      reasons: [],
-    };
-    const bulls = [
-      makeBull({ naab: 'bull-low', profile: { ...makeBull().profile!, traits: { ...makeBull().profile!.traits, ci: 400 } } }),
-      makeBull({ naab: 'bull-high', profile: { ...makeBull().profile!, traits: { ...makeBull().profile!.traits, ci: 900 } } }),
-      makeBull({ naab: 'bull-mid', profile: { ...makeBull().profile!, traits: { ...makeBull().profile!.traits, ci: 600 } } }),
-    ];
-    const stats = computeTraitStats(bulls.map((b) => b.profile!));
-
-    const board = scoreCandidates(female, classification, bulls, GOAL_PRESETS.BALANCED, farm, stats);
-
-    expect(board.excluded).toEqual([]);
-    expect(board.ranked.map((c) => c.capabilityId)).toEqual(['bull-high', 'bull-mid', 'bull-low']);
-    expect(board.ranked[0].compatibility).toBe(100);
-    expect(board.ranked.map((c) => c.rank)).toEqual([1, 2, 3]);
-  });
-
-  it('buildAutoPlan asigna el primer toro de ranked a cada hembra clasificada', () => {
+describe('buildAutoPlan (B5, fuera de alcance de A) sobre el scoreCandidates real del Hito 3', () => {
+  it('asigna el primer toro de ranked a cada hembra clasificada', () => {
     const female = makeFemale();
     const classification: Classification = {
       femaleId: female.id,
@@ -112,72 +87,10 @@ describe('legacy stubs (fuera de alcance de mvp-a-core, se relocan sin tocar la 
       reasons: [],
     };
     const bulls = [makeBull({ naab: 'bull-a' }), makeBull({ naab: 'bull-b' })];
-    const stats = computeTraitStats(bulls.map((b) => b.profile!));
+    const stats: TraitStats = computeTraitStats(bulls.map((b) => b.profile!));
 
     const plan = buildAutoPlan(farm, [female], [classification], bulls, GOAL_PRESETS.BALANCED, stats);
     expect(plan.items).toHaveLength(1);
     expect(plan.totals.doses.CONVENTIONAL).toBe(1);
-  });
-
-  it('matchNeed(need, caps, provs, [GeneticsVertical]) da verticalFacts y fit.vertical en [0,1]', () => {
-    const female = makeFemale();
-    const classification: Classification = {
-      femaleId: female.id,
-      tier: 'COMMERCIAL',
-      semenType: 'CONVENTIONAL',
-      ciPercentile: 50,
-      tags: [],
-      corrective: [],
-      reasons: [],
-    };
-    const bull = makeBull();
-    const stats = computeTraitStats([bull.profile!]);
-
-    const need: Need = {
-      id: 'need-1',
-      farmId: farm.id,
-      rawText: 'necesito el mejor toro para esta hembra',
-      category: 'GENETICS',
-      what: 'matching genético',
-      where: { lat: 0, lng: 0, label: 'Establecimiento' },
-      window: { from: '2026-01-01', to: '2026-12-31' },
-      constraints: [],
-      status: 'OPEN',
-      goal: GOAL_PRESETS.BALANCED,
-      createdAt: '2026-09-12T00:00:00.000Z',
-    };
-    const capability: Capability = {
-      id: bull.naab,
-      providerId: 'prov-genetics',
-      category: 'GENETICS',
-      serviceType: 'semen',
-      coverageRadiusKm: 500,
-      availability: [],
-      priceModel: 'PER_UNIT',
-      certifications: [],
-      attributes: {},
-    };
-    const provider: Provider = {
-      id: 'prov-genetics',
-      name: 'Central Genética',
-      type: 'SEMEN_COMPANY',
-      base: { lat: 0, lng: 0, label: 'Central' },
-      verified: false,
-      reputation: { avg: 4, jobs: 10 },
-      contact: {},
-      source: 'test',
-    };
-
-    const board = matchNeed(need, [capability], [provider], [GeneticsVertical], {
-      female,
-      classification,
-      bulls: [bull],
-      stats,
-    });
-
-    expect(board.ranked).toHaveLength(1);
-    expect(board.ranked[0].verticalFacts).toBeDefined();
-    expect(board.ranked[0].fit.vertical).toBeGreaterThanOrEqual(0);
-    expect(board.ranked[0].fit.vertical).toBeLessThanOrEqual(1);
   });
 });
