@@ -132,7 +132,7 @@ curl -s --max-time 90 http://localhost:3333/api/farms/farm-a/chat -X POST \
 | "¿por qué la 3031 es comercial?" | `["explainClassification"]` | el texto menciona el SCS / la mastitis |
 | "¿qué toro me conviene comprar?" | `[]` | **no inventa**: dice que eso se ve en el swipe. En la UI sale marcado `FALLBACK` |
 
-### 4.4 El chat en la pantalla (D8)
+### 4.4 El chat en la pantalla (C6 + B7 + D8)
 
 1. Ir a `http://localhost:4200/motor-genetico/tablero`.
 2. El botón del chat está **en el Topbar** (`aria-label="Abrir chat sobre el rodeo"`), no en el sidebar.
@@ -148,9 +148,28 @@ curl -s http://localhost:3333/api/farms/farm-a/females/f-3031/matches -X POST \
   -d '{"goal":{"preset":"SOLIDS_CHEESE","weights":{"fat":0.35,"pro":0.35,"pl":0.15,"scs":0.15},"wantBetaA2":false,"wantKappaBB":true}}'
 ```
 
-**Qué mirar:** `ranked.length > 0`, el `#1` con `verticalFacts.expectedProgeny.scs < 3.00` (el rescate de la 3031), y los hijos de `029HO19531` en `excluded` con `RN-05`.
+**Esperado (SOLIDS_CHEESE, sep-2026), verificado contra el rodeo real:**
 
-> 🐞 **Bug abierto, bloquea este paso.** `makeGeneticsNeed` arma la `Need` sintética con `where: {lat:0, lng:0}` (placeholder). Los proveedores semilla están en Argentina, así que `hardFilters` (RN-31) los descarta a todos por distancia (**7.580 km contra un radio de 500 km**) y devuelve `ranked: 0`. Además, 18 de los 30 toros de `bulls.json` no tienen fila en `providers.json` → nunca pueden aparecer. Hasta que se resuelva, este paso del QA da rojo por diseño.
+| Qué | Valor |
+|---|---|
+| `ranked.length` | **19** |
+| `excluded.length` | **1** → `029HO21010`, el padre de la 3031, con `RN-05` y el detalle "25% de consanguinidad" |
+| `#1` | `29HO22734` (DENOVO 24492 MERIT-P-ET), `compatibility: 100` |
+| `#1` → `verticalFacts.expectedProgeny.scs` | **3.00**, bajando desde el 3,19 de la madre — el rescate de la 3031 |
+
+Ojo: con `preset: BALANCED` y `weights: {}` el ranking es distinto (empata a todos en 100 y el `#1` pasa a ser `029HO19531`). Los números de arriba son con `SOLIDS_CHEESE`.
+
+> 📌 La `Need` sintética del matching genético **no declara `where` ni `window`** a propósito (una pajuela viaja por correo). RN-31 lo reporta como "no se evalúa cobertura / disponibilidad" con `passed: true`, y el término de cercanía sale del puntaje renormalizando. Si alguna vez volvés a ver `ranked: 0`, mirá primero `filters` en `excluded`: es el síntoma de que alguien le puso una ubicación inventada.
+
+### 4.6 El swipe en la pantalla
+
+1. Ir a `http://localhost:4200/motor-genetico/matching`.
+2. Entrar por `Ver Tablero del rodeo` y elegir la hembra desde la tabla.
+3. Tiene que verse el encabezado "**19 evaluados contra tu hembra · ordenado por compatibilidad · 1 excluido**", y cada tarjeta con su rango (`#1`, `#2`, …), la comparación madre vs toro y la cría esperada.
+
+> 🐞 **Dos bugs abiertos del front (flujo D), ninguno del motor:**
+> - El buscador "Buscá por ID visual (ej. 3031)" manda el `visualId` a una ruta que espera el `id` de la hembra: `POST /api/farms/farm-a/females/**3031**/matches` → **404**. Funciona entrando por el tablero, o navegando a mano a `/motor-genetico/matching/f-3031`.
+> - El badge de rango dice `#1 de 0 · 100` en vez de `#1 de 19`. Además de ser un error de formato, choca con la regla 5 del proyecto: la compatibilidad se muestra como ranking relativo honesto ("#1 de 19"), nunca suelta.
 
 ## 5. Verificar que los datos quedaron bien
 
