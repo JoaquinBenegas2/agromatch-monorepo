@@ -35,18 +35,7 @@ const SORT_CHIPS = [
   { value: 'price', label: 'Menor precio/ha' },
 ];
 
-function formatWindow(need: Need): string {
-  if (!need.window) return 'Sin fecha';
-  const format = (value: string) => new Intl.DateTimeFormat('es-AR', { dateStyle: 'short' }).format(new Date(`${value}T12:00:00`));
-  return `${format(need.window.from)} – ${format(need.window.to)}`;
-}
-
-function summary(need: Need): string {
-  const magnitude = need.magnitude ? `${need.magnitude.value} ${need.magnitude.unit}` : 'cantidad a definir';
-  return `${need.what} · ${magnitude} · ${need.where?.label ?? 'sin ubicación'}${need.radiusKm ? ` +${need.radiusKm} km` : ''} · ${formatWindow(need)}`;
-}
-
-function ResultSkeleton() {
+export function ResultSkeleton() {
   return (
     <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3" aria-label="Cargando proveedores">
       {[0, 1, 2].map((index) => (
@@ -256,12 +245,7 @@ export function MarketResults({
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-4 py-5 sm:py-7">
-      <Card className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[11.5px] text-muted-foreground">{summary(need)}</p>
-        <Button type="button" variant="link" onClick={onEdit}>Editar búsqueda</Button>
-      </Card>
-
+    <>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-[17px] font-bold tracking-tight">Soluciones para tu necesidad</p>
@@ -376,6 +360,6 @@ export function MarketResults({
           setRequest(undefined);
         }}
       />
-    </div>
+    </>
   );
 }

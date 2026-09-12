@@ -27,18 +27,10 @@ export class MatchingService {
         { needId },
       );
     }
-    const missingFields = [!need.where ? 'where' : null, !need.window ? 'window' : null].filter(
-      (field): field is string => field !== null,
-    );
-    if (missingFields.length > 0) {
-      throw new DomainError(
-        'NEED_INCOMPLETE',
-        'La necesidad no tiene fecha y lugar para ejecutar el matching general',
-        409,
-        { missingFields },
-      );
-    }
 
+    // `where`/`window` ausentes no bloquean el matching: `hardFilters`
+    // (RN-31) ya trata "sin ubicación"/"sin ventana" como "no se evalúa esa
+    // regla", que es exactamente mostrar todo sin filtrar por ese campo.
     const [capabilities, providers] = await Promise.all([
       this.providers.listCapabilities({ category: need.category }),
       this.providers.list({ category: need.category }),

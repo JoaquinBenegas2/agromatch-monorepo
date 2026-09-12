@@ -1,11 +1,11 @@
 import type { Need, NeedCategory, Unit } from '@org/shared-types';
-import { AlertTriangle, CalendarDays, MapPin, PencilLine, Tractor } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertTriangle, CalendarDays, ChevronDown, MapPin, PencilLine, Ruler, Tractor } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
 
 const CATEGORIES: Array<{ value: NeedCategory; label: string }> = [
   { value: 'MACHINERY', label: 'Servicio de maquinaria' },
@@ -33,35 +33,6 @@ const PLACES = [
   { label: 'Rosario, Santa Fe', lat: -32.944, lng: -60.65 },
 ];
 
-function FieldRow({
-  label,
-  icon,
-  warning,
-  children,
-}: {
-  label: string;
-  icon: React.ReactNode;
-  warning?: React.ReactNode;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="grid gap-3 border-b border-border-soft px-4 py-4 last:border-0 sm:grid-cols-[132px_1fr] sm:items-start">
-      <div className="flex items-center gap-2 pt-2 text-[11px] font-semibold tracking-wide text-muted-foreground uppercase">
-        <span className="text-primary [&_svg]:size-3.5">{icon}</span>
-        {label}
-      </div>
-      <div className="space-y-2">
-        {children}
-        {warning ? (
-          <Badge variant="warn">
-            <AlertTriangle className="size-3" /> {warning}
-          </Badge>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
 function needsReview(need: Need, ...fields: string[]): boolean {
   return fields.some(
     (field) =>
@@ -70,24 +41,61 @@ function needsReview(need: Need, ...fields: string[]): boolean {
   );
 }
 
-export function NeedInterpretation({
+function formatWindow(need: Need): string | undefined {
+  if (!need.window?.from || !need.window.to) return undefined;
+  const format = (value: string) => new Intl.DateTimeFormat('es-AR', { dateStyle: 'short' }).format(new Date(`${value}T12:00:00`));
+  return `${format(need.window.from)} – ${format(need.window.to)}`;
+}
+
+function Pill({
+  icon,
+  label,
+  warn,
+  children,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  warn?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11.5px] font-medium transition-colors',
+            warn
+              ? 'border-warning/50 border-dashed bg-warning-soft text-warning hover:bg-warning-soft/80'
+              : 'border-border bg-card text-foreground hover:bg-muted',
+          )}
+        >
+          <span className="[&_svg]:size-3.5">{icon}</span>
+          {label}
+          <ChevronDown className="size-3 opacity-60" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent align="start" className="w-auto min-w-64">
+        {children}
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export function NeedFilterBar({
   need,
   onChange,
   onEditQuery,
-  onConfirm,
+  onSearch,
   busy,
 }: {
   need: Need;
   onChange: (need: Need) => void;
   onEditQuery: () => void;
-  onConfirm: () => void;
+  onSearch: () => void;
   busy: boolean;
 }) {
   const place = need.where?.label ?? '';
-  // La IA devuelve el lugar tal como lo escribió el productor ("Río Cuarto"),
-  // que rara vez coincide letra por letra con la lista fija. Si ya viene una
-  // ubicación con coordenadas, se ofrece como opción: nunca se pierde lo que
-  // el intake interpretó bien.
   const places =
     need.where && !PLACES.some((candidate) => candidate.label === need.where?.label)
       ? [{ label: need.where.label, lat: need.where.lat, lng: need.where.lng }, ...PLACES]
@@ -106,60 +114,67 @@ export function NeedInterpretation({
 
   function updatePlace(label: string) {
     const selected = places.find((candidate) => candidate.label === label);
-    if (selected) {
-      onChange(resolveFields({ ...need, where: selected }, 'where'));
-    }
+    if (selected) onChange(resolveFields({ ...need, where: selected }, 'where'));
   }
 
-  const unresolved = [
-    !need.where?.label.trim() ? 'where' : null,
-    !need.window?.from || !need.window.to ? 'window' : null,
-  ].filter((field): field is string => field !== null);
-  const requiresPlaceAndWindow = need.category !== 'GENETICS';
+  const category = CATEGORIES.find((entry) => entry.value === need.category)?.label ?? need.what;
+  const magnitudeLabel = need.magnitude
+    ? `${need.magnitude.value} ${UNITS.find((unit) => unit.value === need.magnitude?.unit)?.label ?? need.magnitude.unit}`
+    : undefined;
+  const windowLabel = formatWindow(need);
+  const missingWhere = !need.where?.label.trim();
+  const missingWindow = !need.window?.from || !need.window.to;
+  // Sin lugar no se inventa nada: el motor busca en todo el país. Sin fecha,
+  // el backend ya completó un rango de un año al confirmar (ver
+  // needs.service.ts) — acá solo se avisa que fue un valor por defecto.
+  const windowIsDefaulted = !missingWindow && need.missingFields?.includes('window') === true;
+
+  const warnings = [
+    needsReview(need, 'category', 'what') ? 'Revisá el rubro' : null,
+    needsReview(need, 'magnitude') ? 'Revisá la cantidad' : null,
+    !missingWhere && needsReview(need, 'where', 'radiusKm') ? 'Revisá la ubicación' : null,
+    windowIsDefaulted
+      ? 'Fecha por defecto (próximo año): ajustala si hace falta'
+      : !missingWindow && needsReview(need, 'window')
+        ? 'Fecha deducida del texto'
+        : null,
+  ].filter((message): message is string => message !== null);
 
   return (
-    <div className="mx-auto flex w-full max-w-[640px] flex-col gap-4 py-6 sm:py-10">
-      <Card className="flex items-center gap-3 px-4 py-3 shadow-sm">
-        <p className="min-w-0 flex-1 truncate text-[13px] text-muted-foreground">
+    <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-3 shadow-sm">
+      <div className="flex items-center justify-between gap-2">
+        <p className="min-w-0 flex-1 truncate text-[12px] text-muted-foreground">
           &ldquo;{need.rawText}&rdquo;
         </p>
         <Button type="button" variant="ghost" size="sm" onClick={onEditQuery}>
           <PencilLine /> Editar consulta
         </Button>
-      </Card>
+      </div>
 
-      <Card className="overflow-hidden shadow-sm">
-        <CardHeader className="bg-muted/35 py-3.5">
-          <CardTitle>Lo que AgroMatch entendió</CardTitle>
-        </CardHeader>
-
-        <FieldRow label="Necesidad" icon={<Tractor />} warning={needsReview(need, 'category', 'what') ? 'Revisá este dato' : undefined}>
-          <div className="grid gap-2 sm:grid-cols-[190px_1fr]">
+      <div className="flex flex-wrap items-center gap-2">
+        <Pill icon={<Tractor />} label={need.what || category} warn={needsReview(need, 'category', 'what')}>
+          <div className="flex flex-col gap-2">
             <Select
               value={need.category}
-              onValueChange={(category) =>
-                onChange(resolveFields({ ...need, category: category as NeedCategory }, 'category'))
-              }
+              onValueChange={(next) => onChange(resolveFields({ ...need, category: next as NeedCategory }, 'category'))}
             >
               <SelectTrigger aria-label="Categoría de la necesidad"><SelectValue /></SelectTrigger>
               <SelectContent>
-                {CATEGORIES.map((category) => (
-                  <SelectItem key={category.value} value={category.value}>{category.label}</SelectItem>
+                {CATEGORIES.map((entry) => (
+                  <SelectItem key={entry.value} value={entry.value}>{entry.label}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
             <Input
               aria-label="Qué necesitás"
               value={need.what}
-              onChange={(event) =>
-                onChange(resolveFields({ ...need, what: event.target.value }, 'what'))
-              }
+              onChange={(event) => onChange(resolveFields({ ...need, what: event.target.value }, 'what'))}
             />
           </div>
-        </FieldRow>
+        </Pill>
 
-        <FieldRow label="Cantidad" icon={<PencilLine />} warning={needsReview(need, 'magnitude') ? 'Revisá este dato' : undefined}>
-          <div className="grid grid-cols-[1fr_150px] gap-2">
+        <Pill icon={<Ruler />} label={magnitudeLabel ?? 'Cantidad: sin definir'} warn={needsReview(need, 'magnitude')}>
+          <div className="grid grid-cols-[1fr_130px] gap-2">
             <Input
               aria-label="Cantidad"
               type="number"
@@ -170,9 +185,7 @@ export function NeedInterpretation({
                 const value = event.target.valueAsNumber;
                 const next = {
                   ...need,
-                  magnitude: Number.isFinite(value)
-                    ? { value, unit: need.magnitude?.unit ?? 'UNIT' }
-                    : undefined,
+                  magnitude: Number.isFinite(value) ? { value, unit: need.magnitude?.unit ?? 'UNIT' } : undefined,
                 };
                 onChange(Number.isFinite(value) ? resolveFields(next, 'magnitude') : next);
               }}
@@ -180,12 +193,7 @@ export function NeedInterpretation({
             <Select
               value={need.magnitude?.unit ?? 'UNIT'}
               onValueChange={(unit) =>
-                onChange(
-                  resolveFields(
-                    { ...need, magnitude: { value: need.magnitude?.value ?? 1, unit: unit as Unit } },
-                    'magnitude',
-                  ),
-                )
+                onChange(resolveFields({ ...need, magnitude: { value: need.magnitude?.value ?? 1, unit: unit as Unit } }, 'magnitude'))
               }
             >
               <SelectTrigger aria-label="Unidad"><SelectValue /></SelectTrigger>
@@ -194,10 +202,14 @@ export function NeedInterpretation({
               </SelectContent>
             </Select>
           </div>
-        </FieldRow>
+        </Pill>
 
-        <FieldRow label="Ubicación" icon={<MapPin />} warning={needsReview(need, 'where', 'radiusKm') ? 'Revisá este dato' : undefined}>
-          <div className="grid gap-2 sm:grid-cols-[1fr_120px]">
+        <Pill
+          icon={<MapPin />}
+          label={place ? `${place}${need.radiusKm ? ` +${need.radiusKm} km` : ''}` : 'Todo el país'}
+          warn={!missingWhere && needsReview(need, 'where', 'radiusKm')}
+        >
+          <div className="grid gap-2">
             <Select value={place || undefined} onValueChange={updatePlace}>
               <SelectTrigger aria-label="Ubicación"><SelectValue placeholder="Elegí una ubicación" /></SelectTrigger>
               <SelectContent>
@@ -221,9 +233,13 @@ export function NeedInterpretation({
               }}
             />
           </div>
-        </FieldRow>
+        </Pill>
 
-        <FieldRow label="Fecha sugerida" icon={<CalendarDays />} warning={needsReview(need, 'window') ? 'Fecha deducida del texto' : undefined}>
+        <Pill
+          icon={<CalendarDays />}
+          label={windowLabel ?? 'Buscando fecha…'}
+          warn={windowIsDefaulted || (!missingWindow && needsReview(need, 'window'))}
+        >
           <div className="grid grid-cols-2 gap-2">
             <Input
               aria-label="Fecha desde"
@@ -246,36 +262,22 @@ export function NeedInterpretation({
               }}
             />
           </div>
-        </FieldRow>
-      </Card>
+        </Pill>
 
-      {unresolved.length > 0 ? (
-        <Alert variant="warning">
-          <AlertTriangle />
-          <AlertDescription>
-            No completamos {unresolved.includes('where') ? 'el lugar' : ''}
-            {unresolved.length === 2 ? ' ni ' : ''}
-            {unresolved.includes('window') ? 'la fecha' : ''}. Ingresalos vos antes de buscar.
-          </AlertDescription>
-        </Alert>
+        <Button type="button" size="sm" className="ml-auto" disabled={busy} onClick={onSearch}>
+          {busy ? 'Buscando…' : 'Buscar'}
+        </Button>
+      </div>
+
+      {warnings.length > 0 ? (
+        <div className="flex flex-wrap gap-1.5">
+          {warnings.map((message) => (
+            <Badge key={message} variant="warn">
+              <AlertTriangle className="size-3" /> {message}
+            </Badge>
+          ))}
+        </div>
       ) : null}
-
-      <Button
-        type="button"
-        size="lg"
-        className="w-full"
-        disabled={busy || (requiresPlaceAndWindow && unresolved.length > 0)}
-        onClick={onConfirm}
-      >
-        {busy
-          ? 'Buscando soluciones…'
-          : need.category === 'GENETICS'
-            ? 'Ir al motor genético'
-            : 'Confirmar y buscar soluciones'}
-      </Button>
-      <p className="text-center text-[11px] text-muted-foreground">
-        Tocá cualquier campo para corregirlo antes de buscar
-      </p>
     </div>
   );
 }

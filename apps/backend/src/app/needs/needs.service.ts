@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { CreateNeedBody, Need, NeedIntakePort, UpdateNeedBody, User } from '@org/shared-types';
+import type { CreateNeedBody, Need, NeedIntakePort, TimeWindow, UpdateNeedBody, User } from '@org/shared-types';
 import { NEED_INTAKE_PORT } from '../../ai/tokens.js';
 import { DomainError } from '../../common/errors/domain-error.js';
 import { NEED_REPO, type NeedRepo } from '../../repos/need.port.js';
@@ -10,11 +10,19 @@ const MUTABLE_FIELDS = [
   'magnitude', 'constraints', 'budget', 'goal',
 ] as const satisfies ReadonlyArray<keyof Need>;
 
-function missingRequiredFields(need: Need): string[] {
-  if (need.category === 'GENETICS') return [];
-  return [!need.where ? 'where' : null, !need.window ? 'window' : null].filter(
-    (field): field is string => field !== null,
-  );
+const DEFAULT_WINDOW_DAYS = 365;
+
+/**
+ * Cuando el productor no dio fecha, no bloqueamos la búsqueda (RN-31 ya
+ * trata `window` ausente como "no se evalúa disponibilidad", que en la
+ * práctica es "mostrame todo"). En su lugar completamos un rango amplio y
+ * visible para que el productor lo vea y lo pueda ajustar, en vez de dejarlo
+ * bloqueado esperando un dato que la IA nunca inventó.
+ */
+function defaultSearchWindow(now: () => Date = () => new Date()): TimeWindow {
+  const today = now();
+  const to = new Date(today.getTime() + DEFAULT_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+  return { from: today.toISOString().slice(0, 10), to: to.toISOString().slice(0, 10) };
 }
 
 @Injectable()
@@ -53,17 +61,15 @@ export class NeedsService {
     }
 
     if (body.confirm) {
-      const required = missingRequiredFields(next);
-      if (required.length > 0) {
-        throw new DomainError(
-          'NEED_INCOMPLETE',
-          'Completá fecha y lugar antes de buscar proveedores',
-          409,
-          { missingFields: required },
-        );
+      const defaulted: string[] = [];
+      if (next.category !== 'GENETICS' && !next.window) {
+        next.window = defaultSearchWindow();
+        defaulted.push('window');
       }
       next.status = 'OPEN';
-      next.missingFields = undefined;
+      // Ubicación ausente: no se inventa (RN sobre no inventar datos). El
+      // motor ya sabe mostrar todo el país cuando `where` no está declarado.
+      next.missingFields = defaulted.length > 0 ? defaulted : undefined;
     } else {
       next.missingFields = stillMissing.size > 0 ? [...stillMissing] : undefined;
     }

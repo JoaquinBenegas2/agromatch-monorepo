@@ -38,22 +38,26 @@ function distanceKm(a: { lat: number; lng: number }, b: { lat: number; lng: numb
 }
 
 function candidateFor(need: Need, capabilityId: string): MatchCandidate | null {
-  if (!need.where) return null;
   const capability = capabilities.find((item) => item.id === capabilityId);
   const provider = providers.find((item) => item.id === capability?.providerId);
   if (!capability || !provider) return null;
-  const distance = distanceKm(need.where, provider.base);
-  const passed = distance <= capability.coverageRadiusKm;
+  // Sin ubicación declarada no se filtra por distancia (RN-31): se muestra
+  // igual, sin penalizar ni excluir por cobertura.
+  const distance = need.where ? distanceKm(need.where, provider.base) : null;
+  const passed = distance === null || distance <= capability.coverageRadiusKm;
   const filters: FilterResult[] = [
     {
       rule: 'RN-31',
       passed,
-      detail: passed
-        ? `Cubre la ubicación: ${distance.toFixed(0)} km de distancia`
-        : `No cubre la zona: ${distance.toFixed(0)} km supera su radio de ${capability.coverageRadiusKm} km`,
+      detail:
+        distance === null
+          ? 'La necesidad no declara ubicación: no se evalúa cobertura'
+          : passed
+            ? `Cubre la ubicación: ${distance.toFixed(0)} km de distancia`
+            : `No cubre la zona: ${distance.toFixed(0)} km supera su radio de ${capability.coverageRadiusKm} km`,
     },
   ];
-  const proximity = Math.max(0, 1 - distance / Math.max(capability.coverageRadiusKm, 1));
+  const proximity = distance === null ? 1 : Math.max(0, 1 - distance / Math.max(capability.coverageRadiusKm, 1));
   const templateFit = samples.matchBoardMachinery.ranked[0]?.fit;
   return {
     needId: need.id,
@@ -125,9 +129,14 @@ export const needsHandlers = [
       status: body.confirm ? 'OPEN' : current.status,
       missingFields: body.confirm ? undefined : current.missingFields,
     };
-    if (body.confirm && next.category !== 'GENETICS' && (!next.where || !next.window)) {
-      const missingFields = [!next.where ? 'where' : null, !next.window ? 'window' : null].filter(Boolean);
-      return apiError('NEED_INCOMPLETE', 'Completá fecha y lugar antes de buscar proveedores', 409, { missingFields });
+    // Sin fecha: se completa un rango de un año en vez de bloquear la
+    // búsqueda. Sin ubicación: no se inventa, el motor ya sabe mostrar todo
+    // el país cuando `where` no está declarado.
+    if (body.confirm && next.category !== 'GENETICS' && !next.window) {
+      const today = new Date();
+      const to = new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000);
+      next.window = { from: today.toISOString().slice(0, 10), to: to.toISOString().slice(0, 10) };
+      next.missingFields = ['window'];
     }
     mockNeeds[index] = next;
     return HttpResponse.json(next);
