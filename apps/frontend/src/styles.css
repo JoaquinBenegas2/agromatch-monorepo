@@ -2,6 +2,43 @@
 @import 'tw-animate-css';
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 
+/* Let shared layouts shrink without clipping content or wide data tables. */
+[data-slot='shell-content'] > *,
+[data-slot='card'],
+[data-slot='card-content'] {
+  min-width: 0;
+}
+
+[data-slot='shell-content'],
+[data-slot='dialog-content'] {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 639px) {
+  /* Keep form fields readable and avoid focus zoom on mobile browsers. */
+  input:not([type='range']):not([type='checkbox']):not([type='radio']),
+  textarea,
+  select,
+  [data-slot='select-trigger'] {
+    font-size: 16px;
+  }
+  [data-slot='page-header'] h1 { font-size: 24px; }
+  [data-slot='chat-composer'] { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  [data-slot='sidebar-footer'] { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+}
+
+@media (pointer: coarse) {
+  [data-slot='button'],
+  [data-slot='tabs-trigger'],
+  [data-slot='select-trigger'],
+  nav[aria-label='Secciones del módulo'] a,
+  .gx-goals button,
+  .gx-fields select {
+    min-height: 44px;
+  }
+  [data-slot='button'] { min-width: 44px; }
+}
+
 /*
  * Tokens de AgroMatch (ver /designs/tokens.css, fuente de verdad visual —
  * dirección "Futuros": designs/visual-lab/index.html, especialmente #/mercado).
