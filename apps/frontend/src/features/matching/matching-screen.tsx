@@ -17,11 +17,15 @@ import { useGoalParse } from '../../shared/api/hooks/use-goal-parse.js';
 import { usePlan } from '../../shared/api/hooks/use-plan.js';
 import { MatchRow } from './match-row.js';
 
-/** Anima 0→1 (o 1→0) en ~1.2s; se lee por ref en cada frame, sin re-render. */
-function useRevealProgress(active: boolean) {
+/**
+ * Anima 0→1 (o 1→0) en ~1.2s; se lee por ref en cada frame, sin re-render.
+ * `replayKey` fuerza que la animación arranque de nuevo aunque `active` no
+ * cambie (para "Repetir escena" sobre el mismo candidato).
+ */
+function useRevealProgress(active: boolean, replayKey: number) {
   const progressRef = useRef(active ? 1 : 0);
   useEffect(() => {
-    const from = progressRef.current;
+    const from = active ? 0 : progressRef.current;
     const target = active ? 1 : 0;
     const duration = 1200;
     const start = performance.now();
@@ -33,7 +37,8 @@ function useRevealProgress(active: boolean) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [active]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- replayKey es el disparador intencional
+  }, [active, replayKey]);
   return progressRef;
 }
 
@@ -75,6 +80,10 @@ export function MatchingScreen() {
   );
   const [goal, setGoal] = useState<BreedingGoal>(incomingGoal ?? presetGoal('BALANCED'));
   const [searchId, setSearchId] = useState('');
+  // Proyección de la cría bajo demanda ("Proyectar cría"): independiente de
+  // agregar el candidato al plan, como en la escena de referencia.
+  const [previewNaab, setPreviewNaab] = useState<string | null>(null);
+  const [previewKey, setPreviewKey] = useState(0);
 
   const farmId = activeFarmId ?? '';
   const board = useMatchBoard(farmId, femaleId, goal);
@@ -85,7 +94,17 @@ export function MatchingScreen() {
   // local — así al entrar desde /negociacion/plan ya viene marcado.
   const plan = usePlan(activeFarmId);
   const chosenNaab = plan.data?.items.find((item) => item.femaleId === femaleId)?.bullNaab ?? null;
-  const revealRef = useRevealProgress(Boolean(chosenNaab));
+  const projectedNaab = previewNaab ?? chosenNaab;
+  const revealRef = useRevealProgress(Boolean(projectedNaab), previewKey);
+
+  function handlePreview(candidate: MatchCandidate) {
+    setPreviewNaab(candidate.capabilityId);
+    setPreviewKey((key) => key + 1);
+  }
+
+  useEffect(() => {
+    setPreviewNaab(null);
+  }, [femaleId]);
 
   function handleProcesar() {
     // REQ-D-07: con texto vacío, usa el preset elegido sin llamar al LLM.
@@ -120,7 +139,7 @@ export function MatchingScreen() {
 
   const ranked = board.data?.ranked ?? [];
   const excluded = board.data?.excluded ?? [];
-  const sceneCandidate = ranked.find((c) => c.capabilityId === chosenNaab) ?? ranked[0];
+  const sceneCandidate = ranked.find((c) => c.capabilityId === projectedNaab) ?? ranked[0];
   const sceneBullName =
     (sceneCandidate?.verticalFacts as ExplanationFacts | undefined)?.bull.name ??
     sceneCandidate?.capabilityId;
@@ -222,7 +241,11 @@ export function MatchingScreen() {
           </SpatialLabel>
           <SpatialLabel anchor="bull" className="-translate-x-1/2">
             <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">
-              {chosenNaab ? 'Toro elegido' : 'Toro mejor rankeado'}
+              {chosenNaab === sceneCandidate?.capabilityId
+                ? 'Toro elegido'
+                : previewNaab
+                  ? 'Proyectando'
+                  : 'Toro mejor rankeado'}
             </span>
             <strong className="block text-[15px] font-medium text-[#f0f5dc]">{sceneBullName}</strong>
           </SpatialLabel>
@@ -270,6 +293,8 @@ export function MatchingScreen() {
               inPlan={chosenNaab === candidate.capabilityId}
               choosing={addItem.isPending || removeItem.isPending}
               next={ranked[i + 1]}
+              onPreview={handlePreview}
+              previewing={projectedNaab === candidate.capabilityId}
             />
           ))}
         </div>

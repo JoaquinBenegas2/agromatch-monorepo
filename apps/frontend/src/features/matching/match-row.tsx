@@ -35,6 +35,9 @@ interface MatchRowProps {
   choosing: boolean;
   /** Siguiente candidato, para el prefetch al expandir (Q4). */
   next?: MatchCandidate;
+  /** Proyecta este candidato en la escena de arriba, sin comprometerlo al plan. */
+  onPreview?: (candidate: MatchCandidate) => void;
+  previewing?: boolean;
 }
 
 export function MatchRow({
@@ -47,6 +50,8 @@ export function MatchRow({
   inPlan,
   choosing,
   next,
+  onPreview,
+  previewing,
 }: MatchRowProps) {
   const [expanded, setExpanded] = useState(Boolean(defaultExpanded));
   const facts = candidate.verticalFacts as ExplanationFacts | undefined;
@@ -166,6 +171,15 @@ export function MatchRow({
           </div>
 
           <div className="flex justify-end gap-2 md:col-span-2">
+            {onPreview && (
+              <Button
+                variant={previewing ? 'secondary' : 'primary'}
+                size="sm"
+                onClick={() => onPreview(candidate)}
+              >
+                {previewing ? 'Repetir escena' : 'Proyectar cría'}
+              </Button>
+            )}
             {inPlan ? (
               <>
                 <Badge variant="ok">En el plan</Badge>

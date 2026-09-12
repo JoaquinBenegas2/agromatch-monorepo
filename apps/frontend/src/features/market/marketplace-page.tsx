@@ -198,7 +198,7 @@ export function MarketplacePage() {
             Tu necesidad
           </span>
         </SpatialLabel>
-        <span className="pointer-events-none absolute right-3 bottom-2 z-[2] text-[9px] text-[#4f6b45]">
+        <span className="pointer-events-none absolute bottom-2 left-3 z-[2] text-[9px] text-[#4f6b45]">
           Vista conceptual, no representa proveedores reales
         </span>
       </SpatialScene>

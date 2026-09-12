@@ -109,8 +109,22 @@ export function NeedInterpretation({
   ].filter((field): field is string => field !== null);
   const requiresPlaceAndWindow = need.category !== 'GENETICS';
 
+  const unit = UNITS.find((candidate) => candidate.value === need.magnitude?.unit)?.label;
+
   return (
-    <div className="mx-auto flex w-full max-w-[640px] flex-col gap-4 py-6 sm:py-10">
+    <div className="mx-auto flex w-full max-w-[640px] flex-col gap-5 py-6 sm:py-10">
+      <div className="flex flex-col gap-1.5">
+        <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+          Mercado / Tu necesidad
+        </p>
+        <h1 className="text-[28px] leading-tight font-semibold tracking-[-0.03em] sm:text-[34px]">
+          Esto es lo que <span className="font-serif text-primary italic">entendimos.</span>
+        </h1>
+        <p className="text-[12.5px] text-muted-foreground">
+          Revisá la ficha. La búsqueda comienza cuando vos confirmás.
+        </p>
+      </div>
+
       <Card className="flex items-center gap-3 px-4 py-3 shadow-sm">
         <p className="min-w-0 flex-1 truncate text-[13px] text-muted-foreground">
           &ldquo;{need.rawText}&rdquo;
@@ -120,7 +134,44 @@ export function NeedInterpretation({
         </Button>
       </Card>
 
-      <Card className="overflow-hidden shadow-sm">
+      <Card className="overflow-hidden border-[#d7dccb] bg-[#f3f5e9] shadow-sm">
+        <div className="border-b border-border-soft px-5 py-5">
+          <Badge variant="neutral">01 / Confirmación</Badge>
+          <p className="mt-3 font-serif text-[21px] leading-snug italic sm:text-[25px]">
+            Necesito{' '}
+            <mark className="rounded-sm bg-lime px-1 font-sans text-[0.62em] font-semibold text-primary not-italic uppercase tracking-wide">
+              {need.what || 'una solución'}
+            </mark>
+            {need.where?.label ? (
+              <>
+                {' '}
+                en{' '}
+                <mark className="rounded-sm bg-lime px-1 font-sans text-[0.62em] font-semibold text-primary not-italic uppercase tracking-wide">
+                  {need.where.label}
+                </mark>
+              </>
+            ) : null}
+            {need.window?.from && need.window?.to ? (
+              <>
+                {' '}
+                entre{' '}
+                <mark className="rounded-sm bg-lime px-1 font-sans text-[0.62em] font-semibold text-primary not-italic uppercase tracking-wide">
+                  {need.window.from} y {need.window.to}
+                </mark>
+              </>
+            ) : null}
+            {need.magnitude?.value ? (
+              <>
+                {' '}
+                ·{' '}
+                <mark className="rounded-sm bg-lime px-1 font-sans text-[0.62em] font-semibold text-primary not-italic uppercase tracking-wide">
+                  {need.magnitude.value} {unit ?? ''}
+                </mark>
+              </>
+            ) : null}
+            .
+          </p>
+        </div>
         <CardHeader className="bg-muted/35 py-3.5">
           <CardTitle>Lo que AgroMatch entendió</CardTitle>
         </CardHeader>

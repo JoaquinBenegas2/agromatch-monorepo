@@ -6,6 +6,8 @@ import { ErrorMessage } from '@/components/ui/error-message';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { StatCard } from '@/components/ui/stat-card';
+import { PageHeader } from '@/components/ui/page-header';
+import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
 import { useAdvisorOverview } from './advisor.api.js';
 
 const TIERS: Tier[] = ['ELITE', 'COMMERCIAL', 'BEEF', 'CULL_ALERT'];
@@ -146,7 +148,33 @@ export function AdvisorPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-5 p-6">
+      <PageHeader
+        title={
+          <>
+            Diez mundos.{' '}
+            <span className="font-serif text-primary italic">Una perspectiva.</span>
+          </>
+        }
+        description="Tambos asignados a tu cuenta para esta exploración."
+      />
+
+      <SpatialScene
+        kind="advisor"
+        className="h-[260px] w-full rounded-lg border border-border bg-[#dce5cf]"
+      >
+        {data.map((summary, index) => (
+          <SpatialLabel key={summary.farm.id} anchor={`farm-${index}`} className="-translate-x-1/2">
+            <span className="inline-flex items-center rounded-full bg-[#f2f5e7ee] px-2.5 py-1 text-[9px] font-semibold text-[#1e4c3a] shadow-sm backdrop-blur">
+              {summary.farm.name}
+            </span>
+          </SpatialLabel>
+        ))}
+        <span className="pointer-events-none absolute right-3 bottom-2 z-[2] text-[9px] text-[#4f6b45]">
+          Vista conceptual, no representa la ubicación real de los tambos
+        </span>
+      </SpatialScene>
+
       <div className="grid gap-3 md:grid-cols-3">
         {data.map((summary) => (
           <FarmCard key={summary.farm.id} summary={summary} />

@@ -10,6 +10,7 @@ import { ErrorMessage } from '@/components/ui/error-message';
 import { PageHeader } from '@/components/ui/page-header';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
+import { cn } from '@/lib/utils';
 import { useConfirmHerd, useUploadHerd } from '../../shared/api/hooks/use-herd.js';
 
 export function UploadHerdButton() {
@@ -33,6 +34,28 @@ export function HerdImportPage({ farmId }: { farmId: string }) {
     .filter(([, value]) => value < 0.8)
     .map(([header]) => header);
 
+  const step = confirm.data ? 2 : proposal ? 1 : 0;
+  const steps = ['Elegir archivo', 'Confirmar columnas', 'Explorar el rodeo'];
+  const stepPills = (
+    <div className="flex flex-wrap gap-2">
+      {steps.map((label, index) => (
+        <span
+          key={label}
+          className={cn(
+            'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10.5px] font-medium',
+            index === step
+              ? 'border-secondary-border bg-accent text-primary'
+              : index < step
+                ? 'border-border-soft text-ink-3'
+                : 'border-border-soft text-ink-4',
+          )}
+        >
+          {String(index + 1).padStart(2, '0')} / {label}
+        </span>
+      ))}
+    </div>
+  );
+
   const submit = async (file: File) => {
     const result = await upload.mutateAsync(file);
     setProposal(result.proposal);
@@ -49,6 +72,7 @@ export function HerdImportPage({ farmId }: { farmId: string }) {
             </>
           }
         />
+        {stepPills}
         <SpatialScene
           kind="herd"
           options={{ imported: () => true }}
@@ -78,6 +102,7 @@ export function HerdImportPage({ farmId }: { farmId: string }) {
         }
         description="Cada fila es un animal. Cada animal, una decisión."
       />
+      {stepPills}
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_1fr]">
         <SpatialScene
