@@ -11,6 +11,15 @@
     },
     {
       "path": "./packages/shared-types"
+    },
+    {
+      "path": "./packages/matching-core"
+    },
+    {
+      "path": "./packages/genetics-core"
+    },
+    {
+      "path": "./packages/ai"
     }
   ],
   "compilerOptions": {}

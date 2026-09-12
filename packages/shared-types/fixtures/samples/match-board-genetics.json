@@ -1,0 +1,79 @@
+{
+  "ranked": [
+    {
+      "needId": "need-genetics-f-3021",
+      "capabilityId": "029HO19531",
+      "providerId": "prov-genetics-norte",
+      "score": 91,
+      "compatibility": 91,
+      "rank": 1,
+      "fit": { "proximity": 1, "availability": 1, "capacity": 1, "price": 0.8, "reputation": 0.9, "vertical": 0.91 },
+      "filters": [
+        { "rule": "RN-05", "passed": true, "detail": "Sin riesgo de consanguinidad" },
+        { "rule": "RN-06", "passed": true, "detail": "Facilidad de parto dentro del máximo" }
+      ],
+      "verticalFacts": {
+        "femaleVisualId": "3021",
+        "femaleCategory": "HEIFER",
+        "tier": "COMMERCIAL",
+        "corrective": ["scs", "pl"],
+        "goal": {
+          "preset": "SOLIDS_CHEESE",
+          "weights": { "fat": 0.35, "pro": 0.35, "pl": 0.15, "scs": 0.15 },
+          "wantBetaA2": false,
+          "wantKappaBB": true
+        },
+        "bull": { "naab": "029HO19531", "name": "Fundador 19531", "company": "Central Genética Norte", "breed": "HO" },
+        "semenType": "CONVENTIONAL",
+        "damTraits": { "ci": 440, "milk": 699, "fat": 1, "pro": 21, "pl": 1.5, "scs": 2.89, "fs": -119.38, "rfi": 4.83 },
+        "expectedProgeny": { "ci": 530, "milk": 740, "fat": 1.2, "pro": 22.5, "pl": 1.8, "scs": 2.82, "fs": -80, "rfi": 3.97 },
+        "deltaVsDam": { "fat": 0.2, "pro": 1.5, "pl": 0.3, "scs": -0.07 },
+        "caseinOdds": { "betaA2A2": 0.5, "kappaBB": 0.5 },
+        "compatibility": 91,
+        "rank": 1,
+        "totalCandidates": 12,
+        "reasons": [
+          "Corrige SCS y PL, los dos rasgos correctivos de esta hembra",
+          "Aporta grasa y proteína, alineado con el objetivo de sólidos para queso"
+        ]
+      },
+      "reasons": [
+        "Corrige SCS y PL, los dos rasgos correctivos de esta hembra",
+        "Aporta grasa y proteína, alineado con el objetivo de sólidos para queso"
+      ],
+      "explanation": {
+        "text": "Fundador 19531 es el #1 de 12 opciones para esta vaquillona: corrige SCS y PL y suma grasa y proteína.",
+        "source": "AI"
+      }
+    },
+    {
+      "needId": "need-genetics-f-3021",
+      "capabilityId": "029HO20100",
+      "providerId": "prov-genetics-sur",
+      "score": 84,
+      "compatibility": 84,
+      "rank": 2,
+      "fit": { "proximity": 1, "availability": 1, "capacity": 1, "price": 0.6, "reputation": 0.85, "vertical": 0.84 },
+      "filters": [
+        { "rule": "RN-05", "passed": true, "detail": "Sin riesgo de consanguinidad" },
+        { "rule": "RN-06", "passed": true, "detail": "Facilidad de parto dentro del máximo" }
+      ],
+      "reasons": ["Buen aporte de grasa y proteína, precio de dosis más alto que el #1"]
+    }
+  ],
+  "excluded": [
+    {
+      "needId": "need-genetics-f-3021",
+      "capabilityId": "029HO20001",
+      "providerId": "prov-genetics-norte",
+      "score": 0,
+      "compatibility": 0,
+      "rank": 0,
+      "fit": { "proximity": 1, "availability": 1, "capacity": 1, "price": 0.7, "reputation": 0.8 },
+      "filters": [
+        { "rule": "RN-05", "passed": false, "detail": "Hijo del mismo padre (029HO19531): riesgo de consanguinidad" }
+      ],
+      "reasons": ["Excluido por RN-05: comparte padre con la hembra"]
+    }
+  ]
+}

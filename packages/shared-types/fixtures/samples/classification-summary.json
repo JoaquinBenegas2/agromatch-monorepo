@@ -1,0 +1,14 @@
+{
+  "byTier": { "ELITE": 42, "COMMERCIAL": 178, "BEEF": 58, "CULL_ALERT": 15 },
+  "byTag": {
+    "A2_NUCLEUS": 61,
+    "CHEESE_BB": 30,
+    "MASTITIS_RISK": 22,
+    "SHORT_LIFE": 15,
+    "NO_SIRE": 2,
+    "GOAL_PROTECTED": 9
+  },
+  "total": 291,
+  "withoutProfile": 2,
+  "classicRulesBeefCount": 88
+}

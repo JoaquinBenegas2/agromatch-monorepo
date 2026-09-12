@@ -1,0 +1,3610 @@
+{
+ "_meta": {
+  "descripcion": "Rodeo sintético de demo para farm-b.",
+  "origen": "DEMO SINTÉTICO",
+  "escala": "CDCB",
+  "animales": 150
+ },
+ "females": [
+  {
+   "id": "f-farm-b-1000",
+   "farmId": "farm-b",
+   "visualId": "1000",
+   "birthDate": "2025-04-01",
+   "sireNaab": "029HO20100",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 601,
+     "milk": 570,
+     "fat": 1.05,
+     "pro": 19,
+     "pl": 1.87,
+     "scs": 3.19,
+     "fs": -31.92,
+     "rfi": 2
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1001",
+   "farmId": "farm-b",
+   "visualId": "1001",
+   "birthDate": "2026-07-02",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 606,
+     "milk": 744,
+     "fat": 0.01,
+     "pro": 22,
+     "pl": 2.51,
+     "scs": 2.54,
+     "fs": -1.92,
+     "rfi": 0.25
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1002",
+   "farmId": "farm-b",
+   "visualId": "1002",
+   "birthDate": "2025-11-30",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 408,
+     "milk": 569,
+     "fat": 1.69,
+     "pro": 22,
+     "pl": 2.43,
+     "scs": 2.76,
+     "fs": -37.53,
+     "rfi": 0.3
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1003",
+   "farmId": "farm-b",
+   "visualId": "1003",
+   "birthDate": "2025-06-14",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 463,
+     "milk": 621,
+     "fat": 1.48,
+     "pro": 28,
+     "pl": 1.52,
+     "scs": 2.66,
+     "fs": -78.95,
+     "rfi": 2.34
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1004",
+   "farmId": "farm-b",
+   "visualId": "1004",
+   "birthDate": "2021-12-05",
+   "sireNaab": "029HO20100",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 426,
+     "milk": 877,
+     "fat": 0.86,
+     "pro": 29,
+     "pl": 0.41,
+     "scs": 2.59,
+     "fs": -146.04,
+     "rfi": 2.88
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1005",
+   "farmId": "farm-b",
+   "visualId": "1005",
+   "birthDate": "2024-05-22",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 680,
+     "milk": 611,
+     "fat": 1.41,
+     "pro": 18,
+     "pl": 1.56,
+     "scs": 3.16,
+     "fs": -119.85,
+     "rfi": 7.97
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1006",
+   "farmId": "farm-b",
+   "visualId": "1006",
+   "birthDate": "2025-02-13",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 579,
+     "milk": 629,
+     "fat": 1.46,
+     "pro": 19,
+     "pl": 1.35,
+     "scs": 3.17,
+     "fs": 23.77,
+     "rfi": 7.95
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1007",
+   "farmId": "farm-b",
+   "visualId": "1007",
+   "birthDate": "2025-05-27",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 609,
+     "milk": 625,
+     "fat": 1.57,
+     "pro": 29,
+     "pl": 0.28,
+     "scs": 2.88,
+     "fs": 55.49,
+     "rfi": 1.04
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1008",
+   "farmId": "farm-b",
+   "visualId": "1008",
+   "birthDate": "2021-11-25",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 524,
+     "milk": 565,
+     "fat": 1.31,
+     "pro": 20,
+     "pl": 0.62,
+     "scs": 3,
+     "fs": 71.72,
+     "rfi": 2.61
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1009",
+   "farmId": "farm-b",
+   "visualId": "1009",
+   "birthDate": "2025-11-01",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 403,
+     "milk": 795,
+     "fat": 1.27,
+     "pro": 28,
+     "pl": 2.72,
+     "scs": 2.67,
+     "fs": 0.98,
+     "rfi": 3.91
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1010",
+   "farmId": "farm-b",
+   "visualId": "1010",
+   "birthDate": "2021-11-13",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 483,
+     "milk": 635,
+     "fat": 0.06,
+     "pro": 18,
+     "pl": 2.98,
+     "scs": 2.96,
+     "fs": 97.14,
+     "rfi": 1.31
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1011",
+   "farmId": "farm-b",
+   "visualId": "1011",
+   "birthDate": "2026-04-21",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 526,
+     "milk": 774,
+     "fat": 0.8,
+     "pro": 20,
+     "pl": 2.69,
+     "scs": 2.76,
+     "fs": -26.18,
+     "rfi": 4.89
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1012",
+   "farmId": "farm-b",
+   "visualId": "1012",
+   "birthDate": "2026-05-16",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 496,
+     "milk": 768,
+     "fat": 0.44,
+     "pro": 18,
+     "pl": 2.08,
+     "scs": 2.75,
+     "fs": -118.77,
+     "rfi": 2.51
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1013",
+   "farmId": "farm-b",
+   "visualId": "1013",
+   "birthDate": "2026-03-20",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 614,
+     "milk": 865,
+     "fat": 1.62,
+     "pro": 22,
+     "pl": 0.46,
+     "scs": 3.19,
+     "fs": -18.58,
+     "rfi": 6.72
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1014",
+   "farmId": "farm-b",
+   "visualId": "1014",
+   "birthDate": "2026-01-29",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 463,
+     "milk": 656,
+     "fat": 1.09,
+     "pro": 30,
+     "pl": 1.48,
+     "scs": 3.19,
+     "fs": 60.8,
+     "rfi": 5.95
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1015",
+   "farmId": "farm-b",
+   "visualId": "1015",
+   "birthDate": "2026-03-11",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 628,
+     "milk": 897,
+     "fat": 1.63,
+     "pro": 24,
+     "pl": 2.51,
+     "scs": 3.18,
+     "fs": -0.15,
+     "rfi": 2.81
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1016",
+   "farmId": "farm-b",
+   "visualId": "1016",
+   "birthDate": "2023-04-21",
+   "sireNaab": "029HO20100",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 588,
+     "milk": 632,
+     "fat": 1.69,
+     "pro": 17,
+     "pl": 1.1,
+     "scs": 2.52,
+     "fs": -128.62,
+     "rfi": 5.18
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1017",
+   "farmId": "farm-b",
+   "visualId": "1017",
+   "birthDate": "2022-11-01",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 444,
+     "milk": 609,
+     "fat": 0.28,
+     "pro": 16,
+     "pl": 0.87,
+     "scs": 2.85,
+     "fs": -7.81,
+     "rfi": 5.73
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1018",
+   "farmId": "farm-b",
+   "visualId": "1018",
+   "birthDate": "2026-01-12",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 533,
+     "milk": 688,
+     "fat": 0.92,
+     "pro": 21,
+     "pl": 1,
+     "scs": 2.75,
+     "fs": -113.09,
+     "rfi": 4.04
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1019",
+   "farmId": "farm-b",
+   "visualId": "1019",
+   "birthDate": "2025-01-18",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 440,
+     "milk": 502,
+     "fat": 0.3,
+     "pro": 29,
+     "pl": 0.21,
+     "scs": 3.2,
+     "fs": -42.4,
+     "rfi": 4.02
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1020",
+   "farmId": "farm-b",
+   "visualId": "1020",
+   "birthDate": "2026-04-30",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 611,
+     "milk": 726,
+     "fat": 0.19,
+     "pro": 29,
+     "pl": 2.25,
+     "scs": 3.03,
+     "fs": 49.1,
+     "rfi": 4.39
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1021",
+   "farmId": "farm-b",
+   "visualId": "1021",
+   "birthDate": "2026-08-14",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 418,
+     "milk": 605,
+     "fat": 1.34,
+     "pro": 25,
+     "pl": 1.68,
+     "scs": 3.28,
+     "fs": -144.47,
+     "rfi": 3.17
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1022",
+   "farmId": "farm-b",
+   "visualId": "1022",
+   "birthDate": "2022-07-21",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 683,
+     "milk": 881,
+     "fat": 0.53,
+     "pro": 23,
+     "pl": 2.58,
+     "scs": 3.25,
+     "fs": 21.25,
+     "rfi": 4.55
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1023",
+   "farmId": "farm-b",
+   "visualId": "1023",
+   "birthDate": "2024-12-12",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 606,
+     "milk": 722,
+     "fat": 1.09,
+     "pro": 30,
+     "pl": 2.95,
+     "scs": 3.11,
+     "fs": -72.82,
+     "rfi": 5.05
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1024",
+   "farmId": "farm-b",
+   "visualId": "1024",
+   "birthDate": "2024-10-26",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 664,
+     "milk": 665,
+     "fat": 0.68,
+     "pro": 23,
+     "pl": 2.51,
+     "scs": 2.99,
+     "fs": 66.93,
+     "rfi": 5.53
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1025",
+   "farmId": "farm-b",
+   "visualId": "1025",
+   "birthDate": "2022-10-02",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 589,
+     "milk": 808,
+     "fat": 1.48,
+     "pro": 26,
+     "pl": 0.56,
+     "scs": 3.18,
+     "fs": 75.64,
+     "rfi": 4.36
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1026",
+   "farmId": "farm-b",
+   "visualId": "1026",
+   "birthDate": "2024-10-21",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 526,
+     "milk": 677,
+     "fat": 1.23,
+     "pro": 26,
+     "pl": 1.55,
+     "scs": 2.53,
+     "fs": -108.1,
+     "rfi": 0.78
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1027",
+   "farmId": "farm-b",
+   "visualId": "1027",
+   "birthDate": "2021-05-08",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 425,
+     "milk": 513,
+     "fat": 0.54,
+     "pro": 26,
+     "pl": 0.81,
+     "scs": 3.18,
+     "fs": 6.52,
+     "rfi": 7.27
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1028",
+   "farmId": "farm-b",
+   "visualId": "1028",
+   "birthDate": "2026-01-26",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 544,
+     "milk": 611,
+     "fat": 0.52,
+     "pro": 26,
+     "pl": 1.56,
+     "scs": 2.89,
+     "fs": -2.02,
+     "rfi": 0.87
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1029",
+   "farmId": "farm-b",
+   "visualId": "1029",
+   "birthDate": "2024-03-26",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 410,
+     "milk": 636,
+     "fat": 0.48,
+     "pro": 18,
+     "pl": 2.97,
+     "scs": 2.96,
+     "fs": 60,
+     "rfi": 2.73
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1030",
+   "farmId": "farm-b",
+   "visualId": "1030",
+   "birthDate": "2021-07-04",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 461,
+     "milk": 814,
+     "fat": 1.01,
+     "pro": 17,
+     "pl": 0.25,
+     "scs": 3.12,
+     "fs": -42.09,
+     "rfi": 6.96
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1031",
+   "farmId": "farm-b",
+   "visualId": "1031",
+   "birthDate": "2023-12-31",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 566,
+     "milk": 770,
+     "fat": 0.41,
+     "pro": 27,
+     "pl": 0.72,
+     "scs": 2.61,
+     "fs": 14.97,
+     "rfi": 4.82
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1032",
+   "farmId": "farm-b",
+   "visualId": "1032",
+   "birthDate": "2022-08-12",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 415,
+     "milk": 883,
+     "fat": 1.16,
+     "pro": 19,
+     "pl": 0.14,
+     "scs": 2.76,
+     "fs": 27.99,
+     "rfi": 6.09
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1033",
+   "farmId": "farm-b",
+   "visualId": "1033",
+   "birthDate": "2025-07-07",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 552,
+     "milk": 575,
+     "fat": 1.7,
+     "pro": 16,
+     "pl": 0.41,
+     "scs": 3.3,
+     "fs": -97.08,
+     "rfi": 3.77
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1034",
+   "farmId": "farm-b",
+   "visualId": "1034",
+   "birthDate": "2025-01-09",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 694,
+     "milk": 832,
+     "fat": 0.69,
+     "pro": 18,
+     "pl": 1.55,
+     "scs": 3.11,
+     "fs": -38.51,
+     "rfi": 3.88
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1035",
+   "farmId": "farm-b",
+   "visualId": "1035",
+   "birthDate": "2025-11-01",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 528,
+     "milk": 601,
+     "fat": 1.01,
+     "pro": 16,
+     "pl": 2,
+     "scs": 2.55,
+     "fs": 75.29,
+     "rfi": 6.11
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1036",
+   "farmId": "farm-b",
+   "visualId": "1036",
+   "birthDate": "2026-02-10",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 544,
+     "milk": 705,
+     "fat": 0.95,
+     "pro": 22,
+     "pl": 1.73,
+     "scs": 2.51,
+     "fs": 27.07,
+     "rfi": 0.03
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1037",
+   "farmId": "farm-b",
+   "visualId": "1037",
+   "birthDate": "2024-12-21",
+   "sireNaab": "029HO20100",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 484,
+     "milk": 747,
+     "fat": 1.81,
+     "pro": 22,
+     "pl": 0.14,
+     "scs": 2.95,
+     "fs": -26.27,
+     "rfi": 3.54
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1038",
+   "farmId": "farm-b",
+   "visualId": "1038",
+   "birthDate": "2025-12-25",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 684,
+     "milk": 833,
+     "fat": 0.96,
+     "pro": 15,
+     "pl": 2.73,
+     "scs": 2.55,
+     "fs": -20.98,
+     "rfi": 3.89
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1039",
+   "farmId": "farm-b",
+   "visualId": "1039",
+   "birthDate": "2024-11-05",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 695,
+     "milk": 892,
+     "fat": 1.93,
+     "pro": 27,
+     "pl": 2.87,
+     "scs": 3.15,
+     "fs": -110.17,
+     "rfi": 0.71
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1040",
+   "farmId": "farm-b",
+   "visualId": "1040",
+   "birthDate": "2024-10-28",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 633,
+     "milk": 631,
+     "fat": 1.68,
+     "pro": 22,
+     "pl": 2.77,
+     "scs": 3.02,
+     "fs": -87.37,
+     "rfi": 1.25
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1041",
+   "farmId": "farm-b",
+   "visualId": "1041",
+   "birthDate": "2026-07-23",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 586,
+     "milk": 650,
+     "fat": 1.27,
+     "pro": 30,
+     "pl": 1.23,
+     "scs": 3.13,
+     "fs": 34.87,
+     "rfi": 0.13
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1042",
+   "farmId": "farm-b",
+   "visualId": "1042",
+   "birthDate": "2026-02-08",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 540,
+     "milk": 653,
+     "fat": 1.68,
+     "pro": 24,
+     "pl": 0.95,
+     "scs": 2.87,
+     "fs": -17.66,
+     "rfi": 7.97
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1043",
+   "farmId": "farm-b",
+   "visualId": "1043",
+   "birthDate": "2026-01-20",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 530,
+     "milk": 739,
+     "fat": 1.67,
+     "pro": 21,
+     "pl": 1.77,
+     "scs": 2.64,
+     "fs": 94.13,
+     "rfi": 1.45
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1044",
+   "farmId": "farm-b",
+   "visualId": "1044",
+   "birthDate": "2025-02-24",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 669,
+     "milk": 809,
+     "fat": 0,
+     "pro": 16,
+     "pl": 0.29,
+     "scs": 3.23,
+     "fs": -149.98,
+     "rfi": 0.28
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1045",
+   "farmId": "farm-b",
+   "visualId": "1045",
+   "birthDate": "2022-03-01",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 522,
+     "milk": 830,
+     "fat": 0.69,
+     "pro": 18,
+     "pl": 2.23,
+     "scs": 3.02,
+     "fs": -137.52,
+     "rfi": 5.01
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1046",
+   "farmId": "farm-b",
+   "visualId": "1046",
+   "birthDate": "2025-04-13",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 523,
+     "milk": 736,
+     "fat": 0.39,
+     "pro": 17,
+     "pl": 2.12,
+     "scs": 3.09,
+     "fs": -79.52,
+     "rfi": 7.39
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1047",
+   "farmId": "farm-b",
+   "visualId": "1047",
+   "birthDate": "2025-05-11",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 694,
+     "milk": 856,
+     "fat": 1.39,
+     "pro": 20,
+     "pl": 2.73,
+     "scs": 2.91,
+     "fs": 79.37,
+     "rfi": 1.87
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1048",
+   "farmId": "farm-b",
+   "visualId": "1048",
+   "birthDate": "2022-09-04",
+   "sireNaab": "029HO20100",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 406,
+     "milk": 761,
+     "fat": 1.21,
+     "pro": 30,
+     "pl": 0.75,
+     "scs": 3.27,
+     "fs": -94.03,
+     "rfi": 7.57
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1049",
+   "farmId": "farm-b",
+   "visualId": "1049",
+   "birthDate": "2025-06-25",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 683,
+     "milk": 751,
+     "fat": 0.63,
+     "pro": 23,
+     "pl": 1.09,
+     "scs": 2.86,
+     "fs": -105.94,
+     "rfi": 4.56
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1050",
+   "farmId": "farm-b",
+   "visualId": "1050",
+   "birthDate": "2024-10-22",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 656,
+     "milk": 678,
+     "fat": 1.26,
+     "pro": 22,
+     "pl": 1.76,
+     "scs": 3.03,
+     "fs": 6.41,
+     "rfi": 3.27
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1051",
+   "farmId": "farm-b",
+   "visualId": "1051",
+   "birthDate": "2023-03-04",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 406,
+     "milk": 550,
+     "fat": 1.3,
+     "pro": 19,
+     "pl": 0.13,
+     "scs": 2.87,
+     "fs": 24.93,
+     "rfi": 1.09
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1052",
+   "farmId": "farm-b",
+   "visualId": "1052",
+   "birthDate": "2026-01-28",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 505,
+     "milk": 746,
+     "fat": 0.94,
+     "pro": 27,
+     "pl": 0.25,
+     "scs": 2.66,
+     "fs": -63.57,
+     "rfi": 7.08
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1053",
+   "farmId": "farm-b",
+   "visualId": "1053",
+   "birthDate": "2025-07-10",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 584,
+     "milk": 801,
+     "fat": 1.88,
+     "pro": 21,
+     "pl": 1.13,
+     "scs": 2.63,
+     "fs": 75.44,
+     "rfi": 4.59
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1054",
+   "farmId": "farm-b",
+   "visualId": "1054",
+   "birthDate": "2024-04-26",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 557,
+     "milk": 739,
+     "fat": 1.95,
+     "pro": 23,
+     "pl": 2.03,
+     "scs": 2.92,
+     "fs": 75.2,
+     "rfi": 7.07
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1055",
+   "farmId": "farm-b",
+   "visualId": "1055",
+   "birthDate": "2023-02-23",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 561,
+     "milk": 676,
+     "fat": 0.65,
+     "pro": 21,
+     "pl": 1.01,
+     "scs": 3.02,
+     "fs": 67.9,
+     "rfi": 7.05
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1056",
+   "farmId": "farm-b",
+   "visualId": "1056",
+   "birthDate": "2025-03-07",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 571,
+     "milk": 663,
+     "fat": 1.99,
+     "pro": 18,
+     "pl": 1.29,
+     "scs": 2.53,
+     "fs": -111.36,
+     "rfi": 0.39
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1057",
+   "farmId": "farm-b",
+   "visualId": "1057",
+   "birthDate": "2022-08-04",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 514,
+     "milk": 899,
+     "fat": 1.45,
+     "pro": 22,
+     "pl": 1.05,
+     "scs": 3.1,
+     "fs": -77.12,
+     "rfi": 4.67
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1058",
+   "farmId": "farm-b",
+   "visualId": "1058",
+   "birthDate": "2023-03-10",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 684,
+     "milk": 517,
+     "fat": 1.5,
+     "pro": 24,
+     "pl": 0.2,
+     "scs": 3,
+     "fs": 69.01,
+     "rfi": 1.52
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1059",
+   "farmId": "farm-b",
+   "visualId": "1059",
+   "birthDate": "2022-11-23",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 406,
+     "milk": 658,
+     "fat": 0.1,
+     "pro": 21,
+     "pl": 1.45,
+     "scs": 2.82,
+     "fs": -145.9,
+     "rfi": 7.7
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1060",
+   "farmId": "farm-b",
+   "visualId": "1060",
+   "birthDate": "2026-07-04",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 638,
+     "milk": 890,
+     "fat": 1.7,
+     "pro": 28,
+     "pl": 0.74,
+     "scs": 3.07,
+     "fs": -22.74,
+     "rfi": 6.58
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1061",
+   "farmId": "farm-b",
+   "visualId": "1061",
+   "birthDate": "2021-01-25",
+   "sireNaab": "029HO20100",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 468,
+     "milk": 554,
+     "fat": 0.02,
+     "pro": 29,
+     "pl": 2.01,
+     "scs": 3.01,
+     "fs": -127.3,
+     "rfi": 5.08
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1062",
+   "farmId": "farm-b",
+   "visualId": "1062",
+   "birthDate": "2025-11-06",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 558,
+     "milk": 648,
+     "fat": 0.16,
+     "pro": 19,
+     "pl": 2.7,
+     "scs": 3.29,
+     "fs": -10.81,
+     "rfi": 1.64
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1063",
+   "farmId": "farm-b",
+   "visualId": "1063",
+   "birthDate": "2025-10-09",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 686,
+     "milk": 880,
+     "fat": 1.54,
+     "pro": 17,
+     "pl": 1.08,
+     "scs": 2.73,
+     "fs": -132.77,
+     "rfi": 5.1
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1064",
+   "farmId": "farm-b",
+   "visualId": "1064",
+   "birthDate": "2025-02-08",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 665,
+     "milk": 774,
+     "fat": 1.25,
+     "pro": 21,
+     "pl": 2.42,
+     "scs": 2.68,
+     "fs": -43.66,
+     "rfi": 0.82
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1065",
+   "farmId": "farm-b",
+   "visualId": "1065",
+   "birthDate": "2026-02-02",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 568,
+     "milk": 671,
+     "fat": 0.81,
+     "pro": 20,
+     "pl": 1.29,
+     "scs": 3.08,
+     "fs": -129.85,
+     "rfi": 4.98
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1066",
+   "farmId": "farm-b",
+   "visualId": "1066",
+   "birthDate": "2021-04-13",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 633,
+     "milk": 559,
+     "fat": 0.92,
+     "pro": 25,
+     "pl": 1.2,
+     "scs": 2.66,
+     "fs": 94.73,
+     "rfi": 7.38
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1067",
+   "farmId": "farm-b",
+   "visualId": "1067",
+   "birthDate": "2024-04-23",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 660,
+     "milk": 608,
+     "fat": 0.99,
+     "pro": 27,
+     "pl": 1.03,
+     "scs": 3.08,
+     "fs": -61.17,
+     "rfi": 7.66
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1068",
+   "farmId": "farm-b",
+   "visualId": "1068",
+   "birthDate": "2022-11-10",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 480,
+     "milk": 647,
+     "fat": 0.54,
+     "pro": 18,
+     "pl": 0.09,
+     "scs": 3.07,
+     "fs": -111.14,
+     "rfi": 2.06
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1069",
+   "farmId": "farm-b",
+   "visualId": "1069",
+   "birthDate": "2025-12-18",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 536,
+     "milk": 634,
+     "fat": 1.29,
+     "pro": 24,
+     "pl": 0.9,
+     "scs": 3.13,
+     "fs": 68.16,
+     "rfi": 5.92
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1070",
+   "farmId": "farm-b",
+   "visualId": "1070",
+   "birthDate": "2025-02-05",
+   "sireNaab": "029HO20100",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 490,
+     "milk": 664,
+     "fat": 0.82,
+     "pro": 19,
+     "pl": 2.04,
+     "scs": 2.78,
+     "fs": -102.58,
+     "rfi": 5.16
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1071",
+   "farmId": "farm-b",
+   "visualId": "1071",
+   "birthDate": "2021-03-21",
+   "sireNaab": "029HO20100",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 578,
+     "milk": 703,
+     "fat": 0.78,
+     "pro": 28,
+     "pl": 0.76,
+     "scs": 2.55,
+     "fs": 1.5,
+     "rfi": 0.15
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1072",
+   "farmId": "farm-b",
+   "visualId": "1072",
+   "birthDate": "2026-06-17",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 515,
+     "milk": 888,
+     "fat": 0.96,
+     "pro": 26,
+     "pl": 2.57,
+     "scs": 3.15,
+     "fs": -83.52,
+     "rfi": 6.6
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1073",
+   "farmId": "farm-b",
+   "visualId": "1073",
+   "birthDate": "2025-12-22",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 667,
+     "milk": 696,
+     "fat": 0.51,
+     "pro": 24,
+     "pl": 1.91,
+     "scs": 2.72,
+     "fs": 73.15,
+     "rfi": 6.37
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1074",
+   "farmId": "farm-b",
+   "visualId": "1074",
+   "birthDate": "2024-10-14",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 687,
+     "milk": 828,
+     "fat": 0.17,
+     "pro": 28,
+     "pl": 2.16,
+     "scs": 3.17,
+     "fs": -89.3,
+     "rfi": 0.95
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1075",
+   "farmId": "farm-b",
+   "visualId": "1075",
+   "birthDate": "2024-10-31",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 510,
+     "milk": 714,
+     "fat": 0.09,
+     "pro": 19,
+     "pl": 2.9,
+     "scs": 3.27,
+     "fs": -8.07,
+     "rfi": 4.25
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1076",
+   "farmId": "farm-b",
+   "visualId": "1076",
+   "birthDate": "2023-07-22",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 699,
+     "milk": 765,
+     "fat": 0.49,
+     "pro": 20,
+     "pl": 0.62,
+     "scs": 2.68,
+     "fs": 73.86,
+     "rfi": 7.91
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1077",
+   "farmId": "farm-b",
+   "visualId": "1077",
+   "birthDate": "2023-12-31",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 538,
+     "milk": 737,
+     "fat": 0.71,
+     "pro": 22,
+     "pl": 1.43,
+     "scs": 2.89,
+     "fs": 14.99,
+     "rfi": 1.74
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1078",
+   "farmId": "farm-b",
+   "visualId": "1078",
+   "birthDate": "2025-07-24",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 452,
+     "milk": 849,
+     "fat": 0.2,
+     "pro": 23,
+     "pl": 2.27,
+     "scs": 2.72,
+     "fs": -142.69,
+     "rfi": 3.99
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1079",
+   "farmId": "farm-b",
+   "visualId": "1079",
+   "birthDate": "2025-06-18",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 568,
+     "milk": 710,
+     "fat": 1.68,
+     "pro": 30,
+     "pl": 0.51,
+     "scs": 2.5,
+     "fs": 56.46,
+     "rfi": 6.3
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1080",
+   "farmId": "farm-b",
+   "visualId": "1080",
+   "birthDate": "2026-06-17",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 539,
+     "milk": 552,
+     "fat": 0.57,
+     "pro": 24,
+     "pl": 2.19,
+     "scs": 3.09,
+     "fs": 91.02,
+     "rfi": 3.95
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1081",
+   "farmId": "farm-b",
+   "visualId": "1081",
+   "birthDate": "2021-04-13",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 459,
+     "milk": 524,
+     "fat": 1.01,
+     "pro": 24,
+     "pl": 0.83,
+     "scs": 3.28,
+     "fs": 92.19,
+     "rfi": 5.78
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1082",
+   "farmId": "farm-b",
+   "visualId": "1082",
+   "birthDate": "2024-06-01",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 555,
+     "milk": 754,
+     "fat": 2,
+     "pro": 26,
+     "pl": 2.24,
+     "scs": 3.15,
+     "fs": 98.49,
+     "rfi": 6.43
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1083",
+   "farmId": "farm-b",
+   "visualId": "1083",
+   "birthDate": "2023-03-15",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 413,
+     "milk": 647,
+     "fat": 0.4,
+     "pro": 26,
+     "pl": 0.63,
+     "scs": 3.04,
+     "fs": -94.68,
+     "rfi": 6.23
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1084",
+   "farmId": "farm-b",
+   "visualId": "1084",
+   "birthDate": "2026-07-05",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 691,
+     "milk": 637,
+     "fat": 0.66,
+     "pro": 28,
+     "pl": 2.23,
+     "scs": 2.68,
+     "fs": -67,
+     "rfi": 1.36
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1085",
+   "farmId": "farm-b",
+   "visualId": "1085",
+   "birthDate": "2021-06-29",
+   "sireNaab": "029HO20100",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 609,
+     "milk": 788,
+     "fat": 0.49,
+     "pro": 19,
+     "pl": 1.24,
+     "scs": 2.68,
+     "fs": 89.94,
+     "rfi": 1.26
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1086",
+   "farmId": "farm-b",
+   "visualId": "1086",
+   "birthDate": "2024-10-15",
+   "sireNaab": "029HO20100",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 615,
+     "milk": 574,
+     "fat": 0.4,
+     "pro": 23,
+     "pl": 2.66,
+     "scs": 2.82,
+     "fs": 57.83,
+     "rfi": 0.51
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1087",
+   "farmId": "farm-b",
+   "visualId": "1087",
+   "birthDate": "2025-07-26",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 662,
+     "milk": 580,
+     "fat": 0.15,
+     "pro": 16,
+     "pl": 0.58,
+     "scs": 2.69,
+     "fs": 84.62,
+     "rfi": 7.2
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1088",
+   "farmId": "farm-b",
+   "visualId": "1088",
+   "birthDate": "2026-03-11",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 479,
+     "milk": 775,
+     "fat": 0.95,
+     "pro": 22,
+     "pl": 2.92,
+     "scs": 2.93,
+     "fs": -134.25,
+     "rfi": 7.16
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1089",
+   "farmId": "farm-b",
+   "visualId": "1089",
+   "birthDate": "2026-07-21",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 693,
+     "milk": 631,
+     "fat": 0.47,
+     "pro": 18,
+     "pl": 1.44,
+     "scs": 2.82,
+     "fs": -65.06,
+     "rfi": 4.19
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1090",
+   "farmId": "farm-b",
+   "visualId": "1090",
+   "birthDate": "2024-12-15",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 407,
+     "milk": 613,
+     "fat": 0.45,
+     "pro": 22,
+     "pl": 2.76,
+     "scs": 3.2,
+     "fs": 7.5,
+     "rfi": 3.33
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1091",
+   "farmId": "farm-b",
+   "visualId": "1091",
+   "birthDate": "2023-11-27",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 647,
+     "milk": 706,
+     "fat": 1.23,
+     "pro": 20,
+     "pl": 1.97,
+     "scs": 2.96,
+     "fs": -86.61,
+     "rfi": 3.92
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1092",
+   "farmId": "farm-b",
+   "visualId": "1092",
+   "birthDate": "2025-07-24",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 501,
+     "milk": 596,
+     "fat": 0.73,
+     "pro": 20,
+     "pl": 0.73,
+     "scs": 3.12,
+     "fs": -139.18,
+     "rfi": 3.45
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1093",
+   "farmId": "farm-b",
+   "visualId": "1093",
+   "birthDate": "2025-08-11",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 438,
+     "milk": 574,
+     "fat": 1.65,
+     "pro": 18,
+     "pl": 1.68,
+     "scs": 2.83,
+     "fs": 42.28,
+     "rfi": 4.57
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1094",
+   "farmId": "farm-b",
+   "visualId": "1094",
+   "birthDate": "2025-04-23",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 606,
+     "milk": 871,
+     "fat": 1.87,
+     "pro": 27,
+     "pl": 2.4,
+     "scs": 3.01,
+     "fs": -103.23,
+     "rfi": 1.47
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1095",
+   "farmId": "farm-b",
+   "visualId": "1095",
+   "birthDate": "2022-10-06",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 487,
+     "milk": 742,
+     "fat": 1.75,
+     "pro": 20,
+     "pl": 1.25,
+     "scs": 3.3,
+     "fs": 68.9,
+     "rfi": 5.87
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1096",
+   "farmId": "farm-b",
+   "visualId": "1096",
+   "birthDate": "2023-10-06",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 416,
+     "milk": 670,
+     "fat": 0.56,
+     "pro": 28,
+     "pl": 2.57,
+     "scs": 2.98,
+     "fs": -135.96,
+     "rfi": 7.47
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1097",
+   "farmId": "farm-b",
+   "visualId": "1097",
+   "birthDate": "2026-03-20",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 619,
+     "milk": 840,
+     "fat": 0.63,
+     "pro": 18,
+     "pl": 0.31,
+     "scs": 2.89,
+     "fs": -96.31,
+     "rfi": 6.21
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1098",
+   "farmId": "farm-b",
+   "visualId": "1098",
+   "birthDate": "2022-03-02",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 486,
+     "milk": 564,
+     "fat": 0.11,
+     "pro": 15,
+     "pl": 2.32,
+     "scs": 2.55,
+     "fs": -138.94,
+     "rfi": 0.62
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1099",
+   "farmId": "farm-b",
+   "visualId": "1099",
+   "birthDate": "2025-08-07",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 689,
+     "milk": 692,
+     "fat": 0.94,
+     "pro": 21,
+     "pl": 0.26,
+     "scs": 3.29,
+     "fs": -6.15,
+     "rfi": 0.67
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1100",
+   "farmId": "farm-b",
+   "visualId": "1100",
+   "birthDate": "2026-07-04",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 615,
+     "milk": 653,
+     "fat": 0.42,
+     "pro": 21,
+     "pl": 2.26,
+     "scs": 2.59,
+     "fs": -108.79,
+     "rfi": 3.55
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1101",
+   "farmId": "farm-b",
+   "visualId": "1101",
+   "birthDate": "2026-08-06",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 575,
+     "milk": 900,
+     "fat": 0.92,
+     "pro": 21,
+     "pl": 1.24,
+     "scs": 2.58,
+     "fs": 49.22,
+     "rfi": 5.36
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1102",
+   "farmId": "farm-b",
+   "visualId": "1102",
+   "birthDate": "2022-04-09",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 483,
+     "milk": 780,
+     "fat": 0.43,
+     "pro": 18,
+     "pl": 1.99,
+     "scs": 3.24,
+     "fs": -55,
+     "rfi": 7.52
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1103",
+   "farmId": "farm-b",
+   "visualId": "1103",
+   "birthDate": "2025-04-19",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 509,
+     "milk": 704,
+     "fat": 1.95,
+     "pro": 26,
+     "pl": 1.36,
+     "scs": 2.53,
+     "fs": -112.19,
+     "rfi": 0.75
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1104",
+   "farmId": "farm-b",
+   "visualId": "1104",
+   "birthDate": "2025-12-07",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 622,
+     "milk": 688,
+     "fat": 1.31,
+     "pro": 26,
+     "pl": 2.64,
+     "scs": 2.64,
+     "fs": 49.5,
+     "rfi": 3.44
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1105",
+   "farmId": "farm-b",
+   "visualId": "1105",
+   "birthDate": "2022-06-13",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 535,
+     "milk": 563,
+     "fat": 1.77,
+     "pro": 29,
+     "pl": 1.71,
+     "scs": 3.26,
+     "fs": -82.04,
+     "rfi": 1.39
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1106",
+   "farmId": "farm-b",
+   "visualId": "1106",
+   "birthDate": "2026-07-16",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 444,
+     "milk": 898,
+     "fat": 1.92,
+     "pro": 23,
+     "pl": 0.91,
+     "scs": 2.87,
+     "fs": -36.99,
+     "rfi": 2.01
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1107",
+   "farmId": "farm-b",
+   "visualId": "1107",
+   "birthDate": "2025-09-16",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 541,
+     "milk": 529,
+     "fat": 0.34,
+     "pro": 29,
+     "pl": 1.29,
+     "scs": 2.93,
+     "fs": 15.29,
+     "rfi": 7.5
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1108",
+   "farmId": "farm-b",
+   "visualId": "1108",
+   "birthDate": "2025-04-03",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 489,
+     "milk": 547,
+     "fat": 1.84,
+     "pro": 27,
+     "pl": 2.29,
+     "scs": 2.91,
+     "fs": -83.4,
+     "rfi": 2.45
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1109",
+   "farmId": "farm-b",
+   "visualId": "1109",
+   "birthDate": "2025-10-02",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 414,
+     "milk": 637,
+     "fat": 1.75,
+     "pro": 23,
+     "pl": 0.68,
+     "scs": 2.53,
+     "fs": 52.69,
+     "rfi": 7.64
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1110",
+   "farmId": "farm-b",
+   "visualId": "1110",
+   "birthDate": "2026-05-17",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 480,
+     "milk": 898,
+     "fat": 0.19,
+     "pro": 20,
+     "pl": 0.39,
+     "scs": 2.65,
+     "fs": -100.66,
+     "rfi": 1.9
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1111",
+   "farmId": "farm-b",
+   "visualId": "1111",
+   "birthDate": "2025-12-20",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 668,
+     "milk": 711,
+     "fat": 1.39,
+     "pro": 17,
+     "pl": 2.67,
+     "scs": 2.91,
+     "fs": -111.7,
+     "rfi": 6.34
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1112",
+   "farmId": "farm-b",
+   "visualId": "1112",
+   "birthDate": "2026-08-11",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 608,
+     "milk": 649,
+     "fat": 1.5,
+     "pro": 18,
+     "pl": 0.94,
+     "scs": 2.59,
+     "fs": 58.56,
+     "rfi": 2.57
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1113",
+   "farmId": "farm-b",
+   "visualId": "1113",
+   "birthDate": "2025-05-08",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 587,
+     "milk": 741,
+     "fat": 1.42,
+     "pro": 26,
+     "pl": 0.07,
+     "scs": 2.76,
+     "fs": -30.39,
+     "rfi": 5.54
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1114",
+   "farmId": "farm-b",
+   "visualId": "1114",
+   "birthDate": "2024-12-04",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 562,
+     "milk": 877,
+     "fat": 0.38,
+     "pro": 15,
+     "pl": 2.19,
+     "scs": 2.59,
+     "fs": 96.89,
+     "rfi": 6.87
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1115",
+   "farmId": "farm-b",
+   "visualId": "1115",
+   "birthDate": "2021-04-10",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 422,
+     "milk": 876,
+     "fat": 0.83,
+     "pro": 17,
+     "pl": 1.99,
+     "scs": 2.81,
+     "fs": -65.69,
+     "rfi": 1.46
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1116",
+   "farmId": "farm-b",
+   "visualId": "1116",
+   "birthDate": "2025-10-25",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 490,
+     "milk": 803,
+     "fat": 1.87,
+     "pro": 23,
+     "pl": 2.77,
+     "scs": 2.64,
+     "fs": 59.05,
+     "rfi": 7.82
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1117",
+   "farmId": "farm-b",
+   "visualId": "1117",
+   "birthDate": "2021-02-20",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 567,
+     "milk": 617,
+     "fat": 0.19,
+     "pro": 28,
+     "pl": 2.89,
+     "scs": 2.52,
+     "fs": 33.74,
+     "rfi": 4.92
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1118",
+   "farmId": "farm-b",
+   "visualId": "1118",
+   "birthDate": "2026-01-14",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 591,
+     "milk": 568,
+     "fat": 0.21,
+     "pro": 16,
+     "pl": 1.36,
+     "scs": 2.61,
+     "fs": -62.63,
+     "rfi": 6.48
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1119",
+   "farmId": "farm-b",
+   "visualId": "1119",
+   "birthDate": "2026-08-02",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 413,
+     "milk": 814,
+     "fat": 0.48,
+     "pro": 19,
+     "pl": 0.76,
+     "scs": 2.94,
+     "fs": -12.61,
+     "rfi": 7.9
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1120",
+   "farmId": "farm-b",
+   "visualId": "1120",
+   "birthDate": "2025-01-28",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 423,
+     "milk": 752,
+     "fat": 1.9,
+     "pro": 18,
+     "pl": 0.15,
+     "scs": 3.24,
+     "fs": 51.5,
+     "rfi": 1.86
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1121",
+   "farmId": "farm-b",
+   "visualId": "1121",
+   "birthDate": "2022-10-02",
+   "sireNaab": "029HO20100",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 420,
+     "milk": 833,
+     "fat": 0.87,
+     "pro": 17,
+     "pl": 2.83,
+     "scs": 3.29,
+     "fs": 20.49,
+     "rfi": 5.74
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1122",
+   "farmId": "farm-b",
+   "visualId": "1122",
+   "birthDate": "2026-06-01",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 473,
+     "milk": 772,
+     "fat": 1.45,
+     "pro": 25,
+     "pl": 0.49,
+     "scs": 3.21,
+     "fs": -24.14,
+     "rfi": 6.52
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1123",
+   "farmId": "farm-b",
+   "visualId": "1123",
+   "birthDate": "2022-05-20",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 458,
+     "milk": 755,
+     "fat": 1.8,
+     "pro": 19,
+     "pl": 1.67,
+     "scs": 2.76,
+     "fs": 6.86,
+     "rfi": 0.56
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1124",
+   "farmId": "farm-b",
+   "visualId": "1124",
+   "birthDate": "2026-07-27",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 649,
+     "milk": 563,
+     "fat": 0.34,
+     "pro": 26,
+     "pl": 1.33,
+     "scs": 2.76,
+     "fs": -135.87,
+     "rfi": 4.82
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1125",
+   "farmId": "farm-b",
+   "visualId": "1125",
+   "birthDate": "2026-01-31",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 440,
+     "milk": 817,
+     "fat": 0.09,
+     "pro": 21,
+     "pl": 1.1,
+     "scs": 2.98,
+     "fs": -70.52,
+     "rfi": 0.52
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1126",
+   "farmId": "farm-b",
+   "visualId": "1126",
+   "birthDate": "2022-10-23",
+   "sireNaab": "029HO20100",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 581,
+     "milk": 817,
+     "fat": 1.08,
+     "pro": 29,
+     "pl": 1.88,
+     "scs": 2.62,
+     "fs": 70.53,
+     "rfi": 7.23
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1127",
+   "farmId": "farm-b",
+   "visualId": "1127",
+   "birthDate": "2022-12-12",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 536,
+     "milk": 610,
+     "fat": 1.02,
+     "pro": 20,
+     "pl": 2.7,
+     "scs": 2.72,
+     "fs": -84.01,
+     "rfi": 6.49
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1128",
+   "farmId": "farm-b",
+   "visualId": "1128",
+   "birthDate": "2023-05-26",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 585,
+     "milk": 869,
+     "fat": 0.83,
+     "pro": 18,
+     "pl": 1.1,
+     "scs": 2.75,
+     "fs": 37.39,
+     "rfi": 6.37
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1129",
+   "farmId": "farm-b",
+   "visualId": "1129",
+   "birthDate": "2026-08-27",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 670,
+     "milk": 711,
+     "fat": 1.33,
+     "pro": 27,
+     "pl": 1.96,
+     "scs": 3.05,
+     "fs": -35.21,
+     "rfi": 3.11
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1130",
+   "farmId": "farm-b",
+   "visualId": "1130",
+   "birthDate": "2026-04-22",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 415,
+     "milk": 801,
+     "fat": 1.34,
+     "pro": 21,
+     "pl": 1.49,
+     "scs": 2.59,
+     "fs": -50.36,
+     "rfi": 2.6
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1131",
+   "farmId": "farm-b",
+   "visualId": "1131",
+   "birthDate": "2025-11-18",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 668,
+     "milk": 790,
+     "fat": 1.29,
+     "pro": 15,
+     "pl": 2.89,
+     "scs": 2.64,
+     "fs": -135.03,
+     "rfi": 1.37
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1132",
+   "farmId": "farm-b",
+   "visualId": "1132",
+   "birthDate": "2023-09-13",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 405,
+     "milk": 897,
+     "fat": 1.48,
+     "pro": 28,
+     "pl": 2.83,
+     "scs": 2.81,
+     "fs": 66.58,
+     "rfi": 7.62
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1133",
+   "farmId": "farm-b",
+   "visualId": "1133",
+   "birthDate": "2024-06-04",
+   "sireNaab": "029HO20001",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 566,
+     "milk": 622,
+     "fat": 1.09,
+     "pro": 19,
+     "pl": 1.23,
+     "scs": 2.64,
+     "fs": 35.15,
+     "rfi": 6.59
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1134",
+   "farmId": "farm-b",
+   "visualId": "1134",
+   "birthDate": "2025-01-27",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 566,
+     "milk": 538,
+     "fat": 0.41,
+     "pro": 17,
+     "pl": 0.95,
+     "scs": 2.64,
+     "fs": -91.43,
+     "rfi": 0.86
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1135",
+   "farmId": "farm-b",
+   "visualId": "1135",
+   "birthDate": "2025-01-01",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 655,
+     "milk": 848,
+     "fat": 0.23,
+     "pro": 29,
+     "pl": 2.84,
+     "scs": 3.18,
+     "fs": -101.22,
+     "rfi": 3.91
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1136",
+   "farmId": "farm-b",
+   "visualId": "1136",
+   "birthDate": "2022-08-30",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 600,
+     "milk": 655,
+     "fat": 0.9,
+     "pro": 17,
+     "pl": 0.17,
+     "scs": 2.65,
+     "fs": -39.92,
+     "rfi": 0.94
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1137",
+   "farmId": "farm-b",
+   "visualId": "1137",
+   "birthDate": "2026-02-12",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 600,
+     "milk": 559,
+     "fat": 0.26,
+     "pro": 19,
+     "pl": 2.16,
+     "scs": 3.02,
+     "fs": 94.16,
+     "rfi": 2.85
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1138",
+   "farmId": "farm-b",
+   "visualId": "1138",
+   "birthDate": "2025-11-16",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 431,
+     "milk": 551,
+     "fat": 0.58,
+     "pro": 19,
+     "pl": 1.7,
+     "scs": 3.07,
+     "fs": -94.04,
+     "rfi": 1.8
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1139",
+   "farmId": "farm-b",
+   "visualId": "1139",
+   "birthDate": "2023-03-25",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 454,
+     "milk": 582,
+     "fat": 1.51,
+     "pro": 20,
+     "pl": 2.97,
+     "scs": 2.64,
+     "fs": -39.93,
+     "rfi": 6.67
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1140",
+   "farmId": "farm-b",
+   "visualId": "1140",
+   "birthDate": "2024-10-18",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 593,
+     "milk": 744,
+     "fat": 1.38,
+     "pro": 30,
+     "pl": 2.71,
+     "scs": 3.22,
+     "fs": -93.64,
+     "rfi": 7.83
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1141",
+   "farmId": "farm-b",
+   "visualId": "1141",
+   "birthDate": "2026-08-13",
+   "sireNaab": "029HO20100",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 543,
+     "milk": 554,
+     "fat": 1.38,
+     "pro": 22,
+     "pl": 0.61,
+     "scs": 3.17,
+     "fs": 1.68,
+     "rfi": 1.47
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1142",
+   "farmId": "farm-b",
+   "visualId": "1142",
+   "birthDate": "2025-02-19",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 447,
+     "milk": 563,
+     "fat": 0.91,
+     "pro": 16,
+     "pl": 1.79,
+     "scs": 2.95,
+     "fs": -144.37,
+     "rfi": 5.46
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1143",
+   "farmId": "farm-b",
+   "visualId": "1143",
+   "birthDate": "2024-02-25",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 439,
+     "milk": 607,
+     "fat": 1.55,
+     "pro": 15,
+     "pl": 1.94,
+     "scs": 3.25,
+     "fs": 88.23,
+     "rfi": 4.54
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1144",
+   "farmId": "farm-b",
+   "visualId": "1144",
+   "birthDate": "2026-02-23",
+   "sireNaab": "029HO19531",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 474,
+     "milk": 661,
+     "fat": 1.5,
+     "pro": 29,
+     "pl": 0.14,
+     "scs": 3,
+     "fs": -113.96,
+     "rfi": 0.79
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1145",
+   "farmId": "farm-b",
+   "visualId": "1145",
+   "birthDate": "2025-09-10",
+   "sireNaab": "029HO20001",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 538,
+     "milk": 693,
+     "fat": 1.92,
+     "pro": 30,
+     "pl": 2.27,
+     "scs": 2.95,
+     "fs": -102.61,
+     "rfi": 7.03
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1146",
+   "farmId": "farm-b",
+   "visualId": "1146",
+   "birthDate": "2022-06-30",
+   "sireNaab": "029HO21010",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 480,
+     "milk": 694,
+     "fat": 1.98,
+     "pro": 30,
+     "pl": 1.45,
+     "scs": 2.93,
+     "fs": 33.27,
+     "rfi": 0.04
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1147",
+   "farmId": "farm-b",
+   "visualId": "1147",
+   "birthDate": "2025-10-27",
+   "sireNaab": "029HO20001",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 668,
+     "milk": 654,
+     "fat": 0.46,
+     "pro": 27,
+     "pl": 0.04,
+     "scs": 2.85,
+     "fs": -77.25,
+     "rfi": 6.48
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1148",
+   "farmId": "farm-b",
+   "visualId": "1148",
+   "birthDate": "2025-03-23",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 440,
+     "milk": 825,
+     "fat": 1.05,
+     "pro": 25,
+     "pl": 2.97,
+     "scs": 2.78,
+     "fs": 57.09,
+     "rfi": 0.07
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  },
+  {
+   "id": "f-farm-b-1149",
+   "farmId": "farm-b",
+   "visualId": "1149",
+   "birthDate": "2023-07-03",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 629,
+     "milk": 722,
+     "fat": 0.65,
+     "pro": 28,
+     "pl": 2.79,
+     "scs": 2.98,
+     "fs": 44.78,
+     "rfi": 4.14
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "DEMO SINTÉTICO"
+   }
+  }
+ ]
+}

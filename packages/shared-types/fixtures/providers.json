@@ -1,0 +1,226 @@
+{
+  "providers": [
+    {
+      "id": "prov-contractor-1",
+      "name": "Contratista El Surco",
+      "type": "CONTRACTOR",
+      "base": { "lat": -32.9, "lng": -63.6, "label": "Río Cuarto, Córdoba" },
+      "verified": false,
+      "reputation": { "avg": 4.2, "jobs": 18 },
+      "contact": { "phone": "+54 9 358 400-0001", "email": "contacto@elsurco.example" },
+      "source": "SEED PROVISORIO"
+    },
+    {
+      "id": "prov-vet-1",
+      "name": "Veterinaria Rural SRL",
+      "type": "VET",
+      "base": { "lat": -32.4, "lng": -63.24, "label": "Cuenca lechera de Córdoba (demo)" },
+      "verified": false,
+      "reputation": { "avg": 4.6, "jobs": 42 },
+      "contact": { "phone": "+54 9 351 400-0002", "email": "turnos@vetrural.example" },
+      "source": "SEED PROVISORIO"
+    },
+    {
+      "id": "prov-genetics-norte",
+      "name": "Central Genética Norte",
+      "type": "SEMEN_COMPANY",
+      "base": { "lat": -31.4, "lng": -64.18, "label": "Córdoba Capital" },
+      "verified": false,
+      "reputation": { "avg": 4.5, "jobs": 130 },
+      "contact": { "phone": "+54 9 351 400-0003", "email": "ventas@geneticanorte.example" },
+      "source": "SEED PROVISORIO"
+    },
+    {
+      "id": "prov-genetics-sur",
+      "name": "Central Genética Sur",
+      "type": "SEMEN_COMPANY",
+      "base": { "lat": -33.0, "lng": -61.4, "label": "Santa Fe" },
+      "verified": false,
+      "reputation": { "avg": 4.3, "jobs": 95 },
+      "contact": { "phone": "+54 9 342 400-0004", "email": "ventas@geneticasur.example" },
+      "source": "SEED PROVISORIO"
+    },
+    {
+      "id": "prov-genetics-carne",
+      "name": "Central Genética Carne",
+      "type": "SEMEN_COMPANY",
+      "base": { "lat": -34.6, "lng": -58.4, "label": "Buenos Aires" },
+      "verified": false,
+      "reputation": { "avg": 4.1, "jobs": 60 },
+      "contact": { "phone": "+54 9 11 400-0005", "email": "ventas@geneticacarne.example" },
+      "source": "SEED PROVISORIO"
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "cap-arada-1",
+      "providerId": "prov-contractor-1",
+      "category": "MACHINERY",
+      "serviceType": "arada",
+      "coverageRadiusKm": 60,
+      "capacityPerDay": { "value": 40, "unit": "HA" },
+      "availability": [{ "from": "2026-09-15", "to": "2026-09-30" }],
+      "priceModel": "PER_HA",
+      "priceFrom": 15000,
+      "certifications": ["con GPS"],
+      "attributes": { "gps": true, "implemento": "rastra" }
+    },
+    {
+      "id": "cap-vet-1",
+      "providerId": "prov-vet-1",
+      "category": "VET",
+      "serviceType": "control reproductivo",
+      "coverageRadiusKm": 80,
+      "capacityPerDay": { "value": 3, "unit": "VISIT" },
+      "availability": [{ "from": "2026-09-14", "to": "2026-10-14" }],
+      "priceModel": "PER_VISIT",
+      "priceFrom": 8000,
+      "certifications": ["matriculado"],
+      "attributes": { "ecografo": true }
+    },
+    {
+      "id": "029HO19531",
+      "providerId": "prov-genetics-norte",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 18,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "029HO21010",
+      "providerId": "prov-genetics-sur",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 22,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "029HO20001",
+      "providerId": "prov-genetics-norte",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 20,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "029HO20002",
+      "providerId": "prov-genetics-norte",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 24,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "029HO20100",
+      "providerId": "prov-genetics-sur",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 28,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "029HO20200",
+      "providerId": "prov-genetics-sur",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 15,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "029HO20300",
+      "providerId": "prov-genetics-norte",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 19,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "029HO20400",
+      "providerId": "prov-genetics-sur",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 14,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "200JE01234",
+      "providerId": "prov-genetics-norte",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 21,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "007AN01111",
+      "providerId": "prov-genetics-carne",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 12,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "008HE02222",
+      "providerId": "prov-genetics-carne",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 11,
+      "certifications": [],
+      "attributes": {}
+    },
+    {
+      "id": "009LM03333",
+      "providerId": "prov-genetics-carne",
+      "category": "GENETICS",
+      "serviceType": "semen",
+      "coverageRadiusKm": 500,
+      "availability": [{ "from": "2026-01-01", "to": "2026-12-31" }],
+      "priceModel": "PER_UNIT",
+      "priceFrom": 13,
+      "certifications": [],
+      "attributes": {}
+    }
+  ]
+}

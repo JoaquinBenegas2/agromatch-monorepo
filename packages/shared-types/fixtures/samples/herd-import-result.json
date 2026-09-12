@@ -1,0 +1,26 @@
+{
+  "females": [
+    {
+      "id": "f-3021",
+      "farmId": "farm-a",
+      "visualId": "3021",
+      "birthDate": "2025-08-12",
+      "sireNaab": "029HO20294",
+      "category": "HEIFER",
+      "profile": {
+        "traits": { "ci": 440, "milk": 699, "fat": 1, "pro": 21, "pl": 1.5, "scs": 2.89, "fs": -119.38, "rfi": 4.83 },
+        "betaCasein": "A1/A2",
+        "kappaCasein": "AB",
+        "scale": "CDCB",
+        "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+      }
+    }
+  ],
+  "rowsOk": 293,
+  "rowsRejected": [
+    { "row": 187, "reason": "Fila de notas del productor, no es un animal (celda 'Observaciones: repasar rodeo octubre')" }
+  ],
+  "warnings": [
+    "2 animales sin padre registrado: no se puede controlar consanguinidad, quedan etiquetados NO_SIRE"
+  ]
+}

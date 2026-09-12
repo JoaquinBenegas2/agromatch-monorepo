@@ -1,0 +1,38 @@
+{
+  "headerRow": 1,
+  "columns": {
+    "Caravana": "visualId",
+    "Fecha Nacimiento": "birthDate",
+    "Padre": "sireNaab",
+    "CI": "ci",
+    "Leche": "milk",
+    "Grasa": "fat",
+    "Proteina": "pro",
+    "PL": "pl",
+    "SCS": "scs",
+    "FS": "fs",
+    "RFI": "rfi",
+    "Beta Caseina": "betaCasein",
+    "Kappa Caseina": "kappaCasein",
+    "Observaciones": "IGNORE"
+  },
+  "confidence": {
+    "Caravana": 1,
+    "Fecha Nacimiento": 1,
+    "Padre": 0.95,
+    "CI": 1,
+    "Leche": 1,
+    "Grasa": 1,
+    "Proteina": 1,
+    "PL": 1,
+    "SCS": 1,
+    "FS": 0.9,
+    "RFI": 0.9,
+    "Beta Caseina": 0.85,
+    "Kappa Caseina": 0.85,
+    "Observaciones": 0.3
+  },
+  "warnings": [
+    "La columna 'Observaciones' se ignora: contiene notas de texto libre, no datos de rodeo"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "plan-farm-a",
+  "farmId": "farm-a",
+  "createdAt": "2026-09-12T11:00:00.000Z",
+  "items": [
+    { "femaleId": "f-3021", "bullNaab": "029HO19531", "semenType": "CONVENTIONAL", "compatibility": 91, "pricePerDose": 18 },
+    { "femaleId": "f-3022", "bullNaab": "029HO20100", "semenType": "SEXED", "compatibility": 88, "pricePerDose": 28 }
+  ],
+  "totals": {
+    "doses": { "SEXED": 1, "CONVENTIONAL": 1, "BEEF": 0 },
+    "cost": 46,
+    "avgExpectedProgeny": { "ci": 545, "milk": 750, "fat": 1.25, "pro": 23, "pl": 1.9, "scs": 2.75 }
+  }
+}
