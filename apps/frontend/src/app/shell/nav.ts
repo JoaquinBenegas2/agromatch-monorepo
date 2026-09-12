@@ -108,9 +108,9 @@ export const NAV_MODULES: NavModule[] = [
     subtitle: 'Tu lugar de trabajo',
     tabs: [
       {
-        label: 'Setup conversacional',
+        label: 'Perfil del establecimiento',
         path: '/establecimiento',
-        status: 'placeholder-with-data',
+        status: 'live',
       },
     ],
   },
