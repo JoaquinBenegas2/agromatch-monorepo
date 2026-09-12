@@ -6,6 +6,7 @@ import { UiKitPreview } from './ui-kit-preview.js';
 import { AdvisorRoute } from '../features/advisor/advisor-route.js';
 import { MarketplacePage } from '../features/market/marketplace-page.js';
 import { MatchingScreen } from '../features/matching/matching-screen.js';
+import { NotFoundPage } from './not-found-page.js';
 
 export function App() {
   return (
@@ -21,6 +22,8 @@ export function App() {
         <Route path="/negociacion/plan" element={<PlanScreen />} />
         <Route path="/negociacion/*" element={<ModulePage />} />
         <Route path="/ofertas" element={<ModulePage />} />
+        {/* Cualquier URL que no exista: mensaje y salida dentro del shell, nunca una pantalla en blanco. */}
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="/ui-kit" element={<UiKitPreview />} />
     </Routes>

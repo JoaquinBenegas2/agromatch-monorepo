@@ -1,11 +1,14 @@
 import type { Farm, FarmSummary, Tier, TraitKey } from '@org/shared-types';
-import { Users } from 'lucide-react';
+import { ArrowRight, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { EmptyState } from '@/components/ui/empty-state';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { StatCard } from '@/components/ui/stat-card';
+import { useActiveFarmId } from '../../shared/user/user-context.js';
 import { useAdvisorOverview } from './advisor.api.js';
 
 const TIERS: Tier[] = ['ELITE', 'COMMERCIAL', 'BEEF', 'CULL_ALERT'];
@@ -42,13 +45,19 @@ function LoadingState() {
   );
 }
 
-function FarmCard({ summary }: { summary: FarmSummary }) {
+function FarmCard({ summary, onOpen }: { summary: FarmSummary; onOpen: (farmId: string) => void }) {
   const classified = TIERS.some((tier) => summary.byTier[tier] > 0);
   return (
     <Card className="flex flex-col gap-4 p-4">
-      <div>
-        <p className="text-[15px] font-bold tracking-tight">{summary.farm.name}</p>
-        <p className="text-[11.5px] text-muted-foreground">{summary.farm.location}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="text-[15px] font-bold tracking-tight">{summary.farm.name}</p>
+          <p className="text-[11.5px] text-muted-foreground">{summary.farm.location}</p>
+        </div>
+        {/* F7: del resumen a la acción — el tambo elegido pasa a ser el activo. */}
+        <Button variant="ghost" size="sm" onClick={() => onOpen(summary.farm.id)} aria-label={`Abrir el tablero de ${summary.farm.name}`}>
+          {classified ? 'Ver tablero' : 'Clasificar'} <ArrowRight />
+        </Button>
       </div>
 
       <div className="grid grid-cols-3 gap-2">
@@ -122,6 +131,13 @@ function TraitsComparison({ summaries }: { summaries: FarmSummary[] }) {
 /** REQ-B-ADV-02: una `Card` por tambo con distribución por tier, A2/A2, BB y comparación de `avgTraits`. */
 export function AdvisorPage() {
   const { data, isLoading, isError, error } = useAdvisorOverview();
+  const navigate = useNavigate();
+  const [, setActiveFarmId] = useActiveFarmId();
+
+  function openFarm(farmId: string) {
+    setActiveFarmId(farmId);
+    navigate('/motor-genetico/tablero');
+  }
 
   if (isLoading) return <LoadingState />;
 
@@ -149,7 +165,7 @@ export function AdvisorPage() {
     <div className="flex flex-col gap-4 p-6">
       <div className="grid gap-3 md:grid-cols-3">
         {data.map((summary) => (
-          <FarmCard key={summary.farm.id} summary={summary} />
+          <FarmCard key={summary.farm.id} summary={summary} onOpen={openFarm} />
         ))}
       </div>
       <TraitsComparison summaries={data} />

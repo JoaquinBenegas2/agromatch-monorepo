@@ -15,6 +15,7 @@ import { useMatchBoard } from '../../shared/api/hooks/use-match-board.js';
 import { useAddPlanItem, useRemovePlanItem } from '../../shared/api/hooks/use-plan-item-mutations.js';
 import { useGoalParse } from '../../shared/api/hooks/use-goal-parse.js';
 import { usePlan } from '../../shared/api/hooks/use-plan.js';
+import { useFemales } from '../../shared/api/hooks/use-herd.js';
 import { MatchRow } from './match-row.js';
 
 /** Anima 0→1 (o 1→0) en ~1.2s; se lee por ref en cada frame, sin re-render. */
@@ -75,8 +76,33 @@ export function MatchingScreen() {
   );
   const [goal, setGoal] = useState<BreedingGoal>(incomingGoal ?? presetGoal('BALANCED'));
   const [searchId, setSearchId] = useState('');
+  const [searchError, setSearchError] = useState<string | null>(null);
 
   const farmId = activeFarmId ?? '';
+  // El productor busca por caravana (visualId, ej. "3031"); la API identifica
+  // a la hembra por su id interno (ej. "f-3031"). Se resuelve acá, con el
+  // rodeo ya cargado, en vez de mandar el texto crudo y recibir un 404.
+  const females = useFemales(farmId);
+  const currentFemale = females.data?.find((f) => f.id === femaleId);
+  const femaleLabel = currentFemale?.visualId ?? femaleId;
+
+  function handleSearch() {
+    const query = searchId.trim();
+    if (!query) return;
+    if (females.isPending) {
+      setSearchError('Todavía se está cargando el rodeo, probá en un segundo.');
+      return;
+    }
+    const found = females.data?.find(
+      (f) => f.visualId.toLowerCase() === query.toLowerCase() || f.id === query,
+    );
+    if (!found) {
+      setSearchError(`No encontramos la caravana "${query}" en este tambo.`);
+      return;
+    }
+    setSearchError(null);
+    navigate(`/motor-genetico/matching/${found.id}`);
+  }
   const board = useMatchBoard(farmId, femaleId, goal);
   const addItem = useAddPlanItem(farmId);
   const removeItem = useRemovePlanItem(farmId);
@@ -167,13 +193,17 @@ export function MatchingScreen() {
               className="flex items-center gap-2"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (searchId.trim()) navigate(`/motor-genetico/matching/${searchId.trim()}`);
+                handleSearch();
               }}
             >
               <Input
-                placeholder="ID visual de la hembra"
+                placeholder="Caravana de la hembra"
+                aria-label="Caravana de la hembra"
                 value={searchId}
-                onChange={(e) => setSearchId(e.target.value)}
+                onChange={(e) => {
+                  setSearchId(e.target.value);
+                  setSearchError(null);
+                }}
                 className="w-[180px]"
               />
               <Button type="submit" size="sm">
@@ -185,6 +215,7 @@ export function MatchingScreen() {
             </form>
           }
         />
+        {searchError && <ErrorMessage message={searchError} />}
       </div>
     );
   }
@@ -198,7 +229,7 @@ export function MatchingScreen() {
           <span className="font-mono text-[9.5px] font-semibold tracking-[0.14em] text-ink-4 uppercase">
             Tu hembra · contexto fijo para todo el listado
           </span>
-          <span className="text-[17px] font-bold tracking-tight">{femaleId}</span>
+          <span className="text-[17px] font-bold tracking-tight">{femaleLabel}</span>
         </div>
         <Button variant="secondary" size="sm" onClick={() => navigate('/motor-genetico/matching')}>
           Cambiar hembra
@@ -218,7 +249,7 @@ export function MatchingScreen() {
             <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">
               Tu hembra
             </span>
-            <strong className="block text-[15px] font-medium text-[#f0f5dc]">{femaleId}</strong>
+            <strong className="block text-[15px] font-medium text-[#f0f5dc]">{femaleLabel}</strong>
           </SpatialLabel>
           <SpatialLabel anchor="bull" className="-translate-x-1/2">
             <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">

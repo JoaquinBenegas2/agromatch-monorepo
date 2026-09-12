@@ -53,6 +53,14 @@ export class GeneticMatchingService {
       );
     }
 
+    // RN-06 (facilidad de parto para vaquillonas y crías) necesita el umbral
+    // del tambo: sin `farm` el vertical no aplica ese filtro y una vaquillona
+    // podría recibir un toro que la regla prohíbe. Se exige, no se omite.
+    const farm = await this.farmRepo.findById(farmId);
+    if (!farm) {
+      throw new DomainError('FARM_NOT_FOUND', 'No encontramos el establecimiento', 404, { farmId });
+    }
+
     const need = await this.getOrCreateSyntheticNeed(farmId, femaleId, goal);
 
     const bulls = (await this.bullRepo.list()).filter((b) =>
@@ -67,10 +75,7 @@ export class GeneticMatchingService {
       this.providerRepo.list({ category: 'GENETICS' }),
     ]);
 
-    const [females, farm] = await Promise.all([
-      this.femaleRepo.listByFarm(farmId),
-      this.farmRepo.findById(farmId),
-    ]);
+    const females = await this.femaleRepo.listByFarm(farmId);
     const profiles: GenomicProfile[] = females
       .map((f) => f.profile)
       .filter((p): p is GenomicProfile => p !== null);
@@ -84,7 +89,7 @@ export class GeneticMatchingService {
       classification,
       bulls,
       stats,
-      farm: farm ?? undefined,
+      farm,
     });
   }
 

@@ -34,6 +34,35 @@ describe('GeneticsChatPort (C6, REQ-A-CHAT-01)', () => {
     expect(textCall.user).toContain('58');
   });
 
+  it('si la pregunta nombra un tier, el LLM recibe SOLO ese conteo (no puede sumar los cuatro)', async () => {
+    const llm = makeLlm({
+      completeJson: vi.fn(async () => ({ tool: 'countByTier', tier: 'BEEF', tag: null, limit: null, femaleId: null })),
+      completeText: vi.fn(async () => 'Van 58 terneras a carne.'),
+    });
+    const port = new GeneticsChatPort(llm);
+
+    const answer = await port.ask('farm-a', '¿cuántas terneras van a carne?', makeTools());
+
+    const textCall = (llm.completeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as LlmPrompt;
+    expect(textCall.user).toContain('"tier":"BEEF"');
+    expect(textCall.user).not.toContain('178');
+    expect(answer.text).toBe('Van 58 terneras a carne.');
+  });
+
+  it('RN-18: si el LLM escribe un número que no está en el resultado, se responde con el dato crudo', async () => {
+    const llm = makeLlm({
+      completeJson: vi.fn(async () => ({ tool: 'countByTier', tier: 'BEEF', tag: null, limit: null, femaleId: null })),
+      // Suma inventada: 42+178+58+15 = 293, y encima mal sumado.
+      completeText: vi.fn(async () => 'Son 291 terneras en total.'),
+    });
+    const port = new GeneticsChatPort(llm);
+
+    const answer = await port.ask('farm-a', '¿cuántas terneras van a carne?', makeTools());
+
+    expect(answer.text).toBe('58 hembras a carne.');
+    expect(answer.usedTools).toEqual(['countByTier']);
+  });
+
   it('cuando el LLM elige listFemales con un tag, pasa el filtro y clampa el límite a 20', async () => {
     const llm = makeLlm({
       completeJson: vi.fn(async () => ({ tool: 'listFemales', tier: null, tag: 'A2_NUCLEUS', limit: 500, femaleId: null })),

@@ -11,9 +11,10 @@ import {
 } from './placeholders.js';
 
 /**
- * Renderiza el contenido de la tab activa según `nav.ts`. Ningún flujo real
- * está implementado en esta base (T0); cada tab muestra su placeholder
- * honesto hasta que su spec lo llene.
+ * Renderiza el contenido de la tab activa según `nav.ts`. Las tabs `live`
+ * con ruta propia (mercado, matching, asesor, plan) las resuelve `app.tsx`
+ * antes de llegar acá; las de `/motor-genetico/*` sin ruta propia se montan
+ * abajo, y el resto muestra su placeholder honesto.
  */
 export function ModulePage() {
   const { pathname } = useLocation();
