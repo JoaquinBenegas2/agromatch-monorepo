@@ -135,7 +135,9 @@ Página **Hackathon: contexto y criterios** → **Torinder**, con 11 subpáginas
 
 **El motor no se reparte:** lo usan dos flujos y se duplicaría la lógica.
 
-**Tres piezas son de todos y van primero:** la **semilla** (contratos + paquetes + esqueleto de la API `B1`, 40 min, una persona), el **sistema visual** (`D1`, 2 h, lo hace D) y el **cliente del LLM** (`C1`, lo hace C y lo publica apenas está).
+**Tres piezas son de todos y van primero:** la **semilla** (contratos + paquetes + esqueleto de la API `B1`, 40 min, una persona), el **sistema visual** (`D1`) y el **cliente del LLM** (`C1`, lo hace C y lo publica apenas está).
+
+✅ **`D1` ya está hecho** (PR #9): la librería vive en `apps/frontend/src/components/ui` y se mira en `/ui-kit`. **D arranca directo con su flujo**, y las pantallas de los otros tres **se arman con esos componentes, no con componentes propios**.
 
 **Hitos:** **I1** (hora 9) el flujo de C entero; **I2** (hora 13) los de B y D; **congelamiento** a la hora 16.
 
@@ -165,7 +167,11 @@ Detalles que rompen implementaciones ingenuas:
 |---|---|
 | Análisis, negocio, dominio, motor, pantallas, convenciones, ADR | ✅ Cerrado |
 | 38 tareas en Notion con dependencias y criterios | ✅ Listas |
-| **Código** | ❌ **Cero** |
+| **`D1` · sistema visual** | ✅ **Hecho y en `develop`** (PR #9): 43 componentes en `apps/frontend/src/components/ui`, los 9 compartidos incluidos, `tokens.css`, y una referencia viva en `/ui-kit` |
+| **`/designs`** | ✅ 22 mockups HTML + tokens |
+| Motor, API, IA y las pantallas de cada flujo | ❌ Sin empezar |
+
+⚠️ **Riesgo de alcance abierto:** `/designs` tiene **22 pantallas**, pero **el MVP son 8** (`docs/pantallas.md`). Ahí adentro hay perfil, verificación, mis lotes, publicar oferta, chat transaccional, logística, historial, onboarding y configuración: **eso es N8, lo que decidimos NO hacer.** Los mockups sirven como norte visual del producto completo; **la lista de lo que se construye sigue siendo la de `docs/pantallas.md`.**
 
 **Pendientes que no bloquean:** confirmar el nombre · precios · proveedor del genotipado · validar el algoritmo de clasificación con el analista · si el proveedor pagaría · mover la raíz de Notion al teamspace y borrar la página duplicada.
 
