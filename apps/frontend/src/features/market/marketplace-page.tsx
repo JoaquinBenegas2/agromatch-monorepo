@@ -1,6 +1,19 @@
 import { useRef, useState } from 'react';
-import type { MatchBoard, Need, PublicProvider, ServiceRequest, UpdateNeedBody } from '@org/shared-types';
-import { Filter, Mic, Send, Sparkles, Stethoscope, Tractor } from 'lucide-react';
+import type {
+  MatchBoard,
+  Need,
+  PublicProvider,
+  ServiceRequest,
+  UpdateNeedBody,
+} from '@org/shared-types';
+import {
+  Filter,
+  Mic,
+  Send,
+  Sparkles,
+  Stethoscope,
+  Tractor,
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { CowLoader } from '@/components/ui/cow-loader';
@@ -23,12 +36,27 @@ import {
 import '../_futuros/futuros-mockup.css';
 
 const QUICK_NEEDS = [
-  { label: 'Contratistas de arada cerca tuyo', prompt: 'necesito quien me are 40 ha en Río Cuarto la semana que viene', icon: Tractor },
-  { label: 'Veterinario para control reproductivo', prompt: 'necesito veterinario para el rodeo, control reproductivo urgente', icon: Stethoscope },
-  { label: 'Mejorar los sólidos de mi tambo', prompt: 'quiero mejorar los sólidos de mi tambo con toros que den más grasa y proteína', icon: Sparkles },
+  {
+    label: 'Contratistas de arada cerca tuyo',
+    prompt: 'necesito quien me are 40 ha en Río Cuarto la semana que viene',
+    icon: Tractor,
+  },
+  {
+    label: 'Veterinario para control reproductivo',
+    prompt: 'necesito veterinario para el rodeo, control reproductivo urgente',
+    icon: Stethoscope,
+  },
+  {
+    label: 'Mejorar los sólidos de mi tambo',
+    prompt:
+      'quiero mejorar los sólidos de mi tambo con toros que den más grasa y proteína',
+    icon: Sparkles,
+  },
 ];
 
-function mutationError(...errors: Array<Error | null | undefined>): Error | undefined {
+function mutationError(
+  ...errors: Array<Error | null | undefined>
+): Error | undefined {
   return errors.find((error): error is Error => error instanceof Error);
 }
 
@@ -68,13 +96,19 @@ export function MarketplacePage() {
   const createRequest = useCreateServiceRequest();
   const createReview = useCreateReview();
   const providers = useProviders(need?.category);
-  const error = mutationError(createNeed.error, updateNeed.error, matchNeed.error);
+  const error = mutationError(
+    createNeed.error,
+    updateNeed.error,
+    matchNeed.error,
+  );
   const queryRef = useRef(query);
   queryRef.current = query;
   // Ni bien el reconocimiento de voz termina de interpretar lo que dijiste,
   // dispara la búsqueda solo — no hace falta tocar "Preguntar" después.
   const speech = useSpeechToText((transcript) => {
-    const next = queryRef.current.trim() ? `${queryRef.current.trim()} ${transcript}` : transcript;
+    const next = queryRef.current.trim()
+      ? `${queryRef.current.trim()} ${transcript}`
+      : transcript;
     setQuery(next);
     void ask(next).catch(() => undefined);
   });
@@ -85,9 +119,14 @@ export function MarketplacePage() {
     updateNeed.reset();
     matchNeed.reset();
     setBoard(undefined);
-    const created = await createNeed.mutateAsync({ rawText: rawText.trim(), farmId });
+    const created = await createNeed.mutateAsync({
+      rawText: rawText.trim(),
+      farmId,
+    });
     if (created.category === 'GENETICS') {
-      navigate('/motor-genetico/matching', { state: { needId: created.id, goal: created.goal } });
+      navigate('/motor-genetico/matching', {
+        state: { needId: created.id, goal: created.goal },
+      });
       return;
     }
     setNeed(created);
@@ -97,18 +136,26 @@ export function MarketplacePage() {
   async function search(target: Need) {
     updateNeed.reset();
     matchNeed.reset();
-    const confirmed = await updateNeed.mutateAsync({ id: target.id, body: toUpdateBody(target) });
+    const confirmed = await updateNeed.mutateAsync({
+      id: target.id,
+      body: toUpdateBody(target),
+    });
     setNeed(confirmed);
     const nextBoard = await matchNeed.mutateAsync(confirmed.id);
     setBoard(nextBoard);
   }
 
-  async function requestProvider(provider: PublicProvider, message: string): Promise<ServiceRequest> {
+  async function requestProvider(
+    provider: PublicProvider,
+    message: string,
+  ): Promise<ServiceRequest> {
     if (!need) throw new Error('No hay una necesidad confirmada');
-    return createRequest.mutateAsync({
+    const created = await createRequest.mutateAsync({
       needId: need.id,
       body: { providerId: provider.id, message },
     });
+    navigate(`/negociacion/matches/${created.id}`);
+    return created;
   }
 
   function editQuery() {
@@ -146,7 +193,11 @@ export function MarketplacePage() {
             reviewing={createReview.isPending}
             onEdit={() => setBoard(undefined)}
             onRequest={requestProvider}
-            onReview={(requestId, body) => createReview.mutateAsync({ requestId, body }).then(() => undefined)}
+            onReview={(requestId, body) =>
+              createReview
+                .mutateAsync({ requestId, body })
+                .then(() => undefined)
+            }
           />
         ) : null}
 
@@ -155,7 +206,14 @@ export function MarketplacePage() {
             icon={<Filter />}
             title="No pudimos completar la búsqueda"
             description="Ajustá los filtros de arriba y tocá Buscar para reintentar."
-            action={<Button variant="secondary" onClick={() => void search(need).catch(() => undefined)}>Reintentar</Button>}
+            action={
+              <Button
+                variant="secondary"
+                onClick={() => void search(need).catch(() => undefined)}
+              >
+                Reintentar
+              </Button>
+            }
           />
         ) : null}
       </div>
@@ -168,7 +226,10 @@ export function MarketplacePage() {
         <div className="market-copy">
           <span className="eyebrow muted">Mercado y oportunidades</span>
           <h1>¿Qué necesita tu establecimiento hoy?</h1>
-          <p>Hora de empezar, {user.name}. Contanos qué buscás y AgroMatch busca al instante, con filtros que podés ajustar arriba.</p>
+          <p>
+            Hora de empezar, {user.name}. Contanos qué buscás y AgroMatch busca
+            al instante, con filtros que podés ajustar arriba.
+          </p>
 
           {error ? (
             <div className="stack" style={{ marginTop: 12 }}>
@@ -218,8 +279,13 @@ export function MarketplacePage() {
                 >
                   <Mic className="icon" style={{ width: 16, height: 16 }} />
                 </button>
-                <button className="btn primary" type="submit" disabled={!query.trim()}>
-                  Preguntar <Send className="icon" style={{ width: 15, height: 15 }} />
+                <button
+                  className="btn primary"
+                  type="submit"
+                  disabled={!query.trim()}
+                >
+                  Preguntar{' '}
+                  <Send className="icon" style={{ width: 15, height: 15 }} />
                 </button>
               </div>
             </div>
@@ -235,7 +301,15 @@ export function MarketplacePage() {
                   void ask(prompt).catch(() => undefined);
                 }}
               >
-                <Icon className="icon" style={{ width: 12, height: 12, display: 'inline', marginRight: 4 }} />
+                <Icon
+                  className="icon"
+                  style={{
+                    width: 12,
+                    height: 12,
+                    display: 'inline',
+                    marginRight: 4,
+                  }}
+                />
                 {label}
               </button>
             ))}

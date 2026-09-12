@@ -10,6 +10,8 @@ interface ServiceRequestRow {
   message: string;
   status: string;
   createdAt: Date;
+  createdByUserId: string | null;
+  updatedAt: Date;
   contactPhone: string | null;
   contactEmail: string | null;
 }
@@ -22,7 +24,12 @@ function toDomain(row: ServiceRequestRow): ServiceRequest {
     message: row.message,
     status: row.status as ServiceRequestStatus,
     createdAt: row.createdAt.toISOString(),
-    contact: { phone: row.contactPhone ?? undefined, email: row.contactEmail ?? undefined },
+    createdByUserId: row.createdByUserId ?? undefined,
+    updatedAt: row.updatedAt.toISOString(),
+    contact: {
+      phone: row.contactPhone ?? undefined,
+      email: row.contactEmail ?? undefined,
+    },
   };
 }
 
@@ -30,18 +37,35 @@ function toDomain(row: ServiceRequestRow): ServiceRequest {
 export class PrismaServiceRequestRepo implements ServiceRequestRepo {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(r: ServiceRequest): Promise<ServiceRequest> {
-    const row = await this.prisma.serviceRequest.create({
-      data: {
-        id: r.id,
-        needId: r.needId,
-        providerId: r.providerId,
-        message: r.message,
-        status: r.status,
-        createdAt: new Date(r.createdAt),
-        contactPhone: r.contact.phone ?? null,
-        contactEmail: r.contact.email ?? null,
-      },
+  async create(
+    r: ServiceRequest,
+    creatorName: string,
+  ): Promise<ServiceRequest> {
+    const row = await this.prisma.$transaction(async (tx) => {
+      const created = await tx.serviceRequest.create({
+        data: {
+          id: r.id,
+          needId: r.needId,
+          providerId: r.providerId,
+          message: r.message,
+          status: r.status,
+          createdAt: new Date(r.createdAt),
+          createdByUserId: r.createdByUserId ?? null,
+          contactPhone: r.contact.phone ?? null,
+          contactEmail: r.contact.email ?? null,
+        },
+      });
+      await tx.negotiationMessage.create({
+        data: {
+          serviceRequestId: created.id,
+          senderUserId: r.createdByUserId ?? null,
+          senderName: creatorName,
+          senderType: 'CUSTOMER',
+          body: r.message,
+          createdAt: new Date(r.createdAt),
+        },
+      });
+      return created;
     });
     return toDomain(row);
   }

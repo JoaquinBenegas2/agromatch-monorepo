@@ -5,7 +5,8 @@ import type { Role } from '@org/shared-types';
  * `placeholder-with-data`: placeholder que muestra algún dato real.
  * `not-implemented`: hay spec pero no pantalla. `pending`: hoja de ruta.
  */
-export type TabStatus = 'live' | 'pending' | 'not-implemented' | 'placeholder-with-data';
+export type TabStatus =
+  'live' | 'pending' | 'not-implemented' | 'placeholder-with-data';
 
 export interface NavTab {
   label: string;
@@ -31,7 +32,11 @@ export const NAV_MODULES: NavModule[] = [
     label: 'Mi establecimiento',
     subtitle: 'Tu lugar de trabajo',
     tabs: [
-      { label: 'Setup conversacional', path: '/establecimiento', status: 'placeholder-with-data' },
+      {
+        label: 'Setup conversacional',
+        path: '/establecimiento',
+        status: 'placeholder-with-data',
+      },
     ],
   },
   {
@@ -84,7 +89,11 @@ export const NAV_MODULES: NavModule[] = [
     label: 'Negociación y tratos',
     subtitle: 'Del encuentro a la acción',
     tabs: [
-      { label: 'Mis matches / mensajes', path: '/negociacion/matches', status: 'pending' },
+      {
+        label: 'Mis matches / mensajes',
+        path: '/negociacion/matches',
+        status: 'live',
+      },
       {
         label: 'Plan de servicios',
         path: '/negociacion/plan',
@@ -97,12 +106,20 @@ export const NAV_MODULES: NavModule[] = [
     id: 'ofertas',
     label: 'Mis ofertas',
     subtitle: 'Tu catálogo de servicios',
-    tabs: [{ label: 'Cargar lotes / servicios', path: '/ofertas', status: 'pending' }],
+    tabs: [
+      {
+        label: 'Cargar lotes / servicios',
+        path: '/ofertas',
+        status: 'pending',
+      },
+    ],
   },
 ];
 
 export function findModuleByPath(pathname: string): NavModule | undefined {
-  return NAV_MODULES.find((mod) => mod.tabs.some((tab) => pathname.startsWith(tab.path)));
+  return NAV_MODULES.find((mod) =>
+    mod.tabs.some((tab) => pathname.startsWith(tab.path)),
+  );
 }
 
 export function findTabByPath(pathname: string): NavTab | undefined {

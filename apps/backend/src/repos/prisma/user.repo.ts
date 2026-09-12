@@ -3,8 +3,20 @@ import type { User } from '@org/shared-types';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import type { UserRepo } from '../user.port.js';
 
-function toDomain(row: { id: string; name: string; role: string; farmIds: string[] }): User {
-  return { id: row.id, name: row.name, role: row.role as User['role'], farmIds: row.farmIds };
+function toDomain(row: {
+  id: string;
+  name: string;
+  role: string;
+  farmIds: string[];
+  providerId: string | null;
+}): User {
+  return {
+    id: row.id,
+    name: row.name,
+    role: row.role as User['role'],
+    farmIds: row.farmIds,
+    providerId: row.providerId ?? undefined,
+  };
 }
 
 @Injectable()

@@ -35,11 +35,11 @@
 
 **Lo que nos diferencia, en una línea por competidor:**
 
-| Competidor | Qué hace | Qué hacemos distinto |
-|---|---|---|
-| Malevo, Agrofinders | Publican proveedores y filtran | Interpretamos la necesidad y **calculamos** el match, con explicación |
-| Agrofy, Agroads, Mercado Libre | Venden **productos** | Resolvemos **necesidades**, que casi siempre son servicios |
-| Centrales de semen | Recomiendan **sus** toros | Somos **neutrales** |
+| Competidor                     | Qué hace                       | Qué hacemos distinto                                                  |
+| ------------------------------ | ------------------------------ | --------------------------------------------------------------------- |
+| Malevo, Agrofinders            | Publican proveedores y filtran | Interpretamos la necesidad y **calculamos** el match, con explicación |
+| Agrofy, Agroads, Mercado Libre | Venden **productos**           | Resolvemos **necesidades**, que casi siempre son servicios            |
+| Centrales de semen             | Recomiendan **sus** toros      | Somos **neutrales**                                                   |
 
 ---
 
@@ -47,11 +47,11 @@
 
 **Decisión: tres categorías.**
 
-| Categoría | Por qué entra |
-|---|---|
-| **Maquinaria** (contratistas) | Es el dolor más grande y documentado: 80-90% de las labores tercerizadas |
+| Categoría                          | Por qué entra                                                             |
+| ---------------------------------- | ------------------------------------------------------------------------- |
+| **Maquinaria** (contratistas)      | Es el dolor más grande y documentado: 80-90% de las labores tercerizadas  |
 | **Veterinaria** (grandes animales) | Necesidad recurrente, alta frecuencia, y conecta con el vertical genético |
-| **Genética** (Torinder) | Es el vertical que demuestra que el motor calcula |
+| **Genética** (Torinder)            | Es el vertical que demuestra que el motor calcula                         |
 
 **Insumos queda afuera del MVP.** Ahí Agrofy, Agroads y Mercado Libre ya dominan con escala regional. Entrar de frente es regalar el pitch.
 
@@ -61,12 +61,12 @@
 
 ## N4 · Quién paga
 
-| Actor | Paga | Por qué entra |
-|---|---|---|
-| **Productor** | **Nada** | Sin fricción en el lado que arranca vacío |
+| Actor                                    | Paga                                             | Por qué entra                                                |
+| ---------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| **Productor**                            | **Nada**                                         | Sin fricción en el lado que arranca vacío                    |
 | **Proveedor** (contratista, veterinario) | **Suscripción mensual** para recibir solicitudes | Consigue trabajo sin vendedor y sin depender del boca a boca |
-| **Tambo o asesor** (vertical) | **Suscripción** por rodeo o por cartera | Lo usa todos los meses |
-| **Laboratorio de genotipado** | No paga: es **canal** | Entrega el resultado ya interpretado y su producto vale más |
+| **Tambo o asesor** (vertical)            | **Suscripción** por rodeo o por cartera          | Lo usa todos los meses                                       |
+| **Laboratorio de genotipado**            | No paga: es **canal**                            | Entrega el resultado ya interpretado y su producto vale más  |
 
 ### La decisión importante: no cobramos comisión sobre el trabajo
 
@@ -102,11 +102,11 @@ Orden de la conversación comercial: **entrás por una necesidad puntual, te que
 
 **Tres niveles, visibles en la tarjeta:**
 
-| Nivel | Qué significa |
-|---|---|
+| Nivel             | Qué significa                                            |
+| ----------------- | -------------------------------------------------------- |
 | **No verificado** | Cargado desde una fuente pública. No sabe que existimos. |
-| **Verificado** | Confirmó sus datos y su disponibilidad |
-| **Con historial** | Tiene trabajos valorados en la plataforma |
+| **Verificado**    | Confirmó sus datos y su disponibilidad                   |
+| **Con historial** | Tiene trabajos valorados en la plataforma                |
 
 **Nunca** se muestra un proveedor no verificado como si fuera cliente nuestro. En la demo se ve la etiqueta, y eso **suma** credibilidad en vez de restarla.
 
@@ -114,7 +114,7 @@ Orden de la conversación comercial: **entrás por una necesidad puntual, te que
 
 ## N8 · Qué NO hacemos
 
-Pagos, contratos, escrow, seguros, logística, chat interno y facturación. **Somos el matcheo, no la operación.** Si el jurado pregunta, la respuesta es que eso es hoja de ruta y que primero hay que resolver bien una cosa.
+Pagos, acuerdos, contratos, escrow, seguros, logística y facturación. La mensajería sí vive dentro de AgroMatch para que productores y proveedores puedan conversar con trazabilidad; cualquier acuerdo ocurre por fuera de la plataforma.
 
 ---
 
@@ -122,13 +122,13 @@ Pagos, contratos, escrow, seguros, logística, chat interno y facturación. **So
 
 Todos verificados y con fuente. **No se agrega ninguno sin fuente.**
 
-| Número | Para qué sirve |
-|---|---|
-| Los contratistas hacen el **80-90%** de siembra, cosecha y aplicaciones | El tamaño del dolor |
-| Mercado de servicios: **USD 2.000-3.000 millones al año** | El tamaño del mercado |
-| **"El acuerdo se cierra por WhatsApp y la palabra alcanza"** | El dolor, en palabras del sector |
-| **293 animales reales** de un tambo argentino | Que no inventamos los datos |
-| Las reglas clásicas mandan el **47% del rodeo a carne**; nosotros, el 30% | Que el motor calcula y corrige |
+| Número                                                                    | Para qué sirve                   |
+| ------------------------------------------------------------------------- | -------------------------------- |
+| Los contratistas hacen el **80-90%** de siembra, cosecha y aplicaciones   | El tamaño del dolor              |
+| Mercado de servicios: **USD 2.000-3.000 millones al año**                 | El tamaño del mercado            |
+| **"El acuerdo se cierra por WhatsApp y la palabra alcanza"**              | El dolor, en palabras del sector |
+| **293 animales reales** de un tambo argentino                             | Que no inventamos los datos      |
+| Las reglas clásicas mandan el **47% del rodeo a carne**; nosotros, el 30% | Que el motor calcula y corrige   |
 
 ---
 
@@ -138,23 +138,23 @@ Todos verificados y con fuente. **No se agrega ninguno sin fuente.**
 
 **Como negocio (primeros 90 días, hoja de ruta):**
 
-| Métrica | Por qué esa |
-|---|---|
-| Necesidades publicadas por semana | Demanda real, no registros |
-| % de necesidades con al menos una solicitud enviada | Que el matcheo sirve |
-| Proveedores que pasan de "no verificado" a "verificado" | Que el lado de la oferta se activa |
-| Tambos que vuelven al vertical al mes siguiente | **La única que predice si el negocio vive** |
+| Métrica                                                 | Por qué esa                                 |
+| ------------------------------------------------------- | ------------------------------------------- |
+| Necesidades publicadas por semana                       | Demanda real, no registros                  |
+| % de necesidades con al menos una solicitud enviada     | Que el matcheo sirve                        |
+| Proveedores que pasan de "no verificado" a "verificado" | Que el lado de la oferta se activa          |
+| Tambos que vuelven al vertical al mes siguiente         | **La única que predice si el negocio vive** |
 
 ---
 
 ## Lo que queda abierto (y no frena nada)
 
-| # | Qué | Quién lo cierra |
-|---|---|---|
-| **N1** | Confirmar el nombre | El equipo, en 2 minutos |
-| **N4** | Los precios | Después de la hackathon |
-| **D1** | Qué es el índice **CI** | El analista o el laboratorio |
-| **D2** | Validar el algoritmo de clasificación | El analista y el tambero |
-| — | ¿El proveedor pagaría? | Hablar con un contratista y un veterinario |
+| #      | Qué                                   | Quién lo cierra                            |
+| ------ | ------------------------------------- | ------------------------------------------ |
+| **N1** | Confirmar el nombre                   | El equipo, en 2 minutos                    |
+| **N4** | Los precios                           | Después de la hackathon                    |
+| **D1** | Qué es el índice **CI**               | El analista o el laboratorio               |
+| **D2** | Validar el algoritmo de clasificación | El analista y el tambero                   |
+| —      | ¿El proveedor pagaría?                | Hablar con un contratista y un veterinario |
 
 **Ninguna de estas frena el desarrollo.** El motor y la IA ya tienen todo lo que necesitan: reglas, contratos, datos y criterios de aceptación.

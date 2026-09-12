@@ -11,10 +11,13 @@ datasource db {
 }
 
 model User {
-  id      String   @id
-  name    String
-  role    String
-  farmIds String[]
+  id         String   @id
+  name       String
+  role       String
+  farmIds    String[]
+  providerId String?
+
+  @@index([providerId])
 }
 
 model Farm {
@@ -148,8 +151,27 @@ model ServiceRequest {
   message      String
   status       String
   createdAt    DateTime
+  createdByUserId String?
+  updatedAt    DateTime @default(now()) @updatedAt
   contactPhone String?
   contactEmail String?
+  messages     NegotiationMessage[]
+
+  @@index([needId])
+  @@index([providerId])
+}
+
+model NegotiationMessage {
+  id               String         @id @default(uuid())
+  serviceRequestId String
+  senderUserId     String?
+  senderName       String
+  senderType       String
+  body             String
+  createdAt        DateTime       @default(now())
+  serviceRequest   ServiceRequest @relation(fields: [serviceRequestId], references: [id], onDelete: Cascade)
+
+  @@index([serviceRequestId, createdAt])
 }
 
 model Review {

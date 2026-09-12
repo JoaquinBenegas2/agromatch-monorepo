@@ -34,8 +34,10 @@ export function useCreateNeed() {
   return useMutation({
     mutationFn: (body: CreateNeedBody) => api.post('/needs', body, NeedSchema),
     onSuccess: (need) => {
-      queryClient.setQueryData(queryKeys.needs(need.farmId), (current: unknown) =>
-        Array.isArray(current) ? [...current, need] : [need],
+      queryClient.setQueryData(
+        queryKeys.needs(need.farmId),
+        (current: unknown) =>
+          Array.isArray(current) ? [...current, need] : [need],
       );
     },
   });
@@ -47,14 +49,19 @@ export function useUpdateNeed() {
     mutationFn: ({ id, body }: { id: string; body: UpdateNeedBody }) =>
       api.patch(`/needs/${id}`, body, NeedSchema),
     onSuccess: (need) => {
-      queryClient.setQueryData(queryKeys.needs(need.farmId), (current: unknown) =>
-        Array.isArray(current)
-          ? current.map((item) =>
-              typeof item === 'object' && item !== null && 'id' in item && item.id === need.id
-                ? need
-                : item,
-            )
-          : [need],
+      queryClient.setQueryData(
+        queryKeys.needs(need.farmId),
+        (current: unknown) =>
+          Array.isArray(current)
+            ? current.map((item) =>
+                typeof item === 'object' &&
+                item !== null &&
+                'id' in item &&
+                item.id === need.id
+                  ? need
+                  : item,
+              )
+            : [need],
       );
     },
   });
@@ -63,15 +70,25 @@ export function useUpdateNeed() {
 export function useMatchNeed() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (needId: string) => api.post(`/needs/${needId}/matches`, undefined, MatchBoardSchema),
-    onSuccess: (board, needId) => queryClient.setQueryData(queryKeys.needMatches(needId), board),
+    mutationFn: (needId: string) =>
+      api.post(`/needs/${needId}/matches`, undefined, MatchBoardSchema),
+    onSuccess: (board, needId) =>
+      queryClient.setQueryData(queryKeys.needMatches(needId), board),
   });
 }
 
 export function useCreateServiceRequest() {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ needId, body }: { needId: string; body: CreateServiceRequestBody }) =>
-      api.post(`/needs/${needId}/requests`, body, ServiceRequestSchema),
+    mutationFn: ({
+      needId,
+      body,
+    }: {
+      needId: string;
+      body: CreateServiceRequestBody;
+    }) => api.post(`/needs/${needId}/requests`, body, ServiceRequestSchema),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: queryKeys.negotiations() }),
   });
 }
 
@@ -79,8 +96,13 @@ export function useCreateServiceRequest() {
 export function useCreateReview() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ requestId, body }: { requestId: string; body: CreateReviewBody }) =>
-      api.post(`/requests/${requestId}/review`, body, ReviewSchema),
+    mutationFn: ({
+      requestId,
+      body,
+    }: {
+      requestId: string;
+      body: CreateReviewBody;
+    }) => api.post(`/requests/${requestId}/review`, body, ReviewSchema),
     // La reputación cambió: la próxima lista de proveedores tiene que reflejarlo.
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['providers'] }),
   });

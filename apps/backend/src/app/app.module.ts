@@ -19,6 +19,7 @@ import { PlanningModule } from './planning/planning.module.js';
 import { ProvidersModule } from './providers/providers.module.js';
 import { RequestsModule } from './requests/requests.module.js';
 import { SmokeController } from './smoke.controller.js';
+import { NegotiationsModule } from './negotiations/negotiations.module.js';
 
 @Module({
   imports: [
@@ -37,8 +38,12 @@ import { SmokeController } from './smoke.controller.js';
     ClassificationModule,
     HerdModule,
     AdvisorModule,
+    NegotiationsModule,
   ],
   controllers: [AppController, SmokeController],
-  providers: [AppService, { provide: APP_FILTER, useClass: ApiExceptionFilter }],
+  providers: [
+    AppService,
+    { provide: APP_FILTER, useClass: ApiExceptionFilter },
+  ],
 })
 export class AppModule {}

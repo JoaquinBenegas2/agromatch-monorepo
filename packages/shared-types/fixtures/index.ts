@@ -45,12 +45,23 @@ import chatAnswerJson from './samples/chat-answer.json' with { type: 'json' };
 import chatToolChoiceJson from './samples/chat-tool-choice.json' with { type: 'json' };
 
 export const farms = farmsJson as unknown as Farm[];
-export const users = usersJson as unknown as User[];
+/** Una cuenta proveedora por ficha permite probar y operar ambos lados del chat. */
+export const users = [
+  ...usersJson,
+  ...providersJson.providers.map((provider) => ({
+    id: `proveedor-${provider.id.replace(/^prov-/, '')}`,
+    name: provider.name,
+    role: 'PROVIDER' as const,
+    farmIds: [],
+    providerId: provider.id,
+  })),
+] as unknown as User[];
 export const bullsSeed = bullsSeedJson as unknown as Bull[];
 
 function getProviderImageUrl(providerId: string): string {
   const imageUrl = providerImageUrls[providerId];
-  if (!imageUrl) throw new Error(`Missing marketplace image for provider ${providerId}`);
+  if (!imageUrl)
+    throw new Error(`Missing marketplace image for provider ${providerId}`);
   return imageUrl;
 }
 
@@ -58,7 +69,8 @@ export const providers = providersJson.providers.map((provider) => ({
   ...provider,
   imageUrl: getProviderImageUrl(provider.id),
 })) as unknown as Provider[];
-export const capabilities = providersJson.capabilities as unknown as Capability[];
+export const capabilities =
+  providersJson.capabilities as unknown as Capability[];
 
 export interface NeedSample {
   rawText: string;
@@ -78,7 +90,8 @@ export const samples = {
   mappingProposal: mappingProposalJson as unknown as MappingProposal,
   herdImportResult: herdImportResultJson as unknown as HerdImportResult,
   classifications: classificationsJson as unknown as Classification[],
-  classificationSummary: classificationSummaryJson as unknown as ClassificationSummary,
+  classificationSummary:
+    classificationSummaryJson as unknown as ClassificationSummary,
   matchBoardGenetics: matchBoardGeneticsJson as unknown as MatchBoard,
   matchBoardMachinery: matchBoardMachineryJson as unknown as MatchBoard,
   explanation: explanationJson as unknown as Explanation,

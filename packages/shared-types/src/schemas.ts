@@ -205,13 +205,15 @@ export const BreedingPlanSchema = z.object({
   }),
 });
 
-export const RoleSchema = z.enum(['FARMER', 'ADVISOR', 'ADMIN']);
+export const RoleSchema = z.enum(['FARMER', 'ADVISOR', 'ADMIN', 'PROVIDER']);
 
 export const UserSchema = z.object({
   id: z.string(),
   name: z.string(),
   role: RoleSchema,
   farmIds: z.array(z.string()),
+  /** Ficha comercial administrada por una cuenta de proveedor. */
+  providerId: z.string().optional(),
 });
 
 export const TraitStatsSchema = z.object({
@@ -336,7 +338,10 @@ export const CapabilitySchema = z.object({
   priceModel: PriceModelSchema,
   priceFrom: z.number().optional(),
   certifications: z.array(z.string()),
-  attributes: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])),
+  attributes: z.record(
+    z.string(),
+    z.union([z.string(), z.number(), z.boolean()]),
+  ),
 });
 
 export const FitBreakdownSchema = z.object({
@@ -385,8 +390,36 @@ export const ServiceRequestSchema = z.object({
   message: z.string(),
   status: ServiceRequestStatusSchema,
   createdAt: z.string(),
+  createdByUserId: z.string().optional(),
+  updatedAt: z.string().optional(),
   // RN-36: acá y solo acá.
   contact: ProviderContactSchema,
+});
+
+export const NegotiationMessageSchema = z.object({
+  id: z.string(),
+  serviceRequestId: z.string(),
+  senderUserId: z.string().nullable(),
+  senderName: z.string(),
+  senderType: z.enum(['CUSTOMER', 'PROVIDER']),
+  body: z.string(),
+  createdAt: z.string(),
+});
+
+export const NegotiationSchema = z.object({
+  id: z.string(),
+  needId: z.string(),
+  providerId: z.string(),
+  providerName: z.string(),
+  providerImageUrl: z.string().url().optional(),
+  farmId: z.string(),
+  farmName: z.string(),
+  subject: z.string(),
+  category: NeedCategorySchema,
+  status: ServiceRequestStatusSchema,
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  messages: z.array(NegotiationMessageSchema),
 });
 
 export const ReviewSchema = z.object({
@@ -410,7 +443,10 @@ export const FemaleFieldSchema = z.union([
 
 export const ColumnMappingSchema = z.object({
   headerRow: z.number(),
-  columns: z.record(z.string(), z.union([FemaleFieldSchema, z.literal('IGNORE')])),
+  columns: z.record(
+    z.string(),
+    z.union([FemaleFieldSchema, z.literal('IGNORE')]),
+  ),
 });
 
 export const MappingProposalSchema = ColumnMappingSchema.extend({
@@ -493,6 +529,10 @@ export const UpdateNeedBodySchema = NeedSchema.partial().extend({
 export const CreateServiceRequestBodySchema = z.object({
   providerId: z.string(),
   message: z.string().min(1),
+});
+
+export const SendNegotiationMessageBodySchema = z.object({
+  body: z.string().trim().min(1).max(4000),
 });
 
 export const CreateReviewBodySchema = z.object({
