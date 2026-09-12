@@ -35,14 +35,19 @@ foreach ($b in $httpsBindings) {
     "    {0,-45} {1}" -f $hostB, $hash
 }
 
-Paso 'Certificados en LocalMachine\My que cubren vylaris.com.ar'
-$certs = Get-ChildItem Cert:\LocalMachine\My | Where-Object {
+Paso 'Certificados en LocalMachine\{My,WebHosting} que cubren vylaris.com.ar'
+# IIS guarda los certificados de bindings SNI en WebHosting, no en My: se buscan en los dos.
+$todos = foreach ($st in 'My', 'WebHosting') {
+    Get-ChildItem "Cert:\LocalMachine\$st" -ErrorAction SilentlyContinue |
+        ForEach-Object { $_ | Add-Member -NotePropertyName Store -NotePropertyValue $st -PassThru -Force }
+}
+$certs = $todos | Where-Object {
     $_.Subject -match 'vylaris\.com\.ar' -or ($_.DnsNameList | Where-Object { $_.Unicode -match 'vylaris\.com\.ar' })
 } | Sort-Object NotAfter -Descending
 foreach ($c in $certs) {
     $sans = ($c.DnsNameList | ForEach-Object { $_.Unicode }) -join ', '
     $tag  = if ($enUso.ContainsKey($c.Thumbprint)) { " (en uso por $($enUso[$c.Thumbprint]))" } else { '' }
-    "    {0}  vence {1:yyyy-MM-dd}  {2}{3}" -f $c.Thumbprint, $c.NotAfter, $sans, $tag
+    "    {0}  [{4}]  vence {1:yyyy-MM-dd}  {2}{3}" -f $c.Thumbprint, $c.NotAfter, $sans, $tag, $c.Store
 }
 if ($Check) { exit 0 }
 
@@ -50,8 +55,8 @@ if ($Check) { exit 0 }
 # prefiriendo el que ya usan otros sitios; si no, el que use cualquier *.vylaris.com.ar.
 $cert = $null
 if ($Thumbprint) {
-    $cert = Get-Item "Cert:\LocalMachine\My\$Thumbprint" -ErrorAction SilentlyContinue
-    if (-not $cert) { Morir "No existe el certificado $Thumbprint en LocalMachine\My" }
+    $cert = $todos | Where-Object { $_.Thumbprint -eq $Thumbprint } | Select-Object -First 1
+    if (-not $cert) { Morir "No existe el certificado $Thumbprint ni en LocalMachine\My ni en LocalMachine\WebHosting" }
 } else {
     $cubre = $certs | Where-Object {
         ($_.DnsNameList | Where-Object { $_.Unicode -eq $HostName -or $_.Unicode -eq '*.vylaris.com.ar' }) -or
@@ -61,11 +66,11 @@ if ($Thumbprint) {
     if (-not $cert) { $cert = $cubre | Select-Object -First 1 }
     if (-not $cert) {
         $hashLab = $httpsBindings | Where-Object { $_.bindingInformation -match 'vylaris\.com\.ar' } | Select-Object -First 1 -ExpandProperty certificateHash
-        if ($hashLab) { $cert = Get-Item "Cert:\LocalMachine\My\$hashLab" -ErrorAction SilentlyContinue; Aviso 'Ningun certificado cubre el host explicitamente; se reutiliza el de otro *.vylaris.com.ar (funciona si es el Origin Cert wildcard de Cloudflare).' }
+        if ($hashLab) { $cert = $todos | Where-Object { $_.Thumbprint -eq $hashLab } | Select-Object -First 1; Aviso 'Ningun certificado cubre el host explicitamente; se reutiliza el de otro *.vylaris.com.ar (funciona si es el Origin Cert wildcard de Cloudflare).' }
     }
     if (-not $cert) { Morir "No encontre un certificado para $HostName. Emitir uno (Cloudflare Origin Certificate wildcard *.vylaris.com.ar) y pasar -Thumbprint." }
 }
-Ok "certificado elegido: $($cert.Thumbprint) ($($cert.Subject), vence $($cert.NotAfter.ToString('yyyy-MM-dd')))"
+Ok "certificado elegido: $($cert.Thumbprint) [$($cert.Store)] ($($cert.Subject), vence $($cert.NotAfter.ToString('yyyy-MM-dd')))"
 
 Paso "Binding 443 con SNI para $Sitio"
 $site = Get-Website -Name $Sitio -ErrorAction SilentlyContinue
@@ -76,7 +81,7 @@ if (-not $existe) {
     Ok 'binding creado'
 } else { Ok 'binding ya existia' }
 $binding = Get-WebBinding -Name $Sitio -Protocol https | Where-Object { $_.bindingInformation -eq "*:443:$HostName" }
-$binding.AddSslCertificate($cert.Thumbprint, 'my')
+$binding.AddSslCertificate($cert.Thumbprint, $cert.Store)
 Ok 'certificado asociado (SNI)'
 
 Paso 'Verificacion'
