@@ -21,6 +21,28 @@
 
 ---
 
+## 1b. La narración del MVP: qué hace alguien en el sistema
+
+> **Esto es el MVP al que apuntamos.** Si una funcionalidad no aparece en esta historia, no entra. Si algo de esta historia no funciona, no llegamos.
+
+**1 · Llega con una necesidad suelta.** Entra y encuentra una sola caja: *¿qué necesitás?*. Escribe como le hablaría a un vecino: *"necesito quien me are 40 hectáreas en Río Cuarto la semana que viene"*. El sistema le devuelve **lo que entendió** en una ficha —maquinaria, arada, 40 ha, Río Cuarto, esta semana— y él la corrige si hace falta. **Nada se busca hasta que confirma.**
+
+**2 · Ve quién se lo resuelve, y por qué.** Los contratistas aparecen ordenados por **cuánto le sirven a él**, no por quién pagó más: a cuántos kilómetros está, si tiene la ventana libre, si le da la capacidad, desde cuánto cobra, y una explicación en criollo de por qué está primero. Al lado, **los que quedaron afuera y el motivo**. Elige uno, pide el servicio y **recién ahí ve el contacto**.
+
+**3 · Vuelve con una necesidad más profunda.** Otro día escribe *"quiero mejorar los sólidos de mi tambo"*. Eso no se resuelve con una lista, así que el sistema lo lleva al vertical. Sube el Excel del genotipado que nunca supo leer, confirma cómo se entendieron las columnas, y en segundos tiene sus 293 animales clasificados: sexado, convencional o carne. Con una comparación que le pega: **con las reglas de siempre casi la mitad del rodeo iba a carne; acá, el 30%**.
+
+**4 · Elige toro para cada vaca.** Abre una ternera, dice qué quiere mejorar y le aparecen los toros de **todas las centrales** ordenados por lo que le conviene a esa vaca: la cría esperada contra la madre, la probabilidad de que salga A2 o quesera, y por qué algunos quedaron afuera (*"hijo del mismo padre, sale muy consanguínea"*). Lo que elige **se va armando en un plan de servicios** que exporta y le pasa al inseminador.
+
+**5 · Pregunta lo que quiera.** Abre el chat: *"¿cuántas terneras van a carne?"*, *"¿cuáles me sirven para vender leche A2?"*. Le responde **con sus datos** y le muestra de dónde los sacó.
+
+**6 · Su asesor ve el conjunto.** El veterinario entra con su usuario y ve **sus tambos a la vez**: cómo viene cada rodeo, cuánto A2 tiene cada uno, quién está mejor y quién peor. En una pantalla, lo que antes era una semana de planillas.
+
+**7 · Del otro lado del mostrador.** El contratista y el veterinario reciben **pedidos de gente que los necesita justo ahora**, sin salir a vender. Pagan suscripción por estar ahí: **no se paga por posición ni se cobra comisión del trabajo**. *(En el MVP el proveedor todavía no tiene pantalla propia: recibe la solicitud. Su panel es hoja de ruta.)*
+
+**En una frase:** entra por una necesidad puntual, se queda por lo que usa todos los meses, y **en el medio nunca ve un número sin entender de dónde salió**.
+
+---
+
 ## 2. Estado
 
 | Área | Estado |
