@@ -20,6 +20,9 @@ interface UserContextValue {
   user: User;
   users: User[];
   setUserId: (id: string) => void;
+  /** Tambo elegido por un ADVISOR/ADMIN en el selector del Topbar (null = el primero). */
+  selectedFarmId: string | null;
+  setSelectedFarmId: (farmId: string | null) => void;
 }
 
 const UserContext = createContext<UserContextValue | null>(null);
@@ -27,11 +30,15 @@ const UserContext = createContext<UserContextValue | null>(null);
 export function UserProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const [userId, setUserIdState] = useState<string>(getActiveUserId);
+  // Vive en el contexto (no en cada componente) para que el selector del
+  // Topbar y las pantallas de cada flujo hablen del mismo tambo.
+  const [selectedFarmId, setSelectedFarmId] = useState<string | null>(null);
 
   const setUserId = useCallback(
     (id: string) => {
       window.localStorage.setItem(STORAGE_KEY, id);
       setUserIdState(id);
+      setSelectedFarmId(null);
       // REQ-FS-02: cambiar de usuario invalida todas las queries.
       void queryClient.invalidateQueries();
     },
@@ -43,8 +50,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
       user: findUser(userId) ?? SIMULATED_USERS[0],
       users: SIMULATED_USERS,
       setUserId,
+      selectedFarmId,
+      setSelectedFarmId,
     }),
-    [userId, setUserId],
+    [userId, setUserId, selectedFarmId],
   );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
@@ -58,8 +67,8 @@ export function useUser(): UserContextValue {
 
 /** El tambo activo: único para FARMER, elegible para ADVISOR/ADMIN. */
 export function useActiveFarmId(): [string | null, (farmId: string) => void] {
-  const { user } = useUser();
-  const [selected, setSelected] = useState<string | null>(null);
+  const { user, selectedFarmId, setSelectedFarmId } = useUser();
+  const selected = selectedFarmId && user.farmIds.includes(selectedFarmId) ? selectedFarmId : null;
   const activeFarmId = user.role === 'FARMER' ? (user.farmIds[0] ?? null) : (selected ?? user.farmIds[0] ?? null);
-  return [activeFarmId, setSelected];
+  return [activeFarmId, setSelectedFarmId];
 }

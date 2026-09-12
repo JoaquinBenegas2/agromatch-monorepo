@@ -98,7 +98,9 @@ describe('matchNeed con vertical registrado (RN-35, ADR-0002)', () => {
 
     expect(calls).toBe(1);
     expect(board.ranked).toHaveLength(1);
-    expect(board.ranked[0].verticalFacts).toEqual({ note: 'vertical de prueba' });
+    // El núcleo enriquece los facts del vertical con la posición relativa
+    // (rank, totalCandidates, compatibility) para el badge "#1 de N" (regla 5).
+    expect(board.ranked[0].verticalFacts).toMatchObject({ note: 'vertical de prueba', rank: 1, totalCandidates: 1, compatibility: 100 });
     expect(board.ranked[0].fit.vertical).toBeGreaterThanOrEqual(0);
     expect(board.ranked[0].fit.vertical).toBeLessThanOrEqual(1);
   });

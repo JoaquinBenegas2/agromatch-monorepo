@@ -47,8 +47,8 @@ Convertí únicamente lo que el usuario dijo en una necesidad. No calcules ranki
 
 Reglas obligatorias:
 - Nunca inventes lugar ni fecha. Si no aparecen en el texto, omití por completo where o window.
-- Solo inferí coordenadas cuando el usuario nombró una localidad concreta. Conservá su nombre en where.label.
-- Si dice "la semana que viene", devolvé siete días consecutivos y hacé que el primero caiga dentro de los próximos siete días respecto de la fecha actual recibida.
+- Si el texto nombra una localidad, provincia o zona (por ejemplo "Río Cuarto", "Rafaela", "cuenca de Villa María"), SIEMPRE devolvé where con sus coordenadas aproximadas (lat/lng en grados decimales, Argentina tiene lat y lng negativas) y el nombre tal como lo dijo en where.label. Reflejá en confidence.where cuánta certeza tenés sobre las coordenadas; no omitas where por dudar de los decimales.
+- Si el texto dice cuándo ("la semana que viene", "mañana", "en octubre", "urgente"), SIEMPRE devolvé window en formato YYYY-MM-DD a partir de la fecha actual recibida. "La semana que viene" son siete días consecutivos empezando el próximo lunes; "urgente" o "cuanto antes" son los próximos tres días; un mes nombrado es ese mes completo.
 - Conservá cada número y unidad. Normalizá hectáreas a HA, cabezas a HEAD, toneladas a TON, unidades a UNIT y visitas a VISIT.
 - category usa uno de MACHINERY, VET, INPUTS, ADVISORY, SOFTWARE, FINANCE, GENETICS u OTHER.
 - En GENETICS, interpretá el objetivo con BreedingGoal. Para mejorar sólidos usá SOLIDS_CHEESE y hacé dominar fat/pro; wantKappaBB debe ser true.
@@ -58,7 +58,8 @@ Reglas obligatorias:
 Ejemplos:
 1. "necesito un veterinario" => category VET, what "atención veterinaria", constraints [], sin where, sin window.
 2. "el toro de mi vecino le anda bien a las vaquillonas, quiero mejorar sólidos" => category GENETICS, goal SOLIDS_CHEESE con fat y pro dominantes, sin where y sin window.
-3. "necesito quien me are 40 ha en Río Cuarto la semana que viene" => category MACHINERY, what "arada", magnitude 40 HA, where Río Cuarto y una ventana de siete días.`;
+3. Con fecha actual 2026-09-12, "necesito quien me are 40 ha en Río Cuarto la semana que viene" => category MACHINERY, what "arada", magnitude { value: 40, unit: "HA" }, where { lat: -33.123, lng: -64.349, label: "Río Cuarto" }, window { from: "2026-09-14", to: "2026-09-20" }, confidence { category: 0.95, what: 0.95, magnitude: 0.95, where: 0.85, window: 0.8, constraints: 0.9 }.
+4. Con fecha actual 2026-09-12, "necesito veterinario para el rodeo, control reproductivo urgente" => category VET, what "control reproductivo del rodeo", constraints ["urgente"], sin where (no nombra lugar), window { from: "2026-09-12", to: "2026-09-14" }.`;
 
 function buildPrompt(rawText: string, today: string): LlmPrompt {
   return {

@@ -29,8 +29,20 @@ export class PlanService {
 
   /** REQ-D-12: una hembra, un toro — reemplaza si ya tenía uno elegido. */
   async addItem(farmId: string, item: PlanItem): Promise<BreedingPlan> {
-    const plan = await this.planRepo.getOrCreate(farmId);
-    const items = [...plan.items.filter((i) => i.femaleId !== item.femaleId), item];
+    const [plan, bull] = await Promise.all([
+      this.planRepo.getOrCreate(farmId),
+      this.bullRepo.findByNaab(item.bullNaab),
+    ]);
+    if (!bull) {
+      throw new DomainError('BULL_NOT_FOUND', 'No encontramos ese toro en el catálogo', 404, {
+        naab: item.bullNaab,
+      });
+    }
+    // El precio sale del catálogo, no del cliente: la pantalla de matching no
+    // lo conoce (los hechos no lo traen) y lo manda en null. Si el catálogo
+    // tampoco lo tiene, queda null y `totals.cost` lo ignora (REQ-D-11).
+    const resolved: PlanItem = { ...item, pricePerDose: item.pricePerDose ?? bull.pricePerDose };
+    const items = [...plan.items.filter((i) => i.femaleId !== item.femaleId), resolved];
     return this.planRepo.save({ ...plan, items, totals: totalsFor(items) });
   }
 

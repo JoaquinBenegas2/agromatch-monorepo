@@ -35,10 +35,15 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
       : { rule: 'RN-31', passed: false, detail: `Categoría ${cap.category} no coincide con la necesidad ${need.category}` },
   );
 
-  // Una necesidad que no declara dónde (el matching genético, por ejemplo: el
-  // semen viaja por correo) no se puede medir contra un radio de cobertura.
-  // No se inventa una ubicación ni se descarta al candidato: el filtro no aplica.
-  if (!where) {
+  // Una necesidad que no declara dónde (el matching genético: el semen viaja
+  // por correo) no se puede medir contra un radio de cobertura. Lo mismo para
+  // una necesidad sintética (la arma un vertical para una hembra puntual,
+  // ADR-0002) aunque traiga un `where` de marcador. No se inventa una
+  // ubicación ni se descarta al candidato: el filtro no aplica y el vertical
+  // decide con sus propios filtros (RN-05/RN-06/RN-13).
+  if (need.synthetic) {
+    results.push({ rule: 'RN-31', passed: true, detail: 'Necesidad sintética: la cobertura geográfica no aplica' });
+  } else if (!where) {
     results.push({ rule: 'RN-31', passed: true, detail: 'La necesidad no declara ubicación: no se evalúa cobertura' });
   } else {
     const distanceKm = haversineKm(where, prov.base);
@@ -50,7 +55,9 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
     );
   }
 
-  if (!window) {
+  if (need.synthetic) {
+    results.push({ rule: 'RN-31', passed: true, detail: 'Necesidad sintética: la ventana de fechas no aplica' });
+  } else if (!window) {
     results.push({ rule: 'RN-31', passed: true, detail: 'La necesidad no declara ventana: no se evalúa disponibilidad' });
   } else {
     const hasOverlap = cap.availability.length === 0 || cap.availability.some((slot) => overlaps(window, slot));

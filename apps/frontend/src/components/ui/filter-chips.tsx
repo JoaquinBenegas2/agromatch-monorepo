@@ -43,7 +43,7 @@ function FilterChips({ className, chips, value, onValueChange, multiple = true, 
             aria-pressed={active}
             onClick={() => toggle(chip.value)}
             className={cn(
-              'inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1.5 text-[11.5px] font-medium transition-colors',
+              'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11.5px] font-medium transition-colors',
               active
                 ? 'border-primary bg-accent text-primary'
                 : 'border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground',

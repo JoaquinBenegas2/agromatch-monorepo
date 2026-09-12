@@ -35,6 +35,16 @@ export class ExplanationService {
       });
     }
 
+    if (!candidate.verticalFacts) {
+      // Excluido por el núcleo genérico antes de llegar al vertical: no hay
+      // hechos genéticos sobre los que redactar (RN-17).
+      throw new DomainError(
+        'EXPLANATION_UNAVAILABLE',
+        'Este toro quedó excluido antes de evaluarse genéticamente; no hay explicación para dar',
+        409,
+        { farmId, femaleId, naab, filters: candidate.filters.filter((f) => !f.passed) },
+      );
+    }
     const facts = candidate.verticalFacts as ExplanationFacts;
     const key = this.cache.key(facts as unknown as Record<string, unknown>);
     return this.cache.getOrCompute(key, () => this.explainer.explain(facts));

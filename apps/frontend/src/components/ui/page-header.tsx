@@ -16,7 +16,7 @@ function PageHeader({ className, title, description, actions, ...props }: PageHe
       {...props}
     >
       <div className="min-w-0">
-        <h1 className="text-[27px] leading-[1.15] font-bold tracking-tight">{title}</h1>
+        <h1 className="text-[28px] leading-[1.12] font-semibold tracking-[-0.03em]">{title}</h1>
         {description && <p className="mt-1 text-[11.5px] text-muted-foreground">{description}</p>}
       </div>
       {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}

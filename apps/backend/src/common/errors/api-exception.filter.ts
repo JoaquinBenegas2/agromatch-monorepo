@@ -35,9 +35,16 @@ export class ApiExceptionFilter implements ExceptionFilter {
     }
 
     if (exception instanceof LlmUnavailableError) {
+      const reason = exception.cause instanceof Error ? exception.cause.message : undefined;
       return {
         status: HttpStatus.BAD_GATEWAY,
-        body: { code: 'LLM_UNAVAILABLE', message: 'El servicio de IA no está disponible', details: {} },
+        body: {
+          code: 'LLM_UNAVAILABLE',
+          message: reason
+            ? `El servicio de IA no está disponible: ${reason}`
+            : 'El servicio de IA no está disponible',
+          details: reason ? { reason } : {},
+        },
       };
     }
 

@@ -24,7 +24,7 @@ export const NAV_MODULES: NavModule[] = [
   {
     id: 'establecimiento',
     label: 'Mi establecimiento',
-    subtitle: 'valor / setup',
+    subtitle: 'Tu lugar de trabajo',
     tabs: [
       { label: 'Setup conversacional', path: '/establecimiento', status: 'placeholder-with-data' },
     ],
@@ -32,7 +32,7 @@ export const NAV_MODULES: NavModule[] = [
   {
     id: 'mercado',
     label: 'Mercado y oportunidades',
-    subtitle: 'mercado general',
+    subtitle: 'Encontrá quién lo resuelve',
     tabs: [
       {
         label: 'Home marketplace general',
@@ -45,7 +45,7 @@ export const NAV_MODULES: NavModule[] = [
   {
     id: 'motor-genetico',
     label: 'Motor genético',
-    subtitle: 'motor técnico',
+    subtitle: 'Decisiones para tu rodeo',
     tabs: [
       {
         label: 'Matching genético',
@@ -75,7 +75,7 @@ export const NAV_MODULES: NavModule[] = [
   {
     id: 'negociacion',
     label: 'Negociación y tratos',
-    subtitle: 'transacciones',
+    subtitle: 'Del encuentro a la acción',
     tabs: [
       { label: 'Mis matches / mensajes', path: '/negociacion/matches', status: 'pending' },
       {
@@ -89,7 +89,7 @@ export const NAV_MODULES: NavModule[] = [
   {
     id: 'ofertas',
     label: 'Mis ofertas',
-    subtitle: 'catálogo propio',
+    subtitle: 'Tu catálogo de servicios',
     tabs: [{ label: 'Cargar lotes / servicios', path: '/ofertas', status: 'pending' }],
   },
 ];

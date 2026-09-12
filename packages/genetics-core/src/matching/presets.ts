@@ -1,6 +1,27 @@
 import type { BreedingGoal, GoalPreset } from '@org/shared-types';
 
 /**
+ * Resuelve un objetivo tal como llega de la API/pantalla (`{ preset, weights: {} }`)
+ * al objetivo efectivo del motor: si el preset es nombrado y no trae pesos
+ * propios, toma los pesos del preset; las preferencias de caseínas se suman
+ * a las del preset. Un `CUSTOM` (C5) o un preset con pesos explícitos se
+ * respeta tal cual. Sin esto, un objetivo con `weights: {}` puntúa 0 a todos
+ * los toros y el ranking pierde sentido.
+ */
+export function resolveGoal(goal: BreedingGoal): BreedingGoal {
+  if (goal.preset === 'CUSTOM') return goal;
+  const preset = GOAL_PRESETS[goal.preset];
+  if (!preset) return goal;
+  const hasOwnWeights = Object.values(goal.weights).some((w) => typeof w === 'number');
+  return {
+    ...goal,
+    weights: hasOwnWeights ? goal.weights : preset.weights,
+    wantBetaA2: goal.wantBetaA2 || preset.wantBetaA2,
+    wantKappaBB: goal.wantKappaBB || preset.wantKappaBB,
+  };
+}
+
+/**
  * A4 (Q2 de la spec: los pesos concretos son una decisión por defecto de A,
  * no están fijados por el handoff). Cada preset suma 1.
  */

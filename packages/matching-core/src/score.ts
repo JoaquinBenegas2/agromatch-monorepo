@@ -25,6 +25,10 @@ function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 function daysInWindow(from: string, to: string): number {
   return Math.max(0, (new Date(to).getTime() - new Date(from).getTime()) / (1000 * 60 * 60 * 24));
 }
@@ -40,10 +44,12 @@ export function scoreCandidate(
 ): { score: number; fit: FitBreakdown; reasons: string[] } {
   const reasons: string[] = [];
 
-  // Sin ubicación declarada no hay distancia que medir. El término de cercanía
-  // NO participa del puntaje (y se renormaliza sobre los pesos que sí se usan),
-  // en vez de inventarle un 0 o un 1 que mentiría en los dos sentidos.
-  const hasLocation = need.where !== undefined;
+  // Sin ubicación declarada no hay distancia que medir, y en una necesidad
+  // sintética (ADR-0002) el `where` es un marcador que no significa nada. En
+  // los dos casos el término de cercanía NO participa del puntaje (y se
+  // renormaliza sobre los pesos que sí se usan), en vez de inventarle un 0 o
+  // un 1 que mentiría en los dos sentidos.
+  const hasLocation = need.where !== undefined && !need.synthetic;
   let proximity = 0;
   if (hasLocation) {
     const distanceKm = haversineKm(need.where!, prov.base);
@@ -176,7 +182,13 @@ export function matchNeed(
   const ranked: MatchCandidate[] = passing.map((entry, i) => {
     const compatibility = n <= 1 || spread === 0 ? 100 : Math.round((100 * (entry.rawScore - min)) / spread);
     const fit = entry.hasVertical ? { ...entry.candidate.fit, vertical: compatibility / 100 } : entry.candidate.fit;
-    return { ...entry.candidate, score: entry.rawScore, compatibility, rank: i + 1, fit };
+    // Los hechos del vertical (ExplanationFacts) llevan el ranking final para
+    // que la explicación hable de "#k de N · compatibilidad" reales (RN-18):
+    // el vertical no puede saberlos antes del reescalado, se completan acá.
+    const verticalFacts = isPlainObject(entry.candidate.verticalFacts)
+      ? { ...entry.candidate.verticalFacts, compatibility, rank: i + 1, totalCandidates: n }
+      : entry.candidate.verticalFacts;
+    return { ...entry.candidate, score: entry.rawScore, compatibility, rank: i + 1, fit, verticalFacts };
   });
 
   return { ranked, excluded };

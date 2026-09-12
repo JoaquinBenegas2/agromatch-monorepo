@@ -18,6 +18,7 @@ import { caseinOdds as computeCaseinOdds } from '../casein.js';
 import { buildReasons, toExplanationFacts } from '../facts.js';
 import { calvingEaseFilter, inbreedingFilter } from '../filters.js';
 import { expectedProgeny, normalize } from '../traits.js';
+import { resolveGoal } from './presets.js';
 
 interface ScoreResult {
   score: number;
@@ -152,10 +153,13 @@ export function scoreOneCandidate(
   female: Female,
   classification: Classification,
   bull: Bull,
-  goal: BreedingGoal,
+  rawGoal: BreedingGoal,
   stats: TraitStats,
   farm?: Farm,
 ): ScoreResult {
+  // Un preset nombrado sin pesos explícitos (como lo manda la pantalla) se
+  // resuelve a sus pesos reales; el objetivo efectivo es el que va a los hechos.
+  const goal = resolveGoal(rawGoal);
   const semenType = classification.semenType;
   if (semenType === null) {
     return rejected(female, classification, bull, goal, [
