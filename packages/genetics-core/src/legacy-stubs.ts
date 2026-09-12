@@ -7,159 +7,32 @@ import type {
   ExplanationFacts,
   Farm,
   Female,
-  FemaleCategory,
-  FilterResult,
-  GenomicProfile,
   GoalPreset,
   PlanItem,
   SemenType,
   Tag,
   Tier,
-  TraitKey,
   TraitStats,
   TraitVector,
 } from '@org/shared-types';
 import type { MatchBoard, MatchCandidate, Need, VerticalEngine } from '@org/shared-types';
-import { TRAIT_DIRECTION } from '@org/shared-types';
+import { caseinOdds } from './casein.js';
+import { expectedProgeny } from './traits.js';
 
 /**
- * `genetics-core` — vertical genético enchufado al núcleo (ADR-0002). TS
- * puro: no conoce Nest, Prisma ni el LLM. Todo lo que sigue son los stubs de
- * T0: firma final, implementación ingenua documentada en cada función.
+ * Stubs de T0 que NO son alcance de `mvp-a-core`: `classifyHerd` /
+ * `classifyHerdClassic` son B2 (`mvp-c-herd`); `makeGeneticsNeed` /
+ * `buildAutoPlan` son B4/B5 (`mvp-d-match`). Se relocan tal cual, sin tocar
+ * su lógica, para que A1-A5/M2/M3 puedan vivir en sus propios archivos.
+ * `scoreOneCandidate` / `scoreCandidates` / `toExplanationFacts` /
+ * `GOAL_PRESETS` / `GeneticsVertical` son A4/A5/M3: siguen acá como stub
+ * hasta que ese hito los reemplace por la implementación real.
  */
-
-const TRAIT_KEYS: TraitKey[] = ['ci', 'milk', 'fat', 'pro', 'pl', 'scs', 'fs', 'rfi'];
-
-function zeroTraitVector(): TraitVector {
-  return { ci: 0, milk: 0, fat: 0, pro: 0, pl: 0, scs: 0, fs: 0, rfi: 0 };
-}
-
-// A1 -----------------------------------------------------------------------
-
-/** Stub: <12 meses CALF, <24 meses HEIFER, el resto COW. */
-export function deriveCategory(birthDate: string, today: string): FemaleCategory {
-  const birth = new Date(birthDate).getTime();
-  const ref = new Date(today).getTime();
-  const ageMonths = (ref - birth) / (1000 * 60 * 60 * 24 * 30.4375);
-  if (ageMonths < 12) return 'CALF';
-  if (ageMonths < 24) return 'HEIFER';
-  return 'COW';
-}
-
-/** Stub: media y desvío estándar poblacional por rasgo. */
-export function computeTraitStats(profiles: GenomicProfile[]): TraitStats {
-  const mean = zeroTraitVector();
-  const std = zeroTraitVector();
-  const n = profiles.length;
-  if (n === 0) return { mean, std };
-
-  for (const key of TRAIT_KEYS) {
-    const values = profiles.map((p) => p.traits[key]);
-    const avg = values.reduce((a, b) => a + b, 0) / n;
-    mean[key] = avg;
-    const variance = values.reduce((a, b) => a + (b - avg) ** 2, 0) / n;
-    std[key] = Math.sqrt(variance);
-  }
-  return { mean, std };
-}
-
-/** Stub: promedio simple entre madre y padre por rasgo. */
-export function expectedProgeny(dam: TraitVector, sire: TraitVector): TraitVector {
-  const result = zeroTraitVector();
-  for (const key of TRAIT_KEYS) {
-    result[key] = (dam[key] + sire[key]) / 2;
-  }
-  return result;
-}
-
-/** Stub: z-score respecto a las estadísticas del tambo (0 si std=0). */
-export function normalize(value: number, key: TraitKey, stats: TraitStats): number {
-  const std = stats.std[key];
-  if (!std) return 0;
-  const z = (value - stats.mean[key]) / std;
-  return TRAIT_DIRECTION[key] === -1 ? -z : z;
-}
-
-// A2 -------------------------------------------------------------------------
-
-function betaA2Share(genotype: GenomicProfile['betaCasein']): number | null {
-  switch (genotype) {
-    case 'A2/A2':
-      return 1;
-    case 'A1/A2':
-      return 0.5;
-    case 'A1/A1':
-      return 0;
-    default:
-      return null;
-  }
-}
-
-function kappaBShare(genotype: GenomicProfile['kappaCasein']): number | null {
-  switch (genotype) {
-    case 'BB':
-      return 1;
-    case 'AB':
-    case 'BE':
-      return 0.5;
-    case 'AA':
-    case 'AE':
-    case 'EE':
-      return 0;
-    default:
-      return null;
-  }
-}
-
-/** Stub: probabilidad mendeliana simple por alelo, sin ligamiento. */
-export function caseinOdds(dam: GenomicProfile, sire: GenomicProfile): CaseinOdds {
-  const damBeta = betaA2Share(dam.betaCasein);
-  const sireBeta = betaA2Share(sire.betaCasein);
-  const damKappa = kappaBShare(dam.kappaCasein);
-  const sireKappa = kappaBShare(sire.kappaCasein);
-
-  return {
-    betaA2A2: damBeta === null || sireBeta === null ? null : damBeta * sireBeta,
-    kappaBB: damKappa === null || sireKappa === null ? null : damKappa * sireKappa,
-  };
-}
-
-// A3 -------------------------------------------------------------------------
-
-/** Stub RN-05: hija directa o medio hermanos por el mismo padre. */
-export function inbreedingFilter(female: Female, bull: Bull): FilterResult {
-  if (female.sireNaab === bull.naab) {
-    return { rule: 'RN-05', passed: false, detail: 'La hembra es hija directa de este toro' };
-  }
-  if (female.sireNaab !== null && female.sireNaab === bull.sireNaab) {
-    return {
-      rule: 'RN-05',
-      passed: false,
-      detail: 'La hembra y el toro comparten padre (medio hermanos)',
-    };
-  }
-  return { rule: 'RN-05', passed: true, detail: 'Sin riesgo de consanguinidad detectado' };
-}
-
-/** Stub RN-06: facilidad de parto del toro contra el máximo del tambo para vaquillonas. */
-export function calvingEaseFilter(female: Female, bull: Bull, farm: Farm): FilterResult {
-  if (female.category !== 'HEIFER' || bull.calvingEase === null) {
-    return { rule: 'RN-06', passed: true, detail: 'No aplica: no es vaquillona o el toro no declara facilidad de parto' };
-  }
-  const passed = bull.calvingEase <= farm.calvingEaseMaxHeifer;
-  return {
-    rule: 'RN-06',
-    passed,
-    detail: passed
-      ? `Facilidad de parto ${bull.calvingEase} dentro del máximo ${farm.calvingEaseMaxHeifer} para vaquillonas`
-      : `Facilidad de parto ${bull.calvingEase} supera el máximo ${farm.calvingEaseMaxHeifer} para vaquillonas`,
-  };
-}
 
 // B2 (mvp-c-herd) --------------------------------------------------------------
 
 function classifyByCiThirds(females: Female[]): Classification[] {
-  const withProfile = females.filter((f): f is Female & { profile: GenomicProfile } => f.profile !== null);
+  const withProfile = females.filter((f): f is Female & { profile: NonNullable<Female['profile']> } => f.profile !== null);
   const sorted = [...withProfile].sort((a, b) => b.profile.traits.ci - a.profile.traits.ci);
   const n = sorted.length;
   const results: Classification[] = [];
@@ -212,7 +85,7 @@ export function classifyHerdClassic(females: Female[]): Classification[] {
 
 function subtractPartial(a: TraitVector, b: TraitVector): Partial<TraitVector> {
   const result: Partial<TraitVector> = {};
-  for (const key of TRAIT_KEYS) {
+  for (const key of Object.keys(a) as (keyof TraitVector)[]) {
     result[key] = a[key] - b[key];
   }
   return result;
@@ -451,7 +324,7 @@ function fallbackFacts(
   };
 }
 
-/** M3: vertical genético enchufado al núcleo (RN-35, ADR-0002). */
+/** M3: vertical genético enchufado al núcleo (RN-35, ADR-0002). Reemplazado por src/vertical.ts en el Hito 3. */
 export const GeneticsVertical: VerticalEngine<ExplanationFacts> = {
   category: 'GENETICS',
   canHandle: (need) => need.category === 'GENETICS',
@@ -466,4 +339,3 @@ export const GeneticsVertical: VerticalEngine<ExplanationFacts> = {
     return scoreOneCandidate(context.female, context.classification, bull, goal, context.stats);
   },
 };
-

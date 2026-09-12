@@ -1,19 +1,14 @@
 import { matchNeed } from '@org/matching-core';
 import type { Bull, Capability, Classification, Farm, Female, Need, Provider, TraitStats } from '@org/shared-types';
-import {
-  GOAL_PRESETS,
-  GeneticsVertical,
-  buildAutoPlan,
-  calvingEaseFilter,
-  caseinOdds,
-  classifyHerd,
-  computeTraitStats,
-  deriveCategory,
-  expectedProgeny,
-  inbreedingFilter,
-  normalize,
-  scoreCandidates,
-} from './genetics-core.js';
+import { GOAL_PRESETS, GeneticsVertical, buildAutoPlan, classifyHerd, scoreCandidates } from '../src/legacy-stubs.js';
+import { computeTraitStats } from '../src/traits.js';
+
+/**
+ * Cobertura que ya existía para los stubs de T0 fuera de alcance de A
+ * (`classifyHerd`, `buildAutoPlan`) y para `scoreCandidates`/`GeneticsVertical`
+ * mientras siguen siendo stub (Hito 3 los reemplaza por la implementación
+ * real y estos casos se actualizan ahí).
+ */
 
 const farm: Farm = {
   id: 'farm-a',
@@ -66,64 +61,7 @@ function makeBull(overrides: Partial<Bull> = {}): Bull {
   };
 }
 
-describe('genetics-core stubs (REQ-SC-06)', () => {
-  it('deriveCategory clasifica por edad', () => {
-    expect(deriveCategory('2026-06-01', '2026-09-12')).toBe('CALF');
-    expect(deriveCategory('2025-06-01', '2026-09-12')).toBe('HEIFER');
-    expect(deriveCategory('2020-06-01', '2026-09-12')).toBe('COW');
-  });
-
-  it('computeTraitStats calcula media y desvío por rasgo', () => {
-    const stats = computeTraitStats([
-      makeFemale().profile!,
-      { ...makeFemale().profile!, traits: { ...makeFemale().profile!.traits, ci: 700 } },
-    ]);
-    expect(stats.mean.ci).toBe(600);
-    expect(stats.std.ci).toBeGreaterThan(0);
-  });
-
-  it('expectedProgeny promedia madre y padre', () => {
-    const progeny = expectedProgeny(makeFemale().profile!.traits, makeBull().profile!.traits);
-    expect(progeny.ci).toBe(550);
-  });
-
-  it('normalize devuelve 0 si el desvío es 0', () => {
-    const stats: TraitStats = {
-      mean: { ci: 500, milk: 0, fat: 0, pro: 0, pl: 0, scs: 0, fs: 0, rfi: 0 },
-      std: { ci: 0, milk: 0, fat: 0, pro: 0, pl: 0, scs: 0, fs: 0, rfi: 0 },
-    };
-    expect(normalize(600, 'ci', stats)).toBe(0);
-  });
-
-  it('caseinOdds calcula probabilidad mendeliana simple', () => {
-    const odds = caseinOdds(makeFemale().profile!, makeBull().profile!);
-    // dam A1/A2 (0.5 A2) x sire A2/A2 (1 A2) => 0.5
-    expect(odds.betaA2A2).toBe(0.5);
-    // dam AB (0.5 B) x sire BB (1 B) => 0.5
-    expect(odds.kappaBB).toBe(0.5);
-  });
-
-  it('inbreedingFilter detecta hija directa y medio hermanos (RN-05)', () => {
-    const bull = makeBull({ naab: 'sire-1' });
-    const female = makeFemale({ sireNaab: 'sire-1' });
-    expect(inbreedingFilter(female, bull).passed).toBe(false);
-
-    const halfSiblingBull = makeBull({ naab: 'bull-2', sireNaab: 'grandsire-1' });
-    const femaleWithSameSire = makeFemale({ sireNaab: 'grandsire-1' });
-    expect(inbreedingFilter(femaleWithSameSire, halfSiblingBull).passed).toBe(false);
-
-    expect(inbreedingFilter(makeFemale({ sireNaab: 'other' }), makeBull()).passed).toBe(true);
-  });
-
-  it('calvingEaseFilter rechaza toros que superan el máximo del tambo en vaquillonas (RN-06)', () => {
-    const heifer = makeFemale({ category: 'HEIFER' });
-    expect(calvingEaseFilter(heifer, makeBull({ calvingEase: 5 }), farm).passed).toBe(false);
-    expect(calvingEaseFilter(heifer, makeBull({ calvingEase: 2 }), farm).passed).toBe(true);
-    expect(calvingEaseFilter(makeFemale({ category: 'COW' }), makeBull({ calvingEase: 5 }), farm).passed).toBe(
-      true,
-    );
-  });
-
+describe('legacy stubs (fuera de alcance de mvp-a-core, se relocan sin tocar la lógica)', () => {
   it('classifyHerd reparte en tercios por CI', () => {
     const females = [
       makeFemale({ id: 'f-1', profile: { ...makeFemale().profile!, traits: { ...makeFemale().profile!.traits, ci: 900 } } }),
@@ -136,7 +74,7 @@ describe('genetics-core stubs (REQ-SC-06)', () => {
     expect(classifications.find((c) => c.femaleId === 'f-3')?.tier).toBe('CULL_ALERT');
   });
 
-  it('scoreCandidates devuelve MatchBoard ordenado con compatibility del #1 en 100 (REQ-SC-06)', () => {
+  it('scoreCandidates (stub) devuelve MatchBoard ordenado con compatibility del #1 en 100', () => {
     const female = makeFemale();
     const classification: Classification = {
       femaleId: female.id,
@@ -181,7 +119,7 @@ describe('genetics-core stubs (REQ-SC-06)', () => {
     expect(plan.totals.doses.CONVENTIONAL).toBe(1);
   });
 
-  it('matchNeed(need, caps, provs, [GeneticsVertical]) da verticalFacts y fit.vertical en [0,1] (REQ-SC-06)', () => {
+  it('matchNeed(need, caps, provs, [GeneticsVertical]) da verticalFacts y fit.vertical en [0,1]', () => {
     const female = makeFemale();
     const classification: Classification = {
       femaleId: female.id,
