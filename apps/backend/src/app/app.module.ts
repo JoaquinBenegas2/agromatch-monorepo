@@ -5,6 +5,7 @@ import { AuthModule } from '../auth/auth.module.js';
 import { ApiExceptionFilter } from '../common/errors/api-exception.filter.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
 import { RepositoriesModule } from '../repos/repositories.module.js';
+import { AdvisorModule } from './advisor/advisor.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { GeneticMatchingModule } from './genetic-matching/genetic-matching.module.js';
@@ -25,6 +26,7 @@ import { SmokeController } from './smoke.controller.js';
     MatchingModule,
     GeneticMatchingModule,
     RequestsModule,
+    AdvisorModule,
   ],
   controllers: [AppController, SmokeController],
   providers: [AppService, { provide: APP_FILTER, useClass: ApiExceptionFilter }],
