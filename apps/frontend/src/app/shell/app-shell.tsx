@@ -40,6 +40,10 @@ export function AppShell() {
   const [chatOpen, setChatOpen] = useState(false);
   const activeModule = findModuleByPath(pathname);
   const activeTab = activeModule?.tabs.find((tab) => pathname.startsWith(tab.path));
+  // Mercado es un módulo de una sola tab: el breadcrumb solo repetía "Mercado
+  // y oportunidades", que la propia pantalla ya muestra como eyebrow. Sacarlo
+  // le devuelve el alto que hacía falta para que la pantalla entre sin scroll.
+  const showTopbar = pathname !== '/mercado';
 
   return (
     <Shell>
@@ -68,27 +72,29 @@ export function AppShell() {
       </Sidebar>
 
       <ShellMain>
-        <Topbar>
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink>{activeModule?.label ?? ''}</BreadcrumbLink>
-              </BreadcrumbItem>
-              {activeTab && (
-                <>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>{activeTab.label}</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </>
-              )}
-            </BreadcrumbList>
-          </Breadcrumb>
-          <div className="flex items-center gap-3">
-            <FarmSelect />
-            <ChatToggleButton onClick={() => setChatOpen((open) => !open)} />
-          </div>
-        </Topbar>
+        {showTopbar && (
+          <Topbar>
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink>{activeModule?.label ?? ''}</BreadcrumbLink>
+                </BreadcrumbItem>
+                {activeTab && (
+                  <>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>{activeTab.label}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </>
+                )}
+              </BreadcrumbList>
+            </Breadcrumb>
+            <div className="flex items-center gap-3">
+              <FarmSelect />
+              <ChatToggleButton onClick={() => setChatOpen((open) => !open)} />
+            </div>
+          </Topbar>
+        )}
 
         <div className="flex flex-1 min-h-0">
           <ShellContent>
