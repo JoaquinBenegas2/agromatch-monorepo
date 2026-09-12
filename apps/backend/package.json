@@ -4,6 +4,18 @@
   "private": true,
   "nx": {
     "targets": {
+      "build": {
+        "dependsOn": [
+          "db-generate",
+          "^build"
+        ]
+      },
+      "typecheck": {
+        "dependsOn": [
+          "db-generate",
+          "^typecheck"
+        ]
+      },
       "prune-lockfile": {
         "dependsOn": [
           "build"
@@ -62,6 +74,62 @@
         "options": {
           "passWithNoTests": true
         }
+      },
+      "db-generate": {
+        "executor": "nx:run-commands",
+        "cache": true,
+        "outputs": [
+          "{projectRoot}/src/generated/prisma"
+        ],
+        "options": {
+          "command": "npm exec prisma -- generate --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-migrate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- migrate dev --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-validate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- validate --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-deploy": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- migrate deploy --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-studio": {
+        "continuous": true,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- studio --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-up": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker compose up --build --wait --wait-timeout 120 postgres"
+        }
+      },
+      "db-setup": {
+        "dependsOn": [
+          "db-up"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm exec prisma -- migrate deploy --config apps/backend/prisma7.config.ts"
+        }
+      },
+      "db-down": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker compose down"
+        }
       }
     }
   },
@@ -70,14 +138,16 @@
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
     "@org/shared-types": "0.0.1",
-    "@prisma/adapter-better-sqlite3": "7.10.0",
+    "@prisma/adapter-pg": "7.10.0",
     "@prisma/client": "7.10.0",
     "dotenv": "^16.4.5",
+    "pg": "8.23.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@nestjs/testing": "^11.0.0"
+    "@nestjs/testing": "^11.0.0",
+    "@types/pg": "8.23.1"
   }
 }

@@ -21,7 +21,10 @@ export function App() {
         <h1 className="text-2xl font-bold">Monorepo Nx + React + Nest</h1>
         <p className="text-slate-400 text-sm">
           Frontend (Vite + Tailwind) hablando con el backend (Nest + Prisma) vía
-          <code className="mx-1 rounded bg-slate-800 px-1.5 py-0.5">/api/users</code>.
+          <code className="mx-1 rounded bg-slate-800 px-1.5 py-0.5">
+            /api/users
+          </code>
+          .
         </p>
 
         {error && (
@@ -36,7 +39,7 @@ export function App() {
 
         {users && users.length === 0 && (
           <p className="text-slate-400 text-sm">
-            No hay usuarios todavía en la base (dev.db vacía). Agregá uno con Prisma Studio.
+            No hay usuarios todavía en PostgreSQL. Agregá uno con Prisma Studio.
           </p>
         )}
 
