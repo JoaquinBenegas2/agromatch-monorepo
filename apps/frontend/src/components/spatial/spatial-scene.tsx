@@ -79,7 +79,7 @@ export function SpatialScene({ kind, options, className, children, fallback }: S
   }, [kind]);
 
   return (
-    <div ref={containerRef} className={cn('spatial-world', className)}>
+    <div ref={containerRef} className={cn('spatial-world relative isolate overflow-hidden', className)}>
       <canvas ref={canvasRef} className="spatial-world-canvas" aria-hidden />
       {children}
       <div className="spatial-world-fallback">
