@@ -21,17 +21,7 @@ import {
   SidebarNavGroup,
   SidebarNavItem,
 } from '@/components/ui/sidebar';
-import { Topbar } from '@/components/ui/topbar';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import { AccountMenu } from './account-menu.js';
-import { FarmSelect } from './farm-select.js';
 import { ModuleTabBar } from './module-tab-bar.js';
 import { findModuleByPath, NAV_MODULES } from './nav.js';
 import { GeneticsExperience } from '@/features/genetics/genetics-experience';
@@ -50,13 +40,6 @@ export function AppShell() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const activeModule = findModuleByPath(pathname);
-  const activeTab = activeModule?.tabs.find((tab) =>
-    pathname.startsWith(tab.path),
-  );
-  // Mercado es un módulo de una sola tab: el breadcrumb solo repetía "Mercado
-  // y oportunidades", que la propia pantalla ya muestra como eyebrow. Sacarlo
-  // le devuelve el alto que hacía falta para que la pantalla entre sin scroll.
-  const showTopbar = pathname !== '/mercado';
   const geneticExperience =
     /^\/motor-genetico\/(matching|tablero|importar|plan)(\/|$)/.test(
       pathname,
@@ -135,52 +118,17 @@ export function AppShell() {
       </Sidebar>
 
       <ShellMain>
-        {!showTopbar && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="ml-4 mt-2 md:hidden"
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Abrir navegación"
-            aria-expanded={sidebarOpen}
-            aria-controls="app-navigation"
-          >
-            <Menu />
-          </Button>
-        )}
-        {showTopbar && (
-          <Topbar>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              aria-label="Abrir navegación"
-              aria-expanded={sidebarOpen}
-              aria-controls="app-navigation"
-            >
-              <Menu />
-            </Button>
-            <Breadcrumb className="min-w-0 flex-1">
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink>{activeModule?.label ?? ''}</BreadcrumbLink>
-                </BreadcrumbItem>
-                {activeTab && (
-                  <>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>{activeTab.label}</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </>
-                )}
-              </BreadcrumbList>
-            </Breadcrumb>
-            <div className="flex w-full min-w-0 items-center justify-end gap-3 empty:hidden sm:w-auto">
-              <FarmSelect />
-            </div>
-          </Topbar>
-        )}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="ml-4 mt-2 md:hidden"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Abrir navegación"
+          aria-expanded={sidebarOpen}
+          aria-controls="app-navigation"
+        >
+          <Menu />
+        </Button>
 
         <div className="flex flex-1 min-h-0">
           <ShellContent className="min-w-0 p-4 sm:p-8">
