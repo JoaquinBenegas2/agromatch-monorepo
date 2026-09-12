@@ -45,14 +45,20 @@ import { Separator } from '@/components/ui/separator';
 import { Stepper } from '@/components/ui/stepper';
 import { ChatThread, ChatBubble, ChatComposer } from '@/components/ui/chat';
 import { EmptyState } from '@/components/ui/empty-state';
+import { OfferCard } from '@/components/ui/offer-card';
+import { ComparisonBar } from '@/components/ui/comparison-bar';
+import { FilterChips } from '@/components/ui/filter-chips';
+import { AiExplanation } from '@/components/ui/ai-explanation';
+import { ErrorMessage } from '@/components/ui/error-message';
 
 /**
  * Referencia viva de la librería de componentes (estilo shadcn/ui) para
  * AgroMatch. No es una pantalla del producto: es el catálogo que los 4 devs
- * usan para armar las 22 pantallas reales sin reinventar estilos.
+ * usan para armar sus pantallas (ver docs/pantallas.md) sin reinventar estilos.
  */
 export function UiKitPreview() {
   const [message, setMessage] = useState('');
+  const [tierFilter, setTierFilter] = useState<string[]>(['elite']);
 
   return (
     <Shell>
@@ -101,7 +107,7 @@ export function UiKitPreview() {
         <ShellContent>
           <PageHeader
             title="Librería de componentes AgroMatch"
-            description="Base para las 22 pantallas: primitivas al estilo shadcn/ui + composites del dominio (sidebar, score, tolerancia, verificación, chat, stepper)."
+            description="Base para las pantallas del MVP (docs/pantallas.md): primitivas al estilo shadcn/ui + los 9 componentes compartidos que arma D1 (tarjeta de oferta, barra comparativa, chips de filtro, explicación IA, mensaje de error, y más)."
             actions={
               <Button onClick={() => toast.success('Toast funcionando correctamente')}>
                 <Sparkles /> Probar toast
@@ -138,6 +144,71 @@ export function UiKitPreview() {
             <CardContent className="flex flex-col gap-2 border-t border-border-soft pt-4">
               <span className="text-[11px] text-muted-foreground">Barra de tolerancia (con límite marcado)</span>
               <ToleranceBar value={68} limit={80} />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Componentes del flujo necesidad / swipe</CardTitle>
+              <CardDescription>
+                TarjetaOferta, BarraComparativa, ChipsFiltro, ExplicacionIA y MensajeError — los 5 que
+                faltaban de los 9 compartidos que arma D1.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-4">
+              <FilterChips
+                chips={[
+                  { value: 'elite', label: 'Élite', count: 73 },
+                  { value: 'comercial', label: 'Comercial', count: 132 },
+                  { value: 'carne', label: 'Carne', count: 86 },
+                  { value: 'alerta', label: 'Alerta', count: 2 },
+                ]}
+                value={tierFilter}
+                onValueChange={setTierFilter}
+              />
+
+              <div className="grid grid-cols-2 gap-4">
+                <OfferCard
+                  title="Toro 4412 · Angus"
+                  subtitle="Cabaña La Esperanza · Río Cuarto"
+                  rank={{ position: 1, total: 12 }}
+                  badges={<VerificationBadge status="verified" />}
+                  stats={[
+                    { label: 'DEP destete', value: '+14' },
+                    { label: 'Consanguinidad', value: '1,2%' },
+                  ]}
+                  price="US$ 16 /dosis"
+                  explanation={
+                    <AiExplanation
+                      source="AI"
+                      text="Lidera el ranking porque su DEP de destete (+14) supera al resto del catálogo y su consanguinidad (1,2%) está muy por debajo del límite (6%)."
+                    />
+                  }
+                  secondaryAction={<Button variant="ghost">Pasar</Button>}
+                  primaryAction={<Button className="flex-1">Elegir</Button>}
+                />
+
+                <div className="flex flex-col gap-3">
+                  <ComparisonBar
+                    label="SCS (menos es mejor)"
+                    from={3.19}
+                    to={2.95}
+                    min={2}
+                    max={4}
+                    direction="lower-is-better"
+                    format={(v) => v.toFixed(2)}
+                  />
+                  <ComparisonBar
+                    label="PRO"
+                    from={24}
+                    to={29}
+                    min={0}
+                    max={40}
+                    direction="higher-is-better"
+                  />
+                  <ErrorMessage message="El servidor de matching no respondió (504). Reintentá en unos segundos." />
+                </div>
+              </div>
             </CardContent>
           </Card>
 

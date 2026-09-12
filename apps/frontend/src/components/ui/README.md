@@ -26,7 +26,7 @@ entrá a `/ui-kit`.
 `accordion`, `alert`, `skeleton`, `breadcrumb`, `sonner` (toasts, usar
 `import { toast } from 'sonner'`).
 
-**Composites del dominio AgroMatch (para las 22 pantallas):**
+**Composites del dominio AgroMatch:**
 
 - `sidebar` — `Shell`, `Sidebar`, `SidebarBrand`, `SidebarNav`,
   `SidebarNavGroup`, `SidebarNavItem` (soporta `asChild` para envolver un
@@ -38,14 +38,27 @@ entrá a `/ui-kit`.
   siempre se reciben como props: nunca se calculan acá (RN-17/RN-18, el
   motor produce los números, no la UI ni la IA).
 - `tolerance-bar` — barra de tolerancia con marca de límite, para
-  parámetros del rodeo / simulador F1.
+  parámetros del rodeo.
 - `stat-card` — tarjeta de KPI para paneles resumen.
 - `verification-badge` — estado de verificación (`verified` / `pending` /
   `unverified`). Un proveedor no verificado siempre se muestra como tal.
 - `empty-state` — estado vacío con ícono, texto y acción opcional.
-- `chat` — `ChatThread`, `ChatBubble`, `ChatComposer` para el chat
-  transaccional.
+- `chat` — `ChatThread`, `ChatBubble`, `ChatComposer` para el chat lateral.
 - `stepper` — wizard horizontal para onboarding / resumen de trato.
+
+**Los 9 componentes compartidos de `D1`** (ver `docs/pantallas.md §2` para
+la tabla completa de dónde se usa cada uno):
+
+- `verification-badge` + `badge` → BadgeEstado
+- `offer-card` → TarjetaOferta (resultados de necesidad y swipe, misma base)
+- `comparison-bar` → BarraComparativa (cría vs. madre, con dirección
+  higher/lower-is-better)
+- `filter-chips` → ChipsFiltro (tier, etiqueta o categoría)
+- `table` (+ patrón de fila expandible por pantalla) → TablaDatos
+- `ai-explanation` → ExplicacionIA (`source="AI"|"FALLBACK"` obligatorio)
+- `empty-state` → EstadoVacio
+- `skeleton` → Cargando
+- `error-message` → MensajeError (siempre el `message` real del backend)
 
 ## Convenciones
 
