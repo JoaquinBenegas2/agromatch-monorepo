@@ -79,6 +79,7 @@ interface SidebarNavItemProps extends React.ComponentProps<'a'> {
   icon?: React.ReactNode;
   active?: boolean;
   version?: string;
+  subtitle?: React.ReactNode;
   asChild?: boolean;
 }
 
@@ -87,6 +88,7 @@ function SidebarNavItem({
   icon,
   active,
   version,
+  subtitle,
   asChild,
   children,
   ...props
@@ -97,7 +99,7 @@ function SidebarNavItem({
       data-slot="sidebar-nav-item"
       data-active={active ? 'true' : undefined}
       className={cn(
-        'flex items-center gap-2.5 rounded-full px-3 py-2.5 text-[12.5px] font-medium text-muted-foreground transition-[background-color,color,transform] duration-200',
+        'group flex items-center gap-2.5 rounded-full px-3 py-2.5 text-[12.5px] font-medium text-muted-foreground transition-[background-color,color,transform] duration-200',
         '[&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:text-ink-3 [&_svg]:transition-colors',
         'hover:translate-x-0.5 hover:bg-border-soft hover:text-foreground hover:[&_svg]:text-current',
         'data-[active=true]:bg-primary data-[active=true]:font-semibold data-[active=true]:text-primary-foreground data-[active=true]:shadow-[0_8px_18px_-10px_rgba(30,76,58,0.6)] data-[active=true]:[&_svg]:text-current',
@@ -106,8 +108,13 @@ function SidebarNavItem({
       {...props}
     >
       {icon}
-      <span className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-        {children}
+      <span className="min-w-0 flex-1 overflow-hidden">
+        <span className="block truncate">{children}</span>
+        {subtitle && (
+          <span className="block truncate text-[10px] font-normal text-ink-4 group-data-[active=true]:text-primary-foreground/70">
+            {subtitle}
+          </span>
+        )}
       </span>
       {version && <VersionTag>{version}</VersionTag>}
     </Comp>
