@@ -1,7 +1,7 @@
 # Torinder: integración funcional
 
-Rama: `feature/savra-genetics`, actualizada sobre `develop` en `5594709`
-(PR #36, mensajería final de proveedores).
+Rama: `feature/savra-genetics`, actualizada sobre `develop` en `11d411b`
+(incluye PR #36, mensajería final de proveedores, y las mejoras posteriores de Mercado).
 
 ## Alcance
 
@@ -69,7 +69,8 @@ migraciones existentes de develop y su seed.
   consistentes, clasificación y plan reiniciados.
 - API: clasificación de 293 animales, elegibilidad, guardado/relectura,
   eliminación, plan automático de 241 encuentros, CSV y explicación real.
-- Navegador: escena y cría 3D, navegación compartida, logo Torinder y móvil.
+- Navegador: escena y cría 3D, navegación compartida, logo Torinder, móvil y
+  flujo completo de guardar, abrir el chat final y recibir la respuesta del proveedor.
 
 Las verificaciones de persistencia de esta entrega se ejecutan en memoria.
 No se ha ejecutado PostgreSQL en este entorno.
