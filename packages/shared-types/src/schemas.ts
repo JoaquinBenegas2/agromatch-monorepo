@@ -308,6 +308,7 @@ export const ProviderSchema = z.object({
   id: z.string(),
   name: z.string(),
   type: ProviderTypeSchema,
+  imageUrl: z.string().url().optional(),
   base: GeoPointSchema,
   // RN-37: false = cargado de fuente pública.
   verified: z.boolean(),

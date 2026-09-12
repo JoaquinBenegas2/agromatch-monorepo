@@ -24,6 +24,7 @@ import usersJson from './users.json' with { type: 'json' };
 // El nombre `bullsSeed` se mantiene para no romper a quien ya lo importa.
 import bullsSeedJson from './bulls.json' with { type: 'json' };
 import providersJson from './providers.json' with { type: 'json' };
+import { providerImageUrls } from './provider-images.js';
 import needsSamplesJson from './needs.samples.json' with { type: 'json' };
 import herdFarmAJson from './herd-farm-a.json' with { type: 'json' };
 import herdFarmBJson from './herd-farm-b.json' with { type: 'json' };
@@ -46,7 +47,17 @@ import chatToolChoiceJson from './samples/chat-tool-choice.json' with { type: 'j
 export const farms = farmsJson as unknown as Farm[];
 export const users = usersJson as unknown as User[];
 export const bullsSeed = bullsSeedJson as unknown as Bull[];
-export const providers = providersJson.providers as unknown as Provider[];
+
+function getProviderImageUrl(providerId: string): string {
+  const imageUrl = providerImageUrls[providerId];
+  if (!imageUrl) throw new Error(`Missing marketplace image for provider ${providerId}`);
+  return imageUrl;
+}
+
+export const providers = providersJson.providers.map((provider) => ({
+  ...provider,
+  imageUrl: getProviderImageUrl(provider.id),
+})) as unknown as Provider[];
 export const capabilities = providersJson.capabilities as unknown as Capability[];
 
 export interface NeedSample {

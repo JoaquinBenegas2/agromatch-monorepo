@@ -16,6 +16,7 @@ interface ProviderRow {
   id: string;
   name: string;
   type: string;
+  imageUrl: string | null;
   base: unknown;
   verified: boolean;
   reputationAvg: number | null;
@@ -30,6 +31,7 @@ function providerToDomain(row: ProviderRow): Provider {
     id: row.id,
     name: row.name,
     type: row.type as ProviderType,
+    imageUrl: row.imageUrl ?? undefined,
     base: row.base as GeoPoint,
     verified: row.verified,
     reputation: { avg: row.reputationAvg, jobs: row.reputationJobs },

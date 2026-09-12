@@ -282,6 +282,23 @@ export function MarketResults({
                 className="group shadow-[0_8px_28px_rgba(27,28,27,0.04)] transition-transform duration-200 hover:-translate-y-0.5"
                 image={
                   <div className="relative flex size-full items-end overflow-hidden bg-[linear-gradient(135deg,var(--muted)_25%,transparent_25%),linear-gradient(225deg,var(--muted)_25%,transparent_25%),linear-gradient(45deg,var(--muted)_25%,transparent_25%),linear-gradient(315deg,var(--muted)_25%,var(--card)_25%)] bg-[length:18px_18px] bg-[position:9px_0,9px_0,0_0,0_0] p-3">
+                    {provider.imageUrl ? (
+                      <img
+                        src={provider.imageUrl}
+                        alt=""
+                        loading="lazy"
+                        className="absolute inset-0 size-full object-cover"
+                        onError={(event) => {
+                          event.currentTarget.hidden = true;
+                        }}
+                      />
+                    ) : null}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                    {provider.imageUrl ? (
+                      <Badge variant="solid" className="absolute top-3 right-3 bg-card/90 font-sans text-foreground shadow-sm">
+                        Imagen ilustrativa
+                      </Badge>
+                    ) : null}
                     <Badge variant="solid" className="bg-card font-sans text-foreground shadow-sm"><MapPin /> {candidate.reasons.join(' ').match(/[\d.,]+\s*km/i)?.[0] ?? provider.base.label}</Badge>
                   </div>
                 }

@@ -84,6 +84,7 @@ const provider: Provider = {
   id: 'prov-genetics-norte',
   name: 'Central Genética Norte',
   type: 'SEMEN_COMPANY',
+  imageUrl: 'https://images.pexels.com/photos/31076467/pexels-photo-31076467.jpeg',
   // La Need sintética (B4) es `synthetic: true`: `hardFilters` (M2) no aplica
   // radio ni ventana, así que la base del proveedor puede ser la real.
   base: { lat: -32.944, lng: -60.65, label: 'Rosario, Santa Fe' },

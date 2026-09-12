@@ -128,7 +128,8 @@
       },
       "db-seed": {
         "dependsOn": [
-          "db-generate"
+          "db-generate",
+          "^build"
         ],
         "executor": "nx:run-commands",
         "options": {
@@ -136,6 +137,10 @@
         }
       },
       "db-reset": {
+        "dependsOn": [
+          "db-generate",
+          "^build"
+        ],
         "executor": "nx:run-commands",
         "options": {
           "commands": [

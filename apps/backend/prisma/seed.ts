@@ -36,21 +36,24 @@ async function main(): Promise<void> {
   });
   console.log(`bulls: ${bullsSeed.length}`);
 
-  await prisma.provider.createMany({
-    data: providers.map((p) => ({
-      id: p.id,
-      name: p.name,
-      type: p.type,
-      base: p.base,
-      verified: p.verified,
-      reputationAvg: p.reputation.avg,
-      reputationJobs: p.reputation.jobs,
-      contactPhone: p.contact.phone ?? null,
-      contactEmail: p.contact.email ?? null,
-      source: p.source,
-    })),
-    skipDuplicates: true,
-  });
+  await prisma.$transaction(
+    providers.map((p) => {
+      const data = {
+        id: p.id,
+        name: p.name,
+        type: p.type,
+        imageUrl: p.imageUrl,
+        base: p.base,
+        verified: p.verified,
+        reputationAvg: p.reputation.avg,
+        reputationJobs: p.reputation.jobs,
+        contactPhone: p.contact.phone ?? null,
+        contactEmail: p.contact.email ?? null,
+        source: p.source,
+      };
+      return prisma.provider.upsert({ where: { id: p.id }, create: data, update: data });
+    }),
+  );
   console.log(`providers: ${providers.length}`);
 
   await prisma.capability.createMany({

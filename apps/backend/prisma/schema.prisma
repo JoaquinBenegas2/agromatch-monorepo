@@ -117,6 +117,7 @@ model Provider {
   id         String @id
   name       String
   type       String
+  imageUrl   String?
   base       Json
   verified   Boolean
   reputationAvg  Float?
