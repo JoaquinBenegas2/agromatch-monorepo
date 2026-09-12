@@ -39,6 +39,7 @@ import breedingPlanJson from './samples/breeding-plan.json' with { type: 'json' 
 import farmSummariesJson from './samples/farm-summaries.json' with { type: 'json' };
 import needDraftJson from './samples/need-draft.json' with { type: 'json' };
 import chatAnswerJson from './samples/chat-answer.json' with { type: 'json' };
+import chatToolChoiceJson from './samples/chat-tool-choice.json' with { type: 'json' };
 
 export const farms = farmsJson as unknown as Farm[];
 export const users = usersJson as unknown as User[];
@@ -73,4 +74,11 @@ export const samples = {
   farmSummaries: farmSummariesJson as unknown as FarmSummary[],
   needDraft: needDraftJson as unknown as Need,
   chatAnswer: chatAnswerJson as unknown as ChatAnswer,
+  chatToolChoice: chatToolChoiceJson as unknown as {
+    tool: 'countByTier' | 'listFemales' | 'explainClassification' | null;
+    tier: string | null;
+    tag: string | null;
+    limit: number | null;
+    femaleId: string | null;
+  },
 };

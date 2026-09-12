@@ -124,6 +124,7 @@ const SAMPLE_CANDIDATES: unknown[] = [
   samples.explanationFacts,
   samples.classificationSummary,
   samples.breedingPlan,
+  samples.chatToolChoice,
   DEFAULT_GOAL,
 ];
 
