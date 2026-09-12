@@ -13,6 +13,7 @@ import { NeedInterpretation } from './need-interpretation.js';
 import { MarketResults } from './market-results.js';
 import {
   useCreateNeed,
+  useCreateReview,
   useCreateServiceRequest,
   useMatchNeed,
   useProviders,
@@ -65,6 +66,7 @@ export function MarketplacePage() {
   const updateNeed = useUpdateNeed();
   const matchNeed = useMatchNeed();
   const createRequest = useCreateServiceRequest();
+  const createReview = useCreateReview();
   const providers = useProviders(need?.category);
   const error = mutationError(createNeed.error, updateNeed.error, matchNeed.error);
 
@@ -115,10 +117,12 @@ export function MarketplacePage() {
         board={board}
         providers={providers.data}
         providersLoading={providers.isLoading}
-        requestError={createRequest.error}
+        requestError={createRequest.error ?? createReview.error}
         requesting={createRequest.isPending}
+        reviewing={createReview.isPending}
         onEdit={() => setBoard(undefined)}
         onRequest={requestProvider}
+        onReview={(requestId, body) => createReview.mutateAsync({ requestId, body }).then(() => undefined)}
       />
     );
   }

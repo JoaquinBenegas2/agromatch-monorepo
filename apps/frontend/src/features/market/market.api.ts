@@ -3,8 +3,10 @@ import {
   MatchBoardSchema,
   NeedSchema,
   PublicProviderSchema,
+  ReviewSchema,
   ServiceRequestSchema,
   type CreateNeedBody,
+  type CreateReviewBody,
   type CreateServiceRequestBody,
   type NeedCategory,
   type UpdateNeedBody,
@@ -70,5 +72,16 @@ export function useCreateServiceRequest() {
   return useMutation({
     mutationFn: ({ needId, body }: { needId: string; body: CreateServiceRequestBody }) =>
       api.post(`/needs/${needId}/requests`, body, ServiceRequestSchema),
+  });
+}
+
+/** N4 (RN-36): la valoración cierra el ciclo y mueve la reputación del proveedor. */
+export function useCreateReview() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ requestId, body }: { requestId: string; body: CreateReviewBody }) =>
+      api.post(`/requests/${requestId}/review`, body, ReviewSchema),
+    // La reputación cambió: la próxima lista de proveedores tiene que reflejarlo.
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['providers'] }),
   });
 }

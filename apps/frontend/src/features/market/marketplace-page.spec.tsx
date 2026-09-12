@@ -78,7 +78,16 @@ describe('MarketplacePage', () => {
     fireEvent.click(screen.getByText('Enviar solicitud'));
 
     expect(await screen.findByText('+54 9 3537 424031')).toBeTruthy();
-    expect(screen.getAllByText('Solicitud enviada')).toHaveLength(2);
+    expect(screen.getByText('Solicitud enviada')).toBeTruthy();
+    expect(screen.getByText('Ver solicitud · Valorar')).toBeTruthy();
+
+    // N4: la reseña cierra el ciclo desde la misma solicitud.
+    fireEvent.click(screen.getByLabelText('4 de 5'));
+    fireEvent.change(screen.getByLabelText('Comentario de la valoración'), {
+      target: { value: 'Cumplió la fecha.' },
+    });
+    fireEvent.click(screen.getByText('Enviar valoración'));
+    expect(await screen.findByRole('status')).toHaveProperty('textContent', expect.stringContaining('Valoración enviada'));
   });
 
   it('deriva genética al motor dedicado sin mostrar resultados genéricos', async () => {
@@ -116,8 +125,10 @@ describe('MarketResults states', () => {
         providers={[]}
         providersLoading={false}
         requesting={false}
+        reviewing={false}
         onEdit={() => undefined}
         onRequest={() => Promise.reject(new Error('No se usa'))}
+        onReview={() => Promise.reject(new Error('No se usa'))}
       />,
     );
     expect(screen.getByText('Todavía no hay proveedores para esta categoría')).toBeTruthy();
@@ -130,8 +141,10 @@ describe('MarketResults states', () => {
         board={{ ranked: [], excluded: [] }}
         providersLoading
         requesting={false}
+        reviewing={false}
         onEdit={() => undefined}
         onRequest={() => Promise.reject(new Error('No se usa'))}
+        onReview={() => Promise.reject(new Error('No se usa'))}
       />,
     );
     expect(screen.getByLabelText('Cargando proveedores')).toBeTruthy();

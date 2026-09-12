@@ -1,6 +1,11 @@
 import type { Role } from '@org/shared-types';
 
-export type TabStatus = 'pending' | 'not-implemented' | 'placeholder-with-data';
+/**
+ * `live`: la pantalla real está implementada y pega a la API.
+ * `placeholder-with-data`: placeholder que muestra algún dato real.
+ * `not-implemented`: hay spec pero no pantalla. `pending`: hoja de ruta.
+ */
+export type TabStatus = 'live' | 'pending' | 'not-implemented' | 'placeholder-with-data';
 
 export interface NavTab {
   label: string;
@@ -37,7 +42,7 @@ export const NAV_MODULES: NavModule[] = [
       {
         label: 'Home marketplace general',
         path: '/mercado',
-        status: 'not-implemented',
+        status: 'live',
         spec: 'mvp-b-need',
       },
     ],
@@ -50,23 +55,25 @@ export const NAV_MODULES: NavModule[] = [
       {
         label: 'Matching genético',
         path: '/motor-genetico/matching',
-        status: 'not-implemented',
+        status: 'live',
         spec: 'mvp-d-match',
       },
       {
         label: 'Tablero del rodeo',
         path: '/motor-genetico/tablero',
-        status: 'placeholder-with-data',
+        status: 'live',
+        spec: 'mvp-c-herd',
       },
       {
         label: 'Carga del rodeo',
         path: '/motor-genetico/importar',
-        status: 'placeholder-with-data',
+        status: 'live',
+        spec: 'mvp-c-herd',
       },
       {
         label: 'Panel del asesor',
         path: '/motor-genetico/asesor',
-        status: 'not-implemented',
+        status: 'live',
         spec: 'mvp-b-need',
         roles: ['ADVISOR', 'ADMIN'],
       },
@@ -81,7 +88,7 @@ export const NAV_MODULES: NavModule[] = [
       {
         label: 'Plan de servicios',
         path: '/negociacion/plan',
-        status: 'not-implemented',
+        status: 'live',
         spec: 'mvp-d-match',
       },
     ],

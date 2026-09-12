@@ -191,4 +191,20 @@ export const needsHandlers = [
       contact: provider.contact,
     });
   }),
+
+  // N4: la valoración del trabajo. Espejo de POST /requests/:id/review.
+  http.post('/api/requests/:id/review', async ({ params, request }) => {
+    const body = (await request.json()) as { rating: number; comment: string };
+    if (!Number.isInteger(body.rating) || body.rating < 1 || body.rating > 5) {
+      return apiError('VALIDATION_ERROR', 'El puntaje va de 1 a 5', 400);
+    }
+    return HttpResponse.json({
+      id: `mock-review-${++sequence}`,
+      serviceRequestId: String(params['id']),
+      providerId: 'prov-nicola',
+      rating: body.rating,
+      comment: body.comment,
+      createdAt: new Date().toISOString(),
+    });
+  }),
 ];

@@ -84,6 +84,14 @@ export function NeedInterpretation({
   busy: boolean;
 }) {
   const place = need.where?.label ?? '';
+  // La IA devuelve el lugar tal como lo escribió el productor ("Río Cuarto"),
+  // que rara vez coincide letra por letra con la lista fija. Si ya viene una
+  // ubicación con coordenadas, se ofrece como opción: nunca se pierde lo que
+  // el intake interpretó bien.
+  const places =
+    need.where && !PLACES.some((candidate) => candidate.label === need.where?.label)
+      ? [{ label: need.where.label, lat: need.where.lat, lng: need.where.lng }, ...PLACES]
+      : PLACES;
 
   function resolveFields(next: Need, ...fields: string[]): Need {
     const confidence = { ...next.confidence };
@@ -97,7 +105,7 @@ export function NeedInterpretation({
   }
 
   function updatePlace(label: string) {
-    const selected = PLACES.find((candidate) => candidate.label === label);
+    const selected = places.find((candidate) => candidate.label === label);
     if (selected) {
       onChange(resolveFields({ ...need, where: selected }, 'where'));
     }
@@ -193,7 +201,7 @@ export function NeedInterpretation({
             <Select value={place || undefined} onValueChange={updatePlace}>
               <SelectTrigger aria-label="Ubicación"><SelectValue placeholder="Elegí una ubicación" /></SelectTrigger>
               <SelectContent>
-                {PLACES.map((candidate) => (
+                {places.map((candidate) => (
                   <SelectItem key={candidate.label} value={candidate.label}>{candidate.label}</SelectItem>
                 ))}
               </SelectContent>
