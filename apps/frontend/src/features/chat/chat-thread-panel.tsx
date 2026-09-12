@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Wrench } from 'lucide-react';
 import { AiExplanation } from '@/components/ui/ai-explanation';
+import { Badge } from '@/components/ui/badge';
 import { ChatBubble, ChatComposer, ChatThread } from '@/components/ui/chat';
 import { useAskChat } from '../../shared/api/hooks/use-chat.js';
 
@@ -52,10 +54,22 @@ export function ChatThreadPanel({ farmId }: { farmId: string }) {
           <div key={message.id} className="flex flex-col gap-2">
             <ChatBubble align="end">{message.question}</ChatBubble>
             {message.answer && (
-              <AiExplanation
-                text={message.answer.text}
-                source={message.answer.usedTools.length > 0 ? 'AI' : 'FALLBACK'}
-              />
+              <div className="flex flex-col gap-1">
+                <AiExplanation
+                  text={message.answer.text}
+                  source={message.answer.usedTools.length > 0 ? 'AI' : 'FALLBACK'}
+                />
+                {message.answer.usedTools.length > 0 && (
+                  <div className="flex items-center gap-1 px-0.5">
+                    {message.answer.usedTools.map((tool) => (
+                      <Badge key={tool} variant="neutral" className="text-[10.5px]">
+                        <Wrench className="size-3" />
+                        {tool}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
           </div>
         ))}
