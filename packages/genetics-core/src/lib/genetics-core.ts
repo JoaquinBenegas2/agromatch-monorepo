@@ -13,14 +13,13 @@ import type {
   GoalPreset,
   PlanItem,
   SemenType,
-  Tag,
-  Tier,
   TraitKey,
   TraitStats,
   TraitVector,
 } from '@org/shared-types';
 import type { MatchBoard, MatchCandidate, Need, VerticalEngine } from '@org/shared-types';
 import { TRAIT_DIRECTION } from '@org/shared-types';
+export { classifyHerd, classifyHerdClassic } from './classification.js';
 
 /**
  * `genetics-core` — vertical genético enchufado al núcleo (ADR-0002). TS
@@ -158,56 +157,6 @@ export function calvingEaseFilter(female: Female, bull: Bull, farm: Farm): Filte
 
 // B2 (mvp-c-herd) --------------------------------------------------------------
 
-function classifyByCiThirds(females: Female[]): Classification[] {
-  const withProfile = females.filter((f): f is Female & { profile: GenomicProfile } => f.profile !== null);
-  const sorted = [...withProfile].sort((a, b) => b.profile.traits.ci - a.profile.traits.ci);
-  const n = sorted.length;
-  const results: Classification[] = [];
-
-  sorted.forEach((f, i) => {
-    const ciPercentile = n <= 1 ? 100 : Math.round((100 * (n - 1 - i)) / (n - 1));
-    const position = i / n;
-    const tier: Tier = position < 1 / 3 ? 'ELITE' : position < 2 / 3 ? 'COMMERCIAL' : 'CULL_ALERT';
-    const semenType: SemenType | null = tier === 'CULL_ALERT' ? null : 'CONVENTIONAL';
-    const tags: Tag[] = f.sireNaab === null ? ['NO_SIRE'] : [];
-
-    results.push({
-      femaleId: f.id,
-      tier,
-      semenType,
-      ciPercentile,
-      tags,
-      corrective: [],
-      reasons: [`CI en el percentil ${ciPercentile} del tambo (stub: tercios por CI)`],
-    });
-  });
-
-  for (const f of females) {
-    if (f.profile === null) {
-      results.push({
-        femaleId: f.id,
-        tier: 'CULL_ALERT',
-        semenType: null,
-        ciPercentile: 0,
-        tags: f.sireNaab === null ? ['NO_SIRE'] : [],
-        corrective: [],
-        reasons: ['Sin perfil genotipado (RN-24): no se puede calcular CI'],
-      });
-    }
-  }
-  return results;
-}
-
-/** Stub: tercios por CI. `goal`/`farm` se ignoran hasta que mvp-c-herd los use. */
-export function classifyHerd(females: Female[], _farm: Farm, _goal: BreedingGoal): Classification[] {
-  return classifyByCiThirds(females);
-}
-
-/** Stub: reglas clásicas, solo para el "47% vs 30%"; hoy es igual a `classifyHerd`. */
-export function classifyHerdClassic(females: Female[]): Classification[] {
-  return classifyByCiThirds(females);
-}
-
 // A4 (ADR-0002) ----------------------------------------------------------------
 
 function subtractPartial(a: TraitVector, b: TraitVector): Partial<TraitVector> {
@@ -334,7 +283,11 @@ export function makeGeneticsNeed(farmId: string, femaleId: string, goal: Breedin
   };
 }
 
-/** Stub B5 (mvp-d-match): primer toro de `ranked` para cada hembra clasificada. */
+/**
+ * B5 — REQ-D-10: un `PlanItem` por cada hembra clasificada cuyo `tier` no
+ * sea `CULL_ALERT` (nunca un proxy indirecto como "semenType null"), con el
+ * toro `#1` de su `MatchBoard`, sin restricción de presupuesto (D6).
+ */
 export function buildAutoPlan(
   farm: Farm,
   females: Female[],
@@ -344,10 +297,13 @@ export function buildAutoPlan(
   stats: TraitStats,
 ): BreedingPlan {
   const items: PlanItem[] = [];
+  const expectedProgenyByItem: (Partial<TraitVector> | null)[] = [];
 
   for (const female of females) {
     const classification = classifications.find((c) => c.femaleId === female.id);
-    if (!classification || classification.semenType === null) continue;
+    if (!classification || classification.tier === 'CULL_ALERT' || classification.semenType === null) {
+      continue;
+    }
 
     const board = scoreCandidates(female, classification, bulls, goal, farm, stats);
     const top = board.ranked[0];
@@ -362,12 +318,14 @@ export function buildAutoPlan(
       compatibility: top.compatibility,
       pricePerDose: bull.pricePerDose,
     });
+    expectedProgenyByItem.push((top.verticalFacts as ExplanationFacts | undefined)?.expectedProgeny ?? null);
   }
 
   const doses: Record<SemenType, number> = { SEXED: 0, CONVENTIONAL: 0, BEEF: 0 };
   let cost = 0;
   for (const item of items) {
     doses[item.semenType] += 1;
+    // REQ-D-11: ignora los precios null, nunca los trata como 0.
     if (item.pricePerDose !== null) cost += item.pricePerDose;
   }
 
@@ -376,8 +334,31 @@ export function buildAutoPlan(
     farmId: farm.id,
     createdAt: new Date().toISOString(),
     items,
-    totals: { doses, cost, avgExpectedProgeny: {} },
+    totals: { doses, cost, avgExpectedProgeny: averageTraits(expectedProgenyByItem) },
   };
+}
+
+/** REQ-D-11: promedia solo los ítems que tienen perfil (expectedProgeny no null). */
+function averageTraits(vectors: (Partial<TraitVector> | null)[]): Partial<TraitVector> {
+  const sums: Partial<Record<TraitKey, number>> = {};
+  const counts: Partial<Record<TraitKey, number>> = {};
+
+  for (const vector of vectors) {
+    if (!vector) continue;
+    for (const key of TRAIT_KEYS) {
+      const value = vector[key];
+      if (value == null) continue;
+      sums[key] = (sums[key] ?? 0) + value;
+      counts[key] = (counts[key] ?? 0) + 1;
+    }
+  }
+
+  const result: Partial<TraitVector> = {};
+  for (const key of TRAIT_KEYS) {
+    const count = counts[key];
+    if (count) result[key] = (sums[key] ?? 0) / count;
+  }
+  return result;
 }
 
 export const GOAL_PRESETS: Record<GoalPreset, BreedingGoal> = {

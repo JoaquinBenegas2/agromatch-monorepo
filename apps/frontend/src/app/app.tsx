@@ -1,8 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { PlanScreen } from '../features/plan/plan-screen.js';
 import { AppShell } from './shell/app-shell.js';
 import { ModulePage } from './shell/module-page.js';
 import { UiKitPreview } from './ui-kit-preview.js';
 import { MarketplacePage } from '../features/market/marketplace-page.js';
+import { MatchingScreen } from '../features/matching/matching-screen.js';
 
 export function App() {
   return (
@@ -11,7 +13,10 @@ export function App() {
       <Route element={<AppShell />}>
         <Route path="/establecimiento" element={<ModulePage />} />
         <Route path="/mercado" element={<MarketplacePage />} />
+        {/* D4 (mvp-d-match): pantalla real, más específica que el catch-all de abajo. */}
+        <Route path="/motor-genetico/matching/:femaleId?" element={<MatchingScreen />} />
         <Route path="/motor-genetico/*" element={<ModulePage />} />
+        <Route path="/negociacion/plan" element={<PlanScreen />} />
         <Route path="/negociacion/*" element={<ModulePage />} />
         <Route path="/ofertas" element={<ModulePage />} />
       </Route>

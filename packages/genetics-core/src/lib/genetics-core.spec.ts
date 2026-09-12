@@ -124,7 +124,7 @@ describe('genetics-core stubs (REQ-SC-06)', () => {
     );
   });
 
-  it('classifyHerd reparte en tercios por CI', () => {
+  it('classifyHerd usa cupos por CI sin incluir CULL_ALERT fuera de reglas de descarte', () => {
     const females = [
       makeFemale({ id: 'f-1', profile: { ...makeFemale().profile!, traits: { ...makeFemale().profile!.traits, ci: 900 } } }),
       makeFemale({ id: 'f-2', profile: { ...makeFemale().profile!, traits: { ...makeFemale().profile!.traits, ci: 500 } } }),
@@ -133,7 +133,7 @@ describe('genetics-core stubs (REQ-SC-06)', () => {
     const classifications = classifyHerd(females, farm, GOAL_PRESETS.BALANCED);
     expect(classifications).toHaveLength(3);
     expect(classifications.find((c) => c.femaleId === 'f-1')?.tier).toBe('ELITE');
-    expect(classifications.find((c) => c.femaleId === 'f-3')?.tier).toBe('CULL_ALERT');
+    expect(classifications.find((c) => c.femaleId === 'f-3')?.tier).toBe('BEEF');
   });
 
   it('scoreCandidates devuelve MatchBoard ordenado con compatibility del #1 en 100 (REQ-SC-06)', () => {
@@ -179,6 +179,61 @@ describe('genetics-core stubs (REQ-SC-06)', () => {
     const plan = buildAutoPlan(farm, [female], [classification], bulls, GOAL_PRESETS.BALANCED, stats);
     expect(plan.items).toHaveLength(1);
     expect(plan.totals.doses.CONVENTIONAL).toBe(1);
+  });
+
+  it('buildAutoPlan excluye por tier CULL_ALERT explícito, no solo por semenType null (REQ-D-10)', () => {
+    const alive = makeFemale({ id: 'f-alive' });
+    const cull = makeFemale({ id: 'f-cull' });
+    const classifications: Classification[] = [
+      { femaleId: 'f-alive', tier: 'COMMERCIAL', semenType: 'CONVENTIONAL', ciPercentile: 60, tags: [], corrective: [], reasons: [] },
+      { femaleId: 'f-cull', tier: 'CULL_ALERT', semenType: 'CONVENTIONAL', ciPercentile: 5, tags: [], corrective: [], reasons: [] },
+    ];
+    const bulls = [makeBull({ naab: 'bull-a' })];
+    const stats = computeTraitStats(bulls.map((b) => b.profile!));
+
+    const plan = buildAutoPlan(farm, [alive, cull], classifications, bulls, GOAL_PRESETS.BALANCED, stats);
+    expect(plan.items).toHaveLength(1);
+    expect(plan.items[0].femaleId).toBe('f-alive');
+  });
+
+  it('buildAutoPlan.totals.cost ignora pricePerDose null (REQ-D-11)', () => {
+    const females = [makeFemale({ id: 'f-1' }), makeFemale({ id: 'f-2' }), makeFemale({ id: 'f-3' })];
+    const classifications: Classification[] = females.map((f) => ({
+      femaleId: f.id,
+      tier: 'COMMERCIAL',
+      semenType: 'CONVENTIONAL',
+      ciPercentile: 50,
+      tags: [],
+      corrective: [],
+      reasons: [],
+    }));
+    // Un toro distinto por hembra (mismo naab colisionaría el ranking), uno con precio null.
+    const bullFree = makeBull({ naab: 'bull-free', pricePerDose: null });
+    const stats = computeTraitStats([bullFree.profile!]);
+
+    const plan = buildAutoPlan(farm, females, classifications, [bullFree], GOAL_PRESETS.BALANCED, stats);
+    expect(plan.items).toHaveLength(3);
+    expect(plan.totals.cost).toBe(0); // el único toro disponible no tiene precio
+    expect(plan.totals.doses.CONVENTIONAL).toBe(3);
+  });
+
+  it('buildAutoPlan.totals.avgExpectedProgeny promedia solo los ítems con perfil (REQ-D-11)', () => {
+    const female = makeFemale();
+    const classification: Classification = {
+      femaleId: female.id,
+      tier: 'COMMERCIAL',
+      semenType: 'CONVENTIONAL',
+      ciPercentile: 50,
+      tags: [],
+      corrective: [],
+      reasons: [],
+    };
+    const bull = makeBull();
+    const stats = computeTraitStats([bull.profile!]);
+
+    const plan = buildAutoPlan(farm, [female], [classification], [bull], GOAL_PRESETS.BALANCED, stats);
+    expect(plan.totals.avgExpectedProgeny.scs).toBeDefined();
+    expect(typeof plan.totals.avgExpectedProgeny.scs).toBe('number');
   });
 
   it('matchNeed(need, caps, provs, [GeneticsVertical]) da verticalFacts y fit.vertical en [0,1] (REQ-SC-06)', () => {

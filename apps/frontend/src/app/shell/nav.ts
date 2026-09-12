@@ -56,14 +56,12 @@ export const NAV_MODULES: NavModule[] = [
       {
         label: 'Tablero del rodeo',
         path: '/motor-genetico/tablero',
-        status: 'not-implemented',
-        spec: 'mvp-c-herd',
+        status: 'placeholder-with-data',
       },
       {
         label: 'Carga del rodeo',
         path: '/motor-genetico/importar',
-        status: 'not-implemented',
-        spec: 'mvp-c-herd',
+        status: 'placeholder-with-data',
       },
       {
         label: 'Panel del asesor',
