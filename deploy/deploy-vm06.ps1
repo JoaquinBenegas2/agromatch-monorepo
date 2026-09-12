@@ -11,14 +11,23 @@
         .\deploy\deploy-vm06.ps1 -WhatIf        # muestra que haria, sin copiar
 
     Backend: un unico main.js autocontenido (BUNDLE_ALL=1 en webpack.config.js),
-    asi la VM no necesita node_modules ni npm install. Corre con REPOSITORY_MODE=memory
-    (sin Postgres, sembrado con los fixtures) — lo setea el script de la VM.
+    asi la VM no necesita node_modules ni npm install.
+
+    Base de datos: la configuracion vive en <share>\backend\.env (el mismo archivo que
+    tiene la ANTHROPIC_API_KEY). Si ahi dice REPOSITORY_MODE=prisma con DATABASE_URL,
+    este script — ANTES de copiar el bundle — aplica contra esa base:
+      * `prisma migrate deploy`: solo las migraciones pendientes, nunca resetea ni pisa datos.
+      * el seed (`prisma/seed.ts`): idempotente (createMany skipDuplicates / upsert),
+        correrlo N veces deja el mismo estado y no toca lo que la gente cargo.
+    Es determinista: cada deploy deja la base al dia sin reiniciarla. -SkipDb lo saltea.
+    Con REPOSITORY_MODE=memory no toca ninguna base.
 #>
 [CmdletBinding(SupportsShouldProcess)]
 param(
     [string] $Share = '\\vm06\shared\hackaton',
     [switch] $SkipBuild,
-    [ValidateSet('todo', 'front', 'back')]
+    [switch] $SkipDb,
+    [ValidateSet('todo', 'front', 'back', 'db')]
     [string] $Solo = 'todo'
 )
 
@@ -39,10 +48,52 @@ Write-Host "Repo         : $RepoRoot"
 $hacer = @{
     front = $Solo -in @('todo', 'front')
     back  = $Solo -in @('todo', 'back')
+    db    = ($Solo -in @('todo', 'back', 'db')) -and -not $SkipDb
+}
+
+# Lee una variable del .env del share sin imprimir el resto (ahi hay secretos).
+function Leer-EnvShare([string] $nombre) {
+    $f = Join-Path $Share 'backend\.env'
+    if (-not (Test-Path -LiteralPath $f)) { return $null }
+    $l = Get-Content -LiteralPath $f | Where-Object { $_ -match "^\s*$nombre\s*=" } | Select-Object -First 1
+    if (-not $l) { return $null }
+    $v = ($l -split '=', 2)[1].Trim()
+    if ($v.Length -ge 2 -and (($v[0] -eq '"' -and $v[-1] -eq '"') -or ($v[0] -eq "'" -and $v[-1] -eq "'"))) { $v = $v.Substring(1, $v.Length - 2) }
+    return $v
 }
 
 Push-Location $RepoRoot
 try {
+    # ── Base de datos (migraciones + seed, idempotente) ───────────────────────
+    if ($hacer.db) {
+        $modo = Leer-EnvShare 'REPOSITORY_MODE'
+        if (-not $modo) { $modo = 'memory' }
+        if ($modo -eq 'prisma') {
+            $dbUrl = Leer-EnvShare 'DATABASE_URL'
+            if (-not $dbUrl) { Fallar 'db - REPOSITORY_MODE=prisma pero DATABASE_URL esta vacia en backend\.env del share.' }
+            if ($dbUrl -notmatch '^postgres(ql)?://') { Fallar 'db - DATABASE_URL tiene que ser postgresql://... (el backend la rechaza si no).' }
+            if ($dbUrl -match '\.railway\.internal') { Fallar 'db - DATABASE_URL usa el host INTERNO de Railway (*.railway.internal): solo resuelve dentro de Railway. Usar la URL publica (Connect -> Public Network, *.proxy.rlwy.net:<puerto>).' }
+            $hostDb = ($dbUrl -replace '^[a-z]+://[^@]*@', '') -replace '/.*$', ''
+            Paso "db - migraciones + seed contra $hostDb"
+            if ($PSCmdlet.ShouldProcess($hostDb, 'prisma migrate deploy + seed')) {
+                $env:DATABASE_URL = $dbUrl
+                try {
+                    # migrate deploy: aplica SOLO lo pendiente; no genera migraciones ni resetea.
+                    npx prisma migrate deploy --config apps/backend/prisma7.config.ts
+                    if ($LASTEXITCODE -ne 0) { Fallar "db - prisma migrate deploy fallo (exit $LASTEXITCODE)" }
+                    # seed idempotente (createMany skipDuplicates / upsert): no pisa datos cargados.
+                    npx tsx apps/backend/prisma/seed.ts
+                    if ($LASTEXITCODE -ne 0) { Fallar "db - seed fallo (exit $LASTEXITCODE)" }
+                } finally {
+                    Remove-Item Env:\DATABASE_URL -ErrorAction SilentlyContinue
+                }
+                Write-Host "    base al dia en $hostDb (migraciones pendientes aplicadas, seed verificado)" -ForegroundColor Green
+            }
+        } else {
+            Paso "db - REPOSITORY_MODE=${modo}: sin base, no hay nada que migrar"
+        }
+    }
+
     # ── Front (Vite) ─────────────────────────────────────────────────────────
     if ($hacer.front) {
         if (-not $SkipBuild) {
@@ -117,5 +168,5 @@ try {
 
 Paso 'Listo'
 Write-Host 'Copiado. Del lado de VM06 (PowerShell como administrador):' -ForegroundColor Yellow
-Write-Host '    1. Pegar la ANTHROPIC_API_KEY en C:\shared\hackaton\backend\.env (solo la primera vez)'
-Write-Host '    2. C:\shared\hackaton\actualizar-vm06.ps1'
+Write-Host '    C:\shared\hackaton\actualizar-vm06.ps1'
+Write-Host 'La config (ANTHROPIC_API_KEY, REPOSITORY_MODE, DATABASE_URL) vive en \\vm06\shared\hackaton\backend\.env' -ForegroundColor Yellow

@@ -1,8 +1,15 @@
 # AgroMatch en VM06 — `hackaton.vylaris.com.ar`
 
-Deploy de demo **sin base de datos**: el backend corre con `REPOSITORY_MODE=memory`
-(los fixtures se cargan en memoria al arrancar; lo que se clasifica o carga se
-pierde al reiniciar el servicio). Claude va **en vivo** (`AI_MODE=live`).
+Toda la configuración del deploy vive en **un solo archivo**:
+`\\vm06\shared\hackaton\backend\.env` (key de Anthropic, modo de repositorios y
+`DATABASE_URL`). No hay `dotenv-cli` ni `.env.railway` para la VM.
+
+- `REPOSITORY_MODE=prisma` + `DATABASE_URL` (Railway): **la base persiste entre deploys**.
+  Cada `deploy-vm06.ps1` aplica `prisma migrate deploy` (solo migraciones pendientes,
+  nunca resetea) y el seed idempotente. Lo que la gente carga no se toca.
+- `REPOSITORY_MODE=memory`: sin base, fixtures en memoria, se pierde al reiniciar.
+
+Claude va **en vivo** (`AI_MODE=live`).
 
 ## Qué queda levantado
 
@@ -18,10 +25,18 @@ El backend **no se expone** a internet; se llega a él a través del sitio.
 ## Desde la máquina de desarrollo
 
 ```powershell
-.\deploy\deploy-vm06.ps1          # build back (bundle autocontenido) + front, copia a \\vm06\shared\hackaton
-.\deploy\deploy-vm06.ps1 -Solo front
-.\deploy\deploy-vm06.ps1 -SkipBuild
+npm run deploy:vm06               # migraciones + seed (si prisma), build back + front, copia al share
+npm run deploy:vm06:front         # solo front
+npm run deploy:vm06:back          # back (incluye el paso de base)
+.\deploy\deploy-vm06.ps1 -SkipBuild        # solo copia lo ya compilado
+.\deploy\deploy-vm06.ps1 -Solo db          # solo migraciones + seed
+.\deploy\deploy-vm06.ps1 -SkipDb           # sin tocar la base
 ```
+
+El paso de base corre **desde tu máquina** contra la `DATABASE_URL` del `.env` del
+share (la VM no tiene el repo). Es determinista: `migrate deploy` es idempotente y el
+seed usa `createMany({ skipDuplicates })` / `upsert`. El script se niega a usar un host
+`*.railway.internal` (solo resuelve dentro de Railway): va la URL pública `*.proxy.rlwy.net`.
 
 ## En VM06 (PowerShell como administrador)
 
@@ -70,10 +85,12 @@ No hay login: el front manda `x-user-id`. `tambero-a` (rodeo real, 293 animales)
 - No cambiar el puerto solo en un lado: el `web.config` y el servicio tienen que coincidir (`-Puerto` del script ajusta los dos).
 - No pretender persistencia mientras esté en memoria: lo cargado se pierde al reiniciar el servicio.
 
-## Pasar a Postgres real (más adelante)
+## Cambiar de base (o de modo)
 
 Prisma ya viaja dentro del `main.js`; no hay que recompilar nada.
 
-1. Desde la máquina dev, con `DATABASE_URL` apuntando a esa base: `npm run db:deploy` (migraciones) y `npx nx run @org/backend:db-seed` (fixtures).
-2. En `C:\shared\hackaton\backend\.env`: `REPOSITORY_MODE=prisma` y `DATABASE_URL=postgresql://...`.
-3. `C:\shared\hackaton\actualizar-vm06.ps1` (el script aborta si `REPOSITORY_MODE=prisma` y `DATABASE_URL` está vacía).
+1. En `\\vm06\shared\hackaton\backend\.env`: `REPOSITORY_MODE=prisma` y `DATABASE_URL=postgresql://...` (URL pública de Railway).
+2. `npm run deploy:vm06` desde tu máquina: migra y siembra esa base, y copia el bundle.
+3. `C:\shared\hackaton\actualizar-vm06.ps1` en la VM (aborta si `prisma` y `DATABASE_URL` vacía).
+
+Para volver a memoria: `REPOSITORY_MODE=memory` y repetir 2 y 3.
