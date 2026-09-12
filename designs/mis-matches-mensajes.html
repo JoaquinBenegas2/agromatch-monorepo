@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgroMatch · Mis matches / mensajes</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+.brand{display:flex;align-items:center;gap:10px;padding:18px 16px 16px}
+.brand-mark{width:30px;height:30px;border-radius:var(--r-lg);background:var(--action);color:#fff;display:flex;align-items:center;justify-content:center;font:700 14px/1 var(--sans)}
+.brand-name{font:700 15px/1.1 var(--sans);letter-spacing:-.01em}
+.brand-sub{font:400 10.5px/1.2 var(--sans);color:var(--ink-3)}
+.nav-scroll{flex:1;overflow-y:auto;padding:6px 0 12px}
+.sidebar-footer{border-top:1px solid var(--border);padding:12px}
+.account-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-lg)}
+.account-row:hover{background:var(--row-off)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--border);background:var(--card)}
+.crumb{font:400 12px/1 var(--sans);color:var(--ink-3)}
+.crumb b{color:var(--ink);font-weight:600}
+.content{padding:28px 32px;display:flex;flex-direction:column;gap:16px;width:100%;max-width:1000px}
+.avatar-square{border-radius:var(--r-sm)}
+.tabbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tabbar button{font:600 12.5px/1 var(--sans);padding:8px 14px;border-radius:var(--r-lg);border:1px solid var(--border);background:var(--card);color:var(--ink);cursor:pointer}
+.tabbar button.active{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.tabbar button[disabled]{cursor:not-allowed;color:var(--ink-4)}
+.match-item{cursor:pointer}
+[data-view]{display:none;flex-direction:column;gap:16px}
+[data-view].active{display:flex}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div><div class="brand-name">AgroMatch</div><div class="brand-sub">Tambo La Esperanza</div></div>
+    </div>
+    <nav class="nav-scroll"><div class="nav-group">
+    <div class="nav-group-label">Mi establecimiento <span style="text-transform:none;font-weight:400">· valor / setup</span></div>
+    <a class="nav-item" href="setup-conversacional.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.2 1.8-2.5 3.5"/><circle cx="12" cy="17" r=".2"/></svg>
+  <span class="label">Setup conversacional</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mercado y oportunidades <span style="text-transform:none;font-weight:400">· mercado general</span></div>
+    <a class="nav-item" href="home-marketplace-general.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 20v-5h6v5"/></svg>
+  <span class="label">Home marketplace general</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Motor genético <span style="text-transform:none;font-weight:400">· motor técnico</span></div>
+    <a class="nav-item" href="matching-genetico.html">
+  <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+  <span class="label">Matching genético</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Negociación y tratos <span style="text-transform:none;font-weight:400">· transacciones</span></div>
+    <a class="nav-item active" href="mis-matches-mensajes.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 12l5-5 3 3 4-4 6 6"/><circle cx="19" cy="6" r="1.6"/><path d="M3 18h18"/></svg>
+  <span class="label">Mis matches / mensajes</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mis ofertas <span style="text-transform:none;font-weight:400">· catálogo propio</span></div>
+    <a class="nav-item" href="cargar-lotes-servicios.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 17l5-9 4 6 3-4 6 7"/><path d="M3 20h18"/></svg>
+  <span class="label">Cargar lotes / servicios</span>
+</a>
+  </div></nav>
+    <div class="sidebar-footer">
+      <hr class="divider" style="margin:0 0 8px">
+      <div class="account-row">
+        <div class="avatar" style="width:32px;height:32px;font-size:12px">JB</div>
+        <div style="min-width:0">
+          <div style="font:600 12px/1.2 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Joaquín Benegas</div>
+          <div style="font:400 10.5px/1.2 var(--sans);color:var(--ink-3)">Productor · Tambo</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">Negociación y tratos / <b>Mis matches / mensajes</b></div>
+      <div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JB</div></div>
+    </div>
+    <div class="content">
+
+      <div class="tabbar">
+        <button class="active" type="button">Mis matches / mensajes</button>
+        <button type="button" disabled>Plan de servicios <span class="tag-version" style="margin-left:4px">pendiente</span></button>
+      </div>
+
+      <!-- Vista lista -->
+      <div data-view="lista" class="active">
+        <div><h1 class="t-title" style="font-size:22px">Mis matches y mensajes</h1><p class="t-meta" style="margin:4px 0 0">Ordenados por actividad reciente · tocá uno para abrir la conversación</p></div>
+
+        <div class="tabbar">
+          <span class="btn" style="background:var(--ink);color:var(--card)">Todos</span>
+          <span class="btn btn-ghost">Nuevos</span>
+          <span class="btn btn-ghost">En negociación</span>
+          <span class="btn btn-ghost">Cerrados</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="card match-item" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center" onclick="openChat('dr')">
+            <div style="display:flex;gap:12px;align-items:center"><div class="avatar avatar-square" style="width:40px;height:40px;font-size:14px">DR</div><div><div class="t-body" style="font-weight:600">Don Rufino 4012 · Cabaña La Esperanza</div><div class="t-meta">Elegido para el plan · hembra 3031 · #1 de 9</div></div></div>
+            <div style="display:flex;gap:10px;align-items:center"><span class="badge badge-neutral">Nuevo</span><span class="btn btn-ghost">Iniciar chat</span></div>
+          </div>
+          <div class="card match-item" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center" onclick="openChat('ec')">
+            <div style="display:flex;gap:12px;align-items:center"><div class="avatar avatar-square" style="width:40px;height:40px;font-size:14px">EC</div><div><div class="t-body" style="font-weight:600">Contratista El Ceibo</div><div class="t-meta">Arado 40 ha · Río Cuarto · en negociación</div></div></div>
+            <div style="display:flex;gap:10px;align-items:center"><span class="badge badge-warn">En negociación</span><span class="btn btn-ghost">Continuar chat</span></div>
+          </div>
+          <div class="card match-item" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center" onclick="openChat('sj')">
+            <div style="display:flex;gap:12px;align-items:center"><div class="avatar avatar-square" style="width:40px;height:40px;font-size:14px">SJ</div><div><div class="t-body" style="font-weight:600">Cabaña San Jorge</div><div class="t-meta">El Tala 2207 · consulta de dosis</div></div></div>
+            <div style="display:flex;gap:10px;align-items:center"><span class="badge badge-ok">2 sin leer</span><span class="btn btn-ghost">Abrir</span></div>
+          </div>
+          <div class="card match-item" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;opacity:.75" onclick="openChat('ab')">
+            <div style="display:flex;gap:12px;align-items:center"><div class="avatar avatar-square" style="width:40px;height:40px;font-size:14px">AB</div><div><div class="t-body" style="font-weight:600">Agroservicios Bianchi</div><div class="t-meta">Arado + rastra · cerrado</div></div></div>
+            <div style="display:flex;gap:10px;align-items:center"><span class="badge badge-neutral">Cerrado</span><span class="btn btn-ghost">Ver resumen</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vista chat -->
+      <div data-view="chat">
+        <span style="font:500 12px/1 var(--sans);color:var(--action);cursor:pointer;display:inline-flex;align-items:center;gap:4px" onclick="backToList()">← Volver a mis matches</span>
+        <div class="card" style="overflow:hidden">
+          <div style="display:grid;grid-template-columns:220px 1fr 220px;min-height:480px">
+            <div style="border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto">
+              <div data-thread-nav="dr" style="padding:12px 14px;border-bottom:1px solid var(--border-soft);cursor:pointer" onclick="openChat('dr')"><div class="t-body" style="font-weight:600;font-size:12.5px">Don Rufino 4012</div><div class="t-meta">Cabaña La Esperanza</div></div>
+              <div data-thread-nav="ec" style="padding:12px 14px;border-bottom:1px solid var(--border-soft);cursor:pointer" onclick="openChat('ec')"><div class="t-body" style="font-weight:600;font-size:12.5px">Contratista El Ceibo</div><div class="t-meta">Arado 40 ha</div></div>
+              <div data-thread-nav="sj" style="padding:12px 14px;border-bottom:1px solid var(--border-soft);cursor:pointer" onclick="openChat('sj')"><div class="t-body" style="font-weight:600;font-size:12.5px">Cabaña San Jorge</div><div class="t-meta">El Tala 2207</div></div>
+              <div data-thread-nav="ab" style="padding:12px 14px;cursor:pointer" onclick="openChat('ab')"><div class="t-body" style="font-weight:600;font-size:12.5px">Agroservicios Bianchi</div><div class="t-meta">Cerrado</div></div>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <div id="thread-header" style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px"></div>
+              <div id="thread-body" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;background:var(--bg)"></div>
+              <div style="padding:10px;border-top:1px solid var(--border);display:flex;gap:8px"><input style="flex:1;border:1px solid var(--border);border-radius:4px;padding:9px 11px;font:400 12.5px/1 var(--sans)" placeholder="Escribí un mensaje…"><span class="btn btn-primary">Enviar</span></div>
+            </div>
+            <div id="thread-summary" style="border-left:1px solid var(--border);padding:14px;display:flex;flex-direction:column;gap:10px"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+var threads = {
+  dr: {
+    header: '<div class="avatar avatar-square" style="width:30px;height:30px;font-size:11px">DR</div><div><div class="t-body" style="font-weight:600;font-size:12.5px">Cabaña La Esperanza</div><div class="t-meta">Don Rufino 4012 · Angus negro</div></div>',
+    messages: [
+      ['left','Hola, vimos que elegiste a Don Rufino para la hembra 3031. ¿Coordinamos la fecha del servicio?'],
+      ['right','Sí, la semana del 22/11 nos queda bien.'],
+      ['left','Perfecto, confirmamos 1 dosis a US$ 16. Te paso el resumen a la derecha.']
+    ],
+    summary: '<span class="t-label">RESUMEN</span><div><div class="t-meta">Hembra</div><div class="t-body" style="font-weight:600">3031 · Comercial</div></div><div><div class="t-meta">Toro</div><div class="t-body" style="font-weight:600">Don Rufino 4012</div></div><div><div class="t-meta">Fecha</div><div class="mono" style="font-weight:600">22/11</div></div><div><div class="t-meta">Dosis</div><div class="mono" style="font-weight:600">1 · US$ 16</div></div><span class="badge badge-neutral">Borrador</span>'
+  },
+  ec: {
+    header: '<div class="avatar avatar-square" style="width:30px;height:30px;font-size:11px">EC</div><div><div class="t-body" style="font-weight:600;font-size:12.5px">Contratista El Ceibo</div><div class="t-meta">Arado de rejas · Villa María</div></div>',
+    messages: [
+      ['left','Hola, nos interesa reservar la fecha 22/11 para las 40 ha.'],
+      ['right','Perfecto, tenemos la ventana libre esa semana. ¿Confirmamos US$ 64/ha?'],
+      ['left','Sí, avancemos con el pre-acuerdo.']
+    ],
+    summary: '<span class="t-label">RESUMEN</span><div><div class="t-meta">Servicio</div><div class="t-body" style="font-weight:600">Arada · 40 ha</div></div><div><div class="t-meta">Precio</div><div class="mono" style="font-weight:600">US$ 64/ha</div></div><div><div class="t-meta">Total est.</div><div class="mono" style="font-weight:600">US$ 2.560</div></div><span class="badge badge-warn">En negociación</span>'
+  },
+  sj: {
+    header: '<div class="avatar avatar-square" style="width:30px;height:30px;font-size:11px">SJ</div><div><div class="t-body" style="font-weight:600;font-size:12.5px">Cabaña San Jorge</div><div class="t-meta">El Tala 2207 · Angus negro</div></div>',
+    messages: [
+      ['left','¿Cuántas dosis te quedan disponibles de El Tala 2207?'],
+      ['left','Tenemos 40 dosis en stock, envío en 48hs.']
+    ],
+    summary: '<span class="t-label">RESUMEN</span><div><div class="t-meta">Toro</div><div class="t-body" style="font-weight:600">El Tala 2207</div></div><div><div class="t-meta">Precio</div><div class="mono" style="font-weight:600">US$ 21/dosis</div></div><span class="badge badge-ok">2 sin leer</span>'
+  },
+  ab: {
+    header: '<div class="avatar avatar-square" style="width:30px;height:30px;font-size:11px">AB</div><div><div class="t-body" style="font-weight:600;font-size:12.5px">Agroservicios Bianchi</div><div class="t-meta">Arado + rastra · Río Cuarto</div></div>',
+    messages: [
+      ['left','Trabajo terminado, ¿todo conforme?'],
+      ['right','Sí, muchas gracias. Quedó excelente.']
+    ],
+    summary: '<span class="t-label">RESUMEN</span><div><div class="t-meta">Servicio</div><div class="t-body" style="font-weight:600">Arado + rastra</div></div><div><div class="t-meta">Total</div><div class="mono" style="font-weight:600">US$ 2.360</div></div><span class="badge badge-neutral">Cerrado</span>'
+  }
+};
+function bubble(side, text){
+  var bg = side==='right' ? 'var(--action-soft)' : '#fff';
+  var border = side==='right' ? '' : 'border:1px solid var(--border);';
+  var align = side==='right' ? 'flex-end' : 'flex-start';
+  return '<div style="align-self:'+align+';max-width:75%;background:'+bg+';'+border+'border-radius:4px;padding:9px 11px" class="t-body">'+text+'</div>';
+}
+function openChat(id){
+  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active'); });
+  document.querySelector('[data-view="chat"]').classList.add('active');
+  var t = threads[id];
+  document.getElementById('thread-header').innerHTML = t.header;
+  document.getElementById('thread-body').innerHTML = t.messages.map(function(m){ return bubble(m[0], m[1]); }).join('');
+  document.getElementById('thread-summary').innerHTML = t.summary;
+  document.querySelectorAll('[data-thread-nav]').forEach(function(el){ el.style.background = el.getAttribute('data-thread-nav')===id ? 'var(--action-soft)' : ''; });
+  window.scrollTo(0,0);
+}
+function backToList(){
+  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active'); });
+  document.querySelector('[data-view="lista"]').classList.add('active');
+}
+</script>
+</body>
+</html>

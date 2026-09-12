@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgroMatch · Home marketplace general</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+.brand{display:flex;align-items:center;gap:10px;padding:18px 16px 16px}
+.brand-mark{width:30px;height:30px;border-radius:var(--r-lg);background:var(--action);color:#fff;display:flex;align-items:center;justify-content:center;font:700 14px/1 var(--sans)}
+.brand-name{font:700 15px/1.1 var(--sans);letter-spacing:-.01em}
+.brand-sub{font:400 10.5px/1.2 var(--sans);color:var(--ink-3)}
+.nav-scroll{flex:1;overflow-y:auto;padding:6px 0 12px}
+.sidebar-footer{border-top:1px solid var(--border);padding:12px}
+.account-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-lg)}
+.account-row:hover{background:var(--row-off)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--border);background:var(--card)}
+.crumb{font:400 12px/1 var(--sans);color:var(--ink-3)}
+.crumb b{color:var(--ink);font-weight:600}
+.content{padding:0;width:100%;display:flex;flex-direction:column}
+.chip{font:500 12.5px/1 var(--sans);padding:9px 14px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--card);cursor:pointer}
+.chip:hover{background:var(--row-off)}
+[data-state]{display:none}
+[data-state].active{display:flex}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div><div class="brand-name">AgroMatch</div><div class="brand-sub">Tambo La Esperanza</div></div>
+    </div>
+    <nav class="nav-scroll"><div class="nav-group">
+    <div class="nav-group-label">Mi establecimiento <span style="text-transform:none;font-weight:400">· valor / setup</span></div>
+    <a class="nav-item" href="setup-conversacional.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.2 1.8-2.5 3.5"/><circle cx="12" cy="17" r=".2"/></svg>
+  <span class="label">Setup conversacional</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mercado y oportunidades <span style="text-transform:none;font-weight:400">· mercado general</span></div>
+    <a class="nav-item active" href="home-marketplace-general.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 20v-5h6v5"/></svg>
+  <span class="label">Home marketplace general</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Motor genético <span style="text-transform:none;font-weight:400">· motor técnico</span></div>
+    <a class="nav-item" href="matching-genetico.html">
+  <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+  <span class="label">Matching genético</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Negociación y tratos <span style="text-transform:none;font-weight:400">· transacciones</span></div>
+    <a class="nav-item" href="mis-matches-mensajes.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 12l5-5 3 3 4-4 6 6"/><circle cx="19" cy="6" r="1.6"/><path d="M3 18h18"/></svg>
+  <span class="label">Mis matches / mensajes</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mis ofertas <span style="text-transform:none;font-weight:400">· catálogo propio</span></div>
+    <a class="nav-item" href="cargar-lotes-servicios.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 17l5-9 4 6 3-4 6 7"/><path d="M3 20h18"/></svg>
+  <span class="label">Cargar lotes / servicios</span>
+</a>
+  </div></nav>
+    <div class="sidebar-footer">
+      <hr class="divider" style="margin:0 0 8px">
+      <div class="account-row">
+        <div class="avatar" style="width:32px;height:32px;font-size:12px">JB</div>
+        <div style="min-width:0">
+          <div style="font:600 12px/1.2 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Joaquín Benegas</div>
+          <div style="font:400 10.5px/1.2 var(--sans);color:var(--ink-3)">Productor · Tambo</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">Mercado y oportunidades / <b>Home marketplace general</b></div>
+      <div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JB</div></div>
+    </div>
+    <div class="content">
+
+      <!-- Estado 1: cero -->
+      <div data-state="cero" class="active" style="flex-direction:column;align-items:center;gap:34px;padding:90px 60px;min-height:70vh;justify-content:center">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <span class="t-meta">Hora de empezar, Tobías</span>
+          <h1 class="t-title" style="text-align:center">¿Qué necesita tu establecimiento hoy?</h1>
+        </div>
+        <div style="width:100%;max-width:640px;display:flex;align-items:center;gap:12px;height:60px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:0 10px 0 20px">
+          <input id="need-input" style="flex:1;border:none;outline:none;font:400 15px/1 var(--sans);color:var(--ink)" placeholder="Preguntale a AgroMatch o escribí tu necesidad…" value="Necesito quien me are 40 hectáreas en Río Cuarto la semana que viene">
+          <span class="btn btn-primary" onclick="goTo('ficha')">Preguntar</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:640px">
+          <span class="chip" onclick="document.getElementById('need-input').value='Necesito veterinario para el rodeo';goTo('ficha')">¿Necesitás veterinario?</span>
+          <span class="chip" onclick="document.getElementById('need-input').value='Necesito arar 40 hectáreas';goTo('ficha')">Arar 40 ha</span>
+          <span class="chip" onclick="document.getElementById('need-input').value='Quiero mejorar los sólidos de mi tambo';document.location='matching-genetico.html'">Mejorar sólidos</span>
+        </div>
+      </div>
+
+      <!-- Estado 2: ficha de interpretación -->
+      <div data-state="ficha" style="flex-direction:column;align-items:center;gap:22px;padding:44px 60px 56px;min-height:70vh">
+        <div style="width:100%;max-width:640px;display:flex;align-items:center;gap:10px;height:46px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:0 8px 0 16px">
+          <span style="flex:1;font:400 13px/1 var(--sans);color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">"Necesito quien me are 40 hectáreas en Río Cuarto la semana que viene"</span>
+          <span class="btn btn-ghost" style="padding:8px 12px;font-size:11.5px" onclick="goTo('cero')">Editar consulta</span>
+        </div>
+
+        <div class="card" style="width:100%;max-width:640px;overflow:hidden">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border-soft)"><span style="font:600 14px/1.2 var(--sans)">Lo que AgroMatch entendió</span></div>
+          <div style="display:flex;flex-direction:column">
+            <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border-soft)">
+              <span class="t-meta" style="width:130px;flex:none">Necesidad</span>
+              <span style="flex:1;font:500 13.5px/1 var(--sans)">Servicio de maquinaria · Arada</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border-soft)">
+              <span class="t-meta" style="width:130px;flex:none">Cantidad</span>
+              <span class="mono" style="flex:1;font:500 13.5px/1 var(--sans)">40 hectáreas</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border-soft)">
+              <span class="t-meta" style="width:130px;flex:none">Ubicación</span>
+              <span style="flex:1;font:500 13.5px/1 var(--sans)">Río Cuarto, Córdoba <span class="mono" style="color:var(--ink-3)">+50 km</span></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:14px 18px">
+              <span class="t-meta" style="width:130px;flex:none">Fecha sugerida</span>
+              <span class="mono" style="flex:1;font:500 13.5px/1 var(--sans)">22/11 – 28/11</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="btn btn-primary" style="width:100%;max-width:640px;padding:15px" onclick="goTo('resultados')">Confirmar y buscar soluciones</span>
+        <span class="t-meta">Tocá cualquier campo para corregirlo antes de buscar (RN-30)</span>
+      </div>
+
+      <!-- Estado 3: resultados -->
+      <div data-state="resultados" style="flex-direction:column;gap:16px;padding:20px 32px 32px">
+        <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px">
+          <span class="t-meta">Arada · <strong style="font-weight:600;color:var(--ink)">40 ha</strong> · Río Cuarto +50 km · <strong style="font-weight:600;color:var(--ink)">22/11 – 28/11</strong></span>
+          <span style="font:500 12px/1 var(--sans);color:var(--action);cursor:pointer" onclick="goTo('ficha')">Editar búsqueda</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="btn" style="background:var(--ink);color:var(--card);padding:8px 13px">Cercanía y disponibilidad</span>
+          <span class="btn btn-ghost" style="padding:8px 13px">Mejor reputación</span>
+          <span class="btn btn-ghost" style="padding:8px 13px">Menor precio/ha</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+          <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+            <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#E6E6E4 0 8px,#F2F2F1 8px 16px);position:relative;display:flex;align-items:flex-end;padding:10px"><span class="mono" style="position:absolute;top:10px;right:10px;font:500 10px/1 var(--sans);padding:6px 9px;background:rgba(255,255,255,.94);border-radius:var(--r-sm)">18 km</span></div>
+            <div style="padding:14px;display:flex;flex-direction:column;gap:11px;flex:1">
+              <div style="display:flex;flex-direction:column;gap:3px"><span class="t-card">Contratista El Ceibo</span><span class="t-meta">Arado de rejas · Villa María</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)">
+                <span class="t-meta" style="display:flex;justify-content:space-between">Disponibilidad <span class="mono" style="color:var(--ink)">22/11</span></span>
+                <span class="t-meta" style="display:flex;justify-content:space-between">Reputación <span class="mono" style="color:var(--ink)">4,9 · 62</span></span>
+              </div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:auto"><span class="mono" style="font:600 16px/1 var(--sans)">US$ 64<span style="font:400 11px/1 var(--sans);color:var(--ink-3)"> /ha</span></span></div>
+              <a class="btn btn-primary" style="text-align:center;text-decoration:none" href="mis-matches-mensajes.html">Pedir fecha</a>
+            </div>
+          </div>
+          <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+            <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#E6E6E4 0 8px,#F2F2F1 8px 16px);position:relative;display:flex;align-items:flex-end;padding:10px"><span class="mono" style="position:absolute;top:10px;right:10px;font:500 10px/1 var(--sans);padding:6px 9px;background:rgba(255,255,255,.94);border-radius:var(--r-sm)">27 km</span></div>
+            <div style="padding:14px;display:flex;flex-direction:column;gap:11px;flex:1">
+              <div style="display:flex;flex-direction:column;gap:3px"><span class="t-card">Agroservicios Bianchi</span><span class="t-meta">Arado + rastra · Río Cuarto</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)">
+                <span class="t-meta" style="display:flex;justify-content:space-between">Disponibilidad <span class="mono" style="color:var(--ink)">23/11</span></span>
+                <span class="t-meta" style="display:flex;justify-content:space-between">Reputación <span class="mono" style="color:var(--ink)">4,7 · 38</span></span>
+              </div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:auto"><span class="mono" style="font:600 16px/1 var(--sans)">US$ 59<span style="font:400 11px/1 var(--sans);color:var(--ink-3)"> /ha</span></span></div>
+              <a class="btn btn-secondary" style="text-align:center;text-decoration:none" href="mis-matches-mensajes.html">Pedir fecha</a>
+            </div>
+          </div>
+          <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+            <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#E6E6E4 0 8px,#F2F2F1 8px 16px);position:relative;display:flex;align-items:flex-end;padding:10px"><span class="mono" style="position:absolute;top:10px;right:10px;font:500 10px/1 var(--sans);padding:6px 9px;background:rgba(255,255,255,.94);border-radius:var(--r-sm)">41 km</span></div>
+            <div style="padding:14px;display:flex;flex-direction:column;gap:11px;flex:1">
+              <div style="display:flex;flex-direction:column;gap:3px"><span class="t-card">Fernández Labores</span><span class="t-meta">Arado de cinceles · Coronel Moldes</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)">
+                <span class="t-meta" style="display:flex;justify-content:space-between">Disponibilidad <span class="mono" style="color:var(--ink)">26/11</span></span>
+                <span class="t-meta" style="display:flex;justify-content:space-between">Reputación <span class="mono" style="color:var(--ink)">4,5 · 21</span></span>
+              </div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:auto"><span class="mono" style="font:600 16px/1 var(--sans)">US$ 55<span style="font:400 11px/1 var(--sans);color:var(--ink-3)"> /ha</span></span></div>
+              <a class="btn btn-secondary" style="text-align:center;text-decoration:none" href="mis-matches-mensajes.html">Pedir fecha</a>
+            </div>
+          </div>
+        </div>
+        <p class="t-meta" style="margin:0">Los resultados solo cargan tras confirmar la ficha del estado 2 — nada se busca sin validar los 4 parámetros. Si la categoría fuera genética, "Preguntar" hubiera llevado directo al módulo Motor genético (probá el chip "Mejorar sólidos").</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+function goTo(state){
+  document.querySelectorAll('[data-state]').forEach(function(el){ el.classList.remove('active'); });
+  document.querySelector('[data-state="'+state+'"]').classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

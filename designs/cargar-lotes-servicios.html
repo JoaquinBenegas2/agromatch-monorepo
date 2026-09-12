@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgroMatch · Cargar lotes / servicios</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+.brand{display:flex;align-items:center;gap:10px;padding:18px 16px 16px}
+.brand-mark{width:30px;height:30px;border-radius:var(--r-lg);background:var(--action);color:#fff;display:flex;align-items:center;justify-content:center;font:700 14px/1 var(--sans)}
+.brand-name{font:700 15px/1.1 var(--sans);letter-spacing:-.01em}
+.brand-sub{font:400 10.5px/1.2 var(--sans);color:var(--ink-3)}
+.nav-scroll{flex:1;overflow-y:auto;padding:6px 0 12px}
+.sidebar-footer{border-top:1px solid var(--border);padding:12px}
+.account-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-lg)}
+.account-row:hover{background:var(--row-off)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--border);background:var(--card)}
+.crumb{font:400 12px/1 var(--sans);color:var(--ink-3)}
+.crumb b{color:var(--ink);font-weight:600}
+.content{padding:28px 32px;display:flex;flex-direction:column;gap:16px;width:100%;max-width:1000px}
+[data-view]{display:none;flex-direction:column;gap:16px}
+[data-view].active{display:flex}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div><div class="brand-name">AgroMatch</div><div class="brand-sub">Tambo La Esperanza</div></div>
+    </div>
+    <nav class="nav-scroll"><div class="nav-group">
+    <div class="nav-group-label">Mi establecimiento <span style="text-transform:none;font-weight:400">· valor / setup</span></div>
+    <a class="nav-item" href="setup-conversacional.html">
+  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.2 1.8-2.5 3.5"/><circle cx="12" cy="17" r=".2"/></svg>
+  <span class="label">Setup conversacional</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mercado y oportunidades <span style="text-transform:none;font-weight:400">· mercado general</span></div>
+    <a class="nav-item" href="home-marketplace-general.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 20v-5h6v5"/></svg>
+  <span class="label">Home marketplace general</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Motor genético <span style="text-transform:none;font-weight:400">· motor técnico</span></div>
+    <a class="nav-item" href="matching-genetico.html">
+  <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+  <span class="label">Matching genético</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Negociación y tratos <span style="text-transform:none;font-weight:400">· transacciones</span></div>
+    <a class="nav-item" href="mis-matches-mensajes.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 12l5-5 3 3 4-4 6 6"/><circle cx="19" cy="6" r="1.6"/><path d="M3 18h18"/></svg>
+  <span class="label">Mis matches / mensajes</span>
+</a>
+  </div>
+<div class="nav-group">
+    <div class="nav-group-label">Mis ofertas <span style="text-transform:none;font-weight:400">· catálogo propio</span></div>
+    <a class="nav-item active" href="cargar-lotes-servicios.html">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M3 17l5-9 4 6 3-4 6 7"/><path d="M3 20h18"/></svg>
+  <span class="label">Cargar lotes / servicios</span>
+</a>
+  </div></nav>
+    <div class="sidebar-footer">
+      <hr class="divider" style="margin:0 0 8px">
+      <div class="account-row">
+        <div class="avatar" style="width:32px;height:32px;font-size:12px">JB</div>
+        <div style="min-width:0">
+          <div style="font:600 12px/1.2 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Joaquín Benegas</div>
+          <div style="font:400 10.5px/1.2 var(--sans);color:var(--ink-3)">Productor · Tambo</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">Mis ofertas / <b>Cargar lotes / servicios</b></div>
+      <div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JB</div></div>
+    </div>
+    <div class="content">
+
+      <!-- Vista catálogo -->
+      <div data-view="catalogo" class="active">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+          <div><h1 class="t-title" style="font-size:22px">Mis ofertas</h1><p class="t-meta" style="margin:4px 0 0">Lo que este establecimiento ofrece al mercado — genética, maquinaria o servicios</p></div>
+          <span class="btn btn-primary" onclick="showView('form')">+ Nueva oferta</span>
+        </div>
+
+        <div style="display:flex;gap:8px">
+          <span class="btn" style="background:var(--ink);color:var(--card)">Todas</span>
+          <span class="btn btn-ghost">Activas</span>
+          <span class="btn btn-ghost">Pausadas</span>
+          <span class="btn btn-ghost">Vencidas</span>
+        </div>
+
+        <div class="card" style="padding:16px">
+          <table class="table">
+            <thead><tr><th>Título</th><th>Categoría</th><th>Estado</th><th class="num">Vistas</th><th class="num">Matches</th><th class="num"></th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:600">Semen Don Rufino 4012 · Angus negro</td><td>Genética</td><td><span style="color:var(--action);font-weight:600">Activa</span></td><td class="num mono">214</td><td class="num mono">9</td><td class="num"><span class="btn btn-ghost">Editar</span></td></tr>
+              <tr><td style="font-weight:600">Arado de rejas · disponible en Córdoba</td><td>Maquinaria</td><td><span style="color:var(--action);font-weight:600">Activa</span></td><td class="num mono">156</td><td class="num mono">4</td><td class="num"><span class="btn btn-ghost">Editar</span></td></tr>
+              <tr><td style="font-weight:600">Vaquillonas Braford preñadas</td><td>Hacienda</td><td><span style="color:var(--ink-3);font-weight:600">Pausada</span></td><td class="num mono">88</td><td class="num mono">1</td><td class="num"><span class="btn btn-ghost">Editar</span></td></tr>
+              <tr><td style="font-weight:600">Servicio veterinario a domicilio</td><td>Veterinaria</td><td><span style="color:var(--danger);font-weight:600">Vencida</span></td><td class="num mono">41</td><td class="num mono">0</td><td class="num"><span class="btn btn-ghost">Renovar</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Vista formulario -->
+      <div data-view="form" style="max-width:640px">
+        <span style="font:500 12px/1 var(--sans);color:var(--action);cursor:pointer;display:inline-flex;align-items:center;gap:4px" onclick="showView('catalogo')">← Volver al catálogo</span>
+        <div><h1 class="t-title" style="font-size:22px">Publicar nueva oferta</h1><p class="t-meta" style="margin:4px 0 0">Contá qué ofrecés en una frase — la IA arma el resto del anuncio, vos lo confirmás.</p></div>
+
+        <div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">
+          <span class="t-label">DESCRIBÍ LO QUE OFRECÉS</span>
+          <textarea id="offer-text" style="border:1px solid var(--border);border-radius:4px;padding:10px 12px;font:400 13px/1.5 var(--sans);min-height:64px;resize:none" placeholder="Ej: tengo semen de un toro Angus negro con buen DEP de facilidad de parto, US$ 16 la dosis">Semen de Don Rufino 4012, Angus negro, DEP peso al nacer top 1%, US$ 16/dosis, stock en Río Cuarto</textarea>
+          <div style="display:flex;gap:8px"><span class="btn btn-secondary">Subir fotos</span><span class="btn btn-primary" onclick="generatePreview()">Generar publicación con IA</span></div>
+        </div>
+
+        <div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px" id="preview-card" hidden>
+          <span class="t-label">VISTA PREVIA</span>
+          <div style="display:flex;gap:12px;align-items:center">
+            <span style="width:52px;height:52px;border-radius:3px;flex:none;background:repeating-linear-gradient(135deg,#E6E6E4 0 6px,#F2F2F1 6px 12px);display:block"></span>
+            <div style="flex:1"><div class="t-body" style="font-weight:600">Semen Don Rufino 4012 · Angus negro</div><div class="t-meta">Genética · DEP PN top 1% · US$ 16/dosis · Río Cuarto</div></div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:8px"><span class="btn btn-ghost">Guardar borrador</span><span class="btn btn-primary" onclick="showView('catalogo')">Publicar</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+function showView(name){
+  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active'); });
+  document.querySelector('[data-view="'+name+'"]').classList.add('active');
+  window.scrollTo(0,0);
+}
+function generatePreview(){
+  document.getElementById('preview-card').hidden = false;
+}
+</script>
+</body>
+</html>
