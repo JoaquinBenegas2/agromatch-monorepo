@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { Building2, Dna, Handshake, Leaf, Package, Store } from 'lucide-react';
+import {
+  Building2,
+  Dna,
+  Handshake,
+  Leaf,
+  Menu,
+  Package,
+  Store,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   Shell,
@@ -25,6 +34,8 @@ import { ChatPanel, ChatToggleButton } from './chat-panel.js';
 import { FarmSelect } from './farm-select.js';
 import { ModuleTabBar } from './module-tab-bar.js';
 import { findModuleByPath, NAV_MODULES } from './nav.js';
+import { GeneticsExperience } from '@/features/genetics/genetics-experience';
+import { useActiveFarmId, useUser } from '@/shared/user/user-context';
 
 const MODULE_ICONS: Record<string, React.ReactNode> = {
   establecimiento: <Building2 />,
@@ -38,17 +49,37 @@ export function AppShell() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [chatOpen, setChatOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const activeModule = findModuleByPath(pathname);
-  const activeTab = activeModule?.tabs.find((tab) => pathname.startsWith(tab.path));
+  const activeTab = activeModule?.tabs.find((tab) =>
+    pathname.startsWith(tab.path),
+  );
   // Mercado es un módulo de una sola tab: el breadcrumb solo repetía "Mercado
   // y oportunidades", que la propia pantalla ya muestra como eyebrow. Sacarlo
   // le devuelve el alto que hacía falta para que la pantalla entre sin scroll.
   const showTopbar = pathname !== '/mercado';
+  const geneticExperience =
+    /^\/motor-genetico\/(matching|tablero|importar)(\/|$)/.test(pathname);
+  const [farmId] = useActiveFarmId();
+  const { user } = useUser();
 
   return (
     <Shell>
-      <Sidebar>
-        <SidebarBrand mark={<Leaf className="size-4" />} name="AgroMatch" subtitle="Torinder" />
+      {sidebarOpen && (
+        <button
+          className="fixed inset-0 z-30 bg-black/25 md:hidden"
+          aria-label="Cerrar navegación"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      <Sidebar
+        className={`fixed inset-y-0 left-0 z-40 bg-card md:sticky md:flex ${sidebarOpen ? 'flex' : 'hidden'}`}
+      >
+        <SidebarBrand
+          mark={<Leaf className="size-4" />}
+          name="AgroMatch"
+          subtitle="Torinder"
+        />
         <SidebarNav>
           <SidebarNavGroup label="Tu espacio de trabajo">
             {NAV_MODULES.map((mod) => (
@@ -61,6 +92,7 @@ export function AppShell() {
                 onClick={(e) => {
                   e.preventDefault();
                   navigate(mod.tabs[0].path);
+                  setSidebarOpen(false);
                 }}
               >
                 {mod.label}
@@ -72,8 +104,29 @@ export function AppShell() {
       </Sidebar>
 
       <ShellMain>
+        {!showTopbar && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute left-3 top-3 z-20 md:hidden"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Abrir navegación"
+          >
+            <Menu />
+          </Button>
+        )}
         {showTopbar && (
           <Topbar>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              aria-label="Abrir navegación"
+              aria-expanded={sidebarOpen}
+            >
+              <Menu />
+            </Button>
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -97,9 +150,15 @@ export function AppShell() {
         )}
 
         <div className="flex flex-1 min-h-0">
-          <ShellContent>
+          <ShellContent className="min-w-0 p-4 sm:p-8">
             {activeModule && <ModuleTabBar mod={activeModule} />}
-            <Outlet />
+            {geneticExperience ? (
+              <GeneticsExperience key={`${user.id}:${farmId}`}>
+                <Outlet />
+              </GeneticsExperience>
+            ) : (
+              <Outlet />
+            )}
           </ShellContent>
           <ChatPanel open={chatOpen} onClose={() => setChatOpen(false)} />
         </div>

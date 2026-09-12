@@ -192,6 +192,14 @@ export const PlanItemSchema = z.object({
   pricePerDose: z.number().nullable(),
 });
 
+export const SavePlanItemSchema = PlanItemSchema.extend({
+  goal: BreedingGoalSchema.optional(),
+});
+export const ContactGeneticMatchSchema = z.object({
+  goal: BreedingGoalSchema,
+  message: z.string().trim().min(1).max(4000),
+});
+
 export const BreedingPlanSchema = z.object({
   id: z.string(),
   farmId: z.string(),
@@ -351,6 +359,27 @@ export const FitBreakdownSchema = z.object({
   price: z.number(),
   reputation: z.number(),
   vertical: z.number().optional(),
+});
+
+/** Hechos del match genérico (flujo B) para que el `MarketExplainerPort`
+ * redacte, nunca calcule (RN-17/RN-18) — análogo a `ExplanationFactsSchema`
+ * pero para necesidad↔proveedor en vez de hembra↔toro. */
+export const MarketExplanationFactsSchema = z.object({
+  need: z.object({
+    what: z.string(),
+    category: NeedCategorySchema,
+    magnitude: MagnitudeSchema.optional(),
+  }),
+  provider: z.object({
+    name: z.string(),
+    baseLabel: z.string(),
+  }),
+  distanceKm: z.number().optional(),
+  rank: z.number(),
+  totalCandidates: z.number(),
+  compatibility: z.number(),
+  fit: FitBreakdownSchema,
+  reasons: z.array(z.string()),
 });
 
 export const MatchCandidateSchema = z.object({

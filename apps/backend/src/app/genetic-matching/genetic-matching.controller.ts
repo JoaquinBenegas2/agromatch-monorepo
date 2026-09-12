@@ -1,5 +1,12 @@
 import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
-import { BreedingGoalSchema } from '@org/shared-types';
+import {
+  BreedingGoalSchema,
+  ContactGeneticMatchSchema,
+  type ContactGeneticMatch,
+  type User,
+} from '@org/shared-types';
+import { CurrentUser } from '../../auth/current-user.decorator.js';
+import { MatchContactService } from './match-contact.service.js';
 import type { BreedingGoal, Explanation, MatchBoard } from '@org/shared-types';
 import { FarmAccessGuard } from '../../auth/farm-access.guard.js';
 import { ZodValidationPipe } from '../../common/zod-validation.pipe.js';
@@ -13,7 +20,20 @@ export class GeneticMatchingController {
   constructor(
     private readonly matchingService: GeneticMatchingService,
     private readonly explanationService: ExplanationService,
+    private readonly matchContact: MatchContactService,
   ) {}
+
+  @Post(':naab/request')
+  contact(
+    @Param('farmId') farmId: string,
+    @Param('femaleId') femaleId: string,
+    @Param('naab') naab: string,
+    @Body(new ZodValidationPipe(ContactGeneticMatchSchema))
+    body: ContactGeneticMatch,
+    @CurrentUser() user: User,
+  ) {
+    return this.matchContact.contact(farmId, femaleId, naab, body, user);
+  }
 
   @Post()
   async getMatches(

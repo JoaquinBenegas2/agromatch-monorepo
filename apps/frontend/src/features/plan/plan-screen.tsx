@@ -169,7 +169,7 @@ export function PlanScreen() {
                 className="cursor-pointer"
                 onClick={() => navigate(`/motor-genetico/matching/${item.femaleId}`)}
               >
-                <TableCell className="font-mono">{female?.visualId ?? item.femaleId}</TableCell>
+                <TableCell>{female?.visualId ?? item.femaleId}</TableCell>
                 <TableCell>
                   {tier ? <Badge variant="neutral">{TIER_LABEL[tier] ?? tier}</Badge> : '—'}
                 </TableCell>

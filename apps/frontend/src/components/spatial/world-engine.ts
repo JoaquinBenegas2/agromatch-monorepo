@@ -1,4 +1,5 @@
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/ban-ts-comment -- Existing standalone WebGL port. */
+// @ts-nocheck -- The legacy renderer has a typed React boundary in spatial-scene.tsx.
 /* AgroMatch spatial studies — ported verbatim from designs/visual-lab/src/world-engine.js.
    Untyped on purpose: it's a self-contained WebGL renderer with no dependency
    on app state; SpatialScene.tsx is the typed boundary around it. */
@@ -11,7 +12,7 @@ const Spatial = (() => {
   const V={add:(a,b)=>a.map((x,i)=>x+b[i]),sub:(a,b)=>a.map((x,i)=>x-b[i]),cross:(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm:a=>{const l=Math.hypot(...a)||1;return a.map(x=>x/l)},dot:(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0)};
   const identity=()=>[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
   function mul(a,b){const c=Array(16).fill(0);for(let i=0;i<4;i++)for(let j=0;j<4;j++)for(let k=0;k<4;k++)c[i*4+j]+=a[k*4+j]*b[i*4+k];return c}
-  function transform(p=[0,0,0],r=[0,0,0],s=[1,1,1]){const [x,y,z]=r,cx=Math.cos(x),sx=Math.sin(x),cy=Math.cos(y),sy=Math.sin(y),cz=Math.cos(z),sz=Math.sin(z);const rx=[1,0,0,0,0,cx,sx,0,0,-sx,cx,0,0,0,0,1],ry=[cy,0,-sy,0,0,1,0,0,sy,0,cy,0,0,0,0,1],rz=[cz,sz,0,0,-sz,cz,0,0,0,0,1,0,0,0,0,1];let m=mul(mul(rz,ry),rx);for(let i=0;i<3;i++)for(let j=0;j<3;j++)m[i*4+j]*=s[i];m[12]=p[0];m[13]=p[1];m[14]=p[2];return m}
+  function transform(p=[0,0,0],r=[0,0,0],s=[1,1,1]){const [x,y,z]=r,cx=Math.cos(x),sx=Math.sin(x),cy=Math.cos(y),sy=Math.sin(y),cz=Math.cos(z),sz=Math.sin(z);const rx=[1,0,0,0,0,cx,sx,0,0,-sx,cx,0,0,0,0,1],ry=[cy,0,-sy,0,0,1,0,0,sy,0,cy,0,0,0,0,1],rz=[cz,sz,0,0,-sz,cz,0,0,0,0,1,0,0,0,0,1];const m=mul(mul(rz,ry),rx);for(let i=0;i<3;i++)for(let j=0;j<3;j++)m[i*4+j]*=s[i];m[12]=p[0];m[13]=p[1];m[14]=p[2];return m}
   function perspective(fov,aspect,near=.1,far=100){const f=1/Math.tan(fov/2),nf=1/(near-far);return [f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,2*far*near*nf,0]}
   function lookAt(eye,target){const z=V.norm(V.sub(eye,target)),x=V.norm(V.cross([0,1,0],z)),y=V.cross(z,x);return [x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-V.dot(x,eye),-V.dot(y,eye),-V.dot(z,eye),1]}
   function color(hex){if(Array.isArray(hex))return hex;return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255)}
@@ -94,6 +95,8 @@ const Spatial = (() => {
     }
     resize(){if(!this.gl)return;const r=this.canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio,1.6);this.width=r.width;this.height=r.height;this.canvas.width=Math.max(1,Math.round(r.width*dpr));this.canvas.height=Math.max(1,Math.round(r.height*dpr));this.gl.viewport(0,0,this.canvas.width,this.canvas.height)}
     bind(){const c=this.canvas;let down=null,moved=false;c.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY,...this.drag];moved=false;c.setPointerCapture(e.pointerId)});c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();this.pointer=[(e.clientX-r.left)/r.width-.5,(e.clientY-r.top)/r.height-.5];if(down){const dx=e.clientX-down[0],dy=e.clientY-down[1];if(Math.abs(dx)+Math.abs(dy)>6)moved=true;this.drag=[down[2]+dx*.004,clamp(down[3]+dy*.003,-.35,.7)]}});c.addEventListener('pointerup',e=>{if(!moved&&this.kind==='herd'){const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let nearest=null,dist=19;for(const p of this.hit){const d=Math.hypot(x-p.x,y-p.y);if(d<dist){nearest=p;dist=d}}if(nearest)this.options.onSelect?.(nearest.id)}down=null});c.addEventListener('pointerleave',()=>{if(!down)this.pointer=[0,0]});c.addEventListener('dblclick',()=>{this.drag=[0,0]})}
+    pan(dx,dy){this.drag=[this.drag[0]+dx,clamp(this.drag[1]+dy,-.35,.7)]}
+    resetCamera(){this.drag=[0,0]}
     add(mesh,p=[0,0,0],r=[0,0,0],s=[1,1,1],extra={}){this.objects.push({mesh,p,r,s,...extra})}
     prepare(){
       this.unitBox=get('box',()=>box(1,1,1,C.cream));this.token=get('token',()=>ellipsoid(.10,.15,.10,C.lime,5,3));
@@ -129,6 +132,7 @@ const Spatial = (() => {
       else if(this.kind==='import'){az=-.32+Math.sin(t*.35)*.08;el=.70;distance=11.4;target=[0,.15,0]}
       else if(this.kind==='advisor'){az=.02;el=.62;distance=14.7;target=[0,.1,0]}
       else if(this.kind==='plan'){az=-.34;el=.70;distance=9.6;target=[0,.6,0]}
+      if(this.options.immersive?.()){if(this.kind==='genetic')distance+=5.2;if(this.kind==='herd'&&this.options.animals?.())distance=19.5;az+=this.options.reduced?.()?0:Math.sin(t*.19)*.075}
       if(this.options.camera?.()==='top'){el=1.15;az=.0}else if(this.options.camera?.()==='front'){el=.18;az=0}
       if(this.width/this.height<1.4)distance*=1.4/(this.width/this.height);
       const reduced=this.options.reduced?.();az+=this.drag[0]+(reduced?0:this.pointer[0]*.10);el=clamp(el+this.drag[1]+(reduced?0:this.pointer[1]*.06),.14,1.40);
@@ -150,7 +154,27 @@ const Spatial = (() => {
       const drive=this.options.reduced?.()?0:Math.sin(t*.28)*.7;this.draw(this.tractor,[-1.45+drive,.02,1.4],[0,0,0],[.85,.85,.85]);this.draw(this.pin,[-.2,.5+Math.sin(t)*.045,.1],[0,t*.25,0],[1.2,1.6,1.2]);this.label('need',[-.2,1.28,.1]);
     }
     computeHerd(usual){const counts=[0,0,0];return Array.from({length:293},(_,i)=>{const group=usual?(i<80?0:i>=120&&i<188?1:2):(i<120?0:i<205?1:2),j=counts[group]++;return {id:String(i+1).padStart(3,'0'),g:group,p:[(group-1)*4.3-.1-1.43+(j%10)*.32,.04+group*.12,Math.floor(j/10)*.29-2.0]}})}
-    herd(t){const age=(performance.now()-this.start)/1000,initial=this.kind==='import',usual=this.options.usual?.()||false;if(this.lastUsual!==usual){const current=this.tokenTargets.length?this.currentTokens():this.computeHerd(usual);this.tokenFrom=current;this.tokenTargets=this.computeHerd(usual);this.lastUsual=usual;this.moveStart=performance.now()}
+    liveHerd(t,animals){
+      const palette={ELITE:C.lime,COMMERCIAL:C.teal,BEEF:C.clay,CULL_ALERT:'#df718b',UNCLASSIFIED:'#83959c'};
+      const groups=Object.keys(palette).filter(group=>animals.some(a=>a.group===group));
+      const key=animals.map(a=>a.id+':'+a.group).join('|');
+      if(this.liveKey!==key){
+        const old=new Map((this.liveNodes||[]).map(n=>[n.id,n]));
+        this.liveStarted=this.elapsed;this.liveKey=key;this.liveNodes=[];
+        groups.forEach((group,g)=>{const members=animals.filter(a=>a.group===group),columns=Math.max(1,Math.ceil(Math.sqrt(members.length*3.0/4.1))),rows=Math.ceil(members.length/columns);
+          const center=[(g%3-(Math.min(groups.length,3)-1)/2)*4.3,0,groups.length>3?(Math.floor(g/3)-.5)*5.7:0];
+          members.forEach((a,i)=>{const p=[center[0]-1.4+(i%columns+.5)*2.8/columns,.05,center[2]-2+(Math.floor(i/columns)+.5)*4/rows];this.liveNodes.push({id:a.id,group,g,p,from:old.get(a.id)?.p||[p[0],p[1]-1.4,p[2]],scale:Math.min(1,12/Math.sqrt(members.length))})});
+        });
+      }
+      const easeIn=this.options.reduced?.()?1:ease((this.elapsed-this.liveStarted)/1.4),selected=this.options.selected?.();
+      const visible=new Set(animals.filter(a=>a.visible!==false).map(a=>a.id));this.hit=[];
+      groups.forEach((group,g)=>{const x=(g%3-(Math.min(groups.length,3)-1)/2)*4.3,z=groups.length>3?(Math.floor(g/3)-.5)*5.7:0;this.draw(this.base,[x,-.23,z]);this.draw(get('live-tile-'+group,()=>box(3.66,.06,4.81,tint(palette[group],.5))),[x,-.025,z]);this.label('tier-'+group,[x,.5,z-2.5]);});
+      this.liveNodes.forEach((node,i)=>{const active=node.id===selected,dim=!visible.has(node.id),p=node.p.map((v,k)=>mix(node.from[k],v,easeIn)+(k===1?Math.sin(easeIn*PI)*.7:0)),mesh=get('live-token-'+node.group,()=>cylinder(.088,.071,.2,palette[node.group],5));
+        this.draw(active?this.special:mesh,p,[0,0,0],[node.scale,(active?2.4:dim?.25:1+hash(i)*.16)*node.scale,node.scale],1,dim?.15:1,active?.1:0);
+        if(!dim)this.hit.push({id:node.id,...this.project(p)});if(active)this.label('selected',[p[0],p[1]+.9,p[2]]);
+      });
+    }
+    herd(t){const live=this.options.animals?.();if(this.kind==='herd'&&live!==undefined){this.liveHerd(t,live);return}const age=(performance.now()-this.start)/1000,initial=this.kind==='import',usual=this.options.usual?.()||false;if(this.lastUsual!==usual){const current=this.tokenTargets.length?this.currentTokens():this.computeHerd(usual);this.tokenFrom=current;this.tokenTargets=this.computeHerd(usual);this.lastUsual=usual;this.moveStart=performance.now()}
       if(initial){const tilt=Math.sin(t*.7)*.035;this.draw(this.sheet,[0,.25,0],[0,0,tilt]);for(let i=0;i<75;i++){const row=Math.floor(i/5),col=i%5;const wave=this.options.reduced?.()?0:Math.sin(t*1.3+row*.4)*.06;this.draw(this.tokens,[-2.8+col*1.3,.29+wave,-2.1+row*.30],[0,0,0],[col===0?1.8:2.5,1,1])}for(let i=0;i<8;i++){const a=t*.2+i;const drift=this.options.reduced?.()?0:Math.sin(a)*.10;this.draw(this.token,[-3.6+i*.9,1.45+drift,2.3],[0,a,0],[.8,.8,.8],1,.8)}this.label('sheet',[0,1.3,-2.3]);return}
       const entrance=out(age/(this.options.imported?.()?1.9:1.1));for(let i=0;i<3;i++){this.draw(this.base,[(i-1)*4.3,mix(-1.5,-.23+i*.12,entrance),0]);this.draw(this.tileMeshes[i],[(i-1)*4.3,mix(-1.29,-.025+i*.12,entrance),0]);this.label('group-'+i,[(i-1)*4.3,.55+i*.12,-2.8]);}
       const nodes=this.currentTokens(),selected=this.options.selected?.()||'084',filter=this.options.filter?.()||'all';this.hit=[];
@@ -174,7 +198,7 @@ const Spatial = (() => {
       const gl=this.gl;
       gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(this.program);
       gl.uniformMatrix4fv(this.loc.uViewProjection,false,this.vp);gl.uniform3fv(this.loc.uEye,this.eye);
-      gl.uniform3fv(this.loc.uFog,color(this.kind==='genetic'?'#153d32':'#dce4d0'));gl.uniform1f(this.loc.uTime,t);
+      gl.uniform3fv(this.loc.uFog,color(this.options.immersive?.()?'#e3eedf':this.kind==='genetic'?'#153d32':'#dce4d0'));gl.uniform1f(this.loc.uTime,t);
       if(this.kind==='genetic')this.genetic(t);else if(this.kind==='market')this.market(t);else if(this.kind==='herd'||this.kind==='import')this.herd(t);else if(this.kind==='advisor')this.advisor(t);else if(this.kind==='plan')this.plan(t);
       this.options.onFrame?.();
     }

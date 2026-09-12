@@ -25,6 +25,7 @@ import {
  * | GET /me                                                                | —                                        | `{ user: User; farms: Farm[] }`                | api-skeleton        |
  * | GET /bulls                                                             | —                                        | `Bull[]`                                       | api-skeleton        |
  * | POST /needs                                                            | `CreateNeedBody`                         | `Need` (DRAFT)                                  | mvp-b-need          |
+ * | GET /needs/:id                                                         | —                                        | `Need`                                          | mvp-b-need          |
  * | PATCH /needs/:id                                                       | `UpdateNeedBody`                         | `Need` (OPEN)                                   | mvp-b-need          |
  * | GET /needs?farmId=                                                     | —                                        | `Need[]` (sin sintéticos)                       | mvp-b-need          |
  * | POST /needs/:id/matches                                                | —                                        | `MatchBoard`                                    | mvp-b-need          |
@@ -53,6 +54,12 @@ import {
  * | POST /catalog-imports/:importId/confirm                                | —                                        | `{ added: number; updated: number }`            | fuera del MVP (C3) |
  */
 export const API_PREFIX = '/api';
+export type SavePlanItem = z.infer<
+  typeof import('./schemas.js').SavePlanItemSchema
+>;
+export type ContactGeneticMatch = z.infer<
+  typeof import('./schemas.js').ContactGeneticMatchSchema
+>;
 
 export type MeResponse = z.infer<typeof MeResponseSchema>;
 export type CreateNeedBody = z.infer<typeof CreateNeedBodySchema>;

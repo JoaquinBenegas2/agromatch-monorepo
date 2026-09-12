@@ -29,6 +29,16 @@ export function useProviders(category?: NeedCategory) {
   });
 }
 
+/** Restaura una necesidad desde la URL (needId) al recargar la página. */
+export function useNeed(id?: string) {
+  return useQuery({
+    queryKey: ['need', id ?? 'none'],
+    queryFn: () => api.get(`/needs/${id}`, NeedSchema),
+    enabled: id !== undefined,
+    retry: false,
+  });
+}
+
 export function useCreateNeed() {
   const queryClient = useQueryClient();
   return useMutation({

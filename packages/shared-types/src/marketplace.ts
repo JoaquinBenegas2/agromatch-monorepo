@@ -1,9 +1,11 @@
 import type { z } from 'zod';
+import type { Explanation } from './domain.js';
 import {
   CapabilitySchema,
   FitBreakdownSchema,
   GeoPointSchema,
   MagnitudeSchema,
+  MarketExplanationFactsSchema,
   MatchBoardSchema,
   MatchCandidateSchema,
   NegotiationMessageSchema,
@@ -64,4 +66,12 @@ export interface VerticalEngine<TFacts = unknown> {
 /** Puerto de intake (RN-30). */
 export interface NeedIntakePort {
   parse(rawText: string, farmId: string): Promise<Need>;
+}
+
+export type MarketExplanationFacts = z.infer<typeof MarketExplanationFactsSchema>;
+
+/** Puerto de explicación del flujo B (necesidad → proveedor), análogo al
+ * `ExplainerPort` genético pero sobre `MarketExplanationFacts`. */
+export interface MarketExplainerPort {
+  explain(facts: MarketExplanationFacts): Promise<Explanation>;
 }

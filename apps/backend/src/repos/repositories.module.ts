@@ -21,6 +21,10 @@ import { PROVIDER_REPO } from './provider.port.js';
 import { REVIEW_REPO } from './review.port.js';
 import { SERVICE_REQUEST_REPO } from './service-request.port.js';
 import { USER_REPO } from './user.port.js';
+import { createMemoryProviders } from './memory.providers.js';
+import { useMemoryRepositories } from './repository-mode.js';
+import { NEGOTIATION_REPO } from './negotiation.port.js';
+import { PrismaNegotiationRepo } from './prisma/negotiation.repo.js';
 
 /**
  * Registra cada repositorio detrás de su token de inyección (REQ-AK-01).
@@ -28,20 +32,24 @@ import { USER_REPO } from './user.port.js';
  */
 @Global()
 @Module({
-  providers: [
-    { provide: USER_REPO, useClass: PrismaUserRepo },
-    { provide: FARM_REPO, useClass: PrismaFarmRepo },
-    { provide: FEMALE_REPO, useClass: PrismaFemaleRepo },
-    { provide: BULL_REPO, useClass: PrismaBullRepo },
-    { provide: CLASSIFICATION_REPO, useClass: PrismaClassificationRepo },
-    { provide: PLAN_REPO, useClass: PrismaPlanRepo },
-    { provide: NEED_REPO, useClass: PrismaNeedRepo },
-    { provide: PROVIDER_REPO, useClass: PrismaProviderRepo },
-    { provide: SERVICE_REQUEST_REPO, useClass: PrismaServiceRequestRepo },
-    { provide: REVIEW_REPO, useClass: PrismaReviewRepo },
-    { provide: HERD_IMPORT_REPO, useClass: PrismaHerdImportRepo },
-  ],
+  providers: useMemoryRepositories
+    ? createMemoryProviders()
+    : [
+        { provide: NEGOTIATION_REPO, useClass: PrismaNegotiationRepo },
+        { provide: USER_REPO, useClass: PrismaUserRepo },
+        { provide: FARM_REPO, useClass: PrismaFarmRepo },
+        { provide: FEMALE_REPO, useClass: PrismaFemaleRepo },
+        { provide: BULL_REPO, useClass: PrismaBullRepo },
+        { provide: CLASSIFICATION_REPO, useClass: PrismaClassificationRepo },
+        { provide: PLAN_REPO, useClass: PrismaPlanRepo },
+        { provide: NEED_REPO, useClass: PrismaNeedRepo },
+        { provide: PROVIDER_REPO, useClass: PrismaProviderRepo },
+        { provide: SERVICE_REQUEST_REPO, useClass: PrismaServiceRequestRepo },
+        { provide: REVIEW_REPO, useClass: PrismaReviewRepo },
+        { provide: HERD_IMPORT_REPO, useClass: PrismaHerdImportRepo },
+      ],
   exports: [
+    NEGOTIATION_REPO,
     USER_REPO,
     FARM_REPO,
     FEMALE_REPO,

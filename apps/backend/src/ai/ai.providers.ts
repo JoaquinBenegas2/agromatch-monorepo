@@ -5,6 +5,7 @@ import {
   AnthropicExplainer,
   AnthropicGoalParser,
   AnthropicLlmClient,
+  AnthropicMarketExplainer,
   GeneticsChatPort,
   HerdIngestion,
   LlmUnavailableError,
@@ -21,6 +22,7 @@ import {
   GOAL_PARSER_PORT,
   HERD_INGESTION_PORT,
   LLM_CLIENT,
+  MARKET_EXPLAINER_PORT,
   NEED_INTAKE_PORT,
 } from './tokens.js';
 
@@ -68,6 +70,12 @@ export const AI_PROVIDERS: Provider[] = [
   {
     provide: EXPLAINER_PORT,
     useFactory: (llm: LlmClient) => new AnthropicExplainer(llm),
+    inject: [LLM_CLIENT],
+  },
+  // MARKET_EXPLAINER_PORT: flujo B (necesidad → proveedor).
+  {
+    provide: MARKET_EXPLAINER_PORT,
+    useFactory: (llm: LlmClient) => new AnthropicMarketExplainer(llm),
     inject: [LLM_CLIENT],
   },
   // GOAL_PARSER_PORT: real de mvp-d-match (C5).

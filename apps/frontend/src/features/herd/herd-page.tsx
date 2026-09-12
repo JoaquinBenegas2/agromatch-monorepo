@@ -1,168 +1,336 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Dna } from 'lucide-react';
-import { Badge, type BadgeProps } from '@/components/ui/badge';
+import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { EmptyState } from '@/components/ui/empty-state';
 import { ErrorMessage } from '@/components/ui/error-message';
-import { Input } from '@/components/ui/input';
-import { PageHeader } from '@/components/ui/page-header';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { SpatialScene } from '@/components/spatial/spatial-scene';
-import { ApiClientError } from '../../shared/api/client.js';
-import { useClassificationSummary, useClassifyHerd, useFemales } from '../../shared/api/hooks/use-herd.js';
-import { UploadHerdButton } from '../herd-import/herd-import-page.js';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  SpatialLabel,
+  SpatialScene,
+  type SpatialAnimal,
+} from '@/components/spatial/spatial-scene';
+import { ApiClientError } from '@/shared/api/client';
+import {
+  useClassificationSummary,
+  useClassifyHerd,
+  useFemales,
+} from '@/shared/api/hooks/use-herd';
+import {
+  GeneticsHeading,
+  SceneControls,
+  useGeneticsMotion,
+} from '../genetics/genetics-experience';
 
-const goal = { preset: 'BALANCED' as const, weights: {}, wantBetaA2: false, wantKappaBB: false };
-
-const TIER_BADGE: Record<string, BadgeProps['variant']> = {
-  ELITE: 'ok',
-  COMMERCIAL: 'neutral',
-  BEEF: 'warn',
-  CULL_ALERT: 'danger',
+export const TIER_LABELS = {
+  ELITE: 'Sexado',
+  COMMERCIAL: 'Convencional',
+  BEEF: 'Carne',
+  CULL_ALERT: 'Alerta de salud',
+  UNCLASSIFIED: 'Sin clasificar',
+};
+const goal = {
+  preset: 'BALANCED' as const,
+  weights: {},
+  wantBetaA2: false,
+  wantKappaBB: false,
 };
 
 export function HerdPage({ farmId }: { farmId: string }) {
-  const females = useFemales(farmId);
-  const summary = useClassificationSummary(farmId);
-  const classify = useClassifyHerd(farmId);
-  const navigate = useNavigate();
-  const [tag, setTag] = useState('');
-
-  if (females.isLoading) {
-    return (
-      <div className="flex flex-col gap-3">
-        <Skeleton className="h-8 w-64" />
-        <Skeleton className="h-40 w-full" />
-      </div>
-    );
-  }
-  if (females.error) return <ErrorMessage message={(females.error as Error).message} />;
-
-  if (!females.data?.length) {
-    return (
-      <EmptyState
-        icon={<Dna />}
-        title="Aún no cargaste hembras"
-        description="Subí el Excel del rodeo para clasificarlo y empezar a matchear."
-        action={<UploadHerdButton />}
-      />
-    );
-  }
-
-  const unclassified =
-    summary.error instanceof ApiClientError && summary.error.code === 'HERD_NOT_CLASSIFIED';
-  const filtered = females.data.filter(
-    (female) => !tag || female.classification?.tags.includes(tag as never),
+  const females = useFemales(farmId),
+    summary = useClassificationSummary(farmId),
+    classify = useClassifyHerd(farmId);
+  const [query, setQuery] = useState(''),
+    [tier, setTier] = useState('all'),
+    [tag, setTag] = useState('');
+  const [selectedId, setSelectedId] = useState<string | null>(null),
+    [table, setTable] = useState(false);
+  const [camera, setCamera] = useState<'orbit' | 'top' | 'front'>('orbit');
+  const { still } = useGeneticsMotion();
+  const animals = useMemo(
+    () =>
+      (females.data ?? []).map((f) => {
+        const group = f.classification?.tier ?? 'UNCLASSIFIED';
+        const visible =
+          (tier === 'all' || tier === group) &&
+          (!query || f.visualId.toLowerCase().includes(query.toLowerCase())) &&
+          (!tag ||
+            f.classification?.tags.some((t) =>
+              t.toLowerCase().includes(tag.toLowerCase()),
+            ));
+        return { id: f.id, group, visible } satisfies SpatialAnimal;
+      }),
+    [females.data, tier, query, tag],
   );
-
-  return (
-    <div className="flex flex-col gap-5">
-      <PageHeader
-        title={
-          <>
-            Un rodeo, <span className="font-serif text-primary italic">{females.data.length} decisiones.</span>
-          </>
-        }
-        description="Del conjunto a cada animal, sin perder el contexto."
-        actions={
-          <Button variant="secondary" onClick={() => void classify.mutateAsync(goal)} disabled={classify.isPending}>
-            {classify.isPending ? 'Clasificando…' : unclassified ? 'Clasificar' : 'Reclasificar'}
+  const visibleIds = new Set(animals.filter((a) => a.visible).map((a) => a.id));
+  const filtered = females.data?.filter((f) => visibleIds.has(f.id)) ?? [];
+  const selected = filtered.find((f) => f.id === selectedId) ?? filtered[0];
+  if (females.isPending)
+    return (
+      <section className="gx-state">
+        <Skeleton className="h-40 w-full" />
+      </section>
+    );
+  if (females.error)
+    return (
+      <section className="gx-state">
+        <ErrorMessage message={females.error.message} />
+        <Button onClick={() => void females.refetch()}>Reintentar</Button>
+      </section>
+    );
+  if (!females.data?.length)
+    return (
+      <section className="gx-view">
+        <GeneticsHeading
+          index="03"
+          eyebrow="RODEO / EL ORIGEN"
+          title="Tu próxima"
+          accent="historia."
+          description="Subí el Excel de tu rodeo para clasificarlo y empezar a matchear."
+        />
+        <div className="gx-state">
+          <Button asChild>
+            <Link to="/motor-genetico/importar">
+              Subir Excel <ArrowRight />
+            </Link>
           </Button>
-        }
-      />
-
-      {unclassified && (
-        <EmptyState icon={<Dna />} title="El rodeo todavía no fue clasificado" description="Corré la clasificación para ver el tablero por tier." />
-      )}
-
-      {summary.error && !unclassified && <ErrorMessage message={(summary.error as Error).message} />}
-
-      {summary.data && (
-        <>
-          <SpatialScene
-            kind="herd"
-            className="h-[280px] w-full rounded-lg border border-border bg-[#d7e2c5]"
-            options={{
-              // El motor reparte los tokens en índices fijos (001..293), no
-              // por tier real: usamos esa posición solo para elegir a qué
-              // hembra real navegar, no para representar su clasificación.
-              onSelect: (id) => {
-                const female = females.data?.[Number(id) - 1];
-                if (female) navigate(`/motor-genetico/matching/${female.id}`);
-              },
+        </div>
+      </section>
+    );
+  const unclassified =
+    summary.error instanceof ApiClientError &&
+    summary.error.code === 'HERD_NOT_CLASSIFIED';
+  const counts = Object.fromEntries(
+    Object.keys(TIER_LABELS).map((t) => [
+      t,
+      animals.filter((a) => a.group === t).length,
+    ]),
+  );
+  return (
+    <section className="gx-view gx-herd">
+      <GeneticsHeading
+        index="03"
+        eyebrow="RODEO / UN PAISAJE DE DECISIONES"
+        title={String(females.data.length)}
+        accent="historias vivas."
+        description="Cada volumen es una vaca de tu rodeo. Su lugar y su color corresponden a la clasificación del motor."
+      >
+        <div className="gx-tier-filters" aria-label="Filtrar por destino">
+          {Object.entries(TIER_LABELS)
+            .filter(([key]) => counts[key] > 0)
+            .map(([key, label]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setTier(tier === key ? 'all' : key)}
+                aria-pressed={tier === key}
+              >
+                <strong>{counts[key]}</strong>
+                {label}
+              </button>
+            ))}
+        </div>
+        <div className="gx-herd-actions">
+          <Button
+            variant="secondary"
+            onClick={() => classify.mutate(goal)}
+            disabled={classify.isPending}
+          >
+            {classify.isPending
+              ? 'Clasificando…'
+              : unclassified
+                ? 'Clasificar rodeo'
+                : 'Reclasificar'}
+          </Button>
+          <Button variant="secondary" onClick={() => setTable(!table)}>
+            {table ? 'Volver al paisaje' : 'Ver tabla'}
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setTier('all');
+              setQuery('');
+              setTag('');
             }}
           >
-            <div className="pointer-events-none absolute inset-x-4 top-4 z-[2] flex flex-wrap gap-6">
-              {Object.entries(summary.data.byTier).map(([tier, total]) => (
-                <div key={tier} className="border-l-2 border-[#385e45] pl-2.5">
-                  <span className="block text-[9px] font-semibold tracking-[0.08em] text-[#3a4a35] uppercase">
-                    {tier.replace('_', ' ')}
-                  </span>
-                  <strong className="block font-serif text-[32px] leading-none font-normal text-[#1e3a2b] italic">
-                    {total}
-                  </strong>
-                </div>
-              ))}
-            </div>
-            <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#4f6b45]">
-              Vista conceptual · tocá una identidad para elegirla
-            </span>
-          </SpatialScene>
-          <p className="text-[11.5px] text-muted-foreground">
-            Con las reglas clásicas,{' '}
-            <span className="font-semibold text-foreground">
-              {summary.data.classicRulesBeefCount} (
-              {Math.round((summary.data.classicRulesBeefCount * 100) / summary.data.total)}%)
-            </span>{' '}
-            iban a carne.
+            Ver todas
+          </Button>
+        </div>
+        <div className="gx-fields">
+          <label>
+            Buscar caravana
+            <input
+              aria-label="Buscar caravana"
+              placeholder="Nombre o caravana"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </label>
+          <label className="mt-3">
+            Filtrar por tag
+            <input
+              aria-label="Filtrar por tag"
+              placeholder="Ej. A2_NUCLEUS"
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+            />
+          </label>
+        </div>
+        {unclassified && (
+          <p className="gx-note mt-4">
+            Tu rodeo está listo para clasificar. Los animales todavía no tienen
+            destino asignado.
           </p>
-        </>
-      )}
-
-      <Card className="p-4">
-        <Input
-          aria-label="Filtrar por tag"
-          placeholder="Filtrar por tag…"
-          value={tag}
-          onChange={(event) => setTag(event.target.value)}
-          className="mb-3 max-w-xs"
-        />
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID visual</TableHead>
-              <TableHead>Tier</TableHead>
-              <TableHead>Motivo</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filtered.map((female) => (
-              <TableRow
-                key={female.id}
-                onClick={() => navigate(`/motor-genetico/matching/${female.id}`)}
-                className="cursor-pointer hover:bg-muted"
-              >
-                <TableCell className="font-semibold">{female.visualId}</TableCell>
-                <TableCell>
-                  {female.classification ? (
-                    <Badge variant={TIER_BADGE[female.classification.tier] ?? 'neutral'}>
-                      {female.classification.tier.replace('_', ' ')}
-                    </Badge>
-                  ) : (
-                    <span className="text-ink-4">Sin perfil</span>
-                  )}
-                </TableCell>
-                <TableCell className="text-muted-foreground">
-                  {female.classification?.reasons.join('; ')}
-                </TableCell>
-              </TableRow>
+        )}
+        {classify.error && (
+          <ErrorMessage className="mt-4" message={classify.error.message} />
+        )}
+        {summary.error && !unclassified && (
+          <ErrorMessage message={summary.error.message} />
+        )}
+      </GeneticsHeading>
+      {!table && (
+        <SpatialScene
+          kind="herd"
+          className="gx-world"
+          options={{
+            immersive: true,
+            animals: () => animals,
+            selected: () => selected?.id ?? '',
+            onSelect: setSelectedId,
+            reduced: () => still,
+            paused: () => still,
+            camera: () => camera,
+          }}
+        >
+          {Object.entries(TIER_LABELS)
+            .filter(([key]) => counts[key] > 0)
+            .map(([key, label]) => (
+              <SpatialLabel key={key} anchor={`tier-${key}`}>
+                <small>{label}</small>
+                <strong>{counts[key]}</strong>
+              </SpatialLabel>
             ))}
-          </TableBody>
-        </Table>
-      </Card>
-    </div>
+          {selected && (
+            <SpatialLabel anchor="selected" className="gx-tag">
+              {selected.visualId}
+            </SpatialLabel>
+          )}
+        </SpatialScene>
+      )}
+      {table && (
+        <div className="gx-herd-table">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Caravana</TableHead>
+                <TableHead>Destino</TableHead>
+                <TableHead>Motivos del motor</TableHead>
+                <TableHead>Encuentro</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filtered.map((f) => (
+                <TableRow key={f.id}>
+                  <TableCell>{f.visualId}</TableCell>
+                  <TableCell>
+                    {TIER_LABELS[f.classification?.tier ?? 'UNCLASSIFIED']}
+                  </TableCell>
+                  <TableCell>
+                    {f.classification?.reasons.join('; ') ||
+                      'Sin clasificación'}
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="ghost" asChild>
+                      <Link
+                        to={`/motor-genetico/matching/${encodeURIComponent(f.id)}`}
+                      >
+                        Explorar <ArrowRight />
+                      </Link>
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
+      <aside className="gx-herd-sidebar gx-panel">
+        <p className="gx-eyebrow">IDENTIDADES / {filtered.length}</p>
+        <h2>Cada marca, una historia.</h2>
+        <div className="gx-animal-list">
+          {filtered.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              aria-pressed={selected?.id === f.id}
+              onClick={() => setSelectedId(f.id)}
+            >
+              <span>{f.visualId}</span>
+              <small>
+                {TIER_LABELS[f.classification?.tier ?? 'UNCLASSIFIED']}
+              </small>
+            </button>
+          ))}
+          {!filtered.length && (
+            <p className="gx-note">Ninguna vaca coincide con estos filtros.</p>
+          )}
+        </div>
+        {selected && (
+          <div className="gx-animal-detail">
+            <p>
+              SELECCIONADA /{' '}
+              {TIER_LABELS[selected.classification?.tier ?? 'UNCLASSIFIED']}
+            </p>
+            <h2>{selected.visualId}</h2>
+            <p>
+              A2: {selected.profile?.betaCasein ?? 'Sin dato'} · Kappa:{' '}
+              {selected.profile?.kappaCasein ?? 'Sin dato'}
+            </p>
+            <p>{selected.classification?.reasons.join(' · ')}</p>
+            {selected.classification?.corrective.length ? (
+              <p>
+                Rasgos a corregir:{' '}
+                {selected.classification.corrective.join(', ')}
+              </p>
+            ) : null}
+            <Button asChild>
+              <Link
+                to={`/motor-genetico/matching/${encodeURIComponent(selected.id)}`}
+              >
+                Explorar su futuro <ArrowRight />
+              </Link>
+            </Button>
+          </div>
+        )}
+      </aside>
+      <p className="gx-herd-foot">
+        {summary.data ? (
+          <>
+            Con las reglas clásicas, {summary.data.classicRulesBeefCount} de{' '}
+            {females.data.length} animales iban a carne.{' '}
+          </>
+        ) : null}
+        Carne es un destino productivo. Las alertas de salud se muestran por
+        separado.
+      </p>
+      {!table && (
+        <SceneControls
+          camera={camera}
+          onCamera={() =>
+            setCamera((c) =>
+              c === 'orbit' ? 'top' : c === 'top' ? 'front' : 'orbit',
+            )
+          }
+        />
+      )}
+    </section>
   );
 }
