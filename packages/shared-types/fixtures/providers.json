@@ -4,79 +4,153 @@
       "id": "prov-akron",
       "name": "AKRON",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -31.427, "lng": -62.082, "label": "San Francisco, Córdoba" },
+      "base": {
+        "lat": -31.427,
+        "lng": -62.082,
+        "label": "San Francisco, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "0800-333-8300" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "0800-333-8300"
+      },
       "source": "https://akron.com.ar/about-us"
     },
     {
       "id": "prov-agrometal",
       "name": "Agrometal",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -33.205, "lng": -62.6, "label": "Monte Maíz, Córdoba" },
+      "base": {
+        "lat": -33.205,
+        "lng": -62.6,
+        "label": "Monte Maíz, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 9 3468 471311", "email": "ventas@agrometal.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 9 3468 471311",
+        "email": "ventas@agrometal.com.ar"
+      },
       "source": "https://agrometal.com.ar/"
     },
     {
       "id": "prov-nicola",
       "name": "Nicola Hnos.",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -32.45, "lng": -64.38, "label": "Berrotarán, Córdoba" },
+      "base": {
+        "lat": -32.45,
+        "lng": -64.38,
+        "label": "Berrotarán, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 358 4940580", "email": "info@nicolahnos.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 358 4940580",
+        "email": "info@nicolahnos.com.ar"
+      },
       "source": "https://www.nicolahnos.com.ar/servicio-tecnico/"
     },
     {
       "id": "prov-mainero",
       "name": "Mainero",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -32.625, "lng": -62.688, "label": "Bell Ville, Córdoba" },
+      "base": {
+        "lat": -32.625,
+        "lng": -62.688,
+        "label": "Bell Ville, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 9 3537 424031" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 9 3537 424031"
+      },
       "source": "https://institucional.mainero.com.ar/"
     },
     {
       "id": "prov-alatroni",
       "name": "J. C. Alatroni Maquinarias",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -31.427, "lng": -62.082, "label": "San Francisco, Córdoba" },
+      "base": {
+        "lat": -31.427,
+        "lng": -62.082,
+        "label": "San Francisco, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3564 450090", "email": "info@jcalatronimaquinarias.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3564 450090",
+        "email": "info@jcalatronimaquinarias.com.ar"
+      },
       "source": "https://www.jcalatronimaquinarias.com.ar/"
     },
     {
       "id": "prov-cristante",
       "name": "Cristante Hnos.",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -32.884, "lng": -62.678, "label": "Justiniano Posse, Córdoba" },
+      "base": {
+        "lat": -32.884,
+        "lng": -62.678,
+        "label": "Justiniano Posse, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3537 593294" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3537 593294"
+      },
       "source": "https://www.cristantehnos.com.ar/"
     },
     {
       "id": "prov-bugianesi",
       "name": "Bugianesi Agro",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -34.57, "lng": -59.105, "label": "Luján, Buenos Aires" },
+      "base": {
+        "lat": -34.57,
+        "lng": -59.105,
+        "label": "Luján, Buenos Aires"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 9 2323 312715", "email": "ventas@bugianesiagro.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 9 2323 312715",
+        "email": "ventas@bugianesiagro.com.ar"
+      },
       "source": "https://bugianesiagro.com.ar/inicio/"
     },
     {
       "id": "prov-sefar",
       "name": "SEFAR",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -30.943, "lng": -64.095, "label": "Sinsacate, Córdoba" },
+      "base": {
+        "lat": -30.943,
+        "lng": -64.095,
+        "label": "Sinsacate, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
       "contact": {},
       "source": "https://sefarsa.com.ar/"
     },
@@ -84,109 +158,214 @@
       "id": "prov-port-pla",
       "name": "Port-Pla",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -31.013, "lng": -62.067, "label": "Porteña, Córdoba" },
+      "base": {
+        "lat": -31.013,
+        "lng": -62.067,
+        "label": "Porteña, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3564 413647" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3564 413647"
+      },
       "source": "https://portpla.com.ar/"
     },
     {
       "id": "prov-ombu",
       "name": "Máquinas Agrícolas OMBU",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -32.684, "lng": -61.518, "label": "Las Parejas, Santa Fe" },
+      "base": {
+        "lat": -32.684,
+        "lng": -61.518,
+        "label": "Las Parejas, Santa Fe"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3471 471027", "email": "ventas@maquinasombu.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3471 471027",
+        "email": "ventas@maquinasombu.com.ar"
+      },
       "source": "https://www.ombu.ar/contacto"
     },
     {
       "id": "prov-agrocar",
       "name": "Agro-Car",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -32.816, "lng": -61.394, "label": "Cañada de Gómez, Santa Fe" },
+      "base": {
+        "lat": -32.816,
+        "lng": -61.394,
+        "label": "Cañada de Gómez, Santa Fe"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3471 675148", "email": "contacto@agrocar.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3471 675148",
+        "email": "contacto@agrocar.com.ar"
+      },
       "source": "https://agrocar.com.ar/"
     },
     {
       "id": "prov-agromaquinaria",
       "name": "Agro Maquinaria",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -32.944, "lng": -60.65, "label": "Rosario, Santa Fe" },
+      "base": {
+        "lat": -32.944,
+        "lng": -60.65,
+        "label": "Rosario, Santa Fe"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 9 2474 688589", "email": "ventas@agromaquinaria.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 9 2474 688589",
+        "email": "ventas@agromaquinaria.com.ar"
+      },
       "source": "https://agromaquinaria.com.ar/"
     },
     {
       "id": "prov-agrocentro-cba",
       "name": "Agrocentro Córdoba",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -31.333, "lng": -63.617, "label": "Río Primero, Córdoba" },
+      "base": {
+        "lat": -31.333,
+        "lng": -63.617,
+        "label": "Río Primero, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3574 438083", "email": "agrocentrocba.sas@gmail.com" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3574 438083",
+        "email": "agrocentrocba.sas@gmail.com"
+      },
       "source": "https://agrocentrocba.com.ar/"
     },
     {
       "id": "prov-giorgi",
       "name": "Giorgi",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -33.174, "lng": -61.075, "label": "Fuentes, Santa Fe" },
+      "base": {
+        "lat": -33.174,
+        "lng": -61.075,
+        "label": "Fuentes, Santa Fe"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3464 493512", "email": "ventas@giorgi.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3464 493512",
+        "email": "ventas@giorgi.com.ar"
+      },
       "source": "https://giorgi.com.ar/"
     },
     {
       "id": "prov-catelli",
       "name": "Catelli",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -33.205, "lng": -62.6, "label": "Monte Maíz, Córdoba" },
+      "base": {
+        "lat": -33.205,
+        "lng": -62.6,
+        "label": "Monte Maíz, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3468 471597", "email": "info@catelli.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3468 471597",
+        "email": "info@catelli.com.ar"
+      },
       "source": "https://www.catelli.com.ar/contacto/"
     },
     {
       "id": "prov-agrinmetal",
       "name": "Agrin Metal",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -30.943, "lng": -64.095, "label": "Sinsacate, Córdoba" },
+      "base": {
+        "lat": -30.943,
+        "lng": -64.095,
+        "label": "Sinsacate, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3525 402100", "email": "contacto@agrinmetal.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3525 402100",
+        "email": "contacto@agrinmetal.com.ar"
+      },
       "source": "https://www.agrinmetal.com.ar/"
     },
     {
       "id": "prov-syra",
       "name": "Syra",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -32.366, "lng": -62.312, "label": "Noetinger, Córdoba" },
+      "base": {
+        "lat": -32.366,
+        "lng": -62.312,
+        "label": "Noetinger, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 9 3472 588609", "email": "contacto@syra.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 9 3472 588609",
+        "email": "contacto@syra.com.ar"
+      },
       "source": "https://syrasa.com.ar/contactos/"
     },
     {
       "id": "prov-bernardi",
       "name": "Antonio Bernardi",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -32.625, "lng": -62.688, "label": "Bell Ville, Córdoba" },
+      "base": {
+        "lat": -32.625,
+        "lng": -62.688,
+        "label": "Bell Ville, Córdoba"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3537 582411" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3537 582411"
+      },
       "source": "https://www.ab-sa.com.ar/contacto-maquinaria-agricola"
     },
     {
       "id": "prov-biogenesis-bago",
       "name": "Biogénesis Bagó",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -34.423, "lng": -58.737, "label": "Garín, Buenos Aires" },
+      "base": {
+        "lat": -34.423,
+        "lng": -58.737,
+        "label": "Garín, Buenos Aires"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
       "contact": {},
       "source": "https://www.biogenesisbago.com/ar/quienes-somos/"
     },
@@ -194,59 +373,114 @@
       "id": "prov-vetanco",
       "name": "Vetanco",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -34.552, "lng": -58.508, "label": "Villa Martelli, Buenos Aires" },
+      "base": {
+        "lat": -34.552,
+        "lng": -58.508,
+        "label": "Villa Martelli, Buenos Aires"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 11 4709 3330" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 11 4709 3330"
+      },
       "source": "https://vetanco.com/es/"
     },
     {
       "id": "prov-zoovet",
       "name": "Zoovet",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -31.633, "lng": -60.7, "label": "Santa Fe, Santa Fe" },
+      "base": {
+        "lat": -31.633,
+        "lng": -60.7,
+        "label": "Santa Fe, Santa Fe"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "0800-888-9668", "email": "info.argentina@ceva.com" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "0800-888-9668",
+        "email": "info.argentina@ceva.com"
+      },
       "source": "https://www.zoovet.com.ar/"
     },
     {
       "id": "prov-konig",
       "name": "Laboratorios König",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -34.663, "lng": -58.366, "label": "Avellaneda, Buenos Aires" },
+      "base": {
+        "lat": -34.663,
+        "lng": -58.366,
+        "label": "Avellaneda, Buenos Aires"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 11 4208 4141", "email": "info@koniglab.com" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 11 4208 4141",
+        "email": "info@koniglab.com"
+      },
       "source": "https://koniglab.com/"
     },
     {
       "id": "prov-over",
       "name": "Laboratorios OVER",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -31.7, "lng": -61.58, "label": "San Vicente, Santa Fe" },
+      "base": {
+        "lat": -31.7,
+        "lng": -61.58,
+        "label": "San Vicente, Santa Fe"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 3492 470696", "email": "labover@over.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 3492 470696",
+        "email": "labover@over.com.ar"
+      },
       "source": "https://over.com.ar/la-empresa/"
     },
     {
       "id": "prov-brouwer",
       "name": "Brouwer",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -34.587, "lng": -58.471, "label": "Ciudad Autónoma de Buenos Aires" },
+      "base": {
+        "lat": -34.587,
+        "lng": -58.471,
+        "label": "Ciudad Autónoma de Buenos Aires"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 11 4555 6663" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 11 4555 6663"
+      },
       "source": "https://brouwer.com.ar/nosotros-2/"
     },
     {
       "id": "prov-tecnovax",
       "name": "Tecnovax",
       "type": "DISTRIBUTOR",
-      "base": { "lat": -34.603, "lng": -58.381, "label": "Buenos Aires, Argentina" },
+      "base": {
+        "lat": -34.603,
+        "lng": -58.381,
+        "label": "Buenos Aires, Argentina"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
       "contact": {},
       "source": "https://www.argentina.gob.ar/sites/default/files/2018/08/firmas_certificadas_-17_oct_2024_0.pdf"
     },
@@ -254,9 +488,16 @@
       "id": "prov-abs-argentina",
       "name": "ABS Argentina",
       "type": "SEMEN_COMPANY",
-      "base": { "lat": -32.944, "lng": -60.65, "label": "Argentina" },
+      "base": {
+        "lat": -32.944,
+        "lng": -60.65,
+        "label": "Argentina"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
       "contact": {},
       "source": "https://www.absglobal.com/ar/"
     },
@@ -264,88 +505,1946 @@
       "id": "prov-semex-argentina",
       "name": "Semex Argentina",
       "type": "SEMEN_COMPANY",
-      "base": { "lat": -34.616, "lng": -58.39, "label": "Ciudad Autónoma de Buenos Aires" },
+      "base": {
+        "lat": -34.616,
+        "lng": -58.39,
+        "label": "Ciudad Autónoma de Buenos Aires"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 11 4305 0101", "email": "inseminacion@semex.com.ar" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 11 4305 0101",
+        "email": "inseminacion@semex.com.ar"
+      },
       "source": "https://www.semex.com.ar/contacto"
     },
     {
       "id": "prov-select-sires-argentina",
       "name": "Select Sires Argentina",
       "type": "SEMEN_COMPANY",
-      "base": { "lat": -34.595, "lng": -58.414, "label": "Ciudad Autónoma de Buenos Aires" },
+      "base": {
+        "lat": -34.595,
+        "lng": -58.414,
+        "label": "Ciudad Autónoma de Buenos Aires"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
-      "contact": { "phone": "+54 11 4962 8442", "email": "inseminacion@select-debernardi.com" },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "+54 11 4962 8442",
+        "email": "inseminacion@select-debernardi.com"
+      },
       "source": "https://selectsires.com.ar/"
     },
     {
       "id": "prov-genex",
       "name": "GENEX",
       "type": "SEMEN_COMPANY",
-      "base": { "lat": 44.782, "lng": -88.609, "label": "Shawano, Wisconsin (EE. UU.)" },
+      "base": {
+        "lat": 44.782,
+        "lng": -88.609,
+        "label": "Shawano, Wisconsin (EE. UU.)"
+      },
       "verified": false,
-      "reputation": { "avg": null, "jobs": 0 },
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
       "contact": {},
       "source": "GENEX Canada Beef Sire Directory 2026 (https://www.genexcanada.ca/uploads/userfiles/files/2026%20GENEX%20Canada%20Beef%20Directory-LR.pdf); sede de la cooperativa según https://www.genex.coop/. Sin representación argentina confirmada: se muestra como no verificado."
+    },
+    {
+      "id": "prov-aca-agroinsumos",
+      "name": "ACA - Asociación de Cooperativas Argentinas",
+      "type": "DISTRIBUTOR",
+      "base": {
+        "lat": -32.9468,
+        "lng": -60.6393,
+        "label": "Rosario, Santa Fe"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.acacoop.com.ar/agroinsumos.html"
+    },
+    {
+      "id": "prov-syngenta",
+      "name": "Syngenta Argentina",
+      "type": "DISTRIBUTOR",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.syngenta.com.ar/"
+    },
+    {
+      "id": "prov-bayer-agro",
+      "name": "Bayer Argentina (AgroBayer)",
+      "type": "DISTRIBUTOR",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.agro.bayer.com.ar/"
+    },
+    {
+      "id": "prov-basf-agro",
+      "name": "BASF Argentina",
+      "type": "DISTRIBUTOR",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://agriculture.basf.com/ar/es"
+    },
+    {
+      "id": "prov-corteva",
+      "name": "Corteva Agriscience Argentina",
+      "type": "DISTRIBUTOR",
+      "base": {
+        "lat": -34.5231,
+        "lng": -58.4738,
+        "label": "Vicente López, Buenos Aires"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {
+        "phone": "11-4110-0202",
+        "email": "infoargentina@corteva.com"
+      },
+      "source": "https://www.corteva.com.ar/"
+    },
+    {
+      "id": "prov-aacrea",
+      "name": "AACREA",
+      "type": "ADVISOR",
+      "base": {
+        "lat": -34.6068,
+        "lng": -58.3811,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.crea.org.ar/"
+    },
+    {
+      "id": "prov-agro-mediterranea",
+      "name": "Agro-Mediterránea",
+      "type": "ADVISOR",
+      "base": {
+        "lat": -31.4201,
+        "lng": -64.1888,
+        "label": "Córdoba, Córdoba"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "http://www.agro-mediterranea.com.ar/"
+    },
+    {
+      "id": "prov-consagro",
+      "name": "ConsAgro",
+      "type": "ADVISOR",
+      "base": {
+        "lat": -33.8951,
+        "lng": -60.5731,
+        "label": "Pergamino, Buenos Aires"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "http://www.consagro.com.ar/"
+    },
+    {
+      "id": "prov-chiaradia",
+      "name": "Chiaradia & Asociados",
+      "type": "ADVISOR",
+      "base": {
+        "lat": -32.9468,
+        "lng": -60.6393,
+        "label": "Rosario, Santa Fe"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.chiaradia.com.ar/servicios_consultoria_agropecuaria.php"
+    },
+    {
+      "id": "prov-agrocrv",
+      "name": "AGRO CRV Consultores",
+      "type": "ADVISOR",
+      "base": {
+        "lat": -31.4201,
+        "lng": -64.1888,
+        "label": "Córdoba, Córdoba"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://agrocrv.com.ar/"
+    },
+    {
+      "id": "prov-auravant",
+      "name": "Auravant",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.auravant.com/"
+    },
+    {
+      "id": "prov-agrotracking",
+      "name": "AgroTracking",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.agrotracking.app/"
+    },
+    {
+      "id": "prov-kilimo",
+      "name": "Kilimo",
+      "type": "OTHER",
+      "base": {
+        "lat": -31.4201,
+        "lng": -64.1888,
+        "label": "Córdoba, Córdoba"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.kilimo.com/"
+    },
+    {
+      "id": "prov-geoagro",
+      "name": "GeoAgro",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://geoagro.com/es/"
+    },
+    {
+      "id": "prov-geosistemas",
+      "name": "Geosistemas",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://geosistemas.com.ar/"
+    },
+    {
+      "id": "prov-bna-agro",
+      "name": "Banco de la Nación Argentina (Agronegocios)",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.bna.com.ar/Empresas/agronegocios/Creditos"
+    },
+    {
+      "id": "prov-bice-agro",
+      "name": "BICE",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.bice.com.ar/productos/inversion/creditosagro2026/"
+    },
+    {
+      "id": "prov-bbva-agro",
+      "name": "BBVA Argentina (Agro)",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.bbva.com.ar/empresas/productos/agro.html"
+    },
+    {
+      "id": "prov-provincia-microcreditos",
+      "name": "Provincia Microcréditos",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.9215,
+        "lng": -57.9545,
+        "label": "La Plata, Buenos Aires"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.provinciamicrocreditos.com.ar/creditos/agropecuarios"
+    },
+    {
+      "id": "prov-fondo-agrario-pba",
+      "name": "Fondo Agrario (Provincia de Buenos Aires)",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.9215,
+        "lng": -57.9545,
+        "label": "La Plata, Buenos Aires"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.gba.gob.ar/desarrollo_agrario/financiamiento"
+    },
+    {
+      "id": "prov-sancor-seguros",
+      "name": "Sancor Seguros (Agro)",
+      "type": "OTHER",
+      "base": {
+        "lat": -30.9436,
+        "lng": -61.5614,
+        "label": "Sunchales, Santa Fe"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.sancorseguros.com.ar/agro"
+    },
+    {
+      "id": "prov-romei",
+      "name": "Romei Agropecuaria S.A.",
+      "type": "CONTRACTOR",
+      "base": {
+        "lat": -33.7495,
+        "lng": -61.9674,
+        "label": "Venado Tuerto, Santa Fe"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://romei.com.ar/transporte-de-granos-2/"
+    },
+    {
+      "id": "prov-provincias-unidas",
+      "name": "Transporte Provincias Unidas",
+      "type": "CONTRACTOR",
+      "base": {
+        "lat": -32.9468,
+        "lng": -60.6393,
+        "label": "Rosario, Santa Fe"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://transporteprovinciasunidas.com/carga-de-granos-y-cereales/"
+    },
+    {
+      "id": "prov-rutazo",
+      "name": "Rutazo",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.rutazo.com/transporte-cereales"
+    },
+    {
+      "id": "prov-agroempresa",
+      "name": "Grupo Agroempresa",
+      "type": "CONTRACTOR",
+      "base": {
+        "lat": -33.8951,
+        "lng": -60.5731,
+        "label": "Pergamino, Buenos Aires"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://grupoagroempresa.com.ar/logistica"
     }
   ],
   "capabilities": [
-    { "id": "cap-akron", "providerId": "prov-akron", "category": "MACHINERY", "serviceType": "maquinaria y posventa", "coverageRadiusKm": 180, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-agrometal", "providerId": "prov-agrometal", "category": "MACHINERY", "serviceType": "sembradoras y soporte técnico", "coverageRadiusKm": 180, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-nicola", "providerId": "prov-nicola", "category": "MACHINERY", "serviceType": "servicio técnico a campo", "coverageRadiusKm": 120, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-mainero", "providerId": "prov-mainero", "category": "MACHINERY", "serviceType": "implementos agrícolas", "coverageRadiusKm": 180, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-alatroni", "providerId": "prov-alatroni", "category": "MACHINERY", "serviceType": "venta, repuestos y servicio a campo", "coverageRadiusKm": 150, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-cristante", "providerId": "prov-cristante", "category": "MACHINERY", "serviceType": "maquinaria agrícola", "coverageRadiusKm": 140, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-bugianesi", "providerId": "prov-bugianesi", "category": "MACHINERY", "serviceType": "maquinaria y posventa", "coverageRadiusKm": 180, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-sefar", "providerId": "prov-sefar", "category": "MACHINERY", "serviceType": "siembra, pulverización y servicio técnico", "coverageRadiusKm": 150, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-port-pla", "providerId": "prov-port-pla", "category": "MACHINERY", "serviceType": "venta, repuestos y servicio técnico", "coverageRadiusKm": 150, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-ombu", "providerId": "prov-ombu", "category": "MACHINERY", "serviceType": "maquinaria y posventa", "coverageRadiusKm": 180, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-agrocar", "providerId": "prov-agrocar", "category": "MACHINERY", "serviceType": "maquinaria y servicio técnico", "coverageRadiusKm": 180, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-agromaquinaria", "providerId": "prov-agromaquinaria", "category": "MACHINERY", "serviceType": "compra, venta y posventa", "coverageRadiusKm": 160, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-agrocentro-cba", "providerId": "prov-agrocentro-cba", "category": "MACHINERY", "serviceType": "maquinaria, repuestos y reparación", "coverageRadiusKm": 150, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-giorgi", "providerId": "prov-giorgi", "category": "MACHINERY", "serviceType": "siembra y preparación de suelos", "coverageRadiusKm": 170, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-catelli", "providerId": "prov-catelli", "category": "MACHINERY", "serviceType": "maquinaria usada y posventa", "coverageRadiusKm": 150, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-agrinmetal", "providerId": "prov-agrinmetal", "category": "MACHINERY", "serviceType": "pulverizadoras y soporte técnico", "coverageRadiusKm": 150, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-syra", "providerId": "prov-syra", "category": "MACHINERY", "serviceType": "implementos y servicio técnico", "coverageRadiusKm": 160, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-bernardi", "providerId": "prov-bernardi", "category": "MACHINERY", "serviceType": "maquinaria y asesoramiento", "coverageRadiusKm": 160, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-biogenesis-bago", "providerId": "prov-biogenesis-bago", "category": "VET", "serviceType": "salud y productividad animal", "coverageRadiusKm": 600, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-vetanco", "providerId": "prov-vetanco", "category": "VET", "serviceType": "productos y soporte para bovinos", "coverageRadiusKm": 600, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-zoovet", "providerId": "prov-zoovet", "category": "VET", "serviceType": "productos veterinarios", "coverageRadiusKm": 600, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-konig", "providerId": "prov-konig", "category": "VET", "serviceType": "sanidad de animales de producción", "coverageRadiusKm": 600, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-over", "providerId": "prov-over", "category": "VET", "serviceType": "medicina veterinaria", "coverageRadiusKm": 600, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-brouwer", "providerId": "prov-brouwer", "category": "VET", "serviceType": "salud animal y nutrición", "coverageRadiusKm": 600, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "cap-tecnovax", "providerId": "prov-tecnovax", "category": "VET", "serviceType": "productos veterinarios", "coverageRadiusKm": 600, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "029HO19531", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "029HO21010", "providerId": "prov-semex-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "029HO20001", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "029HO20002", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "029HO20100", "providerId": "prov-semex-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "029HO20200", "providerId": "prov-semex-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "029HO20300", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "029HO20400", "providerId": "prov-semex-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "200JE01234", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "007AN01111", "providerId": "prov-select-sires-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "008HE02222", "providerId": "prov-select-sires-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "009LM03333", "providerId": "prov-select-sires-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "29HO22402", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22460", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22788", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO23028", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22668", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22659", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22622", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22620", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22621", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22734", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22736", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22735", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "29HO22687", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "001AN01694", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "001AN01702", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "001AN01709", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "001AN01711", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
-    { "id": "001HP00860", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } }
+    {
+      "id": "cap-akron",
+      "providerId": "prov-akron",
+      "category": "MACHINERY",
+      "serviceType": "maquinaria y posventa",
+      "coverageRadiusKm": 180,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agrometal",
+      "providerId": "prov-agrometal",
+      "category": "MACHINERY",
+      "serviceType": "sembradoras y soporte técnico",
+      "coverageRadiusKm": 180,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-nicola",
+      "providerId": "prov-nicola",
+      "category": "MACHINERY",
+      "serviceType": "servicio técnico a campo",
+      "coverageRadiusKm": 120,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-mainero",
+      "providerId": "prov-mainero",
+      "category": "MACHINERY",
+      "serviceType": "implementos agrícolas",
+      "coverageRadiusKm": 180,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-alatroni",
+      "providerId": "prov-alatroni",
+      "category": "MACHINERY",
+      "serviceType": "venta, repuestos y servicio a campo",
+      "coverageRadiusKm": 150,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-cristante",
+      "providerId": "prov-cristante",
+      "category": "MACHINERY",
+      "serviceType": "maquinaria agrícola",
+      "coverageRadiusKm": 140,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-bugianesi",
+      "providerId": "prov-bugianesi",
+      "category": "MACHINERY",
+      "serviceType": "maquinaria y posventa",
+      "coverageRadiusKm": 180,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-sefar",
+      "providerId": "prov-sefar",
+      "category": "MACHINERY",
+      "serviceType": "siembra, pulverización y servicio técnico",
+      "coverageRadiusKm": 150,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-port-pla",
+      "providerId": "prov-port-pla",
+      "category": "MACHINERY",
+      "serviceType": "venta, repuestos y servicio técnico",
+      "coverageRadiusKm": 150,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-ombu",
+      "providerId": "prov-ombu",
+      "category": "MACHINERY",
+      "serviceType": "maquinaria y posventa",
+      "coverageRadiusKm": 180,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agrocar",
+      "providerId": "prov-agrocar",
+      "category": "MACHINERY",
+      "serviceType": "maquinaria y servicio técnico",
+      "coverageRadiusKm": 180,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agromaquinaria",
+      "providerId": "prov-agromaquinaria",
+      "category": "MACHINERY",
+      "serviceType": "compra, venta y posventa",
+      "coverageRadiusKm": 160,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agrocentro-cba",
+      "providerId": "prov-agrocentro-cba",
+      "category": "MACHINERY",
+      "serviceType": "maquinaria, repuestos y reparación",
+      "coverageRadiusKm": 150,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-giorgi",
+      "providerId": "prov-giorgi",
+      "category": "MACHINERY",
+      "serviceType": "siembra y preparación de suelos",
+      "coverageRadiusKm": 170,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-catelli",
+      "providerId": "prov-catelli",
+      "category": "MACHINERY",
+      "serviceType": "maquinaria usada y posventa",
+      "coverageRadiusKm": 150,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agrinmetal",
+      "providerId": "prov-agrinmetal",
+      "category": "MACHINERY",
+      "serviceType": "pulverizadoras y soporte técnico",
+      "coverageRadiusKm": 150,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-syra",
+      "providerId": "prov-syra",
+      "category": "MACHINERY",
+      "serviceType": "implementos y servicio técnico",
+      "coverageRadiusKm": 160,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-bernardi",
+      "providerId": "prov-bernardi",
+      "category": "MACHINERY",
+      "serviceType": "maquinaria y asesoramiento",
+      "coverageRadiusKm": 160,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-biogenesis-bago",
+      "providerId": "prov-biogenesis-bago",
+      "category": "VET",
+      "serviceType": "salud y productividad animal",
+      "coverageRadiusKm": 600,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-vetanco",
+      "providerId": "prov-vetanco",
+      "category": "VET",
+      "serviceType": "productos y soporte para bovinos",
+      "coverageRadiusKm": 600,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-zoovet",
+      "providerId": "prov-zoovet",
+      "category": "VET",
+      "serviceType": "productos veterinarios",
+      "coverageRadiusKm": 600,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-konig",
+      "providerId": "prov-konig",
+      "category": "VET",
+      "serviceType": "sanidad de animales de producción",
+      "coverageRadiusKm": 600,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-over",
+      "providerId": "prov-over",
+      "category": "VET",
+      "serviceType": "medicina veterinaria",
+      "coverageRadiusKm": 600,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-brouwer",
+      "providerId": "prov-brouwer",
+      "category": "VET",
+      "serviceType": "salud animal y nutrición",
+      "coverageRadiusKm": 600,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-tecnovax",
+      "providerId": "prov-tecnovax",
+      "category": "VET",
+      "serviceType": "productos veterinarios",
+      "coverageRadiusKm": 600,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "029HO19531",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "029HO21010",
+      "providerId": "prov-semex-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "029HO20001",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "029HO20002",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "029HO20100",
+      "providerId": "prov-semex-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "029HO20200",
+      "providerId": "prov-semex-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "029HO20300",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "029HO20400",
+      "providerId": "prov-semex-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "200JE01234",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "007AN01111",
+      "providerId": "prov-select-sires-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "008HE02222",
+      "providerId": "prov-select-sires-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "009LM03333",
+      "providerId": "prov-select-sires-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "29HO22402",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22460",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22788",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO23028",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22668",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22659",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22622",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22620",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22621",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22734",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22736",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22735",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "29HO22687",
+      "providerId": "prov-abs-argentina",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "001AN01694",
+      "providerId": "prov-genex",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 20000,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "001AN01702",
+      "providerId": "prov-genex",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 20000,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "001AN01709",
+      "providerId": "prov-genex",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 20000,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "001AN01711",
+      "providerId": "prov-genex",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 20000,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "001HP00860",
+      "providerId": "prov-genex",
+      "category": "GENETICS",
+      "serviceType": "semen bovino",
+      "coverageRadiusKm": 20000,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": false,
+        "catalog": "A6 bulls.json"
+      }
+    },
+    {
+      "id": "cap-aca-agroinsumos",
+      "providerId": "prov-aca-agroinsumos",
+      "category": "INPUTS",
+      "serviceType": "semillas, fertilizantes y fitosanitarios",
+      "coverageRadiusKm": 700,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-syngenta",
+      "providerId": "prov-syngenta",
+      "category": "INPUTS",
+      "serviceType": "agroquímicos y semillas",
+      "coverageRadiusKm": 700,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-bayer-agro",
+      "providerId": "prov-bayer-agro",
+      "category": "INPUTS",
+      "serviceType": "protección de cultivos y semillas",
+      "coverageRadiusKm": 700,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-basf-agro",
+      "providerId": "prov-basf-agro",
+      "category": "INPUTS",
+      "serviceType": "soluciones agrícolas y fitosanitarios",
+      "coverageRadiusKm": 700,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-corteva",
+      "providerId": "prov-corteva",
+      "category": "INPUTS",
+      "serviceType": "semillas y protección de cultivos",
+      "coverageRadiusKm": 700,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-aacrea",
+      "providerId": "prov-aacrea",
+      "category": "ADVISORY",
+      "serviceType": "gestión agropecuaria en grupos CREA",
+      "coverageRadiusKm": 1000,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agro-mediterranea",
+      "providerId": "prov-agro-mediterranea",
+      "category": "ADVISORY",
+      "serviceType": "gestión de campo y agronegocios",
+      "coverageRadiusKm": 250,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-consagro",
+      "providerId": "prov-consagro",
+      "category": "ADVISORY",
+      "serviceType": "consultoría e insumos agropecuarios",
+      "coverageRadiusKm": 250,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-chiaradia",
+      "providerId": "prov-chiaradia",
+      "category": "ADVISORY",
+      "serviceType": "consultoría contable e impositiva agropecuaria",
+      "coverageRadiusKm": 250,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agrocrv",
+      "providerId": "prov-agrocrv",
+      "category": "ADVISORY",
+      "serviceType": "mejora continua y evaluación de proyectos",
+      "coverageRadiusKm": 250,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-auravant",
+      "providerId": "prov-auravant",
+      "category": "SOFTWARE",
+      "serviceType": "monitoreo satelital y recetas de siembra/fertilización",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agrotracking",
+      "providerId": "prov-agrotracking",
+      "category": "SOFTWARE",
+      "serviceType": "gestión agrícola y monitoreo satelital",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-kilimo",
+      "providerId": "prov-kilimo",
+      "category": "SOFTWARE",
+      "serviceType": "gestión eficiente del riego",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-geoagro",
+      "providerId": "prov-geoagro",
+      "category": "SOFTWARE",
+      "serviceType": "SIG y agricultura de precisión",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-geosistemas",
+      "providerId": "prov-geosistemas",
+      "category": "SOFTWARE",
+      "serviceType": "geotecnologías y GNSS para agricultura",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-bna-agro",
+      "providerId": "prov-bna-agro",
+      "category": "FINANCE",
+      "serviceType": "créditos para el agro",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-bice-agro",
+      "providerId": "prov-bice-agro",
+      "category": "FINANCE",
+      "serviceType": "financiamiento de capital de trabajo y maquinaria",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-bbva-agro",
+      "providerId": "prov-bbva-agro",
+      "category": "FINANCE",
+      "serviceType": "financiación de insumos agrícolas",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-provincia-microcreditos",
+      "providerId": "prov-provincia-microcreditos",
+      "category": "FINANCE",
+      "serviceType": "microcréditos para productores",
+      "coverageRadiusKm": 400,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-fondo-agrario-pba",
+      "providerId": "prov-fondo-agrario-pba",
+      "category": "FINANCE",
+      "serviceType": "líneas de financiamiento provincial",
+      "coverageRadiusKm": 400,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-sancor-seguros",
+      "providerId": "prov-sancor-seguros",
+      "category": "OTHER",
+      "serviceType": "seguro de granizo y multirriesgo",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-romei",
+      "providerId": "prov-romei",
+      "category": "OTHER",
+      "serviceType": "transporte de granos",
+      "coverageRadiusKm": 400,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-provincias-unidas",
+      "providerId": "prov-provincias-unidas",
+      "category": "OTHER",
+      "serviceType": "transporte de cereales y granos",
+      "coverageRadiusKm": 400,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-rutazo",
+      "providerId": "prov-rutazo",
+      "category": "OTHER",
+      "serviceType": "plataforma de logística cerealera",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agroempresa",
+      "providerId": "prov-agroempresa",
+      "category": "OTHER",
+      "serviceType": "logística de granos y semillas",
+      "coverageRadiusKm": 400,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    }
   ]
 }
