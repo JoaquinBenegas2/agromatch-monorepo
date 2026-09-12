@@ -186,8 +186,8 @@ export function OffersPage() {
         }
       />
 
-      <div className="flex items-center gap-2 rounded-lg border border-dashed border-border bg-muted/40 px-3 py-2 text-[11.5px] text-muted-foreground">
-        <VersionTag>vista previa</VersionTag>
+      <div className="flex flex-wrap items-center gap-2 rounded-lg border border-dashed border-border bg-muted/40 px-3 py-2 text-[11.5px] text-muted-foreground">
+        <VersionTag className="shrink-0 whitespace-nowrap">vista previa</VersionTag>
         Esta pantalla todavía no guarda nada en el servidor: es el diseño del flujo, antes de conectarla a una API real.
       </div>
 
@@ -231,7 +231,7 @@ export function OffersPage() {
             </div>
           </form>
         ) : (
-          <div className="flex items-start justify-between gap-3">
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <div className="flex flex-col gap-1">
               <p className="text-[15.5px] font-bold tracking-tight">{profile.name}</p>
               <p className="text-[11.5px] text-muted-foreground">
@@ -318,14 +318,14 @@ export function OffersPage() {
         </div>
       )}
 
-      <Card className="flex items-center justify-between gap-3 p-4">
+      <Card className="flex flex-col items-start justify-between gap-3 p-4 sm:flex-row sm:items-center">
         <div className="flex flex-col gap-0.5">
           <p className="text-[12.5px] font-semibold">¿Cómo se calcula el ranking?</p>
           <p className="text-[11.5px] text-muted-foreground">
             El motor no se compra: cercanía, disponibilidad, capacidad y precio deciden el orden. Nada de esto lo cambia tu plan.
           </p>
         </div>
-        <Button asChild variant="ghost" size="sm">
+        <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto">
           <a href="/mercado" target="_blank" rel="noreferrer">
             Ver el mercado <ExternalLink />
           </a>
@@ -361,7 +361,7 @@ export function OffersPage() {
               />
             </Field>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Field label="Radio de cobertura (km)" required>
                 <Input
                   type="number"

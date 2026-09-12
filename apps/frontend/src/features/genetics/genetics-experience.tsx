@@ -166,6 +166,46 @@ export function SceneControls({
   );
 }
 
+/**
+ * Sonido del encuentro: una sola instancia, adjunta al DOM (oculta) y
+ * reiniciada en cada play() en vez de un `new Audio()` por click, para que
+ * "Repetir el recorrido" retrigger el mismo efecto sin superponer
+ * instancias. Nunca bloquea el recorrido visual: si falla —autoplay
+ * bloqueado, códec no soportado, lo que sea— se traga el error y sólo
+ * queda un aviso en consola para poder diagnosticarlo.
+ */
+let encounterSound: HTMLAudioElement | null = null;
+
+function getEncounterSound(): HTMLAudioElement {
+  if (encounterSound) return encounterSound;
+  const audio = new Audio();
+  audio.src = '/sounds/encounter-reveal.mp3';
+  audio.preload = 'auto';
+  audio.volume = 0.6;
+  // Adjunto (oculto) en vez de un elemento suelto: algunas versiones de
+  // Chrome son más estrictas con la política de autoplay para audio que
+  // nunca formó parte del documento.
+  audio.style.display = 'none';
+  document.body.appendChild(audio);
+  audio.addEventListener('error', () => {
+    console.warn('[genetics] no se pudo cargar el sonido del encuentro', audio.error);
+  });
+  encounterSound = audio;
+  return audio;
+}
+
+function playEncounterSound() {
+  try {
+    const audio = getEncounterSound();
+    audio.currentTime = 0;
+    audio.play().catch((err: unknown) => {
+      console.warn('[genetics] el navegador bloqueó la reproducción del sonido', err);
+    });
+  } catch (err) {
+    console.warn('[genetics] Audio no disponible en este entorno', err);
+  }
+}
+
 /** Animation state never participates in matching calculations or API requests. */
 export function useEncounterSequence() {
   const { still } = useGeneticsMotion();
@@ -208,6 +248,7 @@ export function useEncounterSequence() {
       setProgress(0);
       setActive(true);
       setSequence((n) => n + 1);
+      playEncounterSound();
     },
     reset: () => {
       scrubbed.current = true;
