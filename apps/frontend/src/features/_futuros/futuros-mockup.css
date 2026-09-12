@@ -129,6 +129,12 @@
 
   /* Mercado: hero de necesidad. */
   .futuros-page .market-hero{min-height:500px;border:0;border-radius:16px;background:#dfe7d1;display:block;position:relative;overflow:hidden}
+  /* market-fill: la home de Mercado no tiene market-foot ni más contenido
+     abajo, así que el hero pasa a ocupar todo el alto disponible en vez de
+     dejar un espacio muerto debajo de la tarjeta. */
+  .futuros-page.market-fill{display:flex;flex-direction:column;height:100%}
+  .futuros-page.market-fill .market-hero{flex:1;min-height:0}
+  .futuros-page.market-fill .market-copy{height:100%;display:flex;flex-direction:column;justify-content:center}
   .futuros-page .market-copy{padding:38px 0 30px 34px;width:48%;position:relative;z-index:5}
   .futuros-page .market-copy .eyebrow{font-size:9px}
   .futuros-page .market-copy h1{font-size:58px;line-height:.99;letter-spacing:-3.4px;margin:18px 0;max-width:560px}

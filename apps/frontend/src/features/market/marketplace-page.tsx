@@ -157,7 +157,7 @@ export function MarketplacePage() {
   }
 
   return (
-    <div className="futuros-page">
+    <div className="futuros-page market-fill">
       <section className="market-hero">
         <div className="market-copy">
           <span className="eyebrow muted">Mercado y oportunidades</span>
@@ -242,16 +242,8 @@ export function MarketplacePage() {
               Tu necesidad
             </span>
           </SpatialLabel>
-          <span className="pointer-events-none absolute bottom-2 left-3 z-[2] text-[9px] text-[#4f6b45]">
-            Vista conceptual, no representa proveedores reales
-          </span>
         </SpatialScene>
       </section>
-      <div className="market-foot">
-        <span>
-          <strong>Prestadores por suscripción.</strong> Sin comisión por trabajo ni pago por posición.
-        </span>
-      </div>
     </div>
   );
 }
