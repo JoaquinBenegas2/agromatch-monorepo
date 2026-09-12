@@ -11,6 +11,7 @@ import { StatCard } from '@/components/ui/stat-card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getActiveUserId, useActiveFarmId } from '../../shared/user/user-context.js';
 import { useBulls } from '../../shared/api/hooks/use-bulls.js';
+import { useFemales } from '../../shared/api/hooks/use-herd.js';
 import { useAutoPlan, useRemovePlanItem } from '../../shared/api/hooks/use-plan-item-mutations.js';
 import { usePlan } from '../../shared/api/hooks/use-plan.js';
 
@@ -27,13 +28,17 @@ const SEMEN_LABEL: Record<string, string> = {
   BEEF: 'Carne',
 };
 
+const TIER_LABEL: Record<string, string> = {
+  ELITE: 'Élite',
+  COMMERCIAL: 'Comercial',
+  BEEF: 'Carne',
+  CULL_ALERT: 'Alerta de descarte',
+};
+
 /**
  * D5 (REQ-D-14): tab "Plan de servicios" de `/negociacion/plan`. `PlanItem`
- * solo guarda el id interno de la hembra (mvp-c-herd todavía no publica
- * `GET /farms/:farmId/females`, así que no hay `visualId`/`tier` para unir
- * acá) — se muestra ese id como identificador de la hembra hasta que exista
- * ese endpoint; el CSV (REQ-D-13) sí los resuelve porque el backend habla
- * directo con `FemaleRepo`/`ClassificationRepo`.
+ * solo guarda el id interno de la hembra: la caravana (`visualId`) y el tier
+ * se unen acá con `GET /farms/:farmId/females` (mvp-c-herd).
  */
 export function PlanScreen() {
   const [activeFarmId] = useActiveFarmId();
@@ -41,11 +46,13 @@ export function PlanScreen() {
   const navigate = useNavigate();
   const { data: plan, isLoading, isError, error } = usePlan(activeFarmId);
   const { data: bulls } = useBulls();
+  const { data: females } = useFemales(farmId);
   const removeItem = useRemovePlanItem(farmId);
   const autoPlan = useAutoPlan(farmId);
   const [removingId, setRemovingId] = useState<string | null>(null);
 
   const bullsByNaab = new Map((bulls ?? []).map((b) => [b.naab, b]));
+  const femalesById = new Map((females ?? []).map((f) => [f.id, f]));
 
   const exportUrl = farmId ? `/api/farms/${farmId}/plan/export.csv` : undefined;
 
@@ -142,6 +149,7 @@ export function PlanScreen() {
         <TableHeader>
           <TableRow>
             <TableHead>Hembra</TableHead>
+            <TableHead>Tier</TableHead>
             <TableHead>Toro</TableHead>
             <TableHead>Central</TableHead>
             <TableHead>Tipo de semen</TableHead>
@@ -153,13 +161,18 @@ export function PlanScreen() {
         <TableBody>
           {plan.items.map((item) => {
             const bull = bullsByNaab.get(item.bullNaab);
+            const female = femalesById.get(item.femaleId);
+            const tier = female?.classification?.tier;
             return (
               <TableRow
                 key={item.femaleId}
                 className="cursor-pointer"
                 onClick={() => navigate(`/motor-genetico/matching/${item.femaleId}`)}
               >
-                <TableCell className="font-mono">{item.femaleId}</TableCell>
+                <TableCell className="font-mono">{female?.visualId ?? item.femaleId}</TableCell>
+                <TableCell>
+                  {tier ? <Badge variant="neutral">{TIER_LABEL[tier] ?? tier}</Badge> : '—'}
+                </TableCell>
                 <TableCell>{bull?.name ?? item.bullNaab}</TableCell>
                 <TableCell className="text-muted-foreground">{bull?.company ?? '—'}</TableCell>
                 <TableCell>

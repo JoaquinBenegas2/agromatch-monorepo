@@ -279,6 +279,16 @@
       "reputation": { "avg": null, "jobs": 0 },
       "contact": { "phone": "+54 11 4962 8442", "email": "inseminacion@select-debernardi.com" },
       "source": "https://selectsires.com.ar/"
+    },
+    {
+      "id": "prov-genex",
+      "name": "GENEX",
+      "type": "SEMEN_COMPANY",
+      "base": { "lat": 44.782, "lng": -88.609, "label": "Shawano, Wisconsin (EE. UU.)" },
+      "verified": false,
+      "reputation": { "avg": null, "jobs": 0 },
+      "contact": {},
+      "source": "GENEX Canada Beef Sire Directory 2026 (https://www.genexcanada.ca/uploads/userfiles/files/2026%20GENEX%20Canada%20Beef%20Directory-LR.pdf); sede de la cooperativa según https://www.genex.coop/. Sin representación argentina confirmada: se muestra como no verificado."
     }
   ],
   "capabilities": [
@@ -318,6 +328,24 @@
     { "id": "200JE01234", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
     { "id": "007AN01111", "providerId": "prov-select-sires-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
     { "id": "008HE02222", "providerId": "prov-select-sires-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
-    { "id": "009LM03333", "providerId": "prov-select-sires-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } }
+    { "id": "009LM03333", "providerId": "prov-select-sires-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": true } },
+    { "id": "29HO22402", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22460", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22788", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO23028", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22668", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22659", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22622", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22620", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22621", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22734", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22736", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22735", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "29HO22687", "providerId": "prov-abs-argentina", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 1500, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "001AN01694", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "001AN01702", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "001AN01709", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "001AN01711", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } },
+    { "id": "001HP00860", "providerId": "prov-genex", "category": "GENETICS", "serviceType": "semen bovino", "coverageRadiusKm": 20000, "availability": [{ "from": "2026-01-01", "to": "2027-12-31" }], "priceModel": "QUOTE", "certifications": [], "attributes": { "seed": false, "catalog": "A6 bulls.json" } }
   ]
 }

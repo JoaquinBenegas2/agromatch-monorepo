@@ -7,6 +7,7 @@ import {
   AnthropicLlmClient,
   GeneticsChatPort,
   HerdIngestion,
+  LlmUnavailableError,
 } from '@org/ai';
 import type { ZodType } from 'zod';
 import {
@@ -35,7 +36,18 @@ function isLive(): boolean {
  */
 function createLazyLiveLlmClient(): LlmClient {
   let client: LlmClient | null = null;
-  const get = (): LlmClient => (client ??= new AnthropicLlmClient());
+  const get = (): LlmClient => {
+    if (client) return client;
+    try {
+      client = new AnthropicLlmClient();
+    } catch (err) {
+      // Sin ANTHROPIC_API_KEY el constructor lanza un Error plano: se traduce
+      // a LlmUnavailableError para que el filtro global responda 502
+      // LLM_UNAVAILABLE con el motivo, y no un 500 INTERNAL_ERROR opaco.
+      throw new LlmUnavailableError(err);
+    }
+    return client;
+  };
   return {
     completeJson: <T>(prompt: LlmPrompt, schema: ZodType<T>) => get().completeJson(prompt, schema),
     completeText: (prompt: LlmPrompt) => get().completeText(prompt),
