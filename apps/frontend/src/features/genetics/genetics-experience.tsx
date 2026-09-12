@@ -167,6 +167,24 @@ export function SceneControls({
 }
 
 /** Animation state never participates in matching calculations or API requests. */
+/** Sonido del encuentro: una sola instancia reutilizada (no un `new Audio()`
+ * por click) para que "Repetir el recorrido" reinicie el mismo efecto en
+ * vez de superponer instancias. Si el navegador bloquea el autoplay o no
+ * hay soporte de audio, el error se ignora: no rompe el recorrido visual
+ * por un sonido que no pudo sonar. */
+let encounterSound: HTMLAudioElement | null = null;
+
+function playEncounterSound() {
+  try {
+    encounterSound ??= new Audio('/sounds/encounter-reveal.mp3');
+    encounterSound.currentTime = 0;
+    encounterSound.volume = 0.6;
+    void encounterSound.play().catch(() => undefined);
+  } catch {
+    // Sin soporte de Audio en este entorno: el recorrido sigue sin sonido.
+  }
+}
+
 export function useEncounterSequence() {
   const { still } = useGeneticsMotion();
   const [sequence, setSequence] = useState(0);
@@ -208,6 +226,7 @@ export function useEncounterSequence() {
       setProgress(0);
       setActive(true);
       setSequence((n) => n + 1);
+      playEncounterSound();
     },
     reset: () => {
       scrubbed.current = true;
