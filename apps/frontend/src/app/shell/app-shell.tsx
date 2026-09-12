@@ -30,7 +30,6 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { AccountMenu } from './account-menu.js';
-import { ChatPanel, ChatToggleButton } from './chat-panel.js';
 import { FarmSelect } from './farm-select.js';
 import { ModuleTabBar } from './module-tab-bar.js';
 import { findModuleByPath, NAV_MODULES } from './nav.js';
@@ -48,7 +47,6 @@ const MODULE_ICONS: Record<string, React.ReactNode> = {
 export function AppShell() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [chatOpen, setChatOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const activeModule = findModuleByPath(pathname);
   const activeTab = activeModule?.tabs.find((tab) =>
@@ -59,7 +57,9 @@ export function AppShell() {
   // le devuelve el alto que hacía falta para que la pantalla entre sin scroll.
   const showTopbar = pathname !== '/mercado';
   const geneticExperience =
-    /^\/motor-genetico\/(matching|tablero|importar)(\/|$)/.test(pathname);
+    /^\/motor-genetico\/(matching|tablero|importar|plan)(\/|$)/.test(
+      pathname,
+    );
   const [farmId] = useActiveFarmId();
   const { user } = useUser();
 
@@ -150,10 +150,7 @@ export function AppShell() {
                 )}
               </BreadcrumbList>
             </Breadcrumb>
-            <div className="flex items-center gap-3">
-              <FarmSelect />
-              <ChatToggleButton onClick={() => setChatOpen((open) => !open)} />
-            </div>
+            <FarmSelect />
           </Topbar>
         )}
 
@@ -168,7 +165,6 @@ export function AppShell() {
               <Outlet />
             )}
           </ShellContent>
-          <ChatPanel open={chatOpen} onClose={() => setChatOpen(false)} />
         </div>
       </ShellMain>
     </Shell>

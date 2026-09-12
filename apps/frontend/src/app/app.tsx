@@ -8,6 +8,7 @@ import { MarketplacePage } from '../features/market/marketplace-page.js';
 import { MatchingScreen } from '../features/matching/matching-screen.js';
 import { NotFoundPage } from './not-found-page.js';
 import { NegotiationsPage } from '../features/negotiations/negotiations-page.js';
+import { OffersPage } from '../features/offers/offers-page.js';
 import { EstablishmentPage } from '../features/establishment/establishment-page.js';
 
 export function App() {
@@ -23,14 +24,14 @@ export function App() {
           element={<MatchingScreen />}
         />
         <Route path="/motor-genetico/asesor" element={<AdvisorRoute />} />
+        <Route path="/motor-genetico/plan" element={<PlanScreen />} />
         <Route path="/motor-genetico/*" element={<ModulePage />} />
-        <Route path="/negociacion/plan" element={<PlanScreen />} />
         <Route
           path="/negociacion/matches/:id?"
           element={<NegotiationsPage />}
         />
         <Route path="/negociacion/*" element={<ModulePage />} />
-        <Route path="/ofertas" element={<ModulePage />} />
+        <Route path="/ofertas" element={<OffersPage />} />
         {/* Cualquier URL que no exista: mensaje y salida dentro del shell, nunca una pantalla en blanco. */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>

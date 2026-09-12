@@ -21,8 +21,8 @@ const ROUTES = [
   '/motor-genetico/tablero',
   '/motor-genetico/importar',
   '/motor-genetico/asesor',
+  '/motor-genetico/plan',
   '/negociacion/matches',
-  '/negociacion/plan',
   '/ofertas',
 ];
 
