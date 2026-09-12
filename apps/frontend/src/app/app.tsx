@@ -8,6 +8,7 @@ import { MarketplacePage } from '../features/market/marketplace-page.js';
 import { MatchingScreen } from '../features/matching/matching-screen.js';
 import { NotFoundPage } from './not-found-page.js';
 import { NegotiationsPage } from '../features/negotiations/negotiations-page.js';
+import { OffersPage } from '../features/offers/offers-page.js';
 import { EstablishmentPage } from '../features/establishment/establishment-page.js';
 
 export function App() {
@@ -30,7 +31,7 @@ export function App() {
           element={<NegotiationsPage />}
         />
         <Route path="/negociacion/*" element={<ModulePage />} />
-        <Route path="/ofertas" element={<ModulePage />} />
+        <Route path="/ofertas" element={<OffersPage />} />
         {/* Cualquier URL que no exista: mensaje y salida dentro del shell, nunca una pantalla en blanco. */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
