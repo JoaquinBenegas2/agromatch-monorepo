@@ -97,6 +97,11 @@ try {
     # ── Front (Vite) ─────────────────────────────────────────────────────────
     if ($hacer.front) {
         if (-not $SkipBuild) {
+            # Vite NO hace typecheck al compilar: un `ReferenceError` por una variable borrada
+            # en un merge pasa el build y explota en el navegador. El typecheck lo frena aca.
+            Paso 'front - typecheck'
+            npx nx typecheck frontend
+            if ($LASTEXITCODE -ne 0) { Fallar "front - typecheck fallo (exit $LASTEXITCODE)" }
             Paso 'front - build'
             npx nx build frontend --skip-nx-cache
             if ($LASTEXITCODE -ne 0) { Fallar "front - nx build fallo (exit $LASTEXITCODE)" }

@@ -49,11 +49,12 @@ export function AppShell() {
 
   // Título por pantalla: pestaña del navegador, historial y previews de links.
   useEffect(() => {
+    const activeTab = activeModule?.tabs.find((tab) => pathname.startsWith(tab.path));
     const parts = [activeTab?.label, activeModule?.label].filter(
       (p, i, arr) => p && arr.indexOf(p) === i,
     );
     document.title = [...parts, 'AgroMatch'].join(' · ');
-  }, [activeModule, activeTab]);
+  }, [activeModule, pathname]);
 
   useEffect(() => {
     if (!sidebarOpen) return;
