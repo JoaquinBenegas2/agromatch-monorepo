@@ -16,12 +16,12 @@
 
 ## 3. Home marketplace y proveedores — M6 + M7
 
-- [ ] 3.1 M7 Reemplazar `packages/shared-types/fixtures/providers.json` por al menos 25 proveedores públicos de maquinaria/veterinaria y uno genético por central, todos `verified: false`, con `source` y dos zonas; verificar con el test Nx de `shared-types` y el escenario de cobertura de REQ-B-12.
-- [ ] 3.2 M6 Implementar hooks React Query y handlers MSW de `features/market` para intake, confirmación, matching y solicitud usando los fixtures compartidos; verificar el recorrido completo sin backend y que el contacto no exista antes de pedir fecha.
-- [ ] 3.3 M6 Implementar el estado cero de `/mercado` según la referencia visual, con saludo real, caja, micrófono deshabilitado y los tres chips del MVP; verificar que entrar no haga `POST /needs` y que el sidebar marque Mercado y oportunidades.
-- [ ] 3.4 M6 Implementar la ficha interpretada con cuatro filas editables, avisos para confianza baja/campos faltantes, edición de consulta y confirmación; verificar los escenarios de campo dudoso, corrección y reemplazo de resultados de REQ-B-07.
-- [ ] 3.5 M6 Implementar resultados con resumen, ordenamientos locales, `OfferCard`, `#N de M`, `VerificationBadge`, etiqueta Semilla, `AiExplanation`, excluidos y solicitud; verificar que ordenar por precio no haga una request ni altere los ranks y que pedir fecha revele contacto.
-- [ ] 3.6 M6 Implementar la derivación de `GENETICS` a `/motor-genetico/matching` sin ejecutar matching genérico, más estados vacío, cargando, error real y sin proveedores; verificar todos los escenarios REQ-B-10/11, build/typecheck/lint Nx y capturas de los tres estados para la PR.
+- [x] 3.1 M7 Reemplazar `packages/shared-types/fixtures/providers.json` por al menos 25 proveedores públicos de maquinaria/veterinaria y uno genético por central, todos `verified: false`, con `source` y dos zonas; verificar con el test Nx de `shared-types` y el escenario de cobertura de REQ-B-12.
+- [x] 3.2 M6 Implementar hooks React Query y handlers MSW de `features/market` para intake, confirmación, matching y solicitud usando los fixtures compartidos; verificar el recorrido completo sin backend y que el contacto no exista antes de pedir fecha.
+- [x] 3.3 M6 Implementar el estado cero de `/mercado` según la referencia visual, con saludo real, caja, micrófono deshabilitado y los tres chips del MVP; verificar que entrar no haga `POST /needs` y que el sidebar marque Mercado y oportunidades.
+- [x] 3.4 M6 Implementar la ficha interpretada con cuatro filas editables, avisos para confianza baja/campos faltantes, edición de consulta y confirmación; verificar los escenarios de campo dudoso, corrección y reemplazo de resultados de REQ-B-07.
+- [x] 3.5 M6 Implementar resultados con resumen, ordenamientos locales, `OfferCard`, `#N de M`, `VerificationBadge`, etiqueta Semilla, `AiExplanation`, excluidos y solicitud; verificar que ordenar por precio no haga una request ni altere los ranks y que pedir fecha revele contacto.
+- [x] 3.6 M6 Implementar la derivación de `GENETICS` a `/motor-genetico/matching` sin ejecutar matching genérico, más estados vacío, cargando, error real y sin proveedores; verificar todos los escenarios REQ-B-10/11, build/typecheck/lint Nx y capturas de los tres estados para la PR.
 
 ## 4. Anexo: panel del asesor — B6 + D6
 

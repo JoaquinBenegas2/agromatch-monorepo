@@ -1,0 +1,494 @@
+[
+  {
+    "naab": "029HO19531",
+    "name": "Fundador 19531",
+    "company": "Central Genética Norte",
+    "breed": "HO",
+    "profile": {
+      "traits": { "ci": 620, "milk": 780, "fat": 1.4, "pro": 24, "pl": 2.1, "scs": 2.75, "fs": -40, "rfi": 3.1 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "BB",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": null,
+    "calvingEase": 2.8,
+    "semenTypes": ["CONVENTIONAL", "SEXED"],
+    "pricePerDose": 18,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "029HO21010",
+    "name": "Vanguardia 21010",
+    "company": "Central Genética Sur",
+    "breed": "HO",
+    "profile": {
+      "traits": { "ci": 580, "milk": 710, "fat": 1.1, "pro": 20, "pl": 1.2, "scs": 2.95, "fs": -60, "rfi": 4.0 },
+      "betaCasein": "A1/A2",
+      "kappaCasein": "AB",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": null,
+    "calvingEase": 3.1,
+    "semenTypes": ["SEXED", "CONVENTIONAL"],
+    "pricePerDose": 22,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "029HO20001",
+    "name": "Heredero 20001",
+    "company": "Central Genética Norte",
+    "breed": "HO",
+    "profile": {
+      "traits": { "ci": 640, "milk": 800, "fat": 1.5, "pro": 25, "pl": 2.4, "scs": 2.7, "fs": -20, "rfi": 2.8 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "BB",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": "029HO19531",
+    "calvingEase": 2.6,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": 20,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "029HO20002",
+    "name": "Legado 20002",
+    "company": "Central Genética Norte",
+    "breed": "HO",
+    "profile": {
+      "traits": { "ci": 560, "milk": 690, "fat": 0.9, "pro": 19, "pl": 0.8, "scs": 3.05, "fs": -85, "rfi": 4.6 },
+      "betaCasein": "A1/A2",
+      "kappaCasein": "AA",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": "029HO19531",
+    "calvingEase": 3.3,
+    "semenTypes": ["SEXED"],
+    "pricePerDose": 24,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "029HO20100",
+    "name": "Cumbre 20100",
+    "company": "Central Genética Sur",
+    "breed": "HO",
+    "profile": {
+      "traits": { "ci": 660, "milk": 820, "fat": 1.6, "pro": 26, "pl": 2.6, "scs": 2.6, "fs": 10, "rfi": 2.2 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "BB",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": "029HO18000",
+    "calvingEase": 2.4,
+    "semenTypes": ["CONVENTIONAL", "SEXED"],
+    "pricePerDose": 28,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "029HO20200",
+    "name": "Estirpe 20200",
+    "company": "Central Genética Sur",
+    "breed": "HO",
+    "profile": {
+      "traits": { "ci": 500, "milk": 620, "fat": 0.6, "pro": 16, "pl": 0.2, "scs": 3.1, "fs": -110, "rfi": 5.4 },
+      "betaCasein": "A1/A1",
+      "kappaCasein": "AA",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": "029HO18100",
+    "calvingEase": 3.6,
+    "semenTypes": ["SEXED"],
+    "pricePerDose": 15,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "029HO20300",
+    "name": "Trayecto 20300",
+    "company": "Central Genética Norte",
+    "breed": "HO",
+    "profile": {
+      "traits": { "ci": 610, "milk": 760, "fat": 1.3, "pro": 23, "pl": 1.9, "scs": 2.9, "fs": -30, "rfi": 3.4 },
+      "betaCasein": "A1/A2",
+      "kappaCasein": "AB",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": "029HO18200",
+    "calvingEase": 2.9,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": 19,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "029HO20400",
+    "name": "Referente 20400",
+    "company": "Central Genética Sur",
+    "breed": "HO",
+    "profile": {
+      "traits": { "ci": 480, "milk": 590, "fat": 0.4, "pro": 15, "pl": -0.2, "scs": 3.2, "fs": -130, "rfi": 6.0 },
+      "betaCasein": "A1/A1",
+      "kappaCasein": "AE",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": "029HO18300",
+    "calvingEase": 3.9,
+    "semenTypes": ["SEXED", "CONVENTIONAL"],
+    "pricePerDose": 14,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "200JE01234",
+    "name": "Isleño 1234",
+    "company": "Central Genética Norte",
+    "breed": "JE",
+    "profile": {
+      "traits": { "ci": 590, "milk": 520, "fat": 2.1, "pro": 27, "pl": 1.8, "scs": 2.85, "fs": -15, "rfi": 3.6 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "BB",
+      "scale": "CDCB",
+      "source": "SEED PROVISORIO"
+    },
+    "sireNaab": null,
+    "calvingEase": 2.2,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": 21,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "007AN01111",
+    "name": "Angus Cimarrón",
+    "company": "Central Genética Carne",
+    "breed": "AN",
+    "profile": null,
+    "sireNaab": null,
+    "calvingEase": 4.2,
+    "semenTypes": ["BEEF"],
+    "pricePerDose": 12,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "008HE02222",
+    "name": "Hereford Colorado",
+    "company": "Central Genética Carne",
+    "breed": "HE",
+    "profile": null,
+    "sireNaab": null,
+    "calvingEase": 3.8,
+    "semenTypes": ["BEEF"],
+    "pricePerDose": 11,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "009LM03333",
+    "name": "Limousin Fuerte",
+    "company": "Central Genética Carne",
+    "breed": "LM",
+    "profile": null,
+    "sireNaab": null,
+    "calvingEase": 5.1,
+    "semenTypes": ["BEEF"],
+    "pricePerDose": 13,
+    "source": "SEED PROVISORIO"
+  },
+  {
+    "naab": "29HO22402",
+    "name": "ABS 18 GALACTIC-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 849, "fat": 124, "pro": 55, "pl": 4.4, "scs": 2.92 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "AB",
+      "scale": "CDCB",
+      "source": "ABS BullSearch (https://absbullsearch.absglobal.com/details/bull/29HO22402/D/USA/HOLSTEIN/EN/USA/ZAF)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "ABS BullSearch (https://absbullsearch.absglobal.com/details/bull/29HO22402/D/USA/HOLSTEIN/EN/USA/ZAF); PTA agosto 2026, base NAAB Complete AISS. RFI real publicado (165) no incluido: escala no verificada contra el rfi ya usado en este fixture. semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado). sireNaab: el pedigree identifica al padre por nombre/registro, no por NAAB."
+  },
+  {
+    "naab": "29HO22460",
+    "name": "CHERRY-ACRES ABS LOTTERY-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 945, "fat": 131, "pro": 55, "pl": 3.8, "scs": 2.88 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "AA",
+      "scale": "CDCB",
+      "source": "ABS BullSearch (https://absbullsearch.absglobal.com/details/bull/29HO22460/D/USA/HOLSTEIN/EN/USA/ZAF)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "ABS BullSearch (https://absbullsearch.absglobal.com/details/bull/29HO22460/D/USA/HOLSTEIN/EN/USA/ZAF); PTA agosto 2026, base NAAB Complete AISS. RFI real publicado (-54) no incluido: escala no verificada contra el rfi ya usado en este fixture. semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado). sireNaab: el pedigree identifica al padre por nombre/registro, no por NAAB."
+  },
+  {
+    "naab": "29HO22788",
+    "name": "ABS 36 BENTLEY-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1386, "fat": 112, "pro": 62, "pl": 3.9, "scs": 2.94 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "AB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO23028",
+    "name": "WET MERLOT-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1468, "fat": 104, "pro": 56, "pl": 4.2, "scs": 2.81 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "AB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22668",
+    "name": "BOMAZ ROYALIST-P-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 579, "fat": 107, "pro": 42, "pl": 4.2, "scs": 2.86 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "BB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22659",
+    "name": "BOMAZ RECRUIT-PP-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1074, "fat": 92, "pro": 39, "pl": 2.9, "scs": 3.03 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "AB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22622",
+    "name": "BOMAZ BANDITOS-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1598, "fat": 104, "pro": 67, "pl": 3.5, "scs": 3.05 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "AB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22620",
+    "name": "BOMAZ ENDRES-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1338, "fat": 105, "pro": 56, "pl": 4.2, "scs": 2.97 },
+      "betaCasein": "A1/A2",
+      "kappaCasein": "BB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22621",
+    "name": "BOMAZ GRADY-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1284, "fat": 108, "pro": 56, "pl": 3.8, "scs": 2.75 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "AA",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22734",
+    "name": "DENOVO 24492 MERIT-P-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1194, "fat": 111, "pro": 55, "pl": 4.2, "scs": 2.81 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "BB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22736",
+    "name": "DENOVO 24486 MILKYWAY-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1922, "fat": 118, "pro": 61, "pl": 2.5, "scs": 2.90 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "AB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22735",
+    "name": "DENOVO 24431 REDWOOD-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 362, "fat": 92, "pro": 40, "pl": 4.5, "scs": 2.71 },
+      "betaCasein": "A2/A2",
+      "kappaCasein": "BB",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "29HO22687",
+    "name": "DENOVO 24386 WARDEN-ET",
+    "company": "ABS Global",
+    "breed": "HO",
+    "profile": {
+      "traits": { "milk": 1266, "fat": 92, "pro": 56, "pl": 4.8, "scs": 3.02 },
+      "betaCasein": "A1/A2",
+      "kappaCasein": "AA",
+      "scale": "CDCB",
+      "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip)"
+    },
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["CONVENTIONAL"],
+    "pricePerDose": null,
+    "source": "NAAB Complete AISS, agosto 2026 (https://www.naab-css.org/uploads/userfiles/files/Complete%20AISS%2813%29.zip). semenTypes: no publicado, se asume CONVENTIONAL por ser un sire comercializado (no confirmado sexado)."
+  },
+  {
+    "naab": "001AN01694",
+    "name": "SCHIEFELBEIN TOP GUN 522",
+    "company": "GENEX",
+    "breed": "AN",
+    "profile": null,
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["BEEF"],
+    "pricePerDose": null,
+    "source": "GENEX Canada Beef Sire Directory 2026 (https://www.genexcanada.ca/uploads/userfiles/files/2026%20GENEX%20Canada%20Beef%20Directory-LR.pdf). Publica CED 2 (EPD de facilidad de parto, escala Angus: más alto es mejor). No se vuelca a `calvingEase` (escala del proyecto: más bajo es mejor) sin una fórmula de conversión verificada -- queda sin dato antes que mal convertido."
+  },
+  {
+    "naab": "001AN01702",
+    "name": "PEAK DRAFT PICK",
+    "company": "GENEX",
+    "breed": "AN",
+    "profile": null,
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["BEEF"],
+    "pricePerDose": null,
+    "source": "GENEX Canada Beef Sire Directory 2026 (https://www.genexcanada.ca/uploads/userfiles/files/2026%20GENEX%20Canada%20Beef%20Directory-LR.pdf). Publica CED 10 (EPD de facilidad de parto, escala Angus: más alto es mejor). No se vuelca a `calvingEase` sin una fórmula de conversión verificada."
+  },
+  {
+    "naab": "001AN01709",
+    "name": "BALDRIDGE GRINDSTONE",
+    "company": "GENEX",
+    "breed": "AN",
+    "profile": null,
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["BEEF"],
+    "pricePerDose": null,
+    "source": "GENEX Canada Beef Sire Directory 2026 (https://www.genexcanada.ca/uploads/userfiles/files/2026%20GENEX%20Canada%20Beef%20Directory-LR.pdf). Publica CED 7 (EPD de facilidad de parto, escala Angus: más alto es mejor). No se vuelca a `calvingEase` sin una fórmula de conversión verificada."
+  },
+  {
+    "naab": "001AN01711",
+    "name": "MOHNEN DISCIPLINE",
+    "company": "GENEX",
+    "breed": "AN",
+    "profile": null,
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["BEEF"],
+    "pricePerDose": null,
+    "source": "GENEX Canada Beef Sire Directory 2026 (https://www.genexcanada.ca/uploads/userfiles/files/2026%20GENEX%20Canada%20Beef%20Directory-LR.pdf). Publica CED 10 (EPD de facilidad de parto, escala Angus: más alto es mejor). No se vuelca a `calvingEase` sin una fórmula de conversión verificada."
+  },
+  {
+    "naab": "001HP00860",
+    "name": "CHURCHILL RED THUNDER 133J ET",
+    "company": "GENEX",
+    "breed": "HE",
+    "profile": null,
+    "sireNaab": null,
+    "calvingEase": null,
+    "semenTypes": ["BEEF"],
+    "pricePerDose": null,
+    "source": "GENEX Canada Beef Sire Directory 2026 (https://www.genexcanada.ca/uploads/userfiles/files/2026%20GENEX%20Canada%20Beef%20Directory-LR.pdf). Publica CE 3.5 (EPD de facilidad de parto, Hereford). No se vuelca a `calvingEase` sin una fórmula de conversión verificada contra la escala del proyecto."
+  }
+]

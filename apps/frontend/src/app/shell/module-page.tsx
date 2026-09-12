@@ -1,5 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useUser } from '../../shared/user/user-context.js';
+import { HerdImportPage } from '../../features/herd-import/herd-import-page.js';
+import { HerdPage } from '../../features/herd/herd-page.js';
 import { findTabByPath } from './nav.js';
 import {
   EstablecimientoPlaceholder,
@@ -23,6 +25,9 @@ export function ModulePage() {
   if (tab.roles && !tab.roles.includes(user.role)) {
     return <ForbiddenTabPlaceholder />;
   }
+  const farmId = user.farmIds[0];
+  if (pathname.startsWith('/motor-genetico/importar') && farmId) return <HerdImportPage farmId={farmId} />;
+  if (pathname.startsWith('/motor-genetico/tablero') && farmId) return <HerdPage farmId={farmId} />;
 
   switch (tab.status) {
     case 'pending':

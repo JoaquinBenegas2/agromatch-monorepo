@@ -40,6 +40,8 @@ export class PrismaFemaleRepo implements FemaleRepo {
   }
 
   async upsertMany(farmId: string, females: Female[]): Promise<number> {
+    const visualIds = females.map((female) => female.visualId);
+    await this.prisma.female.deleteMany({ where: { farmId, visualId: { notIn: visualIds } } });
     let count = 0;
     for (const f of females) {
       await this.prisma.female.upsert({

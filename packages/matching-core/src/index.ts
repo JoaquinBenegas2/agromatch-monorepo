@@ -1,1 +1,3 @@
-export * from './lib/matching-core.js';
+export * from './filters.js';
+export * from './score.js';
+export * from './registry.js';

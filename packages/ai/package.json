@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.125.0",
+    "@org/genetics-core": "^0.0.1",
     "@org/shared-types": "0.0.1",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zod": "^4.6.2"
   }
 }

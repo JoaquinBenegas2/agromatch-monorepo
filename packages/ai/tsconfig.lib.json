@@ -12,6 +12,9 @@
   "references": [
     {
       "path": "../shared-types/tsconfig.lib.json"
+    },
+    {
+      "path": "../genetics-core/tsconfig.lib.json"
     }
   ],
   "exclude": [
