@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { MatchBoard, Need, PublicProvider, ServiceRequest, UpdateNeedBody } from '@org/shared-types';
 import { Filter, Mic, Send, Sparkles, Stethoscope, Tractor } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -69,9 +69,15 @@ export function MarketplacePage() {
   const createReview = useCreateReview();
   const providers = useProviders(need?.category);
   const error = mutationError(createNeed.error, updateNeed.error, matchNeed.error);
-  const speech = useSpeechToText((transcript) =>
-    setQuery((current) => (current.trim() ? `${current.trim()} ${transcript}` : transcript)),
-  );
+  const queryRef = useRef(query);
+  queryRef.current = query;
+  // Ni bien el reconocimiento de voz termina de interpretar lo que dijiste,
+  // dispara la búsqueda solo — no hace falta tocar "Preguntar" después.
+  const speech = useSpeechToText((transcript) => {
+    const next = queryRef.current.trim() ? `${queryRef.current.trim()} ${transcript}` : transcript;
+    setQuery(next);
+    void ask(next).catch(() => undefined);
+  });
 
   async function ask(rawText: string) {
     if (!farmId || !rawText.trim()) return;
