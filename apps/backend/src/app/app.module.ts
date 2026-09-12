@@ -7,6 +7,7 @@ import { PrismaModule } from '../prisma/prisma.module.js';
 import { RepositoriesModule } from '../repos/repositories.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { GeneticMatchingModule } from './genetic-matching/genetic-matching.module.js';
 import { MatchingModule } from './matching/matching.module.js';
 import { NeedsModule } from './needs/needs.module.js';
 import { ProvidersModule } from './providers/providers.module.js';
@@ -22,6 +23,7 @@ import { SmokeController } from './smoke.controller.js';
     NeedsModule,
     ProvidersModule,
     MatchingModule,
+    GeneticMatchingModule,
     RequestsModule,
   ],
   controllers: [AppController, SmokeController],
