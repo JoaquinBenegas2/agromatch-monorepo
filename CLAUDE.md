@@ -93,7 +93,9 @@ Es una hackathon: **~20 horas, 4 devs**, track AGRO.
 
 | Tema | Regla |
 |---|---|
-| Tareas | Cada una tiene un ID: `T0`, `M2`–`M7`, `A1`–`A6`, `B1`–`B7`, `C1`–`C6`, `D1`–`D7`. Viven en la base **Tareas Torinder** de Notion. |
+| Tareas | Cada una tiene un ID: `T0`, `M2`–`M7`, `A1`–`A6`, `B1`–`B7`, `C1`–`C6`, `D1`–`D8`. Viven en la base **Tareas Torinder** de Notion. |
+| Reparto | **Por flujo de punta a punta, no por capa.** A = el motor (transversal, sin pantalla) · B = necesidad → proveedores · C = Excel → rodeo clasificado · D = swipe → explicación → plan. Cada uno hace **API y pantalla** de su flujo. |
+| Lo que no se reparte | El **motor** (`matching-core`, `genetics-core`) es de A: si dos flujos lo escriben en paralelo, se duplica la lógica. El **sistema visual** (shell + componentes) lo arma D antes que su flujo. El **cliente del LLM** lo arma C y lo publica apenas está. |
 | Notion | **Obligatorio** usar la skill `torinder-notion-sync` (está en `.claude/skills/`): estado al arrancar, al bloquearse y al terminar, y publicar el contrato si alguien depende de vos. |
 | Ramas | `feature/<ID>-<nombre>` desde `develop`, por ejemplo `feature/B2-classification`. Una tarea = un PR chico. |
 | Comandos | Todo por Nx: `npx nx run-many -t test`, `npx nx g @nx/js:lib packages/matching-core`. `npm run dev` levanta front y back. |

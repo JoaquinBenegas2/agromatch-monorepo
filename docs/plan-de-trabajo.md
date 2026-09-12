@@ -52,12 +52,32 @@ Toda dependencia entre devs se reemplaza por un **sustituto** hasta que llega la
 
 ## 2. Reparto por dev
 
-| Dev | Rol | Es dueño de | Tareas |
+**Dividimos por flujo de punta a punta, no por capa.** Cada dev se lleva un flujo completo: API **y** pantalla. La única excepción es el motor, que es transversal y **no se reparte**: si dos personas lo escriben desde su flujo, terminamos con dos versiones de la misma lógica.
+
+| Dev | Su flujo | Qué construye, de punta a punta | Tareas |
 |---|---|---|---|
-| **A** | Motores | `packages/matching-core` + `packages/genetics-core/src/{traits,casein,filters,matching,facts}` | **M2, M3**, A1–A6 |
-| **B** | Backend | `apps/api` (needs, providers, matching, requests, farms, classification, planning) + `genetics-core/src/{classification,planning}` | **M5**, B1–B7 |
-| **C** | IA e ingesta | `packages/ai` (intake, mapeo, explicación) + `herd-import` y `catalog-import` | **M4**, C1–C6 |
-| **D** | Frontend | `apps/web` | **M6**, D1–D7 |
+| **A** | **El motor** (transversal) | Filtros, score, ranking, cría esperada, caseínas y los hechos para la explicación. **No tiene pantalla:** le da de comer a los otros tres | A1–A5, **M2**, **M3** |
+| **B** | **Necesidad → proveedores** | Intake con IA + API de needs/providers/matches/requests + pantalla "¿Qué necesitás?" | **M4**, **M5**, **M6**, M7 |
+| **C** | **Excel → rodeo clasificado** | Cliente del LLM + carga del Excel + clasificación + endpoints + pantallas de carga y tablero | C1, C2, **B2**, B3, D2, D3 |
+| **D** | **Swipe → explicación → plan** | Sistema visual + explicador + endpoints de matching + swipe + plan | **D1**, C4, B4, **D4**, D5, C5 |
+
+**Al final, entre quien vaya más holgado:** el panel del asesor (B6 + D6) y el chat (C6 + B7 + D8).
+
+### Las tres piezas que son de todos
+
+| Pieza | Quién la hace | Cuándo |
+|---|---|---|
+| **Contratos + paquetes + esqueleto de la API** (`B1`) | Una sola persona, en la semilla | Antes que nada, ~40 min |
+| **Sistema visual: shell + 9 componentes** (`D1`) | **D**, antes de tocar su flujo | Primeras 2 horas |
+| **Cliente del LLM** (`C1`) | **C**, y lo publica apenas está | Primera hora y media |
+
+**Sin esas tres, los flujos no arrancan.** Por eso van primero y se publican como contrato en Notion apenas están listas.
+
+### Cómo no se pisan aunque toquen las dos puntas
+
+- En el backend, **un módulo por flujo**: `needs/`, `herd/`, `classification/`, `matching/`, `planning/`.
+- En el frontend, **una carpeta por feature**: `features/needs/`, `features/herd/`, `features/swipe/`…
+- Tocan los mismos proyectos, **nunca los mismos archivos**.
 
 **Prioridades:**
 - **P0:** recorrido de la demo; tiene que funcionar sí o sí.
@@ -912,14 +932,16 @@ Decisión del equipo. Como las horas no cambian, se hacen tres cosas: **se recor
 | **Chat** (C6 + B7 + D8) | Preguntas sobre el rodeo con 3 herramientas: contar por tier, listar hembras por filtro y explicar una clasificación | Que ejecute acciones, arme planes o modifique datos |
 | **Panel del asesor** (B6 + D6) | Lista de tambos con distribución por tier, % A2/A2 y BB, y un gráfico comparativo | Filtros avanzados, exportación, drill-down |
 
-**Rebalanceo: A absorbe las dos pantallas nuevas**, porque termina los motores alrededor de la hora 11 y D es el cuello de botella.
+**Con el reparto por flujo, la carga queda así:**
 
-| Dev | Núcleo | Vertical | Suma | Total |
-|---|---|---|---|---|
-| **A** | M2 (2,5) + M3 (1) | A1–A5 (7,5) | **D6** panel (1,5) + **D8** chat (1) | **13,5 h** |
-| **B** | M5 (2,5) | B1–B5 (9,5) | B6 (1) + B7 (0,5) | **13,5 h** |
-| **C** | M4 (2) | C1, C2, C4, C5 (7,5) | C6 (2,5) | **12 h** |
-| **D** | M6 (3) | D1–D5 (11) | — | **14 h** |
+| Dev | Su flujo | Suma al final | Total |
+|---|---|---|---|
+| **A** · motor | A1–A5 (7) + M2 (2,5) + M3 (1) | **el chat**: C6 (2,5) + B7 (0,5) + D8 (1) | **14,5 h** |
+| **B** · necesidad → proveedores | M4 (2) + M5 (2,5) + M6 (3) + M7 (1,5) | **el panel del asesor**: B6 (1) + D6 (1,5) + B5 plan API (2) | **13,5 h** |
+| **C** · Excel → rodeo | C1 (1,5) + C2 (3,5) + B2 (3) + B3 (1) + D2 (2) + D3 (2,5) | — | **13,5 h** |
+| **D** · swipe → plan | D1 (3) + C4 (2) + B4 (1,5) + D4 (3,5) + D5 (1,5) + C5 (1) | — | **12,5 h** |
+
+**A6** (catálogo real de toros) queda como el primero que se cae si aprieta.
 
 **Lo único que queda fuera del MVP:** **C3** (extracción de catálogos PDF) y **D7** (su pantalla). Se sigue mostrando el catálogo curado a mano, que para la demo alcanza.
 
