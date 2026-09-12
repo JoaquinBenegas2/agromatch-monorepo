@@ -1,10 +1,9 @@
 import type { Provider } from '@nestjs/common';
 import type { LlmClient, LlmPrompt } from '@org/shared-types';
-import { AnthropicLlmClient } from '@org/ai';
+import { AnthropicExplainer, AnthropicLlmClient } from '@org/ai';
 import type { ZodType } from 'zod';
 import {
   FakeChat,
-  FakeExplainer,
   FakeGoalParser,
   FakeHerdIngestion,
   FakeLlmClient,
@@ -48,8 +47,12 @@ export const AI_PROVIDERS: Provider[] = [
     provide: LLM_CLIENT,
     useFactory: (): LlmClient => (isLive() ? createLazyLiveLlmClient() : FakeLlmClient),
   },
-  // EXPLAINER_PORT: real de mvp-d-match (C4). Hasta que exista, el fake.
-  { provide: EXPLAINER_PORT, useValue: FakeExplainer },
+  // EXPLAINER_PORT: real de mvp-d-match (C4).
+  {
+    provide: EXPLAINER_PORT,
+    useFactory: (llm: LlmClient) => new AnthropicExplainer(llm),
+    inject: [LLM_CLIENT],
+  },
   // GOAL_PARSER_PORT: real de mvp-d-match (C5). Hasta que exista, el fake.
   { provide: GOAL_PARSER_PORT, useValue: FakeGoalParser },
   // HERD_INGESTION_PORT: real de mvp-c-herd (C2). Hasta que exista, el fake.
