@@ -26,7 +26,7 @@ import { scoreCandidates } from './matching/score.js';
 
 function classifyByCiThirds(females: Female[]): Classification[] {
   const withProfile = females.filter((f): f is Female & { profile: NonNullable<Female['profile']> } => f.profile !== null);
-  const sorted = [...withProfile].sort((a, b) => b.profile.traits.ci - a.profile.traits.ci);
+  const sorted = [...withProfile].sort((a, b) => (b.profile.traits.ci ?? 0) - (a.profile.traits.ci ?? 0));
   const n = sorted.length;
   const results: Classification[] = [];
 

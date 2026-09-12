@@ -20,7 +20,9 @@ import type {
 
 import farmsJson from './farms.json' with { type: 'json' };
 import usersJson from './users.json' with { type: 'json' };
-import bullsSeedJson from './bulls.seed.json' with { type: 'json' };
+// A6: bulls.json reemplaza bulls.seed.json (mismo esquema, catálogo real citado).
+// El nombre `bullsSeed` se mantiene para no romper a quien ya lo importa.
+import bullsSeedJson from './bulls.json' with { type: 'json' };
 import providersJson from './providers.json' with { type: 'json' };
 import needsSamplesJson from './needs.samples.json' with { type: 'json' };
 import herdFarmAJson from './herd-farm-a.json' with { type: 'json' };

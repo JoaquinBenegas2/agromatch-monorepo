@@ -69,10 +69,16 @@ function dairyScore(
     female.profile && bull.profile ? computeCaseinOdds(female.profile, bull.profile) : { betaA2A2: null, kappaBB: null };
 
   let score = 0;
+  const missingWeightedTraits: TraitKey[] = [];
   if (expected) {
     for (const [key, weight] of Object.entries(goal.weights) as [TraitKey, number][]) {
+      const expectedValue = expected[key];
+      if (expectedValue === undefined) {
+        missingWeightedTraits.push(key);
+        continue;
+      }
       const multiplier = classification.corrective.includes(key) ? 2 : 1;
-      score += weight * multiplier * normalize(expected[key], key, stats);
+      score += weight * multiplier * normalize(expectedValue, key, stats);
     }
   }
   if (goal.wantBetaA2 && odds.betaA2A2 !== null) score += 0.5 * odds.betaA2A2;
@@ -85,6 +91,7 @@ function dairyScore(
     goal,
     caseinOdds: odds,
     hasProfile: bull.profile !== null,
+    missingWeightedTraits,
   });
 
   const facts = toExplanationFacts({
@@ -105,9 +112,17 @@ function dairyScore(
   return { score, facts, reasons };
 }
 
+// Penalización finita para "sin dato de facilidad de parto": ordena último
+// entre los toros de carne sin usar -Infinity, que en este núcleo significa
+// "excluido" (rejected), no "sin dato" -- son conceptos distintos.
+const MISSING_CALVING_EASE_PENALTY = -1_000_000;
+
 function beefScore(female: Female, classification: Classification, bull: Bull, goal: BreedingGoal): ScoreResult {
-  const calvingEase = bull.calvingEase ?? Number.POSITIVE_INFINITY;
-  const reasons = ['Toro de carne: se ordena por facilidad de parto y, a igualdad, por precio (RN-16)'];
+  const score = bull.calvingEase !== null ? -bull.calvingEase : MISSING_CALVING_EASE_PENALTY;
+  const reasons =
+    bull.calvingEase !== null
+      ? ['Toro de carne: se ordena por facilidad de parto y, a igualdad, por precio (RN-16)']
+      : ['Toro de carne sin dato de facilidad de parto: compite, pero queda último en el orden (no se rellena con una estimación)'];
   const facts = toExplanationFacts({
     female,
     classification,
@@ -116,13 +131,13 @@ function beefScore(female: Female, classification: Classification, bull: Bull, g
     semenType: 'BEEF',
     expectedProgeny: null,
     caseinOdds: { betaA2A2: null, kappaBB: null },
-    score: -calvingEase,
+    score,
     compatibility: 0,
     rank: 0,
     totalCandidates: 0,
     reasons,
   });
-  return { score: -calvingEase, facts, reasons };
+  return { score, facts, reasons };
 }
 
 /**

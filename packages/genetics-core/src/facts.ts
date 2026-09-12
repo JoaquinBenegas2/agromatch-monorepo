@@ -29,7 +29,9 @@ export interface ToExplanationFactsInput {
 function subtractPartial(a: TraitVector, b: TraitVector): Partial<TraitVector> {
   const result: Partial<TraitVector> = {};
   for (const key of Object.keys(a) as (keyof TraitVector)[]) {
-    result[key] = a[key] - b[key];
+    const aValue = a[key];
+    const bValue = b[key];
+    if (aValue !== undefined && bValue !== undefined) result[key] = aValue - bValue;
   }
   return result;
 }
@@ -86,6 +88,7 @@ export function buildReasons(input: {
   goal: BreedingGoal;
   caseinOdds: CaseinOdds;
   hasProfile: boolean;
+  missingWeightedTraits?: TraitKey[];
 }): string[] {
   const reasons: string[] = [];
 
@@ -96,6 +99,7 @@ export function buildReasons(input: {
       if (input.goal.weights[key] === undefined) continue;
       const dam = input.damTraits[key];
       const expected = input.expectedProgeny[key];
+      if (dam === undefined || expected === undefined) continue;
       const label = TRAIT_LABELS[key];
       const improves = (expected - dam) * (key === 'scs' || key === 'rfi' ? -1 : 1) > 0;
       reasons.push(
@@ -104,6 +108,10 @@ export function buildReasons(input: {
           : `La cría esperada queda en ${label} ${formatEs(expected)} (partiendo de ${formatEs(dam)})`,
       );
     }
+  }
+
+  for (const key of input.missingWeightedTraits ?? []) {
+    reasons.push(`Al toro le falta el dato de ${TRAIT_LABELS[key]}: ese término no participa del puntaje (deseable, no se rellena con un promedio)`);
   }
 
   if (input.goal.wantBetaA2 && input.caseinOdds.betaA2A2 !== null) {

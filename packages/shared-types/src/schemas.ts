@@ -23,15 +23,20 @@ export const TraitKeySchema = z.enum([
   'rfi',
 ]);
 
+// milk/fat/pro/pl/scs son obligatorios en lecheros; ci/fs/rfi son "deseables"
+// (docs/motor-datos-de-toros.md §2) -- un toro real de catálogo público rara
+// vez los publica (ci en particular es un índice propio del proyecto que
+// ningún catálogo externo puede declarar). Si faltan, el rasgo no participa
+// del score (RN: nunca se rellena con un promedio ni una estimación).
 export const TraitVectorSchema = z.object({
-  ci: z.number(),
+  ci: z.number().optional(),
   milk: z.number(),
   fat: z.number(),
   pro: z.number(),
   pl: z.number(),
   scs: z.number(),
-  fs: z.number(),
-  rfi: z.number(),
+  fs: z.number().optional(),
+  rfi: z.number().optional(),
 });
 
 export const BetaCaseinSchema = z.enum(['A1/A1', 'A1/A2', 'A2/A2']);

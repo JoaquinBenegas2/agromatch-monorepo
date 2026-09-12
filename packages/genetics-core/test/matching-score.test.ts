@@ -195,8 +195,12 @@ describe('scoreCandidates / scoreOneCandidate — rodeo real (REQ-A-07, REQ-A-08
     const beefBulls = bullsSeed.filter((b) => b.semenTypes.includes('BEEF'));
     expect(board.ranked).toHaveLength(beefBulls.length);
 
-    const calvingEases = board.ranked.map((c) => bullsSeed.find((b) => b.naab === c.capabilityId)!.calvingEase!);
-    expect(calvingEases).toEqual([...calvingEases].sort((a, b) => a - b));
+    // Ascendente por calvingEase; los toros sin dato (null) van al final, nunca se los
+    // estima -- quedan últimos, no excluidos (RN-16 + regla de oro de faltantes).
+    const calvingEases = board.ranked.map((c) => bullsSeed.find((b) => b.naab === c.capabilityId)!.calvingEase);
+    const withData = calvingEases.filter((v): v is number => v !== null);
+    const withoutData = calvingEases.filter((v) => v === null);
+    expect(calvingEases).toEqual([...withData.sort((a, b) => a - b), ...withoutData]);
     board.ranked.forEach((c) => {
       const facts = c.verticalFacts as { expectedProgeny: unknown };
       expect(facts.expectedProgeny).toBeNull();
