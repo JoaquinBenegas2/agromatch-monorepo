@@ -1,0 +1,109 @@
+{
+  "checks": [
+    {
+      "name": "WebGL real y una sola escena",
+      "pass": true
+    },
+    {
+      "name": "Escena recibe puntero sin controles por encima",
+      "pass": true
+    },
+    {
+      "name": "Confirmación de necesidad",
+      "pass": true
+    },
+    {
+      "name": "Tres conexiones",
+      "pass": true
+    },
+    {
+      "name": "Solicitud local simulada",
+      "pass": true
+    },
+    {
+      "name": "Valida columnas duplicadas",
+      "pass": true
+    },
+    {
+      "name": "Importa 293 identidades demo",
+      "pass": true
+    },
+    {
+      "name": "Conserva mundo e identidades en comparación",
+      "pass": true
+    },
+    {
+      "name": "Filtro de 88 animales",
+      "pass": true
+    },
+    {
+      "name": "Consulta con evidencia",
+      "pass": true
+    },
+    {
+      "name": "Respuesta conduce a su fuente",
+      "pass": true
+    },
+    {
+      "name": "Proyección completa",
+      "pass": true
+    },
+    {
+      "name": "Faltantes explícitos",
+      "pass": true
+    },
+    {
+      "name": "Facetas interactivas",
+      "pass": true
+    },
+    {
+      "name": "Guarda encuentro",
+      "pass": true
+    },
+    {
+      "name": "Plan refleja selección",
+      "pass": true
+    },
+    {
+      "name": "Diez establecimientos del asesor",
+      "pass": true
+    },
+    {
+      "name": "Reordena mismo mundo",
+      "pass": true
+    },
+    {
+      "name": "Pausa global",
+      "pass": true
+    },
+    {
+      "name": "Pausa cámara",
+      "pass": true
+    },
+    {
+      "name": "Sin overflow horizontal 1280",
+      "pass": true
+    },
+    {
+      "name": "Sin overflow horizontal móvil",
+      "pass": true
+    },
+    {
+      "name": "Cinco módulos en móvil",
+      "pass": true
+    },
+    {
+      "name": "Cruza móvil sin overflow",
+      "pass": true
+    },
+    {
+      "name": "Respeta movimiento reducido",
+      "pass": true
+    },
+    {
+      "name": "Sin excepciones de runtime",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

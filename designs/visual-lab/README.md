@@ -1,5 +1,7 @@
 # AgroMatch · Futuros
 
+**Nueva versión 03: [SAVRA — El campo en movimiento](savra.html).** Rebranding conceptual completo, interfaz inmersiva y paisaje 3D a pantalla completa. [Dirección de marca, movimiento y recorrido](SAVRA.md). Las versiones anteriores se conservan para comparar.
+
 **Mockups espaciales y animados para explorar el producto. No constituyen su desarrollo final.**
 
 Abrí **[index.html](index.html)** con doble clic. El HTML contiene sus estilos, geometría y JavaScript: funciona offline, sin instalar paquetes ni iniciar el backend. Requiere WebGL para las escenas 3D; ofrece una vista de respaldo si no está disponible.
