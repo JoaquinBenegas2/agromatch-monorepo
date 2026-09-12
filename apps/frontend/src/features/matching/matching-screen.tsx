@@ -408,47 +408,79 @@ function MatchingEncounter({
             </SpatialLabel>
           </SpatialScene>
           <div className="gx-decision">
-            {resultVisible && isChosen && (
+            {isChosen && (
               <Button className="gx-contact-button" onClick={contact}>
                 <MessageCircle />
                 Conversar con el proveedor
               </Button>
             )}
+            {/* Guardar/quitar no depende de la animación de revelado: se
+                puede confirmar apenas el motor trae los hechos, sin esperar
+                los ~5s del recorrido "Explorar el encuentro". */}
             <Button
-              onClick={() => (resultVisible ? save() : sequence.play())}
+              onClick={save}
               disabled={
-                (sequence.active && !resultVisible) ||
-                add.isPending ||
-                remove.isPending ||
-                plan.isPending ||
-                plan.isError ||
-                !facts
+                add.isPending || remove.isPending || plan.isPending || plan.isError || !facts
               }
             >
               {add.isPending || remove.isPending
                 ? 'Guardando…'
-                : sequence.active
-                  ? resultVisible
-                    ? isChosen
-                      ? 'Quitar del plan'
-                      : 'Guardar este encuentro'
-                    : 'Explorando el encuentro…'
-                  : 'Explorar el encuentro'}
-              {sequence.active ? <Plus /> : <ArrowRight />}
+                : isChosen
+                  ? 'Quitar del plan'
+                  : 'Guardar este encuentro'}
+              <Plus />
             </Button>
-            <div className="gx-sequence">
-              <span>ORIGEN</span>
-              <input
-                aria-label="Recorrer el encuentro"
-                type="range"
-                min="0"
-                max="100"
-                value={Math.round(sequence.progress * 100)}
-                disabled={!sequence.active}
-                onChange={(e) => sequence.scrub(Number(e.target.value) / 100)}
-              />
-              <output>{Math.round(sequence.progress * 100)}%</output>
-              <span>FUTURO</span>
+            <Button
+              variant="ghost"
+              className="gx-explore-button"
+              onClick={() => sequence.play()}
+              disabled={sequence.active && !resultVisible}
+            >
+              {sequence.active
+                ? resultVisible
+                  ? 'Repetir el recorrido'
+                  : 'Explorando el encuentro…'
+                : 'Explorar el encuentro'}
+              <ArrowRight />
+            </Button>
+            {sequence.active && (
+              <div className="gx-sequence">
+                <span>ORIGEN</span>
+                <input
+                  aria-label="Recorrer el encuentro"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={Math.round(sequence.progress * 100)}
+                  onChange={(e) => sequence.scrub(Number(e.target.value) / 100)}
+                />
+                <output>{Math.round(sequence.progress * 100)}%</output>
+                <span>FUTURO</span>
+              </div>
+            )}
+            <div className="gx-plan-feedback" aria-live="polite">
+              {isChosen && (
+                <p className="gx-note">
+                  ✓ Este encuentro está guardado en tu plan.
+                </p>
+              )}
+              {chosen && !isChosen && (
+                <p className="gx-note">
+                  Al guardar, reemplazás el toro {chosen.bullNaab} para esta
+                  vaca.
+                </p>
+              )}
+              {(add.error || remove.error || plan.error) && (
+                <ErrorMessage
+                  message={
+                    (add.error ?? remove.error ?? plan.error)?.message ??
+                    'No se pudo actualizar el plan'
+                  }
+                />
+              )}
+              <Link className="gx-note" to="/motor-genetico/plan">
+                Ver plan de servicios ↗
+              </Link>
             </div>
             <p className="gx-note">
               Cría conceptual. Forma, sexo y pelaje no representan una
@@ -539,30 +571,6 @@ function MatchingEncounter({
                 )}
                 {explanation.data && <p>{explanation.data.text}</p>}
               </details>
-              <div className="gx-plan-feedback" aria-live="polite">
-                {isChosen && (
-                  <p className="gx-note">
-                    ✓ Este encuentro está guardado en tu plan.
-                  </p>
-                )}
-                {chosen && !isChosen && (
-                  <p className="gx-note">
-                    Al guardar, reemplazás el toro {chosen.bullNaab} para esta
-                    vaca.
-                  </p>
-                )}
-                {(add.error || remove.error || plan.error) && (
-                  <ErrorMessage
-                    message={
-                      (add.error ?? remove.error ?? plan.error)?.message ??
-                      'No se pudo actualizar el plan'
-                    }
-                  />
-                )}
-                <Link className="gx-note" to="/negociacion/plan">
-                  Ver plan de servicios ↗
-                </Link>
-              </div>
             </aside>
           )}
         </>

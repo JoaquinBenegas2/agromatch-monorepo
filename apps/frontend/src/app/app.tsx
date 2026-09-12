@@ -22,8 +22,8 @@ export function App() {
           element={<MatchingScreen />}
         />
         <Route path="/motor-genetico/asesor" element={<AdvisorRoute />} />
+        <Route path="/motor-genetico/plan" element={<PlanScreen />} />
         <Route path="/motor-genetico/*" element={<ModulePage />} />
-        <Route path="/negociacion/plan" element={<PlanScreen />} />
         <Route
           path="/negociacion/matches/:id?"
           element={<NegotiationsPage />}
