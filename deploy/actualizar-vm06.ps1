@@ -120,7 +120,11 @@ if ($svc -and $svc.Status -eq 'Running') {
     (Get-Service $Servicio).WaitForStatus('Stopped', '00:00:30')
     Ok 'servicio detenido'
 }
-Copy-Item -LiteralPath $srcMain -Destination (Join-Path $backDir 'main.js') -Force
+# Se copian todos los *.js del share (main.js y, si los hubiera, chunks). Archivo por archivo:
+# un /MIR sobre esta carpeta borraria logs y .env.
+Get-ChildItem (Join-Path $Share 'backend') -Filter '*.js' | ForEach-Object {
+    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $backDir $_.Name) -Force
+}
 $i = Get-Item (Join-Path $backDir 'main.js')
 Ok ('main.js {0:N1} MB  {1}' -f ($i.Length / 1MB), $i.LastWriteTime)
 

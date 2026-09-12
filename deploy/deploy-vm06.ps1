@@ -141,7 +141,11 @@ try {
         $dest = Join-Path $Share 'backend'
         if ($PSCmdlet.ShouldProcess("$dest\main.js", 'copiar bundle')) {
             New-Item -Path $dest -ItemType Directory -Force | Out-Null
-            Copy-Item -LiteralPath $main -Destination (Join-Path $dest 'main.js') -Force
+            # main.js es un solo archivo (LimitChunkCountPlugin); igual se copian todos los
+            # *.js de dist por si algun dia vuelve a haber chunks. Los .map no viajan.
+            Get-ChildItem (Join-Path $RepoRoot 'apps\backend\dist') -Filter '*.js' | ForEach-Object {
+                Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $dest $_.Name) -Force
+            }
             $i = Get-Item (Join-Path $dest 'main.js')
             Write-Host ("    back -> {0}  ({1:N1} MB)" -f $i.FullName, ($i.Length / 1MB)) -ForegroundColor Green
             # La plantilla del .env se deja SOLO si no existe: ahi vive la ANTHROPIC_API_KEY y no se pisa.

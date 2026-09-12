@@ -1,5 +1,5 @@
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
-const { IgnorePlugin } = require('webpack');
+const { IgnorePlugin, optimize } = require('webpack');
 const { join } = require('path');
 
 const bundleAll = process.env.BUNDLE_ALL === '1';
@@ -21,7 +21,15 @@ module.exports = {
     }),
   },
   plugins: [
-    ...(bundleAll ? [new IgnorePlugin({ resourceRegExp: OPTIONAL_MODULES })] : []),
+    ...(bundleAll
+      ? [
+          new IgnorePlugin({ resourceRegExp: OPTIONAL_MODULES }),
+          // Un solo archivo: el cliente de Prisma usa import() dinámico y webpack lo
+          // partía en un chunk (1.js) que el deploy no copiaba → "Cannot find module './1.js'"
+          // al arrancar con REPOSITORY_MODE=prisma.
+          new optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+        ]
+      : []),
     new NxAppWebpackPlugin({
       target: 'node',
       compiler: 'tsc',
