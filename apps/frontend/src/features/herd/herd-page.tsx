@@ -85,6 +85,15 @@ export function HerdPage({ farmId }: { farmId: string }) {
           <SpatialScene
             kind="herd"
             className="h-[280px] w-full rounded-lg border border-border bg-[#d7e2c5]"
+            options={{
+              // El motor reparte los tokens en índices fijos (001..293), no
+              // por tier real: usamos esa posición solo para elegir a qué
+              // hembra real navegar, no para representar su clasificación.
+              onSelect: (id) => {
+                const female = females.data?.[Number(id) - 1];
+                if (female) navigate(`/motor-genetico/matching/${female.id}`);
+              },
+            }}
           >
             <div className="pointer-events-none absolute inset-x-4 top-4 z-[2] flex flex-wrap gap-6">
               {Object.entries(summary.data.byTier).map(([tier, total]) => (
@@ -99,7 +108,7 @@ export function HerdPage({ farmId }: { farmId: string }) {
               ))}
             </div>
             <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#4f6b45]">
-              Vista conceptual · no representa la posición real del rodeo
+              Vista conceptual · tocá una identidad para elegirla
             </span>
           </SpatialScene>
           <p className="text-[11.5px] text-muted-foreground">

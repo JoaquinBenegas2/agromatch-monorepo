@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import type { MatchBoard, Need, PublicProvider, ServiceRequest, UpdateNeedBody } from '@org/shared-types';
-import { ArrowUpRight, Filter, Mic, Send, Sparkles, Stethoscope, Tractor } from 'lucide-react';
+import { Filter, Mic, Send, Sparkles, Stethoscope, Tractor } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { CowLoader } from '@/components/ui/cow-loader';
 import { EmptyState } from '@/components/ui/empty-state';
 import { ErrorMessage } from '@/components/ui/error-message';
-import { Input } from '@/components/ui/input';
 import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
 import { useActiveFarmId, useUser } from '../../shared/user/user-context.js';
 import { NeedFilterBar } from './need-filter-bar.js';
@@ -20,6 +18,7 @@ import {
   useProviders,
   useUpdateNeed,
 } from './market.api.js';
+import '../_futuros/futuros-mockup.css';
 
 const QUICK_NEEDS = [
   { label: 'Contratistas de arada cerca tuyo', prompt: 'necesito quien me are 40 ha en Río Cuarto la semana que viene', icon: Tractor },
@@ -153,69 +152,82 @@ export function MarketplacePage() {
   }
 
   return (
-    <div className="relative isolate overflow-hidden rounded-2xl bg-[#dfe7d1] p-8 md:min-h-[540px] md:p-12">
-      <div className="relative z-[5] flex max-w-[540px] flex-col gap-5">
-        <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-          Hora de empezar, {user.name}
-        </p>
-        <h1 className="text-balance text-[36px] leading-[1.02] font-semibold tracking-[-0.03em] sm:text-[48px]">
-          ¿Qué necesita tu establecimiento hoy?
-        </h1>
-        <p className="max-w-[360px] text-[13px] text-muted-foreground">
-          Contanos qué buscás. AgroMatch entiende tu necesidad y busca al instante; los filtros quedan arriba para que los ajustes.
-        </p>
+    <div className="futuros-page">
+      <section className="market-hero">
+        <div className="market-copy">
+          <span className="eyebrow muted">Mercado y oportunidades</span>
+          <h1>¿Qué necesita tu establecimiento hoy?</h1>
+          <p>Hora de empezar, {user.name}. Contanos qué buscás y AgroMatch busca al instante, con filtros que podés ajustar arriba.</p>
 
-        {error ? <ErrorMessage className="text-left" message={error.message} /> : null}
+          {error ? (
+            <div className="stack" style={{ marginTop: 12 }}>
+              <ErrorMessage message={error.message} />
+            </div>
+          ) : null}
 
-        <Card className="flex w-full max-w-[420px] items-center gap-2 border-[#aac092] bg-[#f2f5e7]/95 p-2 pl-4 shadow-[0_18px_40px_rgba(35,69,50,0.10)] backdrop-blur">
-          <Input
-            aria-label="Necesidad"
-            className="h-11 flex-1 border-0 bg-transparent px-0 shadow-none focus-visible:ring-0"
-            placeholder="Preguntale a AgroMatch…"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') void ask(query).catch(() => undefined);
+          <form
+            className="need-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void ask(query).catch(() => undefined);
             }}
-          />
-          <Button type="button" variant="ghost" size="icon" disabled title="Audio: hoja de ruta" aria-label="Audio no disponible todavía">
-            <Mic />
-          </Button>
-          <Button type="button" size="lg" disabled={!query.trim()} onClick={() => void ask(query).catch(() => undefined)}>
-            Preguntar <Send />
-          </Button>
-        </Card>
+          >
+            <label className="sr-only" htmlFor="need">
+              Necesidad
+            </label>
+            <textarea
+              id="need"
+              aria-label="Necesidad"
+              placeholder="¿Qué necesitás?"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+            <div className="row between">
+              <span className="note">En tus palabras. Como a un vecino.</span>
+              <div className="row" style={{ gap: 8 }}>
+                <button type="button" className="btn ghost" disabled title="Audio: hoja de ruta" aria-label="Audio no disponible todavía">
+                  <Mic className="icon" style={{ width: 16, height: 16 }} />
+                </button>
+                <button className="btn primary" type="submit" disabled={!query.trim()}>
+                  Preguntar <Send className="icon" style={{ width: 15, height: 15 }} />
+                </button>
+              </div>
+            </div>
+          </form>
 
-        <div className="flex flex-wrap gap-4">
-          {QUICK_NEEDS.map(({ label, prompt, icon: Icon }) => (
-            <button
-              key={label}
-              type="button"
-              onClick={() => {
-                setQuery(prompt);
-                void ask(prompt).catch(() => undefined);
-              }}
-              className="group inline-flex items-center gap-1.5 border-b border-[#b3c2a7] pb-0.5 text-[11px] font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              <Icon className="size-3.5" /> {label} <ArrowUpRight className="size-3 opacity-0 transition-opacity group-hover:opacity-100" />
-            </button>
-          ))}
+          <div className="examples" aria-label="Ejemplos de necesidades">
+            {QUICK_NEEDS.map(({ label, prompt, icon: Icon }) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => {
+                  setQuery(prompt);
+                  void ask(prompt).catch(() => undefined);
+                }}
+              >
+                <Icon className="icon" style={{ width: 12, height: 12, display: 'inline', marginRight: 4 }} />
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <SpatialScene
-        kind="market"
-        className="absolute top-8 right-[-4%] hidden h-[460px] w-[62%] rounded-xl md:block"
-      >
-        <SpatialLabel anchor="need" className="-translate-x-1/2">
-          <span className="inline-flex items-center rounded-full bg-[#f2f5e7ee] px-2.5 py-1 text-[9px] font-semibold tracking-[0.08em] text-[#1e4c3a] uppercase shadow-sm backdrop-blur">
-            Tu necesidad
+        <SpatialScene kind="market">
+          <SpatialLabel anchor="need" className="-translate-x-1/2">
+            <span className="inline-flex items-center rounded-full bg-[#f2f5e7ee] px-2.5 py-1 text-[9px] font-semibold tracking-[0.08em] text-[#1e4c3a] uppercase shadow-sm backdrop-blur">
+              Tu necesidad
+            </span>
+          </SpatialLabel>
+          <span className="pointer-events-none absolute bottom-2 left-3 z-[2] text-[9px] text-[#4f6b45]">
+            Vista conceptual, no representa proveedores reales
           </span>
-        </SpatialLabel>
-        <span className="pointer-events-none absolute right-3 bottom-2 z-[2] text-[9px] text-[#4f6b45]">
-          Vista conceptual, no representa proveedores reales
+        </SpatialScene>
+      </section>
+      <div className="market-foot">
+        <span>
+          <strong>Prestadores por suscripción.</strong> Sin comisión por trabajo ni pago por posición.
         </span>
-      </SpatialScene>
+      </div>
     </div>
   );
 }

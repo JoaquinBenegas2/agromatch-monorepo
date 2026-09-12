@@ -66,10 +66,31 @@ const Spatial = (() => {
     constructor(canvas,kind,options={}){
       this.canvas=canvas;this.kind=kind;this.options=options;this.start=performance.now();this.elapsed=options.intro===false?3:0;this.objects=[];this.labels=[];this.hit=[];this.pointer=[0,0];this.drag=[0,0];this.dead=false;this.previous=0;
       this.gl=canvas.getContext('webgl',{alpha:true,antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:false});if(!this.gl){canvas.parentElement.classList.add('no-webgl');return}
+      this.onContextLost=e=>{e.preventDefault();cancelAnimationFrame(this.raf)};
+      this.onContextRestored=()=>this.restoreContext();
+      canvas.addEventListener('webglcontextlost',this.onContextLost,false);
+      canvas.addEventListener('webglcontextrestored',this.onContextRestored,false);
+      this.linkProgram();
+      this.prepare();this.bind();this.resizeObserver=new ResizeObserver(()=>this.resize());this.resizeObserver.observe(canvas);this.resize();this.loop=this.loop.bind(this);this.raf=requestAnimationFrame(this.loop);
+    }
+    linkProgram(){
       const gl=this.gl,compile=(type,source)=>{const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s};
       this.program=gl.createProgram();gl.attachShader(this.program,compile(gl.VERTEX_SHADER,vertex));gl.attachShader(this.program,compile(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(this.program);if(!gl.getProgramParameter(this.program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(this.program));gl.useProgram(this.program);this.loc={};for(const k of ['aPosition','aNormal','aColor','aScatter'])this.loc[k]=gl.getAttribLocation(this.program,k);for(const k of ['uModel','uViewProjection','uBuild','uTime','uFog','uEye','uOpacity','uEmission'])this.loc[k]=gl.getUniformLocation(this.program,k);
       gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.disable(gl.CULL_FACE);
-      this.prepare();this.bind();this.resizeObserver=new ResizeObserver(()=>this.resize());this.resizeObserver.observe(canvas);this.resize();this.loop=this.loop.bind(this);this.raf=requestAnimationFrame(this.loop);
+    }
+    /**
+     * El navegador puede perder el contexto WebGL en cualquier momento (por
+     * ejemplo, al superar el límite de contextos vivos navegando entre
+     * varias escenas de la app). Sin este manejo la escena queda en blanco
+     * para siempre en vez de recuperarse.
+     */
+    restoreContext(){
+      if(this.dead||!this.gl)return;
+      for(const key in cache)cache[key].buffers?.delete(this.gl);
+      this.linkProgram();
+      this.resize();
+      this.previous=0;
+      this.raf=requestAnimationFrame(this.loop);
     }
     resize(){if(!this.gl)return;const r=this.canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio,1.6);this.width=r.width;this.height=r.height;this.canvas.width=Math.max(1,Math.round(r.width*dpr));this.canvas.height=Math.max(1,Math.round(r.height*dpr));this.gl.viewport(0,0,this.canvas.width,this.canvas.height)}
     bind(){const c=this.canvas;let down=null,moved=false;c.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY,...this.drag];moved=false;c.setPointerCapture(e.pointerId)});c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();this.pointer=[(e.clientX-r.left)/r.width-.5,(e.clientY-r.top)/r.height-.5];if(down){const dx=e.clientX-down[0],dy=e.clientY-down[1];if(Math.abs(dx)+Math.abs(dy)>6)moved=true;this.drag=[down[2]+dx*.004,clamp(down[3]+dy*.003,-.35,.7)]}});c.addEventListener('pointerup',e=>{if(!moved&&this.kind==='herd'){const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let nearest=null,dist=19;for(const p of this.hit){const d=Math.hypot(x-p.x,y-p.y);if(d<dist){nearest=p;dist=d}}if(nearest)this.options.onSelect?.(nearest.id)}down=null});c.addEventListener('pointerleave',()=>{if(!down)this.pointer=[0,0]});c.addEventListener('dblclick',()=>{this.drag=[0,0]})}
@@ -157,7 +178,7 @@ const Spatial = (() => {
       if(this.kind==='genetic')this.genetic(t);else if(this.kind==='market')this.market(t);else if(this.kind==='herd'||this.kind==='import')this.herd(t);else if(this.kind==='advisor')this.advisor(t);else if(this.kind==='plan')this.plan(t);
       this.options.onFrame?.();
     }
-    dispose(){this.dead=true;cancelAnimationFrame(this.raf);this.resizeObserver?.disconnect();if(this.gl){this.gl.deleteProgram(this.program)}}
+    dispose(){this.dead=true;cancelAnimationFrame(this.raf);this.resizeObserver?.disconnect();this.canvas.removeEventListener('webglcontextlost',this.onContextLost);this.canvas.removeEventListener('webglcontextrestored',this.onContextRestored);if(this.gl){this.gl.deleteProgram(this.program)}}
   }
   return {World,clamp,ease,out};
 })();

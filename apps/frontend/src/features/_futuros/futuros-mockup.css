@@ -1,0 +1,249 @@
+/*
+ * Port literal del CSS del mockup "Futuros" (designs/visual-lab/index.html
+ * + designs/visual-lab/src/spatial.css) para las pantallas de Mercado y
+ * Motor genético. A pedido explícito: "cópialo tal cual" en vez de
+ * reinterpretarlo con nuestros componentes/Tailwind.
+ *
+ * Todo selector va prefijado a mano con .futuros-page (sin @scope: en Chrome
+ * las custom properties dentro de @scope pierden el empate de cascada contra
+ * variables sin scope del mismo nombre, sin importar el orden de las reglas —
+ * eso rompía --muted/--paper/etc. y dejaba texto secundario casi invisible).
+ * Así nada de esto puede escaparse al resto de la app. El CSS trae completa la hoja base del
+ * mockup (incluye selectores de su propio shell/sidebar/topbar, que acá
+ * nunca se usan porque la app real tiene su propio Sidebar/Topbar) — esas
+ * reglas quedan inertes a propósito, no hace falta editarlas para que sean
+ * seguras: no hay ningún elemento real con esas clases dentro de .futuros-page.
+ * Lo mismo con las clases .world/.world-* del mockup: esta app usa su
+ * propio <SpatialScene> (ver components/spatial), así que esas reglas
+ * tampoco matchean nada acá.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  .futuros-page{--paper:#F3F1E9;--white:#fff;--ink:#182822;--muted:#59665c;--green:#203D30;--lime:#D5EF7D;--clay:#BA765C;--line:#D6DCD2;--sex:#385e45;--conv:#9caa64;--beef:#BA765C;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    /* Overrides de spatial.css (dirección "Futuros"): ganan por orden. */
+    --paper:#e9ecdf;--white:#f7f8ef;--ink:#173e33;--muted:#5e7161;--green:#194e3d;--lime:#d2f574;--line:#cad5bf;--clay:#cd8262;
+    background:var(--paper);font:15px/1.5 var(--sans);color:var(--ink);font-variant-numeric:tabular-nums;
+  }
+  .futuros-page *{box-sizing:border-box}
+  .futuros-page button, .futuros-page input, .futuros-page select, .futuros-page textarea{font:inherit}
+  .futuros-page button, .futuros-page a, .futuros-page input, .futuros-page select, .futuros-page textarea{outline-offset:4px}
+  .futuros-page :focus-visible{outline:3px solid #668726}
+  .futuros-page button, .futuros-page a{touch-action:manipulation}
+  .futuros-page button{cursor:pointer;color:inherit}
+  .futuros-page button:disabled{cursor:not-allowed;opacity:.52}
+  .futuros-page a{color:inherit;text-decoration:none}
+  .futuros-page h1, .futuros-page h2, .futuros-page h3, .futuros-page p{margin:0}
+  .futuros-page h1{font-size:44px;font-weight:450;letter-spacing:-2.1px;line-height:1.04}
+  .futuros-page h2{font-size:24px;font-weight:500;letter-spacing:-.6px}
+  .futuros-page h3{font-size:18px;font-weight:600}
+  .futuros-page small, .futuros-page .small{font-size:12px;line-height:1.5}
+  .futuros-page .muted{color:var(--muted)}
+  .futuros-page .eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+  .futuros-page .serif{font-family:Georgia,serif;font-style:italic}
+  .futuros-page .icon{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .futuros-page .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:9px 17px;background:var(--white);border:1px solid var(--line);border-radius:30px;font-size:12px;font-weight:600;transition:transform .22s,box-shadow .22s,background .22s}
+  .futuros-page .btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px #173e3315}
+  .futuros-page .btn.primary{background:var(--green);border-color:var(--green);color:var(--lime)}
+  .futuros-page .btn.primary:hover{background:#286949}
+  .futuros-page .btn.lime{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+  .futuros-page .btn.ghost{background:transparent}
+  .futuros-page .btn.compact{min-height:31px;padding:5px 11px;font-size:10px}
+  .futuros-page .text-btn{border:0;background:none;padding:7px 0;text-decoration:underline;text-underline-offset:4px;font-size:12px}
+  .futuros-page .row{display:flex;align-items:center;gap:12px}
+  .futuros-page .between{justify-content:space-between}
+  .futuros-page .wrap{flex-wrap:wrap}
+  .futuros-page .stack{display:grid;gap:14px}
+  .futuros-page .badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:30px;padding:4px 9px;font-size:9px;font-weight:600;white-space:nowrap}
+  .futuros-page .badge.dot:before{content:"";height:5px;width:5px;background:#6c8440;border-radius:100%}
+  .futuros-page .pill{display:inline-block;background:#e8eddf;padding:4px 8px;border-radius:4px;font-size:11px}
+  .futuros-page .divider{height:1px;background:var(--line);margin:18px 0}
+  .futuros-page .card, .futuros-page .table-wrap{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px}
+  .futuros-page .note{font-size:11px;color:var(--muted);line-height:1.5}
+  .futuros-page .goals{display:flex;border:1px solid var(--line);background:#dfe7d1;padding:4px;border-radius:30px;gap:3px}
+  .futuros-page .goals button{border:0;background:transparent;border-radius:30px;padding:8px 12px;font-size:10px;white-space:nowrap}
+  .futuros-page .goals button.active{background:var(--green);color:var(--lime)}
+  .futuros-page .modal{border:1px solid var(--line);border-radius:20px;padding:28px;max-width:620px;width:calc(100% - 32px);max-height:85vh;overflow:auto;color:var(--ink);background:#edf1df}
+  .futuros-page .toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);z-index:200;background:#174f3c;color:#eaf6cf;padding:12px 20px;border-radius:30px;font-size:12px;max-width:90vw}
+  .futuros-page .sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* Torinder / Matching genético: escena + ranking + decisión. */
+  .futuros-page .matching-grid{display:grid;grid-template-columns:minmax(0,1fr) 258px;gap:20px}
+  .futuros-page .matching-grid>section{min-width:0}
+  .futuros-page .encounter{height:410px;position:relative;overflow:hidden;border-radius:16px 16px 4px 4px;background:radial-gradient(ellipse at 48% 15%,#38664d 0%,#164737 48%,#103c31 100%);color:#f2f5d7}
+  /* Puente hacia <SpatialScene>: mismas posiciones que .world en el mockup original, aplicadas a nuestro componente real en vez de a su <canvas> crudo. */
+  .futuros-page .encounter .spatial-world{position:absolute;inset:0}
+  .futuros-page .market-hero .spatial-world{position:absolute;right:-45px;top:30px;width:66%;height:calc(100% - 20px);border-radius:14px}
+  .futuros-page .herd-canvas .spatial-world{position:absolute;inset:0;border-radius:14px}
+  .futuros-page .import-stage .spatial-world{height:100%;width:100%;border-radius:0}
+  .futuros-page .world-advisor{height:255px;border-radius:14px;overflow:hidden;position:relative;margin-bottom:15px}
+  .futuros-page .encounter .giant-type{font-size:100px;font-weight:300;line-height:1;letter-spacing:-7px;color:#d4e6a809;position:absolute;top:34px;left:30px;right:30px;text-align:center;pointer-events:none;z-index:0}
+  .futuros-page .encounter .concept-note{position:absolute;bottom:19px;left:133px;z-index:8;font-size:8px;max-width:270px;color:#b5ceb1;pointer-events:none}
+  .futuros-page .scene-underbar{border-radius:4px 4px 12px 12px;background:#dce7c8;padding:10px 17px;display:flex;gap:15px;align-items:center;margin-top:3px}
+  .futuros-page .scene-stage-label{font-size:9px;font-weight:550;letter-spacing:1px;white-space:nowrap}
+  .futuros-page .scene-stage-label span{color:#7f936e;margin-left:8px}
+  .futuros-page .scene-timeline{display:flex;align-items:center;gap:8px;flex:1}
+  .futuros-page .scene-timeline input{accent-color:var(--green);height:3px;width:100%;cursor:pointer}
+  .futuros-page .scene-timeline output{font-size:9px;font-variant-numeric:tabular-nums;min-width:25px}
+  .futuros-page .scene-stage-words{display:flex;gap:12px;font-size:8px;letter-spacing:.9px}
+  .futuros-page .scene-stage-words b{font-weight:400;opacity:.5}
+  .futuros-page .scene-stage-words b.active{opacity:1;color:var(--green);font-weight:700}
+  .futuros-page .decision-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:15px}
+  .futuros-page .decision-bar .primary{background:var(--lime);border-color:#c5e574;color:#173b2d;box-shadow:0 6px 16px #81975815;min-width:175px}
+  .futuros-page .decision-copy{font-size:11px;color:var(--muted);max-width:265px}
+  .futuros-page .ranking{border-left:0;padding:0;background:#dfe6d1;border-radius:12px;overflow:hidden;display:block}
+  .futuros-page .ranking-head{display:flex;justify-content:space-between;align-items:center;padding:18px 16px 0;margin-bottom:15px}
+  .futuros-page .ranking-head h2{font-size:14px;font-weight:600}
+  .futuros-page .candidate{width:100%;border:0;border-top:1px solid #c3d1b4;background:transparent;text-align:left;display:grid;grid-template-columns:28px 1fr;gap:8px;padding:17px 16px;border-radius:0;transition:background .25s,padding .25s}
+  .futuros-page .candidate:hover{background:#eaf0df;padding-left:20px}
+  .futuros-page .candidate.active{background:var(--green);color:#e7f1d8}
+  .futuros-page .candidate.active small, .futuros-page .candidate.active .rank-number{color:#c7dcae}
+  .futuros-page .candidate.active .reason{color:var(--lime)}
+  .futuros-page .rank-number{font:italic 20px Georgia,serif;color:#778c69}
+  .futuros-page .candidate strong{font-size:21px;font-weight:400;letter-spacing:-.5px;display:block}
+  .futuros-page .candidate small{font-size:9px;color:var(--muted);display:block;margin-top:3px}
+  .futuros-page .candidate .reason{font-size:10px;line-height:1.5;margin-top:7px;color:#365239}
+  .futuros-page .ranking>.text-btn{margin:7px 16px;font-size:10px}
+  .futuros-page .ranking>.note{margin:12px 16px;font-size:9px}
+  .futuros-page .ranking>.divider{margin:13px 16px}
+  .futuros-page .ranking>.plan-link{margin:0 16px 17px;background:transparent}
+  .futuros-page .result-panel{margin-top:17px;padding-top:14px;border-top:1px solid #becfa9}
+  .futuros-page .result-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+  .futuros-page .result-title h2{font-size:17px;font-weight:500}
+  .futuros-page .result-reasons{font-size:10px;color:var(--muted);margin:0 0 10px;max-width:640px;line-height:1.5}
+  .futuros-page .result-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px}
+  .futuros-page .result-metric{border-right:1px solid #b7c9a4;padding-right:15px;font-size:11px}
+  .futuros-page .result-metric:last-child{border:0;padding:0}
+  .futuros-page .result-metric .value{display:block;font-size:21px;font-weight:450;line-height:1.3;margin:5px 0;color:#285238}
+  .futuros-page .result-metric .note{font-size:10px}
+  .futuros-page .bars{display:grid;grid-template-columns:68px 1fr 36px;align-items:center;gap:5px 8px;margin:7px 0;font-size:10px}
+  .futuros-page .bar-track{height:7px;background:#cbd8b9;border-radius:9px;overflow:hidden}
+  .futuros-page .bar-fill{height:100%;background:#a1ab93;border-radius:9px}
+  .futuros-page .bar-fill.projected-bar{background:#547d3f}
+  .futuros-page .waiting-result{padding-top:16px;margin-top:17px;display:flex;gap:18px;align-items:center;border-top:1px solid var(--line)}
+  .futuros-page .waiting-result .big-mark{font-family:Georgia,serif;font-style:italic;font-size:44px;color:#92a37a}
+  .futuros-page .waiting-result h3{font-size:16px;font-weight:500}
+  .futuros-page .waiting-result p{font-size:11px;max-width:420px}
+  .futuros-page .scene-caption{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:#769361}
+
+  /* Mercado: hero de necesidad. */
+  .futuros-page .market-hero{min-height:560px;border:0;border-radius:16px;background:#dfe7d1;display:block;position:relative;overflow:hidden}
+  .futuros-page .market-copy{padding:45px 0 35px 34px;width:48%;position:relative;z-index:5}
+  .futuros-page .market-copy .eyebrow{font-size:9px}
+  .futuros-page .market-copy h1{font-size:64px;line-height:.99;letter-spacing:-3.8px;margin:22px 0;max-width:560px}
+  .futuros-page .market-copy h1 .serif{color:#5b7445}
+  .futuros-page .market-copy>p{font-size:13px;max-width:325px;color:var(--muted)}
+  .futuros-page .need-form{margin-top:25px;border:1px solid #aac092;background:#f2f5e7d9;backdrop-filter:blur(14px);border-radius:13px;width:calc(100% + 56px);padding:17px;box-shadow:0 18px 40px #23453210}
+  .futuros-page .need-form textarea{width:100%;border:0;resize:vertical;min-height:72px;max-height:150px;color:var(--ink);font-size:15px;line-height:1.6;background:none}
+  .futuros-page .need-form .row{margin-top:12px}
+  .futuros-page .need-form .row .note{font-size:9px}
+  .futuros-page .need-form .btn{background:var(--green);color:var(--lime);padding:10px 15px}
+  .futuros-page .examples{display:flex;gap:6px;flex-wrap:wrap;margin-top:15px}
+  .futuros-page .examples button{border:0;border-bottom:1px solid #a5b990;background:transparent;font-size:9px;padding:5px 6px}
+  .futuros-page .market-foot{display:flex;justify-content:space-between;gap:20px;margin-top:20px;font-size:10px;color:var(--muted)}
+  .futuros-page .market-foot strong{color:var(--ink);font-weight:550}
+  .futuros-page .market-foot span:last-child{font-size:9px}
+  .futuros-page .brief{background:#edf2e0;border-radius:16px;padding:30px;border:0;position:relative;overflow:hidden}
+  .futuros-page .brief-quote{font-size:36px;line-height:1.35;max-width:760px;margin:22px 0 29px;font-family:Georgia,serif;font-style:italic}
+  .futuros-page .brief-quote mark{background:var(--lime);color:var(--ink);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 4px}
+  .futuros-page .fields{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:24px}
+  .futuros-page .field label{display:block;font-size:10px;color:var(--muted);margin-bottom:6px}
+  .futuros-page .field input, .futuros-page .field select{width:100%;padding:10px;border:1px solid #aabc92;border-radius:6px;background:#e3ecd3;color:var(--ink)}
+  .futuros-page .market-results{display:grid;grid-template-columns:45% minmax(0,1fr);gap:26px}
+  .futuros-page .results-map{border:0;border-radius:14px;background:#d4dfc0;min-height:390px}
+  .futuros-page .provider{padding:16px 0;border-bottom:1px solid #bbcbaa}
+  .futuros-page .provider .provider-top{display:flex;gap:11px;align-items:center;justify-content:space-between}
+  .futuros-page .provider h3{font-size:18px;font-weight:500}
+  .futuros-page .provider p{font-size:11px;margin-top:7px}
+  .futuros-page .provider .facts{font-size:10px;color:var(--muted);margin:7px 0}
+  .futuros-page .provider .badge, .futuros-page .provider .note{font-size:9px}
+  .futuros-page .contact{border-left:3px solid #7c9951;background:#d8e8bf;border-radius:0 10px 10px 0;padding:10px 12px;font-size:12px;margin-top:10px}
+  .futuros-page .subtabs{display:flex;gap:15px;border-bottom:1px solid var(--line);margin-bottom:5px}
+  .futuros-page .subtabs button{border:0;background:none;padding:8px 0;font-size:11px;color:var(--muted)}
+  .futuros-page .subtabs button.active{color:var(--ink);border-bottom:2px solid var(--green)}
+
+  /* Rodeo: identidades, planilla, plan y asesor. */
+  .futuros-page .herd-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:20px}
+  .futuros-page .herd-canvas{position:relative;min-height:315px;background:#fbfcf5;border:1px solid var(--line);border-radius:14px;padding:20px}
+  .futuros-page .group-labels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}
+  .futuros-page .group-labels button{text-align:left;border:0;background:none;border-left:3px solid var(--sex);padding:0 0 0 10px;font-size:11px}
+  .futuros-page .group-labels button:nth-child(2){border-color:var(--conv)}
+  .futuros-page .group-labels button:nth-child(3){border-color:var(--beef)}
+  .futuros-page .group-labels strong{display:block;font:italic 35px Georgia,serif;line-height:1.1}
+  .futuros-page .group-labels button.active{color:#102e22}
+  .futuros-page .comparison-caption{margin-top:15px;border-top:1px solid var(--line);padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+  .futuros-page .comparison-caption strong{font-size:14px;font-weight:550}
+  .futuros-page .comparison-caption p{font-size:10px;color:var(--muted);margin-top:5px}
+  .futuros-page .herd-side{border-left:1px solid var(--line);padding-left:20px}
+  .futuros-page .herd-side h2{font-size:17px}
+  .futuros-page .animal-list{display:grid;margin:10px 0;max-height:235px;overflow:auto;gap:0;border-top:1px solid #b5c6a1}
+  .futuros-page .animal-row{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:9px 5px;background:none;border:0;border-bottom:1px solid var(--line);text-align:left;font-size:11px;width:100%}
+  .futuros-page .animal-row.active{background:#e6ecd9}
+  .futuros-page .animal-detail{padding-top:10px;border-top:1px solid var(--line)}
+  .futuros-page .animal-detail h3{font-size:18px;font-weight:500}
+  .futuros-page .animal-detail p{font-size:11px;margin:7px 0 13px;line-height:1.8}
+  .futuros-page .table-wrap{overflow-x:auto;background:#fdfdf9;border:1px solid var(--line);border-radius:12px;padding:0}
+  .futuros-page table{width:100%;border-collapse:collapse;text-align:left;font-size:12px}
+  .futuros-page th{font-size:9px;letter-spacing:.6px;text-transform:uppercase;font-weight:600;color:var(--muted);background:#eff1e8;padding:12px}
+  .futuros-page td{padding:12px;border-bottom:1px solid var(--line)}
+  .futuros-page tr:last-child td{border:0}
+  .futuros-page .filter-input{padding:7px 13px;font-size:10px;border:1px solid var(--line);border-radius:30px;background:#edf2e1}
+  .futuros-page .import-stage{min-height:360px;border:1px dashed #a8b99a;border-radius:16px;background:#fafbf5;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px;padding:38px}
+  .futuros-page .sheet-art{transform:rotate(-6deg);box-shadow:10px 25px 45px #203d3012;border:1px solid #c5d0ba;background:var(--white);border-radius:5px;padding:23px;max-width:320px;width:100%;justify-self:center}
+  .futuros-page .sheet-line{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;padding:11px 0;border-bottom:1px solid #e6eadf;font-size:11px}
+  .futuros-page .sheet-line.header{color:var(--muted);font-size:9px}
+  .futuros-page .sheet-line.highlight{background:#e8efd8;margin:0 -10px;padding:11px 10px}
+  .futuros-page .import-copy h2{font:italic 36px/1.1 Georgia,serif;margin:15px 0}
+  .futuros-page .import-copy .eyebrow{font-size:8px}
+  .futuros-page .import-copy p{font-size:13px;color:var(--muted);margin-bottom:20px;max-width:330px}
+  .futuros-page .import-copy .btn{background:var(--green);color:var(--lime)}
+  .futuros-page .import-copy .note{font-size:10px;max-width:350px}
+  .futuros-page .steps{display:flex;gap:25px;margin-bottom:22px;font-size:10px;color:var(--muted)}
+  .futuros-page .steps>span{padding:8px 12px;border:1px solid #bdccae;border-radius:30px}
+  .futuros-page .steps .active{background:#d4e2bb;border-color:#a4b887;color:var(--green);font-weight:600}
+  .futuros-page .mapping{padding:27px;background:#edf2e0;border-radius:16px}
+  .futuros-page .mapping h2{font-size:22px}
+  .futuros-page .mapping td{padding:17px}
+  .futuros-page .mapping select{background:#e3ecd3;border-radius:6px;border:1px solid var(--line);padding:8px;font-size:12px}
+  .futuros-page .success-heading{display:flex;align-items:center;gap:12px;margin-bottom:19px}
+  .futuros-page .success-heading h2{font-size:25px;font-weight:450}
+  .futuros-page .success-heading .check{display:grid;place-items:center;background:var(--lime);border-radius:50%;width:38px;height:38px}
+  .futuros-page .plan-sheet{background:#f2f2df;border:0;border-radius:0;padding:28px 25px}
+  .futuros-page .plan-sheet .sheet-head{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #638152;padding-bottom:19px;margin-bottom:20px}
+  .futuros-page .plan-sheet .sheet-head h2{font:italic 29px Georgia,serif}
+  .futuros-page .plan-summary{display:flex;justify-content:space-between;align-items:center;gap:15px;padding-top:24px}
+  .futuros-page .plan-summary strong{font-size:29px;font-weight:450}
+  .futuros-page .advisor-table{background:transparent;border:0;border-radius:12px;overflow:hidden}
+  .futuros-page .advisor-row{display:grid;grid-template-columns:1.3fr .4fr .6fr .8fr .75fr .75fr;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #bbcca8;font-size:11px;position:relative}
+  .futuros-page .advisor-row.active{background:#d0e1b7;border-radius:6px}
+  .futuros-page .advisor-row strong{font-weight:500}
+  .futuros-page .advisor-row .btn{font-size:9px;min-height:28px;padding:4px 8px}
+  .futuros-page .advisor-row small{font-size:8px;color:var(--muted);display:block}
+  .futuros-page .advisor-sort{border-radius:30px;background:#dce7cc;border:1px solid #b4c99f;padding:8px 11px;font-size:10px}
+  .futuros-page .composition{display:flex;height:5px;overflow:hidden;border-radius:1px}
+  .futuros-page .composition i:nth-child(1){background:var(--sex)}
+  .futuros-page .composition i:nth-child(2){background:var(--conv)}
+  .futuros-page .composition i:nth-child(3){background:var(--beef)}
+  .futuros-page .advisor-label{font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:#6d825a}
+
+  @keyframes reveal{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes calf{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes brief-unfold{0%{opacity:0;transform:perspective(1400px) rotateX(15deg) translateY(28px) scale(.97)}100%{opacity:1;transform:perspective(1400px) rotateX(0) translateY(0) scale(1)}}
+  @keyframes plan-deliver{0%{opacity:0;transform:translateX(40px) rotate(2deg);background:#d3ee9c}100%{opacity:1;transform:translateX(0) rotate(0);background:transparent}}
+  .futuros-page .spatial-reveal{animation:brief-unfold .65s both}
+  .futuros-page .plan-row{animation:plan-deliver .9s cubic-bezier(.18,.7,.3,1) both}
+
+  @media(max-width:1050px){
+    .futuros-page .matching-grid{grid-template-columns:1fr}
+    .futuros-page .ranking{display:grid;grid-template-columns:repeat(3,1fr);background:transparent;gap:7px}
+    .futuros-page .candidate{border:1px solid var(--line);border-radius:9px;background:#dce6cb;padding:13px 10px;grid-template-columns:20px 1fr}
+    .futuros-page .market-hero{min-height:0}
+    .futuros-page .market-copy{width:100%;padding:27px 22px}
+    .futuros-page .market-copy h1{font-size:40px}
+    .futuros-page .need-form{width:100%}
+    .futuros-page .herd-layout{grid-template-columns:1fr}
+    .futuros-page .herd-side{border:0;padding:0}
+    .futuros-page .import-stage{grid-template-columns:1fr}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .futuros-page *, .futuros-page *:before, .futuros-page *:after{animation:none!important;transition:none!important}
+  }
