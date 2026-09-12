@@ -4,16 +4,17 @@ import { Compass, Dna } from 'lucide-react';
 import type { BreedingGoal, ExplanationFacts, GoalPreset, MatchCandidate } from '@org/shared-types';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { PageHeader } from '@/components/ui/page-header';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
+import { cn } from '@/lib/utils';
 import { useActiveFarmId } from '../../shared/user/user-context.js';
 import { useMatchBoard } from '../../shared/api/hooks/use-match-board.js';
 import { useAddPlanItem, useRemovePlanItem } from '../../shared/api/hooks/use-plan-item-mutations.js';
-import { useGoalParse } from '../../shared/api/hooks/use-goal-parse.js';
+import { useFemales } from '../../shared/api/hooks/use-herd.js';
 import { usePlan } from '../../shared/api/hooks/use-plan.js';
 import { MatchRow } from './match-row.js';
 
@@ -71,31 +72,37 @@ export function MatchingScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeFarmId] = useActiveFarmId();
+  const farmId = activeFarmId ?? '';
   const incomingGoal = isBreedingGoal((location.state as { goal?: unknown } | null)?.goal)
     ? (location.state as { goal: BreedingGoal }).goal
     : null;
-  const [text, setText] = useState(incomingGoal?.rawText ?? '');
   const [preset, setPreset] = useState<GoalPreset>(
     incomingGoal && incomingGoal.preset !== 'CUSTOM' ? incomingGoal.preset : 'BALANCED',
   );
   const [goal, setGoal] = useState<BreedingGoal>(incomingGoal ?? presetGoal('BALANCED'));
-  const [searchId, setSearchId] = useState('');
   // Proyección de la cría bajo demanda ("Proyectar cría"): independiente de
   // agregar el candidato al plan, como en la escena de referencia.
   const [previewNaab, setPreviewNaab] = useState<string | null>(null);
   const [previewKey, setPreviewKey] = useState(0);
 
-  const farmId = activeFarmId ?? '';
+  const females = useFemales(farmId);
   const board = useMatchBoard(farmId, femaleId, goal);
   const addItem = useAddPlanItem(farmId);
   const removeItem = useRemovePlanItem(farmId);
-  const goalParse = useGoalParse();
   // REQ-D-14: el toro "En el plan" sale del plan real (B5), no de un estado
   // local — así al entrar desde /negociacion/plan ya viene marcado.
   const plan = usePlan(activeFarmId);
   const chosenNaab = plan.data?.items.find((item) => item.femaleId === femaleId)?.bullNaab ?? null;
   const projectedNaab = previewNaab ?? chosenNaab;
   const revealRef = useRevealProgress(Boolean(projectedNaab), previewKey);
+
+  // Sin hembra en la URL: entramos directo con la primera del rodeo en vez
+  // de mostrar un buscador por ID.
+  useEffect(() => {
+    if (!femaleId && females.data && females.data.length > 0) {
+      navigate(`/motor-genetico/matching/${females.data[0].id}`, { replace: true });
+    }
+  }, [femaleId, females.data, navigate]);
 
   function handlePreview(candidate: MatchCandidate) {
     setPreviewNaab(candidate.capabilityId);
@@ -105,18 +112,6 @@ export function MatchingScreen() {
   useEffect(() => {
     setPreviewNaab(null);
   }, [femaleId]);
-
-  function handleProcesar() {
-    // REQ-D-07: con texto vacío, usa el preset elegido sin llamar al LLM.
-    if (!text.trim()) {
-      setGoal(presetGoal(preset));
-      return;
-    }
-    goalParse.mutate(text, {
-      onSuccess: (parsed) => setGoal(parsed),
-      onError: () => setGoal(presetGoal(preset)),
-    });
-  }
 
   function handleChoose(candidate: MatchCandidate) {
     if (!femaleId) return;
@@ -143,65 +138,79 @@ export function MatchingScreen() {
   const sceneBullName =
     (sceneCandidate?.verticalFacts as ExplanationFacts | undefined)?.bull.name ??
     sceneCandidate?.capabilityId;
+  const currentFemale = females.data?.find((f) => f.id === femaleId);
 
-  const objectiveBar = (
-    <div className="flex items-center gap-3">
-      <Input
-        placeholder="quiero mejorar los sólidos de mi tambo"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="flex-1"
-      />
-      <Select value={preset} onValueChange={(v) => setPreset(v as GoalPreset)}>
-        <SelectTrigger className="w-[220px]">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          {PRESETS.map((p) => (
-            <SelectItem key={p.id} value={p.id}>
-              {p.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <Button variant="secondary" asChild>
-        <Link to="/motor-genetico/importar">Subir Excel</Link>
-      </Button>
-      <Button onClick={handleProcesar} disabled={goalParse.isPending}>
-        {goalParse.isPending ? 'Procesando…' : 'Procesar'}
-      </Button>
+  const header = (
+    <PageHeader
+      title={
+        <>
+          El futuro se <span className="font-serif text-primary italic">diseña.</span>
+        </>
+      }
+      description="Una vaca. Un aporte. Explorá lo que podría cambiar en la próxima generación."
+      actions={
+        females.data && females.data.length > 0 ? (
+          <Select value={femaleId} onValueChange={(id) => navigate(`/motor-genetico/matching/${id}`)}>
+            <SelectTrigger className="w-[190px]">
+              <SelectValue placeholder="Elegir hembra" />
+            </SelectTrigger>
+            <SelectContent>
+              {females.data.map((f) => (
+                <SelectItem key={f.id} value={f.id}>
+                  {f.visualId}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        ) : undefined
+      }
+    />
+  );
+
+  const goalPills = (
+    <div className="flex flex-wrap gap-2">
+      {PRESETS.map((p) => (
+        <button
+          key={p.id}
+          type="button"
+          onClick={() => {
+            setPreset(p.id);
+            setGoal(presetGoal(p.id));
+          }}
+          className={cn(
+            'rounded-full border px-3.5 py-2 text-[11.5px] font-medium transition-colors',
+            preset === p.id
+              ? 'border-secondary-border bg-accent font-semibold text-primary'
+              : 'border-border text-muted-foreground hover:bg-muted',
+          )}
+        >
+          {p.label}
+        </button>
+      ))}
     </div>
   );
+
+  if (females.isLoading) {
+    return (
+      <div className="flex flex-col gap-5">
+        {header}
+        <Skeleton className="h-24 w-full" />
+      </div>
+    );
+  }
 
   if (!femaleId) {
     return (
       <div className="flex flex-col gap-5">
-        {objectiveBar}
+        {header}
         <EmptyState
           icon={<Dna />}
-          title="Elegí una hembra"
-          description="Buscá por ID visual (ej. 3031) o entrá desde el Tablero del rodeo."
+          title="Todavía no cargaste tu rodeo"
+          description="Subí el Excel del rodeo para elegir una hembra y ver sus candidatos."
           action={
-            <form
-              className="flex items-center gap-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (searchId.trim()) navigate(`/motor-genetico/matching/${searchId.trim()}`);
-              }}
-            >
-              <Input
-                placeholder="ID visual de la hembra"
-                value={searchId}
-                onChange={(e) => setSearchId(e.target.value)}
-                className="w-[180px]"
-              />
-              <Button type="submit" size="sm">
-                Ir
-              </Button>
-              <Button variant="ghost" size="sm" asChild>
-                <Link to="/motor-genetico/tablero">Ver Tablero del rodeo</Link>
-              </Button>
-            </form>
+            <Button asChild>
+              <Link to="/motor-genetico/importar">Subir Excel</Link>
+            </Button>
           }
         />
       </div>
@@ -210,52 +219,58 @@ export function MatchingScreen() {
 
   return (
     <div className="flex flex-col gap-5">
-      {objectiveBar}
-
-      <div className="flex items-center justify-between gap-4 rounded-lg bg-foreground p-4 text-background">
-        <div className="flex flex-col gap-1">
-          <span className="font-mono text-[9.5px] font-semibold tracking-[0.14em] text-ink-4 uppercase">
-            Tu hembra · contexto fijo para todo el listado
-          </span>
-          <span className="text-[17px] font-bold tracking-tight">{femaleId}</span>
-        </div>
-        <Button variant="secondary" size="sm" onClick={() => navigate('/motor-genetico/matching')}>
-          Cambiar hembra
-        </Button>
-      </div>
+      {header}
+      {goalPills}
 
       {ranked.length > 0 && (
-        <SpatialScene
-          kind="genetic"
-          className="h-[280px] w-full rounded-lg border border-border bg-[radial-gradient(ellipse_at_48%_15%,#38664d_0%,#164737_48%,#103c31_100%)]"
-          options={{
-            progress: () => revealRef.current,
-            projected: () => true,
-          }}
-        >
-          <SpatialLabel anchor="mother" className="-translate-x-1/2">
-            <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">
-              Tu hembra
+        <>
+          <SpatialScene
+            kind="genetic"
+            className="h-[280px] w-full rounded-lg border border-border bg-[radial-gradient(ellipse_at_48%_15%,#38664d_0%,#164737_48%,#103c31_100%)]"
+            options={{
+              progress: () => revealRef.current,
+              projected: () => true,
+            }}
+          >
+            <SpatialLabel anchor="mother" className="-translate-x-1/2">
+              <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">
+                Tu hembra
+              </span>
+              <strong className="block text-[15px] font-medium text-[#f0f5dc]">
+                {currentFemale?.visualId ?? femaleId}
+              </strong>
+            </SpatialLabel>
+            <SpatialLabel anchor="bull" className="-translate-x-1/2">
+              <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">
+                {chosenNaab === sceneCandidate?.capabilityId
+                  ? 'Toro elegido'
+                  : previewNaab
+                    ? 'Proyectando'
+                    : 'Toro mejor rankeado'}
+              </span>
+              <strong className="block text-[15px] font-medium text-[#f0f5dc]">{sceneBullName}</strong>
+            </SpatialLabel>
+            <SpatialLabel anchor="calf" className="-translate-x-1/2">
+              <span className="block text-[8px] font-semibold tracking-[0.1em] text-lime uppercase">Cría proyectada</span>
+            </SpatialLabel>
+            <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#b5ceb1]">
+              Representación conceptual. No predice sexo, pelaje ni resultado reproductivo.
             </span>
-            <strong className="block text-[15px] font-medium text-[#f0f5dc]">{femaleId}</strong>
-          </SpatialLabel>
-          <SpatialLabel anchor="bull" className="-translate-x-1/2">
-            <span className="block text-[8px] font-semibold tracking-[0.1em] text-[#c6d5b4] uppercase">
-              {chosenNaab === sceneCandidate?.capabilityId
-                ? 'Toro elegido'
-                : previewNaab
-                  ? 'Proyectando'
-                  : 'Toro mejor rankeado'}
-            </span>
-            <strong className="block text-[15px] font-medium text-[#f0f5dc]">{sceneBullName}</strong>
-          </SpatialLabel>
-          <SpatialLabel anchor="calf" className="-translate-x-1/2">
-            <span className="block text-[8px] font-semibold tracking-[0.1em] text-lime uppercase">Cría proyectada</span>
-          </SpatialLabel>
-          <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#b5ceb1]">
-            Representación conceptual. No predice sexo, pelaje ni resultado reproductivo.
-          </span>
-        </SpatialScene>
+          </SpatialScene>
+
+          {sceneCandidate && (
+            <div className="flex items-center justify-between gap-4 rounded-lg border border-border bg-card p-3.5">
+              <p className="max-w-[440px] text-[11.5px] text-muted-foreground">
+                La escena conecta a <span className="font-semibold text-foreground">{currentFemale?.visualId ?? femaleId}</span>{' '}
+                con el aporte de <span className="font-semibold text-foreground">{sceneBullName}</span>. Compará el
+                escenario antes de llevarlo al plan.
+              </p>
+              <Button onClick={() => handlePreview(sceneCandidate)}>
+                {projectedNaab === sceneCandidate.capabilityId ? 'Repetir escena' : 'Proyectar cría'}
+              </Button>
+            </div>
+          )}
+        </>
       )}
 
       {board.isPending && (

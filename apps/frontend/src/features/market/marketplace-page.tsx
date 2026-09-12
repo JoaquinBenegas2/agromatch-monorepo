@@ -139,12 +139,12 @@ export function MarketplacePage() {
   }
 
   return (
-    <div className="relative isolate overflow-hidden rounded-2xl bg-[#dfe7d1] p-8 md:min-h-[540px] md:p-12">
-      <div className="relative z-[5] flex max-w-[540px] flex-col gap-5">
+    <div className="grid gap-8 overflow-hidden rounded-2xl bg-[#dfe7d1] p-8 md:grid-cols-[1fr_1.1fr] md:p-12">
+      <div className="flex flex-col justify-center gap-5">
         <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
           Hora de empezar, {user.name}
         </p>
-        <h1 className="text-balance text-[36px] leading-[1.02] font-semibold tracking-[-0.03em] sm:text-[48px]">
+        <h1 className="text-balance text-[32px] leading-[1.05] font-semibold tracking-[-0.03em] sm:text-[42px]">
           ¿Qué necesita tu establecimiento hoy?
         </h1>
         <p className="max-w-[360px] text-[13px] text-muted-foreground">
@@ -191,7 +191,7 @@ export function MarketplacePage() {
 
       <SpatialScene
         kind="market"
-        className="absolute top-8 right-[-4%] hidden h-[460px] w-[62%] rounded-xl md:block"
+        className="hidden h-[280px] w-full rounded-xl md:-my-12 md:-mr-12 md:block md:h-auto lg:-mr-16"
       >
         <SpatialLabel anchor="need" className="-translate-x-1/2">
           <span className="inline-flex items-center rounded-full bg-[#f2f5e7ee] px-2.5 py-1 text-[9px] font-semibold tracking-[0.08em] text-[#1e4c3a] uppercase shadow-sm backdrop-blur">
