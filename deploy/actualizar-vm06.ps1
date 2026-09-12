@@ -41,6 +41,38 @@ function Ok($t)   { Write-Host "    OK  $t" -ForegroundColor Green }
 function Aviso($t){ Write-Host "    !   $t" -ForegroundColor Yellow }
 function Morir($t){ Write-Host "    X   $t" -ForegroundColor Red; exit 1 }
 
+# El DNS de VM06 no resuelve algunos dominios (p. ej. *.proxy.rlwy.net de Railway) aunque la
+# salida TCP funcione. Si el host de la base no resuelve localmente, se resuelve por un DNS
+# publico y se fija en el archivo hosts (una sola linea, marcada, se actualiza si cambia la IP).
+function Asegurar-ResolucionDb([string] $dbHost, [int] $dbPort) {
+    Paso "Resolucion DNS de la base ($dbHost)"
+    if ($dbHost -match '^\d+\.\d+\.\d+\.\d+$') { Ok 'es una IP, no hay nada que resolver'; return }
+    if ($dbHost -match '\.railway\.internal$') { Morir "DATABASE_URL usa el host INTERNO de Railway ($dbHost): solo resuelve dentro de Railway. Usar la URL publica (*.proxy.rlwy.net:<puerto>)." }
+
+    $local = Resolve-DnsName $dbHost -ErrorAction SilentlyContinue | Where-Object { $_.Type -eq 'A' } | Select-Object -First 1
+    $hostsFile = "$env:windir\System32\drivers\etc\hosts"
+    $marca = '# hackaton-db (actualizar-vm06.ps1)'
+    if ($local) {
+        Ok "resuelve por el DNS de la VM: $($local.IPAddress)"
+    } else {
+        $publico = $null
+        foreach ($dns in '8.8.8.8', '1.1.1.1') {
+            $r = Resolve-DnsName $dbHost -Server $dns -ErrorAction SilentlyContinue | Where-Object { $_.Type -eq 'A' } | Select-Object -First 1
+            if ($r) { $publico = $r.IPAddress; break }
+        }
+        if (-not $publico) { Morir "$dbHost no resuelve ni con DNS publico. Revisar la URL." }
+        $lineas = Get-Content -LiteralPath $hostsFile -ErrorAction SilentlyContinue
+        $nuevas = @($lineas | Where-Object { $_ -notmatch [regex]::Escape($marca) })
+        $nuevas += "$publico`t$dbHost`t$marca"
+        Set-Content -LiteralPath $hostsFile -Value $nuevas -Encoding ASCII
+        ipconfig /flushdns | Out-Null
+        Ok "el DNS de la VM no lo conoce: fijado en hosts -> $publico $dbHost"
+    }
+
+    $tcp = Test-NetConnection $dbHost -Port $dbPort -WarningAction SilentlyContinue -InformationLevel Quiet
+    if ($tcp) { Ok "TCP ${dbHost}:$dbPort abierto" } else { Morir "No hay salida TCP a ${dbHost}:$dbPort desde la VM (firewall). El backend no va a poder conectarse." }
+}
+
 # ── 1. Diagnostico ───────────────────────────────────────────────────────────
 Paso 'Diagnostico'
 if (-not (Test-Path -LiteralPath $Share)) { Morir "No encuentro el share: $Share" }
@@ -187,6 +219,11 @@ if ($fuenteEnv) {
     if ($perfil -eq 'prisma') {
         $ld = Get-Content -LiteralPath $fuenteEnv | Where-Object { $_ -match '^\s*DATABASE_URL\s*=\s*\S' } | Select-Object -First 1
         if (-not $ld) { Morir 'REPOSITORY_MODE=prisma pero DATABASE_URL esta vacia en el .env: el backend no va a arrancar.' }
+        $dbUrl  = (($ld -split '=', 2)[1]).Trim().Trim('"').Trim("'")
+        $dbHost = (($dbUrl -replace '^[a-z]+://[^@]*@', '') -replace '[:/].*$', '')
+        $dbPort = 5432
+        if ($dbUrl -match '@[^/:]+:(\d+)') { $dbPort = [int]$Matches[1] }
+        Asegurar-ResolucionDb $dbHost $dbPort
     }
 }
 
