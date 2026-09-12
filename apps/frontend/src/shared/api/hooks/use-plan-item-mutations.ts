@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type { BreedingGoal, PlanItem } from '@org/shared-types';
+import type { BreedingGoal, SavePlanItem } from '@org/shared-types';
 import { BreedingPlanSchema } from '@org/shared-types';
 import { api } from '../client.js';
 import { queryKeys } from '../keys.js';
@@ -10,7 +10,8 @@ import { queryKeys } from '../keys.js';
 export function useAddPlanItem(farmId: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (item: PlanItem) => api.post(`/farms/${farmId}/plan/items`, item, BreedingPlanSchema),
+    mutationFn: (item: SavePlanItem) =>
+      api.post(`/farms/${farmId}/plan/items`, item, BreedingPlanSchema),
     onSuccess: (plan) => {
       queryClient.setQueryData(queryKeys.plan(farmId), plan);
     },

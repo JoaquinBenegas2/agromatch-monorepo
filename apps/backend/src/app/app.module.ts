@@ -4,8 +4,8 @@ import { AiModule } from '../ai/ai.module.js';
 import { AuthModule } from '../auth/auth.module.js';
 import { ApiExceptionFilter } from '../common/errors/api-exception.filter.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
-import { isMemoryPersistence } from '../repos/persistence.js';
 import { RepositoriesModule } from '../repos/repositories.module.js';
+import { useMemoryRepositories } from '../repos/repository-mode.js';
 import { ClassificationModule } from '../classification/classification.module.js';
 import { HerdImportModule } from '../herd-import/herd-import.module.js';
 import { HerdModule } from '../herd/herd.module.js';
@@ -20,13 +20,11 @@ import { PlanningModule } from './planning/planning.module.js';
 import { ProvidersModule } from './providers/providers.module.js';
 import { RequestsModule } from './requests/requests.module.js';
 import { SmokeController } from './smoke.controller.js';
+import { NegotiationsModule } from './negotiations/negotiations.module.js';
 
 @Module({
   imports: [
-    // PERSISTENCE=memory (repos/persistence.ts, docs/qa-config.md §6.2):
-    // arranca completo sin Postgres. PrismaService exige DATABASE_URL en
-    // su constructor, así que el módulo ni se importa en ese perfil.
-    ...(isMemoryPersistence() ? [] : [PrismaModule]),
+    ...(useMemoryRepositories ? [] : [PrismaModule]),
     RepositoriesModule,
     AuthModule,
     AiModule,
@@ -41,8 +39,12 @@ import { SmokeController } from './smoke.controller.js';
     ClassificationModule,
     HerdModule,
     AdvisorModule,
+    NegotiationsModule,
   ],
   controllers: [AppController, SmokeController],
-  providers: [AppService, { provide: APP_FILTER, useClass: ApiExceptionFilter }],
+  providers: [
+    AppService,
+    { provide: APP_FILTER, useClass: ApiExceptionFilter },
+  ],
 })
 export class AppModule {}

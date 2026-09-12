@@ -11,7 +11,7 @@
         .\deploy\deploy-vm06.ps1 -WhatIf        # muestra que haria, sin copiar
 
     Backend: un unico main.js autocontenido (BUNDLE_ALL=1 en webpack.config.js),
-    asi la VM no necesita node_modules ni npm install. Corre con PERSISTENCE=memory
+    asi la VM no necesita node_modules ni npm install. Corre con REPOSITORY_MODE=memory
     (sin Postgres, sembrado con los fixtures) — lo setea el script de la VM.
 #>
 [CmdletBinding(SupportsShouldProcess)]

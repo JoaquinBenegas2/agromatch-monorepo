@@ -24,6 +24,11 @@ export class NeedsController {
     return this.needs.list(farmId ?? '', user);
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: string, @CurrentUser() user: User) {
+    return this.needs.findOwned(id, user);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,

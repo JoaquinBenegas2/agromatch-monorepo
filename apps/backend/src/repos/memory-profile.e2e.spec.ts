@@ -1,18 +1,19 @@
 import type { INestApplication } from '@nestjs/common';
 
 /**
- * Prueba de humo del perfil `PERSISTENCE=memory` (docs/qa-config.md §6.2):
- * levanta el `AppModule` real completo (guards, controllers, filtro de
- * errores, motor genético, chat) sin Postgres, y verifica los mismos
- * números que el QA manual verifica contra Postgres real (§4.2, §4.5).
+ * Prueba de humo del modo `REPOSITORY_MODE=memory` (docs/qa-config.md §6.2,
+ * `repos/memory.providers.ts`): levanta el `AppModule` real completo (guards,
+ * controllers, filtro de errores, motor genético, chat) sin Postgres, y
+ * verifica los mismos números que el QA manual verifica contra Postgres real
+ * (§4.2, §4.5). Es la red de seguridad del deploy en memoria de la demo.
  *
- * Gotcha (§7): Nx inyecta el `.env` raíz (con ANTHROPIC_API_KEY y sin
- * PERSISTENCE) en el entorno de test. Seteamos ambas variables ACÁ, antes
- * de importar `AppModule` — con `import()` dinámico, no estático, porque
- * `repositories.module.ts` y `ai/ai.providers.ts` leen `process.env` una
- * sola vez al evaluarse el módulo (arrays de providers a nivel de archivo).
+ * Gotcha (§7): Nx inyecta el `.env` raíz (con ANTHROPIC_API_KEY y
+ * REPOSITORY_MODE=prisma) en el entorno de test. Seteamos ambas variables
+ * ACÁ, antes de importar `AppModule` — con `import()` dinámico, no estático,
+ * porque `repository-mode.ts` y `ai/ai.providers.ts` leen `process.env` una
+ * sola vez al evaluarse el módulo.
  */
-process.env['PERSISTENCE'] = 'memory';
+process.env['REPOSITORY_MODE'] = 'memory';
 process.env['AI_MODE'] = 'fake';
 
 const BASE_GOAL = {
@@ -22,13 +23,13 @@ const BASE_GOAL = {
   wantKappaBB: true,
 };
 
-describe('Perfil en memoria (PERSISTENCE=memory) — e2e de humo', () => {
+describe('Repos en memoria (REPOSITORY_MODE=memory) — e2e de humo', () => {
   let app: INestApplication;
   let baseUrl: string;
 
   beforeAll(async () => {
     const { NestFactory } = await import('@nestjs/core');
-    const { AppModule } = await import('../../app/app.module.js');
+    const { AppModule } = await import('../app/app.module.js');
 
     app = await NestFactory.create(AppModule, { logger: false });
     app.setGlobalPrefix('api');

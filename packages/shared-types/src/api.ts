@@ -12,6 +12,7 @@ import {
   HerdImportConfirmResponseSchema,
   MeResponseSchema,
   ParseGoalBodySchema,
+  SendNegotiationMessageBodySchema,
   UpdateNeedBodySchema,
 } from './schemas.js';
 
@@ -24,12 +25,16 @@ import {
  * | GET /me                                                                | —                                        | `{ user: User; farms: Farm[] }`                | api-skeleton        |
  * | GET /bulls                                                             | —                                        | `Bull[]`                                       | api-skeleton        |
  * | POST /needs                                                            | `CreateNeedBody`                         | `Need` (DRAFT)                                  | mvp-b-need          |
+ * | GET /needs/:id                                                         | —                                        | `Need`                                          | mvp-b-need          |
  * | PATCH /needs/:id                                                       | `UpdateNeedBody`                         | `Need` (OPEN)                                   | mvp-b-need          |
  * | GET /needs?farmId=                                                     | —                                        | `Need[]` (sin sintéticos)                       | mvp-b-need          |
  * | POST /needs/:id/matches                                                | —                                        | `MatchBoard`                                    | mvp-b-need          |
  * | GET /providers?category=                                               | —                                        | `PublicProvider[]` (sin `contact`)              | mvp-b-need          |
  * | POST /needs/:id/requests                                               | `CreateServiceRequestBody`               | `ServiceRequest` (con `contact`)                | mvp-b-need          |
  * | POST /requests/:id/review                                              | `CreateReviewBody`                       | `Review`                                        | mvp-b-need          |
+ * | GET /negotiations                                                      | —                                        | `Negotiation[]`                                 | negotiations        |
+ * | GET /negotiations/:id                                                  | —                                        | `Negotiation`                                   | negotiations        |
+ * | POST /negotiations/:id/messages                                        | `SendNegotiationMessageBody`             | `Negotiation`                                   | negotiations        |
  * | GET /advisor/overview                                                  | —                                        | `FarmSummary[]`                                 | mvp-b-need (anexo)  |
  * | POST /farms/:farmId/herd-imports                                       | multipart `file`                         | `HerdImportConfirmResponse`                     | mvp-c-herd          |
  * | POST /farms/:farmId/herd-imports/:importId/confirm                     | `ColumnMapping`                          | `HerdImportResult`                              | mvp-c-herd          |
@@ -49,17 +54,32 @@ import {
  * | POST /catalog-imports/:importId/confirm                                | —                                        | `{ added: number; updated: number }`            | fuera del MVP (C3) |
  */
 export const API_PREFIX = '/api';
+export type SavePlanItem = z.infer<
+  typeof import('./schemas.js').SavePlanItemSchema
+>;
+export type ContactGeneticMatch = z.infer<
+  typeof import('./schemas.js').ContactGeneticMatchSchema
+>;
 
 export type MeResponse = z.infer<typeof MeResponseSchema>;
 export type CreateNeedBody = z.infer<typeof CreateNeedBodySchema>;
 export type UpdateNeedBody = z.infer<typeof UpdateNeedBodySchema>;
-export type CreateServiceRequestBody = z.infer<typeof CreateServiceRequestBodySchema>;
+export type CreateServiceRequestBody = z.infer<
+  typeof CreateServiceRequestBodySchema
+>;
 export type CreateReviewBody = z.infer<typeof CreateReviewBodySchema>;
 export type GoalBody = z.infer<typeof GoalBodySchema>;
 export type ParseGoalBody = z.infer<typeof ParseGoalBodySchema>;
 export type ChatBody = z.infer<typeof ChatBodySchema>;
-export type HerdImportConfirmResponse = z.infer<typeof HerdImportConfirmResponseSchema>;
-export type FemaleWithClassification = z.infer<typeof FemaleWithClassificationSchema>;
+export type SendNegotiationMessageBody = z.infer<
+  typeof SendNegotiationMessageBodySchema
+>;
+export type HerdImportConfirmResponse = z.infer<
+  typeof HerdImportConfirmResponseSchema
+>;
+export type FemaleWithClassification = z.infer<
+  typeof FemaleWithClassificationSchema
+>;
 
 export type ClassificationSummary = z.infer<typeof ClassificationSummarySchema>;
 export type FarmSummary = z.infer<typeof FarmSummarySchema>;

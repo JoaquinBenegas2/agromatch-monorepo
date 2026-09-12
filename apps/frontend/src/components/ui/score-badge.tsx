@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const scoreBadgeVariants = cva(
-  'inline-flex min-w-[34px] items-center justify-center rounded-full px-2 py-1 font-mono text-[11px] leading-none font-semibold',
+  'inline-flex min-w-[34px] items-center justify-center rounded-full px-2 py-1 text-[11px] leading-none font-semibold',
   {
     variants: {
       tier: {

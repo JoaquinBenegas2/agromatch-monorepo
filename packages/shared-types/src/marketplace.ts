@@ -1,11 +1,15 @@
 import type { z } from 'zod';
+import type { Explanation } from './domain.js';
 import {
   CapabilitySchema,
   FitBreakdownSchema,
   GeoPointSchema,
   MagnitudeSchema,
+  MarketExplanationFactsSchema,
   MatchBoardSchema,
   MatchCandidateSchema,
+  NegotiationMessageSchema,
+  NegotiationSchema,
   NeedCategorySchema,
   NeedSchema,
   NeedStatusSchema,
@@ -43,6 +47,8 @@ export type MatchBoard = z.infer<typeof MatchBoardSchema>;
 
 export type ServiceRequestStatus = z.infer<typeof ServiceRequestStatusSchema>;
 export type ServiceRequest = z.infer<typeof ServiceRequestSchema>;
+export type NegotiationMessage = z.infer<typeof NegotiationMessageSchema>;
+export type Negotiation = z.infer<typeof NegotiationSchema>;
 export type Review = z.infer<typeof ReviewSchema>;
 
 /** Un vertical se registra; el núcleo no lo conoce (RN-35, ADR-0002). */
@@ -60,4 +66,12 @@ export interface VerticalEngine<TFacts = unknown> {
 /** Puerto de intake (RN-30). */
 export interface NeedIntakePort {
   parse(rawText: string, farmId: string): Promise<Need>;
+}
+
+export type MarketExplanationFacts = z.infer<typeof MarketExplanationFactsSchema>;
+
+/** Puerto de explicación del flujo B (necesidad → proveedor), análogo al
+ * `ExplainerPort` genético pero sobre `MarketExplanationFacts`. */
+export interface MarketExplainerPort {
+  explain(facts: MarketExplanationFacts): Promise<Explanation>;
 }

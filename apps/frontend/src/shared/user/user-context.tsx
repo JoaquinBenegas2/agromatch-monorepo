@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import type { ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import type { User } from '@org/shared-types';
@@ -68,7 +74,13 @@ export function useUser(): UserContextValue {
 /** El tambo activo: único para FARMER, elegible para ADVISOR/ADMIN. */
 export function useActiveFarmId(): [string | null, (farmId: string) => void] {
   const { user, selectedFarmId, setSelectedFarmId } = useUser();
-  const selected = selectedFarmId && user.farmIds.includes(selectedFarmId) ? selectedFarmId : null;
-  const activeFarmId = user.role === 'FARMER' ? (user.farmIds[0] ?? null) : (selected ?? user.farmIds[0] ?? null);
+  const selected =
+    selectedFarmId && user.farmIds.includes(selectedFarmId)
+      ? selectedFarmId
+      : null;
+  const activeFarmId =
+    user.role === 'FARMER'
+      ? (user.farmIds[0] ?? null)
+      : (selected ?? user.farmIds[0] ?? null);
   return [activeFarmId, setSelectedFarmId];
 }

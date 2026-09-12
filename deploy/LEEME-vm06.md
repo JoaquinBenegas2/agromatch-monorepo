@@ -1,6 +1,6 @@
 # AgroMatch en VM06 — `hackaton.vylaris.com.ar`
 
-Deploy de demo **sin base de datos**: el backend corre con `PERSISTENCE=memory`
+Deploy de demo **sin base de datos**: el backend corre con `REPOSITORY_MODE=memory`
 (los fixtures se cargan en memoria al arrancar; lo que se clasifica o carga se
 pierde al reiniciar el servicio). Claude va **en vivo** (`AI_MODE=live`).
 
@@ -75,5 +75,5 @@ No hay login: el front manda `x-user-id`. `tambero-a` (rodeo real, 293 animales)
 Prisma ya viaja dentro del `main.js`; no hay que recompilar nada.
 
 1. Desde la máquina dev, con `DATABASE_URL` apuntando a esa base: `npm run db:deploy` (migraciones) y `npx nx run @org/backend:db-seed` (fixtures).
-2. En `C:\shared\hackaton\backend\.env`: `PERSISTENCE=postgres` y `DATABASE_URL=postgresql://...`.
-3. `C:\shared\hackaton\actualizar-vm06.ps1` (el script aborta si `PERSISTENCE=postgres` y `DATABASE_URL` está vacía).
+2. En `C:\shared\hackaton\backend\.env`: `REPOSITORY_MODE=prisma` y `DATABASE_URL=postgresql://...`.
+3. `C:\shared\hackaton\actualizar-vm06.ps1` (el script aborta si `REPOSITORY_MODE=prisma` y `DATABASE_URL` está vacía).

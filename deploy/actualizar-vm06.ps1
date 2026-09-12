@@ -14,7 +14,7 @@
       2. Espeja share\front -> C:\apps\hackaton\front (lo que sirve el sitio IIS ya creado).
       3. Copia share\backend\main.js -> C:\apps\hackaton\backend\main.js.
       4. Registra (o actualiza) el servicio NSSM `HackatonApi`: node main.js con
-         PERSISTENCE=memory (sin base de datos, fixtures en memoria), AI_MODE=live, PORT=8095.
+         REPOSITORY_MODE=memory (sin base de datos, fixtures en memoria), AI_MODE=live, PORT=8095.
       5. Habilita el proxy de ARR y las server variables que usa el web.config.
       6. Levanta el servicio y verifica: health del backend, y /api A TRAVES del sitio IIS.
 
@@ -153,7 +153,7 @@ if (-not $svc) {
 & $Nssm set $Servicio AppParameters   'main.js'        | Out-Null
 & $Nssm set $Servicio AppDirectory    $backDir         | Out-Null
 & $Nssm set $Servicio DisplayName     'AgroMatch API (hackaton.vylaris.com.ar)' | Out-Null
-& $Nssm set $Servicio Description     'Backend NestJS de AgroMatch. Perfil (memory | postgres) y secretos en C:\apps\hackaton\backend\.env.' | Out-Null
+& $Nssm set $Servicio Description     'Backend NestJS de AgroMatch. Perfil (memory | prisma) y secretos en C:\apps\hackaton\backend\.env.' | Out-Null
 & $Nssm set $Servicio Start           SERVICE_AUTO_START | Out-Null
 & $Nssm set $Servicio AppStdout       "$backDir\logs\stdout.log" | Out-Null
 & $Nssm set $Servicio AppStderr       "$backDir\logs\stderr.log" | Out-Null
@@ -165,7 +165,7 @@ if (-not $svc) {
 & $Nssm set $Servicio AppRestartDelay 3000 | Out-Null
 
 # Variables de entorno del servicio. Solo el puerto (tiene que coincidir con el web.config)
-# y NODE_ENV. Todo lo demas — PERSISTENCE (memory | postgres), DATABASE_URL, AI_MODE,
+# y NODE_ENV. Todo lo demas — REPOSITORY_MODE (memory | prisma), DATABASE_URL, AI_MODE,
 # ANTHROPIC_API_KEY — sale del .env: cambiar de memoria a Postgres es editar ese archivo
 # y volver a correr este script. dotenv NO pisa lo que ya viene del entorno, por eso
 # el puerto se fija aca y no en el .env. -AnthropicKey fuerza la key por encima del .env.
@@ -177,11 +177,12 @@ if ($key -and $key -notmatch '^sk-ant-') { Aviso 'La key no empieza con "sk-ant-
 $perfil = 'memory'
 $fuenteEnv = if (Test-Path -LiteralPath $destEnv) { $destEnv } else { $null }
 if ($fuenteEnv) {
-    $lp = Get-Content -LiteralPath $fuenteEnv | Where-Object { $_ -match '^\s*PERSISTENCE\s*=' } | Select-Object -First 1
+    $lp = Get-Content -LiteralPath $fuenteEnv | Where-Object { $_ -match '^\s*REPOSITORY_MODE\s*=' } | Select-Object -First 1
     if ($lp) { $perfil = ($lp -split '=', 2)[1].Trim().Trim('"') }
-    if ($perfil -eq 'postgres') {
+    if ($perfil -notin @('memory', 'prisma')) { Morir "REPOSITORY_MODE='$perfil' no es valido: tiene que ser memory o prisma." }
+    if ($perfil -eq 'prisma') {
         $ld = Get-Content -LiteralPath $fuenteEnv | Where-Object { $_ -match '^\s*DATABASE_URL\s*=\s*\S' } | Select-Object -First 1
-        if (-not $ld) { Morir 'PERSISTENCE=postgres pero DATABASE_URL esta vacia en el .env: el backend no va a arrancar.' }
+        if (-not $ld) { Morir 'REPOSITORY_MODE=prisma pero DATABASE_URL esta vacia en el .env: el backend no va a arrancar.' }
     }
 }
 
@@ -192,7 +193,7 @@ $vars = @(
 if ($AnthropicKey) { $vars += "ANTHROPIC_API_KEY=$AnthropicKey" }
 & $Nssm set $Servicio AppEnvironmentExtra $vars | Out-Null
 if ($LASTEXITCODE -ne 0) { Morir "nssm set AppEnvironmentExtra fallo (exit $LASTEXITCODE)" }
-Ok ('entorno: PERSISTENCE={0} (.env) PORT={1} ANTHROPIC_API_KEY={2}' -f $perfil, $Puerto, $(if ($key) { '...' + $key.Substring($key.Length - 4) + $(if ($AnthropicKey) { ' (parametro)' } else { ' (.env)' }) } else { '(vacia)' }))
+Ok ('entorno: REPOSITORY_MODE={0} (.env) PORT={1} ANTHROPIC_API_KEY={2}' -f $perfil, $Puerto, $(if ($key) { '...' + $key.Substring($key.Length - 4) + $(if ($AnthropicKey) { ' (parametro)' } else { ' (.env)' }) } else { '(vacia)' }))
 
 # ── 5. ARR: proxy + server variables (idempotente) ───────────────────────────
 Paso 'ARR / URL Rewrite'
@@ -249,4 +250,4 @@ try {
 Write-Host ''
 Write-Host "Listo. Abrir http://$HostName/ (Ctrl+Shift+R para descartar cache)." -ForegroundColor Yellow
 Write-Host "Logs del backend: $backDir\logs\   Reiniciar: Restart-Service $Servicio" -ForegroundColor Yellow
-if ($perfil -eq 'memory') { Write-Host 'Recorda: PERSISTENCE=memory -> lo que se carga o clasifica se pierde al reiniciar el servicio.' -ForegroundColor Yellow }
+if ($perfil -eq 'memory') { Write-Host 'Recorda: REPOSITORY_MODE=memory -> lo que se carga o clasifica se pierde al reiniciar el servicio.' -ForegroundColor Yellow }

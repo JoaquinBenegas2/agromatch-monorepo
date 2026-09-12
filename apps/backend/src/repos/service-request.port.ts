@@ -1,7 +1,7 @@
 import type { ServiceRequest } from '@org/shared-types';
 
 export interface ServiceRequestRepo {
-  create(r: ServiceRequest): Promise<ServiceRequest>;
+  create(r: ServiceRequest, creatorName: string): Promise<ServiceRequest>;
   findById(id: string): Promise<ServiceRequest | null>;
 }
 
