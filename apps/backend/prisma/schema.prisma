@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -13,7 +11,159 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id      String   @id
+  name    String
+  role    String
+  farmIds String[]
+}
+
+model Farm {
+  id                   String @id
+  name                 String
+  location             String
+  sexedPct             Int
+  beefPct              Int
+  calvingEaseMaxHeifer Float
+  scsGrayZoneFrom       Float
+  scsGrayZoneTo         Float
+  plGrayZoneFrom        Float
+  plGrayZoneTo          Float
+}
+
+model Female {
+  id        String  @id
+  farmId    String
+  visualId  String
+  birthDate String
+  sireNaab  String?
+  category  String
+  profile   Json?
+
+  @@unique([farmId, visualId])
+}
+
+model Bull {
+  naab          String  @id
+  name          String
+  company       String
+  breed         String
+  profile       Json?
+  sireNaab      String?
+  calvingEase   Float?
+  semenTypes    String[]
+  pricePerDose  Float?
+  source        String
+}
+
+model Classification {
+  id           String   @id @default(uuid())
+  farmId       String
+  femaleId     String
+  goalHash     String
+  goal         Json
+  tier         String
+  semenType    String?
+  ciPercentile Float
+  tags         String[]
+  corrective   String[]
+  reasons      String[]
+
+  @@unique([farmId, femaleId])
+}
+
+model BreedingPlan {
+  id        String     @id
+  farmId    String     @unique
+  createdAt DateTime
+  items     PlanItem[]
+  doses     Json
+  cost      Float
+  avgExpectedProgeny Json
+}
+
+model PlanItem {
+  id             String       @id @default(uuid())
+  planId         String
+  femaleId       String
+  bullNaab       String
+  semenType      String
+  compatibility  Float
+  pricePerDose   Float?
+  plan           BreedingPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model Need {
+  id             String   @id
+  farmId         String
+  rawText        String
+  category       String
+  what           String
+  where          Json
+  radiusKm       Float?
+  window         Json
+  magnitude      Json?
+  constraints    String[]
+  budget         Float?
+  status         String
+  goal           Json?
+  createdAt      DateTime
+  missingFields  String[]
+  confidence     Json?
+  synthetic      Boolean  @default(false)
+}
+
+model Provider {
+  id         String @id
+  name       String
+  type       String
+  base       Json
+  verified   Boolean
+  reputationAvg  Float?
+  reputationJobs Int
+  contactPhone   String?
+  contactEmail   String?
+  source     String
+}
+
+model Capability {
+  id                String @id
+  providerId        String
+  category          String
+  serviceType       String
+  coverageRadiusKm  Float
+  capacityPerDay    Json?
+  availability      Json
+  priceModel        String
+  priceFrom         Float?
+  certifications    String[]
+  attributes        Json
+}
+
+model ServiceRequest {
+  id           String   @id @default(uuid())
+  needId       String
+  providerId   String
+  message      String
+  status       String
+  createdAt    DateTime
+  contactPhone String?
+  contactEmail String?
+}
+
+model Review {
+  id               String   @id @default(uuid())
+  serviceRequestId String
+  providerId       String
+  rating           Float
+  comment          String
+  createdAt        DateTime
+}
+
+model HerdImport {
+  id        String   @id @default(uuid())
+  farmId    String
+  file      Bytes
+  filename  String
+  proposal  Json
+  createdAt DateTime @default(now())
 }

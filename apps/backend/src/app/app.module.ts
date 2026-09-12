@@ -1,12 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PrismaModule } from '../prisma/prisma.module';
-import { UsersModule } from './users/users.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AiModule } from '../ai/ai.module.js';
+import { AuthModule } from '../auth/auth.module.js';
+import { ApiExceptionFilter } from '../common/errors/api-exception.filter.js';
+import { PrismaModule } from '../prisma/prisma.module.js';
+import { RepositoriesModule } from '../repos/repositories.module.js';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
+import { SmokeController } from './smoke.controller.js';
 
 @Module({
-  imports: [PrismaModule, UsersModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [PrismaModule, RepositoriesModule, AuthModule, AiModule],
+  controllers: [AppController, SmokeController],
+  providers: [AppService, { provide: APP_FILTER, useClass: ApiExceptionFilter }],
 })
 export class AppModule {}

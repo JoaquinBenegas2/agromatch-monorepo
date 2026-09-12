@@ -130,6 +130,25 @@
         "options": {
           "command": "docker compose down"
         }
+      },
+      "db-seed": {
+        "dependsOn": [
+          "db-generate"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsx apps/backend/prisma/seed.ts"
+        }
+      },
+      "db-reset": {
+        "executor": "nx:run-commands",
+        "options": {
+          "commands": [
+            "npm exec prisma -- migrate reset --force --skip-seed --config apps/backend/prisma7.config.ts",
+            "npx tsx apps/backend/prisma/seed.ts"
+          ],
+          "parallel": false
+        }
       }
     }
   },
@@ -137,6 +156,9 @@
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@org/ai": "0.0.1",
+    "@org/matching-core": "0.0.1",
+    "@org/genetics-core": "0.0.1",
     "@org/shared-types": "0.0.1",
     "@prisma/adapter-pg": "7.10.0",
     "@prisma/client": "7.10.0",

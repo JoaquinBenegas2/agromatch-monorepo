@@ -1,0 +1,29 @@
+{
+  "femaleVisualId": "3021",
+  "femaleCategory": "HEIFER",
+  "tier": "COMMERCIAL",
+  "corrective": ["scs", "pl"],
+  "goal": {
+    "preset": "SOLIDS_CHEESE",
+    "weights": { "fat": 0.35, "pro": 0.35, "pl": 0.15, "scs": 0.15 },
+    "wantBetaA2": false,
+    "wantKappaBB": true
+  },
+  "bull": { "naab": "029HO19531", "name": "Fundador 19531", "company": "Central Genética Norte", "breed": "HO" },
+  "semenType": "CONVENTIONAL",
+  "damTraits": { "ci": 440, "milk": 699, "fat": 1, "pro": 21, "pl": 1.5, "scs": 2.89, "fs": -119.38, "rfi": 4.83 },
+  "expectedProgeny": { "ci": 530, "milk": 740, "fat": 1.2, "pro": 22.5, "pl": 1.8, "scs": 2.82, "fs": -80, "rfi": 3.97 },
+  "deltaVsDam": { "fat": 0.2, "pro": 1.5, "pl": 0.3, "scs": -0.07 },
+  "caseinOdds": { "betaA2A2": 0.5, "kappaBB": 0.5 },
+  "compatibility": 91,
+  "rank": 1,
+  "totalCandidates": 12,
+  "reasons": [
+    "Corrige SCS y PL, los dos rasgos correctivos de esta hembra",
+    "Aporta grasa y proteína, alineado con el objetivo de sólidos para queso"
+  ],
+  "filters": [
+    { "rule": "RN-05", "passed": true, "detail": "Sin riesgo de consanguinidad (padre distinto en 4 generaciones)" },
+    { "rule": "RN-06", "passed": true, "detail": "Facilidad de parto dentro del máximo del tambo para vaquillonas" }
+  ]
+}

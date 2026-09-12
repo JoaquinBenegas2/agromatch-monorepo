@@ -1,0 +1,93 @@
+[
+  {
+    "rawText": "necesito quien me are 40 ha en Río Cuarto la semana que viene",
+    "need": {
+      "id": "need-sample-1",
+      "farmId": "farm-a",
+      "rawText": "necesito quien me are 40 ha en Río Cuarto la semana que viene",
+      "category": "MACHINERY",
+      "what": "arar",
+      "where": { "lat": -32.9, "lng": -63.6, "label": "Río Cuarto, Córdoba" },
+      "radiusKm": 60,
+      "window": { "from": "2026-09-19", "to": "2026-09-26" },
+      "magnitude": { "value": 40, "unit": "HA" },
+      "constraints": [],
+      "status": "DRAFT",
+      "createdAt": "2026-09-12T10:00:00.000Z"
+    }
+  },
+  {
+    "rawText": "necesito veterinario para el rodeo, control reproductivo urgente",
+    "need": {
+      "id": "need-sample-2",
+      "farmId": "farm-a",
+      "rawText": "necesito veterinario para el rodeo, control reproductivo urgente",
+      "category": "VET",
+      "what": "control reproductivo",
+      "where": { "lat": -32.4, "lng": -63.24, "label": "Cuenca lechera de Córdoba (demo)" },
+      "radiusKm": 80,
+      "window": { "from": "2026-09-13", "to": "2026-09-20" },
+      "magnitude": { "value": 1, "unit": "VISIT" },
+      "constraints": ["matriculado"],
+      "status": "DRAFT",
+      "createdAt": "2026-09-12T10:05:00.000Z"
+    }
+  },
+  {
+    "rawText": "quiero mejorar los sólidos de mi tambo con toros que den más grasa y proteína",
+    "need": {
+      "id": "need-sample-3",
+      "farmId": "farm-a",
+      "rawText": "quiero mejorar los sólidos de mi tambo con toros que den más grasa y proteína",
+      "category": "GENETICS",
+      "what": "mejorar sólidos (grasa y proteína)",
+      "where": { "lat": -32.4, "lng": -63.24, "label": "Cuenca lechera de Córdoba (demo)" },
+      "window": { "from": "2026-09-12", "to": "2026-12-31" },
+      "constraints": [],
+      "status": "DRAFT",
+      "goal": {
+        "preset": "SOLIDS_CHEESE",
+        "weights": { "fat": 0.35, "pro": 0.35, "pl": 0.15, "scs": 0.15 },
+        "wantBetaA2": false,
+        "wantKappaBB": true,
+        "rawText": "quiero mejorar los sólidos de mi tambo con toros que den más grasa y proteína"
+      },
+      "createdAt": "2026-09-12T10:10:00.000Z"
+    }
+  },
+  {
+    "rawText": "necesito comprar urea para la próxima siembra de maíz",
+    "need": {
+      "id": "need-sample-4",
+      "farmId": "farm-a",
+      "rawText": "necesito comprar urea para la próxima siembra de maíz",
+      "category": "INPUTS",
+      "what": "urea",
+      "where": { "lat": -32.4, "lng": -63.24, "label": "Cuenca lechera de Córdoba (demo)" },
+      "window": { "from": "2026-10-01", "to": "2026-10-15" },
+      "magnitude": { "value": 2, "unit": "TON" },
+      "constraints": ["factura A"],
+      "status": "DRAFT",
+      "missingFields": ["budget"],
+      "confidence": { "category": 0.9, "what": 0.85, "magnitude": 0.7 },
+      "createdAt": "2026-09-12T10:15:00.000Z"
+    }
+  },
+  {
+    "rawText": "busco un asesor que me arme un plan de mejora genética para el próximo servicio",
+    "need": {
+      "id": "need-sample-5",
+      "farmId": "farm-a",
+      "rawText": "busco un asesor que me arme un plan de mejora genética para el próximo servicio",
+      "category": "ADVISORY",
+      "what": "plan de mejora genética",
+      "where": { "lat": -32.4, "lng": -63.24, "label": "Cuenca lechera de Córdoba (demo)" },
+      "window": { "from": "2026-09-12", "to": "2026-11-30" },
+      "constraints": [],
+      "status": "DRAFT",
+      "missingFields": ["budget", "radiusKm"],
+      "confidence": { "category": 0.8, "what": 0.75 },
+      "createdAt": "2026-09-12T10:20:00.000Z"
+    }
+  }
+]

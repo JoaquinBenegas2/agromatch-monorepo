@@ -1,0 +1,15 @@
+{
+  "id": "need-sample-4",
+  "farmId": "farm-a",
+  "rawText": "necesito comprar urea para la próxima siembra de maíz",
+  "category": "INPUTS",
+  "what": "urea",
+  "where": { "lat": -32.4, "lng": -63.24, "label": "Cuenca lechera de Córdoba (demo)" },
+  "window": { "from": "2026-10-01", "to": "2026-10-15" },
+  "magnitude": { "value": 2, "unit": "TON" },
+  "constraints": ["factura A"],
+  "status": "DRAFT",
+  "missingFields": ["budget"],
+  "confidence": { "category": 0.9, "what": 0.85, "magnitude": 0.7 },
+  "createdAt": "2026-09-12T10:15:00.000Z"
+}
