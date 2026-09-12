@@ -24,12 +24,16 @@ Ver `proposal.md` (Why) y `specs/flow-match/spec.md` (Contratos, REQ-D-01 a REQ-
 `MatchingModule` (`app/matching`) y `PlanningModule` (`app/planning`) reusan las carpetas que T0 dejó. `POST /goals/parse` es un solo endpoint sin estado ni repo propio: en vez de crear `app/goals/` (T0 no la scaffoldeó, a diferencia de `matching`/`planning`), vive como controlador dentro de `PlanningModule` (`goals.controller.ts`), porque el objetivo en lenguaje natural es un insumo del plan y del matching por igual y no amerita su propio módulo Nest. Ambos módulos se agregan a `AppModule.imports`.
 
 ### D2 — El endpoint de matching arma el contexto y llama a `matchNeed`, nunca al vertical directo (REQ-D-01)
+**Corrección sobre `specs/flow-match/spec.md`, aplicada al implementar B4 (PR #21):** la spec describe `GeneticsMatchContext` como `{ female, classification, farm, stats, bullsByNaab }`, pero el `GeneticsVerticalContext` que T0 dejó realmente implementado en `packages/genetics-core/src/lib/genetics-core.ts` (el que `GeneticsVertical.score` ya castea) es `{ female, classification, bulls: Bull[], stats }` — sin `farm`, con `bulls` como array, no como diccionario. La spec se escribió antes de que existiera el código; la implementación sigue el contexto real, que es el que `matchNeed` reenvía tal cual al vertical, en vez de uno que el vertical no leería. Tampoco hace falta `Farm`: `computeTraitStats` solo pide `GenomicProfile[]`, que sale de `FemaleRepo.listByFarm(farmId)`.
+
 `MatchingService.getBoard(farmId, femaleId, goal)`:
-1. `FemaleRepo.findById` + `ClassificationRepo.listByFarm` → si no hay clasificación vigente para esa hembra, `DomainError('HERD_NOT_CLASSIFIED', ..., 409)` (REQ-D-02).
+1. `FemaleRepo.findById` + `ClassificationRepo.listByFarm` → si no hay clasificación vigente para esa hembra (o `semenType` es `null`, caso `CULL_ALERT`), `DomainError('HERD_NOT_CLASSIFIED', ..., 409)` (REQ-D-02).
 2. `makeGeneticsNeed(farmId, femaleId, goal)` para obtener (o reconstruir) el `Need` sintético.
-3. `BullRepo.list()` filtrados por `semenTypes.includes(classification.semenType permitido por su tier)`, proyectados a `Capability` (`id = naab`, `category: 'GENETICS'`, `providerId` = la central).
-4. `computeTraitStats` (stub de `genetics-core`, real en `mvp-a-core` A1) sobre el rodeo del tambo.
-5. `matchNeed(need, caps, provs, [GeneticsVertical], { female, classification, farm, stats, bullsByNaab })` — **el único punto donde se llama al núcleo**. `bullsByNaab` se arma en el mismo service, no en el vertical.
+3. `BullRepo.list()` filtrados por `semenTypes.includes(classification.semenType)`.
+4. `ProviderRepo.listCapabilities({ category: 'GENETICS' })` — **ya vienen pre-armadas por central** en el seed de T0 (`id = naab`, `providerId` = la central real), filtradas a los naabs de los toros del paso 3. No hace falta proyectar `Bull → Capability` a mano.
+5. `ProviderRepo.list({ category: 'GENETICS' })` para las centrales.
+6. `computeTraitStats(profiles)` (stub de `genetics-core`, real en `mvp-a-core` A1) sobre los perfiles del rodeo del tambo.
+7. `matchNeed(need, caps, provs, [GeneticsVertical], { female, classification, bulls, stats })` — **el único punto donde se llama al núcleo**.
 
 `MatchingController` no tiene lógica: valida el body con `BreedingGoalSchema`, delega en el service y deja que `ApiExceptionFilter` traduzca `DomainError`.
 
