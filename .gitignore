@@ -59,3 +59,7 @@ test-output
 apps/backend/src/generated
 apps/backend/*.db
 apps/backend/*.db-journal
+
+# Datos reales de productores: nunca al repo
+docs/insumos/
+*.xlsx

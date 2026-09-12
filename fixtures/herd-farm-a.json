@@ -1,0 +1,7059 @@
+{
+ "_meta": {
+  "descripcion": "Rodeo real de un tambo argentino, ANONIMIZADO. Fixture base de los tests y de la demo.",
+  "anonimizacion": "Se quitaron el nombre del tambo y los metadatos del archivo original (autores). Se conservan la caravana del animal, el codigo NAAB del padre (publico) y los valores geneticos.",
+  "origen": "Excel de genotipado entregado por el productor (sep-2026). El archivo original NO esta en el repo.",
+  "escala": "CDCB",
+  "fechaReferenciaCategoria": "2026-09-12",
+  "animales": 293,
+  "ubicacionDemo": "Las coordenadas del establecimiento son de demo, no son las reales."
+ },
+ "farm": {
+  "id": "farm-a",
+  "name": "Tambo A (anonimizado)",
+  "location": {
+   "lat": -32.4,
+   "lng": -63.24,
+   "label": "Cuenca lechera de Cordoba (demo)"
+  },
+  "tierQuotas": {
+   "sexedPct": 25,
+   "beefPct": 30
+  },
+  "calvingEaseMaxHeifer": 2.5
+ },
+ "females": [
+  {
+   "id": "f-3021",
+   "farmId": "farm-a",
+   "visualId": "3021",
+   "birthDate": "2025-08-12",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 440,
+     "milk": 699,
+     "fat": 1,
+     "pro": 21,
+     "pl": 1.5,
+     "scs": 2.89,
+     "fs": -119.38,
+     "rfi": 4.83
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3027",
+   "farmId": "farm-a",
+   "visualId": "3027",
+   "birthDate": "2025-08-30",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 619,
+     "milk": -55,
+     "fat": 33,
+     "pro": 12,
+     "pl": 3.24,
+     "scs": 2.88,
+     "fs": 232.3,
+     "rfi": 8.52
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3020",
+   "farmId": "farm-a",
+   "visualId": "3020",
+   "birthDate": "2025-08-12",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 420,
+     "milk": -218,
+     "fat": 11,
+     "pro": 2,
+     "pl": 0.66,
+     "scs": 3.12,
+     "fs": -25.67,
+     "rfi": -40.96
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3026",
+   "farmId": "farm-a",
+   "visualId": "3026",
+   "birthDate": "2025-08-29",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 383,
+     "milk": -181,
+     "fat": 3,
+     "pro": 9,
+     "pl": 0.26,
+     "scs": 3.17,
+     "fs": 91.3,
+     "rfi": 5.84
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3019",
+   "farmId": "farm-a",
+   "visualId": "3019",
+   "birthDate": "2025-08-18",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 519,
+     "milk": 163,
+     "fat": 36,
+     "pro": 17,
+     "pl": 1.25,
+     "scs": 2.89,
+     "fs": 29.81,
+     "rfi": 86.06
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3033",
+   "farmId": "farm-a",
+   "visualId": "3033",
+   "birthDate": "2025-09-26",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 496,
+     "milk": 245,
+     "fat": 32,
+     "pro": 23,
+     "pl": 1.27,
+     "scs": 3.05,
+     "fs": 211.29,
+     "rfi": -7.63
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3034",
+   "farmId": "farm-a",
+   "visualId": "3034",
+   "birthDate": "2025-09-29",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 480,
+     "milk": -245,
+     "fat": -22,
+     "pro": 5,
+     "pl": 2.51,
+     "scs": 2.88,
+     "fs": 238.75,
+     "rfi": -65.6
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3036",
+   "farmId": "farm-a",
+   "visualId": "3036",
+   "birthDate": "2025-10-04",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 576,
+     "milk": -33,
+     "fat": 29,
+     "pro": 19,
+     "pl": 3.39,
+     "scs": 2.87,
+     "fs": 207.2,
+     "rfi": 42.25
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3037",
+   "farmId": "farm-a",
+   "visualId": "3037",
+   "birthDate": "2025-10-18",
+   "sireNaab": "029HO21077",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 310,
+     "milk": -635,
+     "fat": -27,
+     "pro": -5,
+     "pl": 0.82,
+     "scs": 2.99,
+     "fs": 145.63,
+     "rfi": -131.82
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3038",
+   "farmId": "farm-a",
+   "visualId": "3038",
+   "birthDate": "2025-10-21",
+   "sireNaab": "029HO21010",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 399,
+     "milk": 185,
+     "fat": 12,
+     "pro": 18,
+     "pl": 0.46,
+     "scs": 3.16,
+     "fs": 93.28,
+     "rfi": 42.22
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2965",
+   "farmId": "farm-a",
+   "visualId": "2965",
+   "birthDate": "2025-05-23",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 617,
+     "milk": -949,
+     "fat": 86,
+     "pro": 0,
+     "pl": 2.14,
+     "scs": 2.96,
+     "fs": -145.58,
+     "rfi": 61.72
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3032",
+   "farmId": "farm-a",
+   "visualId": "3032",
+   "birthDate": "2025-09-22",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 504,
+     "milk": -433,
+     "fat": 29,
+     "pro": 5,
+     "pl": 1.8,
+     "scs": 2.88,
+     "fs": 162.03,
+     "rfi": -19.95
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3031",
+   "farmId": "farm-a",
+   "visualId": "3031",
+   "birthDate": "2025-09-22",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 457,
+     "milk": 558,
+     "fat": 31,
+     "pro": 24,
+     "pl": 0.59,
+     "scs": 3.19,
+     "fs": 64.1,
+     "rfi": -1.31
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3025",
+   "farmId": "farm-a",
+   "visualId": "3025",
+   "birthDate": "2025-08-29",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 507,
+     "milk": 342,
+     "fat": 9,
+     "pro": 10,
+     "pl": 2.12,
+     "scs": 2.87,
+     "fs": 72.18,
+     "rfi": -9.26
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3030",
+   "farmId": "farm-a",
+   "visualId": "3030",
+   "birthDate": "2025-09-17",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 510,
+     "milk": -144,
+     "fat": -2,
+     "pro": 9,
+     "pl": 1.88,
+     "scs": 2.93,
+     "fs": 260.95,
+     "rfi": -18.41
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3024",
+   "farmId": "farm-a",
+   "visualId": "3024",
+   "birthDate": "2025-08-26",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 451,
+     "milk": 251,
+     "fat": 15,
+     "pro": 14,
+     "pl": 0.68,
+     "scs": 3.07,
+     "fs": -90.15,
+     "rfi": 56.36
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3023",
+   "farmId": "farm-a",
+   "visualId": "3023",
+   "birthDate": "2025-08-22",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 542,
+     "milk": -781,
+     "fat": 13,
+     "pro": 1,
+     "pl": 2.78,
+     "scs": 2.9,
+     "fs": 141.13,
+     "rfi": -171.74
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3029",
+   "farmId": "farm-a",
+   "visualId": "3029",
+   "birthDate": "2025-09-14",
+   "sireNaab": "029HO21010",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 476,
+     "milk": -530,
+     "fat": 27,
+     "pro": 12,
+     "pl": 0.47,
+     "scs": 3.07,
+     "fs": 255.11,
+     "rfi": -59.77
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3022",
+   "farmId": "farm-a",
+   "visualId": "3022",
+   "birthDate": "2025-08-12",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 532,
+     "milk": -661,
+     "fat": -4,
+     "pro": -19,
+     "pl": 3.75,
+     "scs": 2.99,
+     "fs": 311.76,
+     "rfi": -193.22
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3028",
+   "farmId": "farm-a",
+   "visualId": "3028",
+   "birthDate": "2025-08-30",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 309,
+     "milk": 386,
+     "fat": -11,
+     "pro": 12,
+     "pl": -0.1,
+     "scs": 3.02,
+     "fs": -175.55,
+     "rfi": 63.97
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2956",
+   "farmId": "farm-a",
+   "visualId": "2956",
+   "birthDate": "2025-05-12",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 521,
+     "milk": -343,
+     "fat": 44,
+     "pro": 1,
+     "pl": 1.35,
+     "scs": 3.12,
+     "fs": -5.22,
+     "rfi": -60.3
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2953",
+   "farmId": "farm-a",
+   "visualId": "2953",
+   "birthDate": "2025-05-10",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 367,
+     "milk": -86,
+     "fat": -27,
+     "pro": -8,
+     "pl": 2.25,
+     "scs": 2.79,
+     "fs": 97.76,
+     "rfi": 15.98
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2927",
+   "farmId": "farm-a",
+   "visualId": "2927",
+   "birthDate": "2025-04-16",
+   "sireNaab": "029HO19791",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 332,
+     "milk": 196,
+     "fat": 7,
+     "pro": 16,
+     "pl": -0.76,
+     "scs": 3.14,
+     "fs": 20.42,
+     "rfi": -25.23
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2923",
+   "farmId": "farm-a",
+   "visualId": "2923",
+   "birthDate": "2025-04-12",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 456,
+     "milk": -1578,
+     "fat": 30,
+     "pro": -13,
+     "pl": 1.62,
+     "scs": 2.86,
+     "fs": -127.12,
+     "rfi": 63.86
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2925",
+   "farmId": "farm-a",
+   "visualId": "2925",
+   "birthDate": "2025-04-14",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 539,
+     "milk": -236,
+     "fat": 15,
+     "pro": 19,
+     "pl": 2.05,
+     "scs": 2.85,
+     "fs": -19.03,
+     "rfi": -127.34
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2932",
+   "farmId": "farm-a",
+   "visualId": "2932",
+   "birthDate": "2025-04-21",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 469,
+     "milk": 162,
+     "fat": -10,
+     "pro": 3,
+     "pl": 1.9,
+     "scs": 2.86,
+     "fs": 168.33,
+     "rfi": -158.16
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2955",
+   "farmId": "farm-a",
+   "visualId": "2955",
+   "birthDate": "2025-05-11",
+   "sireNaab": "029HO21152",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 618,
+     "milk": -127,
+     "fat": 30,
+     "pro": 7,
+     "pl": 4.19,
+     "scs": 2.76,
+     "fs": 18.23,
+     "rfi": -14.59
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2939",
+   "farmId": "farm-a",
+   "visualId": "2939",
+   "birthDate": "2025-04-28",
+   "sireNaab": "029HO21069",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 382,
+     "milk": -104,
+     "fat": -4,
+     "pro": 13,
+     "pl": -0.38,
+     "scs": 3.09,
+     "fs": -176.32,
+     "rfi": 96.27
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2973",
+   "farmId": "farm-a",
+   "visualId": "2973",
+   "birthDate": "2025-06-02",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 556,
+     "milk": -395,
+     "fat": 60,
+     "pro": 6,
+     "pl": 1.27,
+     "scs": 2.98,
+     "fs": 0.74,
+     "rfi": 84.66
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2940",
+   "farmId": "farm-a",
+   "visualId": "2940",
+   "birthDate": "2025-04-29",
+   "sireNaab": "029HO20681",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 636,
+     "milk": -730,
+     "fat": 37,
+     "pro": 9,
+     "pl": 3.51,
+     "scs": 3.04,
+     "fs": 83.1,
+     "rfi": 80.84
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2951",
+   "farmId": "farm-a",
+   "visualId": "2951",
+   "birthDate": "2025-05-09",
+   "sireNaab": "029HO20985",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 761,
+     "milk": -216,
+     "fat": 12,
+     "pro": 5,
+     "pl": 6.43,
+     "scs": 2.64,
+     "fs": 97.77,
+     "rfi": -47.94
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2931",
+   "farmId": "farm-a",
+   "visualId": "2931",
+   "birthDate": "2025-04-19",
+   "sireNaab": "029HO20681",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 617,
+     "milk": 409,
+     "fat": 19,
+     "pro": 28,
+     "pl": 3.12,
+     "scs": 2.98,
+     "fs": 74.16,
+     "rfi": -46.08
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2922",
+   "farmId": "farm-a",
+   "visualId": "2922",
+   "birthDate": "2025-04-11",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 432,
+     "milk": -53,
+     "fat": 11,
+     "pro": 13,
+     "pl": 0.72,
+     "scs": 3.21,
+     "fs": 233.34,
+     "rfi": 23.84
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2950",
+   "farmId": "farm-a",
+   "visualId": "2950",
+   "birthDate": "2025-05-07",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 371,
+     "milk": -495,
+     "fat": -32,
+     "pro": -1,
+     "pl": 0.43,
+     "scs": 3.06,
+     "fs": -124.45,
+     "rfi": -36.1
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2960",
+   "farmId": "farm-a",
+   "visualId": "2960",
+   "birthDate": "2025-05-17",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 468,
+     "milk": -433,
+     "fat": 46,
+     "pro": 12,
+     "pl": 0.23,
+     "scs": 3.08,
+     "fs": 12.28,
+     "rfi": 17.72
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2930",
+   "farmId": "farm-a",
+   "visualId": "2930",
+   "birthDate": "2025-04-19",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 590,
+     "milk": -344,
+     "fat": 22,
+     "pro": 3,
+     "pl": 3.68,
+     "scs": 2.92,
+     "fs": 120.18,
+     "rfi": -6.37
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2945",
+   "farmId": "farm-a",
+   "visualId": "2945",
+   "birthDate": "2025-05-04",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 304,
+     "milk": -675,
+     "fat": 30,
+     "pro": -18,
+     "pl": -1.18,
+     "scs": 3.11,
+     "fs": -84.34,
+     "rfi": 186.97
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2937",
+   "farmId": "farm-a",
+   "visualId": "2937",
+   "birthDate": "2025-04-27",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 601,
+     "milk": -103,
+     "fat": 10,
+     "pro": 6,
+     "pl": 3.28,
+     "scs": 3.03,
+     "fs": 144.29,
+     "rfi": -125.38
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2929",
+   "farmId": "farm-a",
+   "visualId": "2929",
+   "birthDate": "2025-04-19",
+   "sireNaab": "029HO19791",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 474,
+     "milk": 508,
+     "fat": 20,
+     "pro": 15,
+     "pl": 1.97,
+     "scs": 3.11,
+     "fs": 152.76,
+     "rfi": 130.12
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2964",
+   "farmId": "farm-a",
+   "visualId": "2964",
+   "birthDate": "2025-05-22",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 282,
+     "milk": -1059,
+     "fat": 29,
+     "pro": -12,
+     "pl": -1.21,
+     "scs": 3.08,
+     "fs": -199.52,
+     "rfi": 208.96
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2970",
+   "farmId": "farm-a",
+   "visualId": "2970",
+   "birthDate": "2025-05-30",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 562,
+     "milk": -1136,
+     "fat": -14,
+     "pro": -6,
+     "pl": 4.15,
+     "scs": 2.91,
+     "fs": 269.04,
+     "rfi": -252.83
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2935",
+   "farmId": "farm-a",
+   "visualId": "2935",
+   "birthDate": "2025-04-25",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 620,
+     "milk": -555,
+     "fat": 14,
+     "pro": 1,
+     "pl": 3.84,
+     "scs": 2.81,
+     "fs": 104.93,
+     "rfi": -4.55
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2967",
+   "farmId": "farm-a",
+   "visualId": "2967",
+   "birthDate": "2025-05-26",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 279,
+     "milk": -796,
+     "fat": 28,
+     "pro": -12,
+     "pl": -1.57,
+     "scs": 3.28,
+     "fs": -52.33,
+     "rfi": 97.15
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2948",
+   "farmId": "farm-a",
+   "visualId": "2948",
+   "birthDate": "2025-05-05",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 489,
+     "milk": 383,
+     "fat": 37,
+     "pro": 10,
+     "pl": 1.91,
+     "scs": 2.88,
+     "fs": 43.66,
+     "rfi": 90.6
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2947",
+   "farmId": "farm-a",
+   "visualId": "2947",
+   "birthDate": "2025-05-04",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 354,
+     "milk": -648,
+     "fat": 10,
+     "pro": -12,
+     "pl": 0.59,
+     "scs": 3.09,
+     "fs": -77.15,
+     "rfi": 97.01
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2949",
+   "farmId": "farm-a",
+   "visualId": "2949",
+   "birthDate": "2025-05-06",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 410,
+     "milk": -908,
+     "fat": 18,
+     "pro": -5,
+     "pl": 0.23,
+     "scs": 3.21,
+     "fs": -38.54,
+     "rfi": 21.76
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2926",
+   "farmId": "farm-a",
+   "visualId": "2926",
+   "birthDate": "2025-04-14",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 514,
+     "milk": 287,
+     "fat": 1,
+     "pro": 14,
+     "pl": 2.9,
+     "scs": 2.92,
+     "fs": -56.67,
+     "rfi": 14.3
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2972",
+   "farmId": "farm-a",
+   "visualId": "2972",
+   "birthDate": "2025-06-01",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 386,
+     "milk": -576,
+     "fat": -3,
+     "pro": -1,
+     "pl": 1.69,
+     "scs": 2.84,
+     "fs": -139.89,
+     "rfi": 2.65
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2912",
+   "farmId": "farm-a",
+   "visualId": "2912",
+   "birthDate": "2025-03-22",
+   "sireNaab": "029HO20743",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 511,
+     "milk": -8,
+     "fat": 34,
+     "pro": 9,
+     "pl": 0.65,
+     "scs": 3.12,
+     "fs": 87.8,
+     "rfi": -28.19
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2924",
+   "farmId": "farm-a",
+   "visualId": "2924",
+   "birthDate": "2025-04-12",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 553,
+     "milk": -510,
+     "fat": 27,
+     "pro": 4,
+     "pl": 1.31,
+     "scs": 3.02,
+     "fs": 228.57,
+     "rfi": -118.93
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2952",
+   "farmId": "farm-a",
+   "visualId": "2952",
+   "birthDate": "2025-05-10",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 418,
+     "milk": -404,
+     "fat": 21,
+     "pro": -10,
+     "pl": 1.19,
+     "scs": 3.01,
+     "fs": 56.39,
+     "rfi": 47.72
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2961",
+   "farmId": "farm-a",
+   "visualId": "2961",
+   "birthDate": "2025-05-19",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 372,
+     "milk": -769,
+     "fat": 3,
+     "pro": -10,
+     "pl": 0.82,
+     "scs": 3.1,
+     "fs": -46.38,
+     "rfi": 12.86
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2966",
+   "farmId": "farm-a",
+   "visualId": "2966",
+   "birthDate": "2025-05-26",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 561,
+     "milk": -494,
+     "fat": 17,
+     "pro": 1,
+     "pl": 2.93,
+     "scs": 2.85,
+     "fs": -84.85,
+     "rfi": -51.03
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-C136",
+   "farmId": "farm-a",
+   "visualId": "C136",
+   "birthDate": "2025-10-23",
+   "sireNaab": "029HO21077",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 422,
+     "milk": -64,
+     "fat": 8,
+     "pro": 11,
+     "pl": 0.91,
+     "scs": 2.97,
+     "fs": 79.36,
+     "rfi": -67.38
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2969",
+   "farmId": "farm-a",
+   "visualId": "2969",
+   "birthDate": "2025-05-28",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 511,
+     "milk": -530,
+     "fat": 13,
+     "pro": 5,
+     "pl": 2.76,
+     "scs": 3.01,
+     "fs": 246.5,
+     "rfi": -108.59
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2944",
+   "farmId": "farm-a",
+   "visualId": "2944",
+   "birthDate": "2025-05-04",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 590,
+     "milk": -131,
+     "fat": 17,
+     "pro": 5,
+     "pl": 3.38,
+     "scs": 2.87,
+     "fs": -32.53,
+     "rfi": -25.26
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2946",
+   "farmId": "farm-a",
+   "visualId": "2946",
+   "birthDate": "2025-05-04",
+   "sireNaab": "029HO19791",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 420,
+     "milk": 820,
+     "fat": 31,
+     "pro": 14,
+     "pl": 0.73,
+     "scs": 2.95,
+     "fs": -136.48,
+     "rfi": 152.16
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2962",
+   "farmId": "farm-a",
+   "visualId": "2962",
+   "birthDate": "2025-05-19",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 381,
+     "milk": -683,
+     "fat": 12,
+     "pro": -4,
+     "pl": 0.83,
+     "scs": 3.06,
+     "fs": -98.77,
+     "rfi": 16.37
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2919",
+   "farmId": "farm-a",
+   "visualId": "2919",
+   "birthDate": "2025-04-09",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 572,
+     "milk": -92,
+     "fat": 28,
+     "pro": 11,
+     "pl": 1.92,
+     "scs": 3.08,
+     "fs": 137.1,
+     "rfi": -86.88
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2971",
+   "farmId": "farm-a",
+   "visualId": "2971",
+   "birthDate": "2025-05-30",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 670,
+     "milk": -162,
+     "fat": 33,
+     "pro": 12,
+     "pl": 3.49,
+     "scs": 2.98,
+     "fs": 18.01,
+     "rfi": -10.55
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2981",
+   "farmId": "farm-a",
+   "visualId": "2981",
+   "birthDate": "2025-06-17",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 315,
+     "milk": -70,
+     "fat": -31,
+     "pro": -7,
+     "pl": 0.16,
+     "scs": 3.07,
+     "fs": 122.77,
+     "rfi": -125.84
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2997",
+   "farmId": "farm-a",
+   "visualId": "2997",
+   "birthDate": "2025-07-07",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 397,
+     "milk": 119,
+     "fat": 18,
+     "pro": 8,
+     "pl": 0.32,
+     "scs": 2.95,
+     "fs": -169.38,
+     "rfi": 52.75
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2998",
+   "farmId": "farm-a",
+   "visualId": "2998",
+   "birthDate": "2025-07-07",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 448,
+     "milk": 74,
+     "fat": -8,
+     "pro": 3,
+     "pl": 1.16,
+     "scs": 2.93,
+     "fs": 145.14,
+     "rfi": 25.08
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2988",
+   "farmId": "farm-a",
+   "visualId": "2988",
+   "birthDate": "2025-06-25",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 428,
+     "milk": -691,
+     "fat": 2,
+     "pro": -1,
+     "pl": 1.73,
+     "scs": 2.87,
+     "fs": 25.43,
+     "rfi": 105.52
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2958",
+   "farmId": "farm-a",
+   "visualId": "2958",
+   "birthDate": "2025-05-13",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 426,
+     "milk": -126,
+     "fat": 11,
+     "pro": -7,
+     "pl": 0.74,
+     "scs": 2.93,
+     "fs": -41.83,
+     "rfi": -94.57
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2985",
+   "farmId": "farm-a",
+   "visualId": "2985",
+   "birthDate": "2025-06-18",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 491,
+     "milk": -235,
+     "fat": 39,
+     "pro": 8,
+     "pl": 1.25,
+     "scs": 3.08,
+     "fs": -61.29,
+     "rfi": 110.64
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3005",
+   "farmId": "farm-a",
+   "visualId": "3005",
+   "birthDate": "2025-07-16",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 533,
+     "milk": -466,
+     "fat": 49,
+     "pro": 11,
+     "pl": 1.13,
+     "scs": 2.94,
+     "fs": -136.29,
+     "rfi": 42.33
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "EE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2968",
+   "farmId": "farm-a",
+   "visualId": "2968",
+   "birthDate": "2025-05-26",
+   "sireNaab": "029HO20963",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 564,
+     "milk": -514,
+     "fat": 16,
+     "pro": 2,
+     "pl": 2.22,
+     "scs": 2.79,
+     "fs": 12.99,
+     "rfi": -83.21
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3012",
+   "farmId": "farm-a",
+   "visualId": "3012",
+   "birthDate": "2025-07-24",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 462,
+     "milk": -649,
+     "fat": -25,
+     "pro": -10,
+     "pl": 2.75,
+     "scs": 3.12,
+     "fs": 192.38,
+     "rfi": -79.63
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2933",
+   "farmId": "farm-a",
+   "visualId": "2933",
+   "birthDate": "2025-04-22",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 506,
+     "milk": 284,
+     "fat": 21,
+     "pro": 18,
+     "pl": 1.85,
+     "scs": 3.02,
+     "fs": 141.92,
+     "rfi": -80.17
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2989",
+   "farmId": "farm-a",
+   "visualId": "2989",
+   "birthDate": "2025-06-30",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 458,
+     "milk": -287,
+     "fat": 20,
+     "pro": 2,
+     "pl": 1.05,
+     "scs": 3.02,
+     "fs": 86.93,
+     "rfi": -115.33
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3002",
+   "farmId": "farm-a",
+   "visualId": "3002",
+   "birthDate": "2025-07-09",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 500,
+     "milk": -157,
+     "fat": 13,
+     "pro": 5,
+     "pl": 1.27,
+     "scs": 2.91,
+     "fs": 171.81,
+     "rfi": 22.19
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3017",
+   "farmId": "farm-a",
+   "visualId": "3017",
+   "birthDate": "2025-08-01",
+   "sireNaab": "029HO20743",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 550,
+     "milk": 214,
+     "fat": 29,
+     "pro": 23,
+     "pl": 1.33,
+     "scs": 3.2,
+     "fs": 76.24,
+     "rfi": -17.76
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3008",
+   "farmId": "farm-a",
+   "visualId": "3008",
+   "birthDate": "2025-07-17",
+   "sireNaab": "029HO20859",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 341,
+     "milk": -631,
+     "fat": 20,
+     "pro": -2,
+     "pl": 0.64,
+     "scs": 3.01,
+     "fs": -55.84,
+     "rfi": 98.8
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2979",
+   "farmId": "farm-a",
+   "visualId": "2979",
+   "birthDate": "2025-06-13",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 371,
+     "milk": -943,
+     "fat": -17,
+     "pro": -12,
+     "pl": 0.86,
+     "scs": 3.16,
+     "fs": 74.48,
+     "rfi": -93.43
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2980",
+   "farmId": "farm-a",
+   "visualId": "2980",
+   "birthDate": "2025-06-13",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 351,
+     "milk": -60,
+     "fat": 29,
+     "pro": 4,
+     "pl": -0.88,
+     "scs": 3.19,
+     "fs": 146.26,
+     "rfi": 35.05
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2993",
+   "farmId": "farm-a",
+   "visualId": "2993",
+   "birthDate": "2025-07-02",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 394,
+     "milk": -391,
+     "fat": -17,
+     "pro": -2,
+     "pl": 1.28,
+     "scs": 2.95,
+     "fs": -89.01,
+     "rfi": -44.47
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2975",
+   "farmId": "farm-a",
+   "visualId": "2975",
+   "birthDate": "2025-06-07",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 532,
+     "milk": -775,
+     "fat": 44,
+     "pro": -10,
+     "pl": 2.54,
+     "scs": 2.8,
+     "fs": 116.19,
+     "rfi": 28.22
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2983",
+   "farmId": "farm-a",
+   "visualId": "2983",
+   "birthDate": "2025-06-18",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 372,
+     "milk": -1380,
+     "fat": 20,
+     "pro": -10,
+     "pl": 0.9,
+     "scs": 2.94,
+     "fs": -159.55,
+     "rfi": 106.3
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2992",
+   "farmId": "farm-a",
+   "visualId": "2992",
+   "birthDate": "2025-07-02",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 412,
+     "milk": -720,
+     "fat": -1,
+     "pro": -10,
+     "pl": 1.94,
+     "scs": 2.9,
+     "fs": 48.72,
+     "rfi": -84.29
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3013",
+   "farmId": "farm-a",
+   "visualId": "3013",
+   "birthDate": "2025-07-27",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 458,
+     "milk": -550,
+     "fat": 25,
+     "pro": 4,
+     "pl": 0.7,
+     "scs": 2.83,
+     "fs": -169.66,
+     "rfi": 76.77
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2928",
+   "farmId": "farm-a",
+   "visualId": "2928",
+   "birthDate": "2025-04-18",
+   "sireNaab": "029HO20681",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 643,
+     "milk": -514,
+     "fat": 49,
+     "pro": 15,
+     "pl": 2.63,
+     "scs": 3,
+     "fs": 233.93,
+     "rfi": -82.22
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2994",
+   "farmId": "farm-a",
+   "visualId": "2994",
+   "birthDate": "2025-07-03",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 377,
+     "milk": -579,
+     "fat": 12,
+     "pro": 4,
+     "pl": 0.75,
+     "scs": 3.04,
+     "fs": -50.04,
+     "rfi": -10.51
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2984",
+   "farmId": "farm-a",
+   "visualId": "2984",
+   "birthDate": "2025-06-18",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 498,
+     "milk": -690,
+     "fat": -14,
+     "pro": -11,
+     "pl": 3.24,
+     "scs": 2.81,
+     "fs": 116.83,
+     "rfi": -23.98
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2987",
+   "farmId": "farm-a",
+   "visualId": "2987",
+   "birthDate": "2025-06-22",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 527,
+     "milk": -13,
+     "fat": 6,
+     "pro": 17,
+     "pl": 2.03,
+     "scs": 2.96,
+     "fs": 151.8,
+     "rfi": 3.63
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3004",
+   "farmId": "farm-a",
+   "visualId": "3004",
+   "birthDate": "2025-07-15",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 556,
+     "milk": -600,
+     "fat": 56,
+     "pro": 0,
+     "pl": 2.22,
+     "scs": 2.96,
+     "fs": 74.65,
+     "rfi": 39.25
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3009",
+   "farmId": "farm-a",
+   "visualId": "3009",
+   "birthDate": "2025-07-18",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 422,
+     "milk": -543,
+     "fat": -15,
+     "pro": -4,
+     "pl": 2.69,
+     "scs": 2.86,
+     "fs": -13.24,
+     "rfi": 28.31
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2974",
+   "farmId": "farm-a",
+   "visualId": "2974",
+   "birthDate": "2025-06-05",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 409,
+     "milk": -235,
+     "fat": -21,
+     "pro": -4,
+     "pl": 1.13,
+     "scs": 3.28,
+     "fs": 129.39,
+     "rfi": -15.84
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3016",
+   "farmId": "farm-a",
+   "visualId": "3016",
+   "birthDate": "2025-07-31",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 429,
+     "milk": 226,
+     "fat": 4,
+     "pro": 3,
+     "pl": 1.03,
+     "scs": 2.79,
+     "fs": -103.64,
+     "rfi": 45.2
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3007",
+   "farmId": "farm-a",
+   "visualId": "3007",
+   "birthDate": "2025-07-17",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 559,
+     "milk": -827,
+     "fat": 41,
+     "pro": 0,
+     "pl": 2.77,
+     "scs": 2.98,
+     "fs": -77.68,
+     "rfi": -12.13
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2942",
+   "farmId": "farm-a",
+   "visualId": "2942",
+   "birthDate": "2025-05-02",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 452,
+     "milk": 261,
+     "fat": 35,
+     "pro": 10,
+     "pl": 0.08,
+     "scs": 3.08,
+     "fs": 24.28,
+     "rfi": 53.03
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2977",
+   "farmId": "farm-a",
+   "visualId": "2977",
+   "birthDate": "2025-06-10",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 407,
+     "milk": -862,
+     "fat": -6,
+     "pro": -14,
+     "pl": 1.16,
+     "scs": 2.96,
+     "fs": 169.68,
+     "rfi": -164.8
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-C064",
+   "farmId": "farm-a",
+   "visualId": "C064",
+   "birthDate": "2025-10-22",
+   "sireNaab": "029HO20544",
+   "category": "CALF",
+   "profile": {
+    "traits": {
+     "ci": 464,
+     "milk": 180,
+     "fat": 46,
+     "pro": 17,
+     "pl": 0.37,
+     "scs": 2.97,
+     "fs": -53.04,
+     "rfi": 9.87
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2991",
+   "farmId": "farm-a",
+   "visualId": "2991",
+   "birthDate": "2025-07-02",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 579,
+     "milk": 206,
+     "fat": 9,
+     "pro": 11,
+     "pl": 3.77,
+     "scs": 2.66,
+     "fs": 129.48,
+     "rfi": 18.59
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2996",
+   "farmId": "farm-a",
+   "visualId": "2996",
+   "birthDate": "2025-07-05",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 340,
+     "milk": -237,
+     "fat": -36,
+     "pro": -7,
+     "pl": 2.15,
+     "scs": 3.11,
+     "fs": 249.88,
+     "rfi": -115.51
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2995",
+   "farmId": "farm-a",
+   "visualId": "2995",
+   "birthDate": "2025-07-03",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 443,
+     "milk": 161,
+     "fat": -20,
+     "pro": 7,
+     "pl": 3.08,
+     "scs": 2.87,
+     "fs": 75.98,
+     "rfi": -58.16
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3003",
+   "farmId": "farm-a",
+   "visualId": "3003",
+   "birthDate": "2025-07-09",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 483,
+     "milk": 200,
+     "fat": 6,
+     "pro": 18,
+     "pl": 0.5,
+     "scs": 3.11,
+     "fs": 254.23,
+     "rfi": -165.34
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3000",
+   "farmId": "farm-a",
+   "visualId": "3000",
+   "birthDate": "2025-07-07",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 465,
+     "milk": 312,
+     "fat": 23,
+     "pro": 15,
+     "pl": 0.34,
+     "scs": 2.97,
+     "fs": 14.33,
+     "rfi": -56.2
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3011",
+   "farmId": "farm-a",
+   "visualId": "3011",
+   "birthDate": "2025-07-24",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 452,
+     "milk": 192,
+     "fat": 6,
+     "pro": 9,
+     "pl": 1.78,
+     "scs": 2.82,
+     "fs": -279.18,
+     "rfi": 134.74
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3001",
+   "farmId": "farm-a",
+   "visualId": "3001",
+   "birthDate": "2025-07-09",
+   "sireNaab": "029HO21077",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 462,
+     "milk": -443,
+     "fat": -2,
+     "pro": 1,
+     "pl": 1.78,
+     "scs": 3,
+     "fs": 162.02,
+     "rfi": -60.84
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2982",
+   "farmId": "farm-a",
+   "visualId": "2982",
+   "birthDate": "2025-06-17",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 638,
+     "milk": -174,
+     "fat": 1,
+     "pro": 15,
+     "pl": 4.21,
+     "scs": 2.91,
+     "fs": -114.32,
+     "rfi": 7.23
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3010",
+   "farmId": "farm-a",
+   "visualId": "3010",
+   "birthDate": "2025-07-24",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 531,
+     "milk": 165,
+     "fat": 6,
+     "pro": 15,
+     "pl": 2.73,
+     "scs": 2.86,
+     "fs": 226.94,
+     "rfi": -70.34
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2999",
+   "farmId": "farm-a",
+   "visualId": "2999",
+   "birthDate": "2025-07-07",
+   "sireNaab": "029HO20294",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 403,
+     "milk": -550,
+     "fat": 24,
+     "pro": -7,
+     "pl": -0.1,
+     "scs": 2.87,
+     "fs": 9.69,
+     "rfi": 72.15
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2918",
+   "farmId": "farm-a",
+   "visualId": "2918",
+   "birthDate": "2025-04-07",
+   "sireNaab": "029HO20743",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 576,
+     "milk": -669,
+     "fat": 34,
+     "pro": -1,
+     "pl": 3.63,
+     "scs": 2.79,
+     "fs": 221.8,
+     "rfi": 6.17
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-3006",
+   "farmId": "farm-a",
+   "visualId": "3006",
+   "birthDate": "2025-07-17",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 390,
+     "milk": -25,
+     "fat": 7,
+     "pro": 9,
+     "pl": 1.08,
+     "scs": 3.13,
+     "fs": -91.95,
+     "rfi": 107.79
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2887",
+   "farmId": "farm-a",
+   "visualId": "2887",
+   "birthDate": "2024-09-16",
+   "sireNaab": "029HO21111",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 332,
+     "milk": 33,
+     "fat": -1,
+     "pro": 8,
+     "pl": -0.16,
+     "scs": 3.17,
+     "fs": -2.09,
+     "rfi": 9.02
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2884",
+   "farmId": "farm-a",
+   "visualId": "2884",
+   "birthDate": "2024-08-28",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 518,
+     "milk": -66,
+     "fat": 13,
+     "pro": 6,
+     "pl": 2.16,
+     "scs": 2.99,
+     "fs": 209.99,
+     "rfi": -41.05
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2888",
+   "farmId": "farm-a",
+   "visualId": "2888",
+   "birthDate": "2024-10-26",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 424,
+     "milk": 137,
+     "fat": 5,
+     "pro": 0,
+     "pl": 1.37,
+     "scs": 2.95,
+     "fs": 94.74,
+     "rfi": 11.23
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2886",
+   "farmId": "farm-a",
+   "visualId": "2886",
+   "birthDate": "2024-09-03",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 440,
+     "milk": 597,
+     "fat": 6,
+     "pro": 14,
+     "pl": 1.08,
+     "scs": 3.14,
+     "fs": 185.98,
+     "rfi": -80.82
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2897",
+   "farmId": "farm-a",
+   "visualId": "2897",
+   "birthDate": "2025-03-01",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 542,
+     "milk": -66,
+     "fat": 16,
+     "pro": 3,
+     "pl": 2.13,
+     "scs": 2.78,
+     "fs": 51,
+     "rfi": 73.27
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2898",
+   "farmId": "farm-a",
+   "visualId": "2898",
+   "birthDate": "2025-03-03",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 475,
+     "milk": -329,
+     "fat": -6,
+     "pro": -12,
+     "pl": 1.85,
+     "scs": 3.14,
+     "fs": 20.04,
+     "rfi": -83.78
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2899",
+   "farmId": "farm-a",
+   "visualId": "2899",
+   "birthDate": "2025-03-04",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 411,
+     "milk": -320,
+     "fat": 2,
+     "pro": -8,
+     "pl": 1.62,
+     "scs": 2.87,
+     "fs": 179.5,
+     "rfi": -6.94
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2891",
+   "farmId": "farm-a",
+   "visualId": "2891",
+   "birthDate": "2025-02-14",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 434,
+     "milk": -11,
+     "fat": 5,
+     "pro": 1,
+     "pl": 1.85,
+     "scs": 2.85,
+     "fs": 125.74,
+     "rfi": -70.69
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2907",
+   "farmId": "farm-a",
+   "visualId": "2907",
+   "birthDate": "2025-03-16",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 395,
+     "milk": -309,
+     "fat": 9,
+     "pro": -1,
+     "pl": 0.08,
+     "scs": 3.03,
+     "fs": 24.22,
+     "rfi": 17.93
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2908",
+   "farmId": "farm-a",
+   "visualId": "2908",
+   "birthDate": "2025-03-18",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 397,
+     "milk": -642,
+     "fat": 12,
+     "pro": 2,
+     "pl": 0.19,
+     "scs": 3.2,
+     "fs": -115.25,
+     "rfi": -1.69
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2909",
+   "farmId": "farm-a",
+   "visualId": "2909",
+   "birthDate": "2025-03-19",
+   "sireNaab": "029HO20963",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 683,
+     "milk": -1688,
+     "fat": 43,
+     "pro": -11,
+     "pl": 4.53,
+     "scs": 2.74,
+     "fs": -34.98,
+     "rfi": -73.17
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2911",
+   "farmId": "farm-a",
+   "visualId": "2911",
+   "birthDate": "2025-03-20",
+   "sireNaab": "029HO20963",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 627,
+     "milk": -793,
+     "fat": 5,
+     "pro": -2,
+     "pl": 4.09,
+     "scs": 2.79,
+     "fs": 95.46,
+     "rfi": -137.91
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2910",
+   "farmId": "farm-a",
+   "visualId": "2910",
+   "birthDate": "2025-03-20",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 448,
+     "milk": -398,
+     "fat": -11,
+     "pro": 9,
+     "pl": 1.33,
+     "scs": 3.17,
+     "fs": 10.53,
+     "rfi": -52.79
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2885",
+   "farmId": "farm-a",
+   "visualId": "2885",
+   "birthDate": "2024-08-29",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 608,
+     "milk": 201,
+     "fat": 68,
+     "pro": 18,
+     "pl": 2.06,
+     "scs": 3.01,
+     "fs": 255.1,
+     "rfi": 11.97
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2889",
+   "farmId": "farm-a",
+   "visualId": "2889",
+   "birthDate": "2025-01-25",
+   "sireNaab": "029HO20540",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 360,
+     "milk": -1042,
+     "fat": 19,
+     "pro": 1,
+     "pl": -2.44,
+     "scs": 3.33,
+     "fs": 173.04,
+     "rfi": 54.95
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2890",
+   "farmId": "farm-a",
+   "visualId": "2890",
+   "birthDate": "2025-01-30",
+   "sireNaab": "029HO20859",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 261,
+     "milk": -336,
+     "fat": 1,
+     "pro": -3,
+     "pl": -1.27,
+     "scs": 3.24,
+     "fs": 3.14,
+     "rfi": 11.09
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2893",
+   "farmId": "farm-a",
+   "visualId": "2893",
+   "birthDate": "2025-02-20",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 483,
+     "milk": -21,
+     "fat": -8,
+     "pro": 2,
+     "pl": 2.83,
+     "scs": 2.76,
+     "fs": -7.49,
+     "rfi": 88.81
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2892",
+   "farmId": "farm-a",
+   "visualId": "2892",
+   "birthDate": "2025-02-19",
+   "sireNaab": "094HO20822",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 372,
+     "milk": -508,
+     "fat": -4,
+     "pro": 3,
+     "pl": 0.48,
+     "scs": 3.21,
+     "fs": 40.44,
+     "rfi": -15.6
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2914",
+   "farmId": "farm-a",
+   "visualId": "2914",
+   "birthDate": "2025-03-24",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 383,
+     "milk": 463,
+     "fat": -15,
+     "pro": 17,
+     "pl": 0.83,
+     "scs": 3.14,
+     "fs": 18.19,
+     "rfi": 112.67
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2913",
+   "farmId": "farm-a",
+   "visualId": "2913",
+   "birthDate": "2025-03-23",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 479,
+     "milk": -301,
+     "fat": 21,
+     "pro": 6,
+     "pl": 1.51,
+     "scs": 2.95,
+     "fs": 65.58,
+     "rfi": -94.66
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2894",
+   "farmId": "farm-a",
+   "visualId": "2894",
+   "birthDate": "2025-02-26",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 646,
+     "milk": 227,
+     "fat": 12,
+     "pro": 9,
+     "pl": 4.76,
+     "scs": 2.69,
+     "fs": 149.31,
+     "rfi": 151.04
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2895",
+   "farmId": "farm-a",
+   "visualId": "2895",
+   "birthDate": "2025-02-27",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 384,
+     "milk": 892,
+     "fat": 13,
+     "pro": 23,
+     "pl": -0.65,
+     "scs": 3.14,
+     "fs": 30.21,
+     "rfi": -15.07
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2896",
+   "farmId": "farm-a",
+   "visualId": "2896",
+   "birthDate": "2025-03-01",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 413,
+     "milk": 518,
+     "fat": -9,
+     "pro": 5,
+     "pl": 0.83,
+     "scs": 3.1,
+     "fs": 78.51,
+     "rfi": 31.18
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2900",
+   "farmId": "farm-a",
+   "visualId": "2900",
+   "birthDate": "2025-03-04",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 356,
+     "milk": -163,
+     "fat": -4,
+     "pro": -6,
+     "pl": -0.23,
+     "scs": 3.04,
+     "fs": 167.65,
+     "rfi": -17.17
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2901",
+   "farmId": "farm-a",
+   "visualId": "2901",
+   "birthDate": "2025-03-06",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 492,
+     "milk": -612,
+     "fat": 14,
+     "pro": -10,
+     "pl": 2.41,
+     "scs": 2.84,
+     "fs": -43.07,
+     "rfi": 170.82
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2902",
+   "farmId": "farm-a",
+   "visualId": "2902",
+   "birthDate": "2025-03-09",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 523,
+     "milk": -349,
+     "fat": 31,
+     "pro": -9,
+     "pl": 1.44,
+     "scs": 2.92,
+     "fs": 0.84,
+     "rfi": 80.21
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2903",
+   "farmId": "farm-a",
+   "visualId": "2903",
+   "birthDate": "2025-03-10",
+   "sireNaab": "029HO19791",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 364,
+     "milk": 229,
+     "fat": 2,
+     "pro": 7,
+     "pl": 0.06,
+     "scs": 3.16,
+     "fs": -115.22,
+     "rfi": 63.37
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2904",
+   "farmId": "farm-a",
+   "visualId": "2904",
+   "birthDate": "2025-03-12",
+   "sireNaab": "029HO20544",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 445,
+     "milk": -639,
+     "fat": 28,
+     "pro": -1,
+     "pl": 2.14,
+     "scs": 3.02,
+     "fs": -291.22,
+     "rfi": 109.64
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2905",
+   "farmId": "farm-a",
+   "visualId": "2905",
+   "birthDate": "2025-03-13",
+   "sireNaab": "029HO21022",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 328,
+     "milk": -516,
+     "fat": -11,
+     "pro": -6,
+     "pl": 1,
+     "scs": 2.91,
+     "fs": -150.27,
+     "rfi": 102.06
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2835",
+   "farmId": "farm-a",
+   "visualId": "2835",
+   "birthDate": "2024-05-22",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 321,
+     "milk": -1167,
+     "fat": -9,
+     "pro": -11,
+     "pl": -1.11,
+     "scs": 2.99,
+     "fs": -59.16,
+     "rfi": 24.41
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2837",
+   "farmId": "farm-a",
+   "visualId": "2837",
+   "birthDate": "2024-05-25",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 350,
+     "milk": -331,
+     "fat": 10,
+     "pro": -13,
+     "pl": 1.68,
+     "scs": 2.93,
+     "fs": -113,
+     "rfi": 221.58
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2859",
+   "farmId": "farm-a",
+   "visualId": "2859",
+   "birthDate": "2024-06-12",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 340,
+     "milk": -122,
+     "fat": -14,
+     "pro": -6,
+     "pl": 0.54,
+     "scs": 2.97,
+     "fs": -117.46,
+     "rfi": 109.58
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2818",
+   "farmId": "farm-a",
+   "visualId": "2818",
+   "birthDate": "2024-05-09",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 381,
+     "milk": -1592,
+     "fat": 22,
+     "pro": -31,
+     "pl": 1.26,
+     "scs": 2.89,
+     "fs": 49.23,
+     "rfi": 23.89
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2834",
+   "farmId": "farm-a",
+   "visualId": "2834",
+   "birthDate": "2024-05-22",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 436,
+     "milk": -1218,
+     "fat": 40,
+     "pro": -10,
+     "pl": 1.64,
+     "scs": 2.97,
+     "fs": 35.06,
+     "rfi": -52.45
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2827",
+   "farmId": "farm-a",
+   "visualId": "2827",
+   "birthDate": "2024-05-19",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 306,
+     "milk": 219,
+     "fat": 1,
+     "pro": 4,
+     "pl": 0.17,
+     "scs": 2.96,
+     "fs": 80.71,
+     "rfi": -9.65
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2841",
+   "farmId": "farm-a",
+   "visualId": "2841",
+   "birthDate": "2024-05-27",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 407,
+     "milk": -436,
+     "fat": 13,
+     "pro": 1,
+     "pl": 1.42,
+     "scs": 2.8,
+     "fs": -256.45,
+     "rfi": 55.42
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2851",
+   "farmId": "farm-a",
+   "visualId": "2851",
+   "birthDate": "2024-06-05",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 404,
+     "milk": -292,
+     "fat": -2,
+     "pro": -4,
+     "pl": 0.78,
+     "scs": 3,
+     "fs": 56.68,
+     "rfi": 70.65
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2842",
+   "farmId": "farm-a",
+   "visualId": "2842",
+   "birthDate": "2024-05-27",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 424,
+     "milk": 414,
+     "fat": 56,
+     "pro": 17,
+     "pl": 0.18,
+     "scs": 3.04,
+     "fs": 120.42,
+     "rfi": 18.78
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2852",
+   "farmId": "farm-a",
+   "visualId": "2852",
+   "birthDate": "2024-06-05",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 431,
+     "milk": -807,
+     "fat": 42,
+     "pro": -4,
+     "pl": 1.06,
+     "scs": 2.86,
+     "fs": -24.66,
+     "rfi": -98.76
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2821",
+   "farmId": "farm-a",
+   "visualId": "2821",
+   "birthDate": "2024-05-09",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 344,
+     "milk": -822,
+     "fat": 23,
+     "pro": 1,
+     "pl": -0.26,
+     "scs": 3.01,
+     "fs": -162.66,
+     "rfi": 116.66
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2861",
+   "farmId": "farm-a",
+   "visualId": "2861",
+   "birthDate": "2024-06-12",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 417,
+     "milk": -86,
+     "fat": 20,
+     "pro": 4,
+     "pl": 1.01,
+     "scs": 2.99,
+     "fs": 100.95,
+     "rfi": -4.66
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2846",
+   "farmId": "farm-a",
+   "visualId": "2846",
+   "birthDate": "2024-05-30",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 406,
+     "milk": -52,
+     "fat": 13,
+     "pro": 2,
+     "pl": 0.9,
+     "scs": 3.11,
+     "fs": -103.39,
+     "rfi": 48.84
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2815",
+   "farmId": "farm-a",
+   "visualId": "2815",
+   "birthDate": "2024-05-08",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 354,
+     "milk": -891,
+     "fat": 8,
+     "pro": -11,
+     "pl": 0.83,
+     "scs": 3.07,
+     "fs": -131.71,
+     "rfi": 100.89
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2855",
+   "farmId": "farm-a",
+   "visualId": "2855",
+   "birthDate": "2024-06-09",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 324,
+     "milk": -673,
+     "fat": -11,
+     "pro": -18,
+     "pl": -0.28,
+     "scs": 2.95,
+     "fs": -21.29,
+     "rfi": 87.6
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2839",
+   "farmId": "farm-a",
+   "visualId": "2839",
+   "birthDate": "2024-05-26",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 353,
+     "milk": -257,
+     "fat": -5,
+     "pro": 5,
+     "pl": 0.55,
+     "scs": 3,
+     "fs": -96.36,
+     "rfi": 56.02
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2849",
+   "farmId": "farm-a",
+   "visualId": "2849",
+   "birthDate": "2024-06-04",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 481,
+     "milk": 77,
+     "fat": 20,
+     "pro": 13,
+     "pl": 2.18,
+     "scs": 2.96,
+     "fs": 148.21,
+     "rfi": -57.51
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2830",
+   "farmId": "farm-a",
+   "visualId": "2830",
+   "birthDate": "2024-05-21",
+   "sireNaab": "029HO19855",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 444,
+     "milk": 365,
+     "fat": 26,
+     "pro": 10,
+     "pl": 0.63,
+     "scs": 3.01,
+     "fs": 43.97,
+     "rfi": -53.82
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2854",
+   "farmId": "farm-a",
+   "visualId": "2854",
+   "birthDate": "2024-06-08",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 402,
+     "milk": -503,
+     "fat": 0,
+     "pro": 1,
+     "pl": 0.57,
+     "scs": 3.05,
+     "fs": 3.07,
+     "rfi": -78.52
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2829",
+   "farmId": "farm-a",
+   "visualId": "2829",
+   "birthDate": "2024-05-20",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 422,
+     "milk": -1010,
+     "fat": 30,
+     "pro": 0,
+     "pl": 1.09,
+     "scs": 3.03,
+     "fs": -113.97,
+     "rfi": 82.13
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2832",
+   "farmId": "farm-a",
+   "visualId": "2832",
+   "birthDate": "2024-05-22",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 533,
+     "milk": -361,
+     "fat": 29,
+     "pro": 8,
+     "pl": 1.92,
+     "scs": 2.87,
+     "fs": -52.04,
+     "rfi": -10.28
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2828",
+   "farmId": "farm-a",
+   "visualId": "2828",
+   "birthDate": "2024-05-19",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 491,
+     "milk": 282,
+     "fat": 52,
+     "pro": 20,
+     "pl": 1.64,
+     "scs": 2.87,
+     "fs": -43.35,
+     "rfi": 82.78
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2826",
+   "farmId": "farm-a",
+   "visualId": "2826",
+   "birthDate": "2024-05-19",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 478,
+     "milk": -746,
+     "fat": 44,
+     "pro": -3,
+     "pl": 1.36,
+     "scs": 2.98,
+     "fs": 167.59,
+     "rfi": -48.38
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2831",
+   "farmId": "farm-a",
+   "visualId": "2831",
+   "birthDate": "2024-05-21",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 403,
+     "milk": -1172,
+     "fat": 18,
+     "pro": -9,
+     "pl": 0.28,
+     "scs": 2.92,
+     "fs": 6.63,
+     "rfi": 13.61
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2814",
+   "farmId": "farm-a",
+   "visualId": "2814",
+   "birthDate": "2024-05-08",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 399,
+     "milk": -86,
+     "fat": -17,
+     "pro": -4,
+     "pl": 1.76,
+     "scs": 3.03,
+     "fs": 210.68,
+     "rfi": -13.59
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2862",
+   "farmId": "farm-a",
+   "visualId": "2862",
+   "birthDate": "2024-06-13",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 236,
+     "milk": -453,
+     "fat": -26,
+     "pro": -14,
+     "pl": -0.42,
+     "scs": 3.1,
+     "fs": 213.43,
+     "rfi": -19.96
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2847",
+   "farmId": "farm-a",
+   "visualId": "2847",
+   "birthDate": "2024-05-31",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 287,
+     "milk": -685,
+     "fat": -4,
+     "pro": 0,
+     "pl": -1.47,
+     "scs": 3.16,
+     "fs": -18.07,
+     "rfi": -35.51
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2824",
+   "farmId": "farm-a",
+   "visualId": "2824",
+   "birthDate": "2024-05-18",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 398,
+     "milk": -462,
+     "fat": 37,
+     "pro": 0,
+     "pl": -0.22,
+     "scs": 3.04,
+     "fs": -54.45,
+     "rfi": 51.22
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2840",
+   "farmId": "farm-a",
+   "visualId": "2840",
+   "birthDate": "2024-05-26",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 391,
+     "milk": 235,
+     "fat": 14,
+     "pro": 9,
+     "pl": 0.51,
+     "scs": 3.11,
+     "fs": -123.23,
+     "rfi": 35.55
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2833",
+   "farmId": "farm-a",
+   "visualId": "2833",
+   "birthDate": "2024-05-22",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 238,
+     "milk": -440,
+     "fat": -2,
+     "pro": -8,
+     "pl": -1.42,
+     "scs": 3.27,
+     "fs": 101.25,
+     "rfi": 6.24
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2858",
+   "farmId": "farm-a",
+   "visualId": "2858",
+   "birthDate": "2024-06-10",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 497,
+     "milk": -295,
+     "fat": 57,
+     "pro": 12,
+     "pl": 1.69,
+     "scs": 3.08,
+     "fs": 142.11,
+     "rfi": 14.65
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2823",
+   "farmId": "farm-a",
+   "visualId": "2823",
+   "birthDate": "2024-05-16",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 376,
+     "milk": 35,
+     "fat": 13,
+     "pro": 15,
+     "pl": 0.05,
+     "scs": 3.29,
+     "fs": -8.65,
+     "rfi": 65.17
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2843",
+   "farmId": "farm-a",
+   "visualId": "2843",
+   "birthDate": "2024-05-28",
+   "sireNaab": "029HO20540",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 453,
+     "milk": -307,
+     "fat": 55,
+     "pro": 19,
+     "pl": -1.1,
+     "scs": 3.27,
+     "fs": -26.43,
+     "rfi": 103.02
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2853",
+   "farmId": "farm-a",
+   "visualId": "2853",
+   "birthDate": "2024-06-07",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 491,
+     "milk": -75,
+     "fat": 23,
+     "pro": 7,
+     "pl": 2.63,
+     "scs": 2.99,
+     "fs": -58.32,
+     "rfi": 40.37
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2866",
+   "farmId": "farm-a",
+   "visualId": "2866",
+   "birthDate": "2024-06-17",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 363,
+     "milk": -609,
+     "fat": 9,
+     "pro": -10,
+     "pl": 0.51,
+     "scs": 2.91,
+     "fs": 251.06,
+     "rfi": -189.28
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2856",
+   "farmId": "farm-a",
+   "visualId": "2856",
+   "birthDate": "2024-06-09",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 487,
+     "milk": -429,
+     "fat": 42,
+     "pro": 10,
+     "pl": 1.85,
+     "scs": 3.03,
+     "fs": 217.41,
+     "rfi": -161.93
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2867",
+   "farmId": "farm-a",
+   "visualId": "2867",
+   "birthDate": "2024-06-19",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 259,
+     "milk": -456,
+     "fat": 22,
+     "pro": -2,
+     "pl": -1.41,
+     "scs": 3,
+     "fs": -311.8,
+     "rfi": 99.68
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2860",
+   "farmId": "farm-a",
+   "visualId": "2860",
+   "birthDate": "2024-06-12",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 268,
+     "milk": -967,
+     "fat": -17,
+     "pro": -23,
+     "pl": -0.63,
+     "scs": 3.04,
+     "fs": 27.65,
+     "rfi": 161.94
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2869",
+   "farmId": "farm-a",
+   "visualId": "2869",
+   "birthDate": "2024-06-25",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 587,
+     "milk": 273,
+     "fat": 40,
+     "pro": 16,
+     "pl": 2.56,
+     "scs": 3.03,
+     "fs": 227.85,
+     "rfi": -64.64
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2868",
+   "farmId": "farm-a",
+   "visualId": "2868",
+   "birthDate": "2024-06-24",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 379,
+     "milk": -414,
+     "fat": 53,
+     "pro": 2,
+     "pl": -1.26,
+     "scs": 3.19,
+     "fs": 20.4,
+     "rfi": -27.08
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2870",
+   "farmId": "farm-a",
+   "visualId": "2870",
+   "birthDate": "2024-06-25",
+   "sireNaab": "029HO20859",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 226,
+     "milk": -578,
+     "fat": -18,
+     "pro": -12,
+     "pl": -0.98,
+     "scs": 3.25,
+     "fs": 50.17,
+     "rfi": -16.8
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2872",
+   "farmId": "farm-a",
+   "visualId": "2872",
+   "birthDate": "2024-06-28",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 324,
+     "milk": -648,
+     "fat": 4,
+     "pro": -9,
+     "pl": -0.5,
+     "scs": 3.1,
+     "fs": 55.23,
+     "rfi": -102.04
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2873",
+   "farmId": "farm-a",
+   "visualId": "2873",
+   "birthDate": "2024-06-30",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 381,
+     "milk": 166,
+     "fat": 12,
+     "pro": 7,
+     "pl": 0.43,
+     "scs": 3.05,
+     "fs": 29.25,
+     "rfi": 83.4
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2874",
+   "farmId": "farm-a",
+   "visualId": "2874",
+   "birthDate": "2024-07-01",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 410,
+     "milk": 296,
+     "fat": 27,
+     "pro": 8,
+     "pl": 0.91,
+     "scs": 3.07,
+     "fs": 15.9,
+     "rfi": 87.89
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2875",
+   "farmId": "farm-a",
+   "visualId": "2875",
+   "birthDate": "2024-07-08",
+   "sireNaab": "029HO20540",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 323,
+     "milk": -1448,
+     "fat": 11,
+     "pro": -22,
+     "pl": -0.71,
+     "scs": 3.1,
+     "fs": -32.36,
+     "rfi": 116.79
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2876",
+   "farmId": "farm-a",
+   "visualId": "2876",
+   "birthDate": "2024-07-09",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 411,
+     "milk": 339,
+     "fat": 9,
+     "pro": 12,
+     "pl": 0.44,
+     "scs": 3.03,
+     "fs": 78.8,
+     "rfi": -55.42
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2877",
+   "farmId": "farm-a",
+   "visualId": "2877",
+   "birthDate": "2024-07-16",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 495,
+     "milk": 235,
+     "fat": 24,
+     "pro": 14,
+     "pl": 1.37,
+     "scs": 2.96,
+     "fs": 97.49,
+     "rfi": -43.38
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2878",
+   "farmId": "farm-a",
+   "visualId": "2878",
+   "birthDate": "2024-07-20",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 402,
+     "milk": -586,
+     "fat": -1,
+     "pro": -13,
+     "pl": 1.64,
+     "scs": 2.88,
+     "fs": 69.83,
+     "rfi": -4.26
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2879",
+   "farmId": "farm-a",
+   "visualId": "2879",
+   "birthDate": "2024-07-22",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 538,
+     "milk": 295,
+     "fat": 8,
+     "pro": 8,
+     "pl": 2.47,
+     "scs": 3.05,
+     "fs": 364.46,
+     "rfi": -46.44
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2880",
+   "farmId": "farm-a",
+   "visualId": "2880",
+   "birthDate": "2024-07-23",
+   "sireNaab": "029HO20859",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 238,
+     "milk": 12,
+     "fat": -1,
+     "pro": 6,
+     "pl": -2.01,
+     "scs": 3.24,
+     "fs": -3.12,
+     "rfi": 59.12
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2881",
+   "farmId": "farm-a",
+   "visualId": "2881",
+   "birthDate": "2024-07-28",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 477,
+     "milk": -876,
+     "fat": 28,
+     "pro": -14,
+     "pl": 2.27,
+     "scs": 2.94,
+     "fs": 29.81,
+     "rfi": 71.36
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2882",
+   "farmId": "farm-a",
+   "visualId": "2882",
+   "birthDate": "2024-08-09",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 490,
+     "milk": -931,
+     "fat": 9,
+     "pro": -6,
+     "pl": 1.41,
+     "scs": 3.13,
+     "fs": 83.98,
+     "rfi": 35.62
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2883",
+   "farmId": "farm-a",
+   "visualId": "2883",
+   "birthDate": "2024-08-12",
+   "sireNaab": "029HO19773",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 620,
+     "milk": -212,
+     "fat": 30,
+     "pro": 14,
+     "pl": 2.85,
+     "scs": 2.92,
+     "fs": 71.37,
+     "rfi": -1.09
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2864",
+   "farmId": "farm-a",
+   "visualId": "2864",
+   "birthDate": "2024-06-14",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 426,
+     "milk": -383,
+     "fat": 24,
+     "pro": 8,
+     "pl": 0.07,
+     "scs": 3.16,
+     "fs": -172.93,
+     "rfi": 100.67
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2845",
+   "farmId": "farm-a",
+   "visualId": "2845",
+   "birthDate": "2024-05-29",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 484,
+     "milk": 230,
+     "fat": 27,
+     "pro": 13,
+     "pl": 1.27,
+     "scs": 2.99,
+     "fs": 149.89,
+     "rfi": -12.95
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2844",
+   "farmId": "farm-a",
+   "visualId": "2844",
+   "birthDate": "2024-05-29",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 184,
+     "milk": 45,
+     "fat": -23,
+     "pro": -8,
+     "pl": -1.52,
+     "scs": 3.06,
+     "fs": -76.48,
+     "rfi": 98.08
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2755",
+   "farmId": "farm-a",
+   "visualId": "2755",
+   "birthDate": "2024-02-29",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 434,
+     "milk": 47,
+     "fat": 32,
+     "pro": 16,
+     "pl": 0.75,
+     "scs": 3.13,
+     "fs": -13.74,
+     "rfi": -12.59
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2758",
+   "farmId": "farm-a",
+   "visualId": "2758",
+   "birthDate": "2024-03-02",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 251,
+     "milk": -345,
+     "fat": -28,
+     "pro": -3,
+     "pl": -0.18,
+     "scs": 3.18,
+     "fs": -76.54,
+     "rfi": 21.17
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2756",
+   "farmId": "farm-a",
+   "visualId": "2756",
+   "birthDate": "2024-03-01",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 282,
+     "milk": -95,
+     "fat": -21,
+     "pro": -8,
+     "pl": -0.15,
+     "scs": 3.07,
+     "fs": -111,
+     "rfi": 121.9
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2809",
+   "farmId": "farm-a",
+   "visualId": "2809",
+   "birthDate": "2024-04-28",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 507,
+     "milk": 266,
+     "fat": 19,
+     "pro": 19,
+     "pl": 0.7,
+     "scs": 3.12,
+     "fs": 88.97,
+     "rfi": -3.24
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2808",
+   "farmId": "farm-a",
+   "visualId": "2808",
+   "birthDate": "2024-04-28",
+   "sireNaab": "029HO19829",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 197,
+     "milk": -224,
+     "fat": -27,
+     "pro": -13,
+     "pl": -1.43,
+     "scs": 3.17,
+     "fs": 60.17,
+     "rfi": 38.31
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2807",
+   "farmId": "farm-a",
+   "visualId": "2807",
+   "birthDate": "2024-04-28",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 279,
+     "milk": -388,
+     "fat": -12,
+     "pro": -15,
+     "pl": -0.34,
+     "scs": 3.17,
+     "fs": 257.9,
+     "rfi": -19.86
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2768",
+   "farmId": "farm-a",
+   "visualId": "2768",
+   "birthDate": "2024-03-11",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 316,
+     "milk": -669,
+     "fat": -19,
+     "pro": -10,
+     "pl": -0.01,
+     "scs": 3.04,
+     "fs": 183.23,
+     "rfi": -61.47
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2789",
+   "farmId": "farm-a",
+   "visualId": "2789",
+   "birthDate": "2024-04-02",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 318,
+     "milk": -547,
+     "fat": -15,
+     "pro": -17,
+     "pl": 1.31,
+     "scs": 3,
+     "fs": 33.98,
+     "rfi": 54.2
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2785",
+   "farmId": "farm-a",
+   "visualId": "2785",
+   "birthDate": "2024-03-27",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 352,
+     "milk": -1040,
+     "fat": -31,
+     "pro": -16,
+     "pl": 0.95,
+     "scs": 3.09,
+     "fs": 9.61,
+     "rfi": -39
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2788",
+   "farmId": "farm-a",
+   "visualId": "2788",
+   "birthDate": "2024-04-01",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 382,
+     "milk": 48,
+     "fat": 15,
+     "pro": -5,
+     "pl": 0.81,
+     "scs": 3.09,
+     "fs": 16.69,
+     "rfi": 69.64
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2790",
+   "farmId": "farm-a",
+   "visualId": "2790",
+   "birthDate": "2024-04-02",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 458,
+     "milk": -311,
+     "fat": -16,
+     "pro": -10,
+     "pl": 3.01,
+     "scs": 3.02,
+     "fs": 189.1,
+     "rfi": -5.67
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2766",
+   "farmId": "farm-a",
+   "visualId": "2766",
+   "birthDate": "2024-03-11",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 298,
+     "milk": -708,
+     "fat": -6,
+     "pro": -6,
+     "pl": -0.13,
+     "scs": 3.23,
+     "fs": -69.15,
+     "rfi": 11.51
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2769",
+   "farmId": "farm-a",
+   "visualId": "2769",
+   "birthDate": "2024-03-13",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 430,
+     "milk": 33,
+     "fat": -2,
+     "pro": 5,
+     "pl": 0.88,
+     "scs": 3.09,
+     "fs": -51.38,
+     "rfi": 95.78
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2761",
+   "farmId": "farm-a",
+   "visualId": "2761",
+   "birthDate": "2024-03-05",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 417,
+     "milk": -7,
+     "fat": -19,
+     "pro": 8,
+     "pl": 1.08,
+     "scs": 3.08,
+     "fs": 32.51,
+     "rfi": -12.16
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2759",
+   "farmId": "farm-a",
+   "visualId": "2759",
+   "birthDate": "2024-03-05",
+   "sireNaab": "029HO20540",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 422,
+     "milk": -850,
+     "fat": 14,
+     "pro": -10,
+     "pl": 0.01,
+     "scs": 3.16,
+     "fs": -62.48,
+     "rfi": 48.44
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-B942",
+   "farmId": "farm-a",
+   "visualId": "B942",
+   "birthDate": "2024-08-12",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 363,
+     "milk": -611,
+     "fat": 32,
+     "pro": 2,
+     "pl": -0.65,
+     "scs": 3.03,
+     "fs": -163.49,
+     "rfi": 77.58
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2762",
+   "farmId": "farm-a",
+   "visualId": "2762",
+   "birthDate": "2024-03-08",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 332,
+     "milk": -98,
+     "fat": -27,
+     "pro": -5,
+     "pl": 0.53,
+     "scs": 3.05,
+     "fs": -45.72,
+     "rfi": 50.56
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2764",
+   "farmId": "farm-a",
+   "visualId": "2764",
+   "birthDate": "2024-03-10",
+   "sireNaab": "029HO20540",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 504,
+     "milk": -649,
+     "fat": -4,
+     "pro": -7,
+     "pl": 2.39,
+     "scs": 2.85,
+     "fs": 95.13,
+     "rfi": 53.68
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2765",
+   "farmId": "farm-a",
+   "visualId": "2765",
+   "birthDate": "2024-03-10",
+   "sireNaab": "029HO19829",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 277,
+     "milk": 90,
+     "fat": -28,
+     "pro": -8,
+     "pl": -0.16,
+     "scs": 3.03,
+     "fs": 91.23,
+     "rfi": -4.43
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2763",
+   "farmId": "farm-a",
+   "visualId": "2763",
+   "birthDate": "2024-03-07",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 292,
+     "milk": -637,
+     "fat": -19,
+     "pro": -15,
+     "pl": 0.87,
+     "scs": 3.12,
+     "fs": 166.43,
+     "rfi": 3.31
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2760",
+   "farmId": "farm-a",
+   "visualId": "2760",
+   "birthDate": "2024-03-05",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 295,
+     "milk": -338,
+     "fat": -7,
+     "pro": -7,
+     "pl": -0.36,
+     "scs": 3.09,
+     "fs": -71.13,
+     "rfi": 103.66
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2794",
+   "farmId": "farm-a",
+   "visualId": "2794",
+   "birthDate": "2024-04-09",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 501,
+     "milk": -328,
+     "fat": 35,
+     "pro": 10,
+     "pl": 0.95,
+     "scs": 2.93,
+     "fs": -61.94,
+     "rfi": 78.21
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2795",
+   "farmId": "farm-a",
+   "visualId": "2795",
+   "birthDate": "2024-04-09",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 532,
+     "milk": 625,
+     "fat": 9,
+     "pro": 16,
+     "pl": 2.88,
+     "scs": 2.98,
+     "fs": 70.79,
+     "rfi": -30.29
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2803",
+   "farmId": "farm-a",
+   "visualId": "2803",
+   "birthDate": "2024-04-19",
+   "sireNaab": "029HO19829",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 527,
+     "milk": 103,
+     "fat": 6,
+     "pro": 2,
+     "pl": 2.84,
+     "scs": 2.94,
+     "fs": 204.6,
+     "rfi": -65.13
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2792",
+   "farmId": "farm-a",
+   "visualId": "2792",
+   "birthDate": "2024-04-08",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 472,
+     "milk": 197,
+     "fat": 0,
+     "pro": 5,
+     "pl": 2.72,
+     "scs": 2.79,
+     "fs": -5.67,
+     "rfi": 6.34
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2805",
+   "farmId": "farm-a",
+   "visualId": "2805",
+   "birthDate": "2024-04-20",
+   "sireNaab": "029HO19194",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 312,
+     "milk": -436,
+     "fat": -11,
+     "pro": -12,
+     "pl": -0.54,
+     "scs": 3.1,
+     "fs": 214.99,
+     "rfi": -73.12
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2796",
+   "farmId": "farm-a",
+   "visualId": "2796",
+   "birthDate": "2024-04-11",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 450,
+     "milk": -790,
+     "fat": 15,
+     "pro": -15,
+     "pl": 1.44,
+     "scs": 2.77,
+     "fs": -103.27,
+     "rfi": 49.8
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2806",
+   "farmId": "farm-a",
+   "visualId": "2806",
+   "birthDate": "2024-04-23",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 374,
+     "milk": -240,
+     "fat": 28,
+     "pro": 3,
+     "pl": -0.42,
+     "scs": 3.07,
+     "fs": -66.92,
+     "rfi": -16.27
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2801",
+   "farmId": "farm-a",
+   "visualId": "2801",
+   "birthDate": "2024-04-17",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 413,
+     "milk": -368,
+     "fat": 21,
+     "pro": -8,
+     "pl": 0.8,
+     "scs": 2.93,
+     "fs": 5.36,
+     "rfi": 115.1
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2800",
+   "farmId": "farm-a",
+   "visualId": "2800",
+   "birthDate": "2024-04-17",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 386,
+     "milk": -622,
+     "fat": 21,
+     "pro": -6,
+     "pl": 1.44,
+     "scs": 2.95,
+     "fs": 39.12,
+     "rfi": 10.79
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2799",
+   "farmId": "farm-a",
+   "visualId": "2799",
+   "birthDate": "2024-04-17",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 384,
+     "milk": -395,
+     "fat": 9,
+     "pro": -1,
+     "pl": 1.06,
+     "scs": 2.87,
+     "fs": -20.87,
+     "rfi": 24.97
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2798",
+   "farmId": "farm-a",
+   "visualId": "2798",
+   "birthDate": "2024-04-16",
+   "sireNaab": "029HO19531",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 362,
+     "milk": -504,
+     "fat": 38,
+     "pro": 2,
+     "pl": -0.39,
+     "scs": 3.02,
+     "fs": -11.23,
+     "rfi": 26.71
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2780",
+   "farmId": "farm-a",
+   "visualId": "2780",
+   "birthDate": "2024-03-20",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 223,
+     "milk": -478,
+     "fat": -20,
+     "pro": 0,
+     "pl": -2.17,
+     "scs": 3.15,
+     "fs": -152.04,
+     "rfi": 39.97
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2771",
+   "farmId": "farm-a",
+   "visualId": "2771",
+   "birthDate": "2024-03-16",
+   "sireNaab": "029HO20615",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 397,
+     "milk": 248,
+     "fat": 6,
+     "pro": 12,
+     "pl": 1.28,
+     "scs": 2.96,
+     "fs": -152.48,
+     "rfi": 45.03
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2797",
+   "farmId": "farm-a",
+   "visualId": "2797",
+   "birthDate": "2024-04-12",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 427,
+     "milk": -430,
+     "fat": 1,
+     "pro": -14,
+     "pl": 2.03,
+     "scs": 2.79,
+     "fs": 18.27,
+     "rfi": 58.35
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2773",
+   "farmId": "farm-a",
+   "visualId": "2773",
+   "birthDate": "2024-03-16",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 415,
+     "milk": 120,
+     "fat": -5,
+     "pro": 12,
+     "pl": 1.14,
+     "scs": 3.04,
+     "fs": -31.33,
+     "rfi": -28.64
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2777",
+   "farmId": "farm-a",
+   "visualId": "2777",
+   "birthDate": "2024-03-19",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 296,
+     "milk": -270,
+     "fat": -19,
+     "pro": -6,
+     "pl": 1,
+     "scs": 3.08,
+     "fs": -83.7,
+     "rfi": -9.55
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2779",
+   "farmId": "farm-a",
+   "visualId": "2779",
+   "birthDate": "2024-03-20",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 320,
+     "milk": -550,
+     "fat": 14,
+     "pro": -9,
+     "pl": -0.21,
+     "scs": 3,
+     "fs": 91.67,
+     "rfi": 38.23
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2770",
+   "farmId": "farm-a",
+   "visualId": "2770",
+   "birthDate": "2024-03-15",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 348,
+     "milk": -170,
+     "fat": -29,
+     "pro": -7,
+     "pl": 1.81,
+     "scs": 2.98,
+     "fs": -87.88,
+     "rfi": 22.93
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2776",
+   "farmId": "farm-a",
+   "visualId": "2776",
+   "birthDate": "2024-03-19",
+   "sireNaab": "029HO19829",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 423,
+     "milk": -224,
+     "fat": -7,
+     "pro": -6,
+     "pl": 0.62,
+     "scs": 3,
+     "fs": 129.05,
+     "rfi": 70.69
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2772",
+   "farmId": "farm-a",
+   "visualId": "2772",
+   "birthDate": "2024-03-16",
+   "sireNaab": "029HO19553",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 513,
+     "milk": -598,
+     "fat": 38,
+     "pro": -6,
+     "pl": 2.23,
+     "scs": 2.92,
+     "fs": 137.11,
+     "rfi": 21.09
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2774",
+   "farmId": "farm-a",
+   "visualId": "2774",
+   "birthDate": "2024-03-17",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 238,
+     "milk": -847,
+     "fat": -36,
+     "pro": -4,
+     "pl": -0.79,
+     "scs": 3.02,
+     "fs": -91.23,
+     "rfi": -13.77
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2778",
+   "farmId": "farm-a",
+   "visualId": "2778",
+   "birthDate": "2024-03-19",
+   "sireNaab": "029HO19828",
+   "category": "HEIFER",
+   "profile": {
+    "traits": {
+     "ci": 324,
+     "milk": -589,
+     "fat": -27,
+     "pro": -11,
+     "pl": 1.32,
+     "scs": 2.97,
+     "fs": 74.46,
+     "rfi": -16.01
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2754",
+   "farmId": "farm-a",
+   "visualId": "2754",
+   "birthDate": "2023-12-10",
+   "sireNaab": "029HO19194",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 230,
+     "milk": -121,
+     "fat": -20,
+     "pro": -16,
+     "pl": -0.24,
+     "scs": 3.18,
+     "fs": 192.51,
+     "rfi": -28.8
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2750",
+   "farmId": "farm-a",
+   "visualId": "2750",
+   "birthDate": "2023-11-12",
+   "sireNaab": "029HO19829",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 243,
+     "milk": -494,
+     "fat": -34,
+     "pro": -23,
+     "pl": -0.1,
+     "scs": 3.04,
+     "fs": -31.58,
+     "rfi": 35.29
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2751",
+   "farmId": "farm-a",
+   "visualId": "2751",
+   "birthDate": "2023-11-14",
+   "sireNaab": "029HO19194",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 167,
+     "milk": -1057,
+     "fat": -17,
+     "pro": -32,
+     "pl": -0.56,
+     "scs": 3.07,
+     "fs": -57.34,
+     "rfi": 61.86
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2748",
+   "farmId": "farm-a",
+   "visualId": "2748",
+   "birthDate": "2023-10-18",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 420,
+     "milk": -233,
+     "fat": 13,
+     "pro": 7,
+     "pl": -0.03,
+     "scs": 3.2,
+     "fs": 85.65,
+     "rfi": -72.25
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2749",
+   "farmId": "farm-a",
+   "visualId": "2749",
+   "birthDate": "2023-11-02",
+   "sireNaab": "029HO19812",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 330,
+     "milk": 134,
+     "fat": -12,
+     "pro": -7,
+     "pl": -0.17,
+     "scs": 3.27,
+     "fs": 64.73,
+     "rfi": 26.66
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2744",
+   "farmId": "farm-a",
+   "visualId": "2744",
+   "birthDate": "2023-09-22",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 372,
+     "milk": -367,
+     "fat": -21,
+     "pro": 0,
+     "pl": 0.87,
+     "scs": 3.04,
+     "fs": -146.04,
+     "rfi": -37.85
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2746",
+   "farmId": "farm-a",
+   "visualId": "2746",
+   "birthDate": "2023-10-15",
+   "sireNaab": "029HO19812",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 331,
+     "milk": -876,
+     "fat": 23,
+     "pro": -13,
+     "pl": -0.44,
+     "scs": 3.05,
+     "fs": 116.02,
+     "rfi": -113.7
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2745",
+   "farmId": "farm-a",
+   "visualId": "2745",
+   "birthDate": "2023-09-27",
+   "sireNaab": "029HO19829",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 352,
+     "milk": 233,
+     "fat": -17,
+     "pro": 0,
+     "pl": -0.08,
+     "scs": 3.06,
+     "fs": 119.86,
+     "rfi": 6.41
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2734",
+   "farmId": "farm-a",
+   "visualId": "2734",
+   "birthDate": "2023-09-09",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 379,
+     "milk": -171,
+     "fat": -8,
+     "pro": -11,
+     "pl": 0.97,
+     "scs": 3.08,
+     "fs": 305.02,
+     "rfi": -157.3
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2736",
+   "farmId": "farm-a",
+   "visualId": "2736",
+   "birthDate": "2023-09-13",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 416,
+     "milk": -655,
+     "fat": 10,
+     "pro": -9,
+     "pl": 0.47,
+     "scs": 3,
+     "fs": -29.73,
+     "rfi": -51.56
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2737",
+   "farmId": "farm-a",
+   "visualId": "2737",
+   "birthDate": "2023-09-14",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 426,
+     "milk": -212,
+     "fat": 8,
+     "pro": -4,
+     "pl": 0.83,
+     "scs": 3.26,
+     "fs": 22.67,
+     "rfi": -3.79
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2738",
+   "farmId": "farm-a",
+   "visualId": "2738",
+   "birthDate": "2023-09-15",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 338,
+     "milk": -435,
+     "fat": -16,
+     "pro": -10,
+     "pl": 0.09,
+     "scs": 3,
+     "fs": -69.69,
+     "rfi": -16.8
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2740",
+   "farmId": "farm-a",
+   "visualId": "2740",
+   "birthDate": "2023-09-20",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 457,
+     "milk": 35,
+     "fat": 26,
+     "pro": 18,
+     "pl": 0.34,
+     "scs": 3.28,
+     "fs": 14.4,
+     "rfi": -14.7
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2739",
+   "farmId": "farm-a",
+   "visualId": "2739",
+   "birthDate": "2023-09-19",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 337,
+     "milk": -297,
+     "fat": 19,
+     "pro": -2,
+     "pl": -0.8,
+     "scs": 2.95,
+     "fs": 29.74,
+     "rfi": -56.12
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2742",
+   "farmId": "farm-a",
+   "visualId": "2742",
+   "birthDate": "2023-09-21",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 402,
+     "milk": 261,
+     "fat": 1,
+     "pro": 3,
+     "pl": 1.37,
+     "scs": 2.96,
+     "fs": -103,
+     "rfi": 131.12
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2743",
+   "farmId": "farm-a",
+   "visualId": "2743",
+   "birthDate": "2023-09-22",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 309,
+     "milk": -759,
+     "fat": -14,
+     "pro": -14,
+     "pl": -0.78,
+     "scs": 3.23,
+     "fs": 19.85,
+     "rfi": -93.4
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2747",
+   "farmId": "farm-a",
+   "visualId": "2747",
+   "birthDate": "2023-10-17",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 326,
+     "milk": -814,
+     "fat": -4,
+     "pro": -20,
+     "pl": 0.76,
+     "scs": 2.94,
+     "fs": 123.14,
+     "rfi": -46.67
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2721",
+   "farmId": "farm-a",
+   "visualId": "2721",
+   "birthDate": "2023-06-21",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 453,
+     "milk": -522,
+     "fat": 28,
+     "pro": 0,
+     "pl": 0.72,
+     "scs": 2.87,
+     "fs": 34.31,
+     "rfi": -102.72
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2729",
+   "farmId": "farm-a",
+   "visualId": "2729",
+   "birthDate": "2023-07-31",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 412,
+     "milk": 425,
+     "fat": 10,
+     "pro": 6,
+     "pl": 0.89,
+     "scs": 2.79,
+     "fs": -152.32,
+     "rfi": 77.28
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2732",
+   "farmId": "farm-a",
+   "visualId": "2732",
+   "birthDate": "2023-08-14",
+   "sireNaab": "029HO19829",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 363,
+     "milk": -133,
+     "fat": -29,
+     "pro": -8,
+     "pl": 1.22,
+     "scs": 2.78,
+     "fs": -144.83,
+     "rfi": 73.38
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2731",
+   "farmId": "farm-a",
+   "visualId": "2731",
+   "birthDate": "2023-08-05",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 401,
+     "milk": -649,
+     "fat": 19,
+     "pro": 3,
+     "pl": 2.07,
+     "scs": 2.95,
+     "fs": -47.77,
+     "rfi": 44.67
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2723",
+   "farmId": "farm-a",
+   "visualId": "2723",
+   "birthDate": "2023-06-30",
+   "sireNaab": "029HO19553",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 378,
+     "milk": -660,
+     "fat": -4,
+     "pro": -17,
+     "pl": 0.94,
+     "scs": 2.86,
+     "fs": 159.04,
+     "rfi": -15.18
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2733",
+   "farmId": "farm-a",
+   "visualId": "2733",
+   "birthDate": "2023-08-24",
+   "sireNaab": "029HO19829",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 395,
+     "milk": -778,
+     "fat": -29,
+     "pro": -13,
+     "pl": 2.17,
+     "scs": 2.84,
+     "fs": 97.18,
+     "rfi": -65.86
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2704",
+   "farmId": "farm-a",
+   "visualId": "2704",
+   "birthDate": "2023-05-03",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 280,
+     "milk": -1066,
+     "fat": -8,
+     "pro": -28,
+     "pl": 0.08,
+     "scs": 2.86,
+     "fs": 49.27,
+     "rfi": 27.33
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2728",
+   "farmId": "farm-a",
+   "visualId": "2728",
+   "birthDate": "2023-07-30",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 366,
+     "milk": -352,
+     "fat": -40,
+     "pro": -13,
+     "pl": 0.39,
+     "scs": 2.98,
+     "fs": -122.14,
+     "rfi": 37.56
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2730",
+   "farmId": "farm-a",
+   "visualId": "2730",
+   "birthDate": "2023-08-01",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 431,
+     "milk": -174,
+     "fat": 13,
+     "pro": 2,
+     "pl": 1.17,
+     "scs": 3.05,
+     "fs": -61.46,
+     "rfi": 8.3
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2716",
+   "farmId": "farm-a",
+   "visualId": "2716",
+   "birthDate": "2023-06-04",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 357,
+     "milk": 193,
+     "fat": -12,
+     "pro": -3,
+     "pl": 0.29,
+     "scs": 2.82,
+     "fs": 46.25,
+     "rfi": 27.62
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2718",
+   "farmId": "farm-a",
+   "visualId": "2718",
+   "birthDate": "2023-06-14",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 350,
+     "milk": -739,
+     "fat": -15,
+     "pro": -11,
+     "pl": 0.81,
+     "scs": 2.98,
+     "fs": -116.91,
+     "rfi": -60.75
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2727",
+   "farmId": "farm-a",
+   "visualId": "2727",
+   "birthDate": "2023-07-26",
+   "sireNaab": "029HO19829",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 335,
+     "milk": 517,
+     "fat": -10,
+     "pro": 7,
+     "pl": 0.02,
+     "scs": 3.03,
+     "fs": -21.12,
+     "rfi": -34.39
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2712",
+   "farmId": "farm-a",
+   "visualId": "2712",
+   "birthDate": "2023-05-23",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 230,
+     "milk": -95,
+     "fat": -3,
+     "pro": -10,
+     "pl": -2.39,
+     "scs": 3.12,
+     "fs": 65.08,
+     "rfi": -41.44
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2715",
+   "farmId": "farm-a",
+   "visualId": "2715",
+   "birthDate": "2023-06-02",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 270,
+     "milk": -106,
+     "fat": 8,
+     "pro": -2,
+     "pl": -0.73,
+     "scs": 3.15,
+     "fs": 130.77,
+     "rfi": 12.95
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2714",
+   "farmId": "farm-a",
+   "visualId": "2714",
+   "birthDate": "2023-06-03",
+   "sireNaab": "029HO19829",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 454,
+     "milk": 331,
+     "fat": -15,
+     "pro": -2,
+     "pl": 2.06,
+     "scs": 2.94,
+     "fs": 283.59,
+     "rfi": -21.63
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2707",
+   "farmId": "farm-a",
+   "visualId": "2707",
+   "birthDate": "2023-05-08",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 346,
+     "milk": -588,
+     "fat": -33,
+     "pro": -6,
+     "pl": 0.78,
+     "scs": 2.97,
+     "fs": 114.64,
+     "rfi": 25.6
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2699",
+   "farmId": "farm-a",
+   "visualId": "2699",
+   "birthDate": "2023-04-15",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 352,
+     "milk": -594,
+     "fat": -3,
+     "pro": -15,
+     "pl": -0.27,
+     "scs": 2.9,
+     "fs": 34.62,
+     "rfi": -52.26
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2711",
+   "farmId": "farm-a",
+   "visualId": "2711",
+   "birthDate": "2023-05-26",
+   "sireNaab": "029HO19829",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 268,
+     "milk": 9,
+     "fat": -11,
+     "pro": -4,
+     "pl": -1.18,
+     "scs": 3.16,
+     "fs": 115.54,
+     "rfi": -36.65
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2717",
+   "farmId": "farm-a",
+   "visualId": "2717",
+   "birthDate": "2023-06-12",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 294,
+     "milk": -104,
+     "fat": -8,
+     "pro": -3,
+     "pl": -0.56,
+     "scs": 3.14,
+     "fs": -100.68,
+     "rfi": 56.9
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2710",
+   "farmId": "farm-a",
+   "visualId": "2710",
+   "birthDate": "2023-05-23",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 350,
+     "milk": 140,
+     "fat": 31,
+     "pro": 3,
+     "pl": -0.37,
+     "scs": 3.18,
+     "fs": -196.36,
+     "rfi": 20.38
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2719",
+   "farmId": "farm-a",
+   "visualId": "2719",
+   "birthDate": "2023-06-17",
+   "sireNaab": "029HO19553",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 455,
+     "milk": -460,
+     "fat": 14,
+     "pro": -9,
+     "pl": 1.98,
+     "scs": 2.93,
+     "fs": 123.85,
+     "rfi": 31.99
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2706",
+   "farmId": "farm-a",
+   "visualId": "2706",
+   "birthDate": "2023-05-08",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 337,
+     "milk": 429,
+     "fat": 20,
+     "pro": 6,
+     "pl": -0.61,
+     "scs": 3.08,
+     "fs": -78.8,
+     "rfi": -2.61
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2709",
+   "farmId": "farm-a",
+   "visualId": "2709",
+   "birthDate": "2023-05-24",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 292,
+     "milk": -823,
+     "fat": 16,
+     "pro": -12,
+     "pl": -0.64,
+     "scs": 3.12,
+     "fs": -39.1,
+     "rfi": 57.59
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2713",
+   "farmId": "farm-a",
+   "visualId": "2713",
+   "birthDate": "2023-05-30",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 347,
+     "milk": -544,
+     "fat": 13,
+     "pro": -10,
+     "pl": -0.32,
+     "scs": 2.98,
+     "fs": -125.5,
+     "rfi": 33.38
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2720",
+   "farmId": "farm-a",
+   "visualId": "2720",
+   "birthDate": "2023-06-18",
+   "sireNaab": "029HO19664",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 373,
+     "milk": 225,
+     "fat": -5,
+     "pro": 7,
+     "pl": 0.32,
+     "scs": 3.13,
+     "fs": 100.75,
+     "rfi": -14.83
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2694",
+   "farmId": "farm-a",
+   "visualId": "2694",
+   "birthDate": "2023-03-26",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 271,
+     "milk": -560,
+     "fat": 0,
+     "pro": -11,
+     "pl": -1.27,
+     "scs": 3.08,
+     "fs": -71.11,
+     "rfi": -9.55
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2698",
+   "farmId": "farm-a",
+   "visualId": "2698",
+   "birthDate": "2023-04-11",
+   "sireNaab": "029HO19855",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 265,
+     "milk": -179,
+     "fat": -11,
+     "pro": -12,
+     "pl": -0.45,
+     "scs": 2.94,
+     "fs": 96.17,
+     "rfi": 88.15
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2697",
+   "farmId": "farm-a",
+   "visualId": "2697",
+   "birthDate": "2023-04-01",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 131,
+     "milk": -984,
+     "fat": -49,
+     "pro": -31,
+     "pl": -1.73,
+     "scs": 3.05,
+     "fs": -11.27,
+     "rfi": 55.85
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2705",
+   "farmId": "farm-a",
+   "visualId": "2705",
+   "birthDate": "2023-05-03",
+   "sireNaab": "029HO19812",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 337,
+     "milk": -670,
+     "fat": 14,
+     "pro": -7,
+     "pl": -0.99,
+     "scs": 3.05,
+     "fs": -44.31,
+     "rfi": -21.1
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2724",
+   "farmId": "farm-a",
+   "visualId": "2724",
+   "birthDate": "2023-06-30",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 397,
+     "milk": -835,
+     "fat": -3,
+     "pro": -3,
+     "pl": 0.91,
+     "scs": 3.04,
+     "fs": -15.5,
+     "rfi": 24.09
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2708",
+   "farmId": "farm-a",
+   "visualId": "2708",
+   "birthDate": "2023-05-13",
+   "sireNaab": "029HO19812",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 273,
+     "milk": -408,
+     "fat": -27,
+     "pro": -15,
+     "pl": 0.35,
+     "scs": 3.1,
+     "fs": 40.55,
+     "rfi": 69.99
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2702",
+   "farmId": "farm-a",
+   "visualId": "2702",
+   "birthDate": "2023-04-21",
+   "sireNaab": "029HO19553",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 459,
+     "milk": -219,
+     "fat": 5,
+     "pro": 0,
+     "pl": 1.86,
+     "scs": 2.86,
+     "fs": -139.51,
+     "rfi": 167.88
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2688",
+   "farmId": "farm-a",
+   "visualId": "2688",
+   "birthDate": "2023-03-11",
+   "sireNaab": "029HO19000",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 449,
+     "milk": -597,
+     "fat": 26,
+     "pro": -6,
+     "pl": 0.46,
+     "scs": 2.95,
+     "fs": 148.51,
+     "rfi": 3.35
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2675",
+   "farmId": "farm-a",
+   "visualId": "2675",
+   "birthDate": "2023-02-23",
+   "sireNaab": "029HO19855",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 330,
+     "milk": -332,
+     "fat": -27,
+     "pro": -5,
+     "pl": 0.19,
+     "scs": 3.03,
+     "fs": 9.02,
+     "rfi": 14.32
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2684",
+   "farmId": "farm-a",
+   "visualId": "2684",
+   "birthDate": "2023-03-05",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 267,
+     "milk": -506,
+     "fat": 0,
+     "pro": -8,
+     "pl": -1.74,
+     "scs": 3.05,
+     "fs": 40.28,
+     "rfi": -20.91
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2677",
+   "farmId": "farm-a",
+   "visualId": "2677",
+   "birthDate": "2023-02-27",
+   "sireNaab": null,
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 47,
+     "milk": -336,
+     "fat": -41,
+     "pro": -15,
+     "pl": -2.82,
+     "scs": 3.21,
+     "fs": -249.51,
+     "rfi": 107.32
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AA",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2682",
+   "farmId": "farm-a",
+   "visualId": "2682",
+   "birthDate": "2023-03-04",
+   "sireNaab": "029HO19855",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 322,
+     "milk": 537,
+     "fat": -16,
+     "pro": 5,
+     "pl": -0.32,
+     "scs": 2.95,
+     "fs": 159.66,
+     "rfi": 58.82
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "BE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2683",
+   "farmId": "farm-a",
+   "visualId": "2683",
+   "birthDate": "2023-03-04",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 255,
+     "milk": 358,
+     "fat": -24,
+     "pro": 3,
+     "pl": -0.62,
+     "scs": 2.98,
+     "fs": 28.15,
+     "rfi": -49.92
+    },
+    "betaCasein": "A1/A1",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2685",
+   "farmId": "farm-a",
+   "visualId": "2685",
+   "birthDate": "2023-03-05",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 281,
+     "milk": -1157,
+     "fat": -25,
+     "pro": -21,
+     "pl": 1.37,
+     "scs": 3.01,
+     "fs": -257.1,
+     "rfi": 106.98
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2672",
+   "farmId": "farm-a",
+   "visualId": "2672",
+   "birthDate": "2023-01-15",
+   "sireNaab": null,
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 253,
+     "milk": -365,
+     "fat": -13,
+     "pro": -9,
+     "pl": -0.71,
+     "scs": 3.13,
+     "fs": -5.94,
+     "rfi": 158.71
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "BB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2692",
+   "farmId": "farm-a",
+   "visualId": "2692",
+   "birthDate": "2023-03-15",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 268,
+     "milk": -922,
+     "fat": 2,
+     "pro": -19,
+     "pl": -0.19,
+     "scs": 3.07,
+     "fs": -20.88,
+     "rfi": 155.79
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2679",
+   "farmId": "farm-a",
+   "visualId": "2679",
+   "birthDate": "2023-03-02",
+   "sireNaab": "029HO19531",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 398,
+     "milk": -84,
+     "fat": 3,
+     "pro": 5,
+     "pl": 0.5,
+     "scs": 3.13,
+     "fs": -108.13,
+     "rfi": 27.27
+    },
+    "betaCasein": "A2/A2",
+    "kappaCasein": "AB",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  },
+  {
+   "id": "f-2680",
+   "farmId": "farm-a",
+   "visualId": "2680",
+   "birthDate": "2023-02-27",
+   "sireNaab": "094HO19775",
+   "category": "COW",
+   "profile": {
+    "traits": {
+     "ci": 265,
+     "milk": -342,
+     "fat": -20,
+     "pro": -18,
+     "pl": 0.06,
+     "scs": 2.93,
+     "fs": -227.62,
+     "rfi": 158.7
+    },
+    "betaCasein": "A1/A2",
+    "kappaCasein": "AE",
+    "scale": "CDCB",
+    "source": "Genotipado del tambo (proveedor a confirmar, D1)"
+   }
+  }
+ ]
+}
