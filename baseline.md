@@ -158,7 +158,9 @@ Todavía **no tenemos catálogo real** (tarea A6). La ficha mínima que hay que 
 
 **Cómo no se pisan:** después de T0 cada uno trabaja contra **sustitutos** (stubs, fakes, MSW). Las dependencias reales se resuelven en **I1 (hora 9)** e **I2 (hora 13)**. Congelamiento en la hora 16.
 
-**Fuera del MVP por falta de horas:** extracción de catálogos PDF, chat sobre el rodeo y panel del asesor.
+**Dentro del MVP, con alcance recortado:** el **chat sobre el rodeo** (3 herramientas de consulta, no ejecuta acciones) y el **panel del asesor** (tambos, distribución por tier y comparativa). A absorbe las dos pantallas porque termina los motores antes.
+
+**Lo único fuera del MVP:** extracción de catálogos PDF y su pantalla. El catálogo va curado a mano.
 
 ---
 

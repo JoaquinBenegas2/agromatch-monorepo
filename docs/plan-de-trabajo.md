@@ -624,9 +624,10 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
   1. Hembras sin `profile` → quedan afuera, con el aviso de RN-24.
   2. **Percentil de CI** dentro del tambo.
   3. **Cupos:** top `sexedPct`% → `ELITE`; bottom `beefPct`% → `BEEF`; el resto → `COMMERCIAL`.
-  4. **Alertas de salud (RN-09):**
-     - Condiciones: `SCS > 3,18` (3,15 + tolerancia de 0,03) → etiqueta `MASTITIS_RISK` y `corrective += 'scs'`. `PL < 0` → etiqueta `SHORT_LIFE` y `corrective += 'pl'`.
-     - Efecto: una `ELITE` con alerta baja a `COMMERCIAL`. Una `COMMERCIAL` con alerta se queda en `COMMERCIAL`, con el apareamiento correctivo activado. **Una alerta nunca manda a `BEEF`.**
+  4. **Alertas de salud con zona gris (RN-09, ver [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md)):**
+     - **Riesgo** (`SCS > 3,18` o `PL < 0`) → etiqueta `MASTITIS_RISK` / `SHORT_LIFE`, `corrective += 'scs'|'pl'`, y baja de tier: `ELITE` → `COMMERCIAL`. **Nunca manda a `BEEF`.**
+     - **Zona gris** (`3,10 ≤ SCS ≤ 3,18` o `0,00 ≤ PL ≤ 0,20`) → mismo `corrective += 'scs'|'pl'`, pero **el tier no cambia** (una `ELITE` sigue `ELITE`).
+     - Sin alerta ni zona gris → sin cambios.
   5. **Protección por objetivo (RN-10):** si `goal.wantBetaA2` y la hembra es A2/A2 (o `wantKappaBB` y es BB) y el cupo la mandaba a `BEEF` → `COMMERCIAL` con etiqueta `GOAL_PROTECTED`.
   6. **Alerta de descarte (RN-11):** CI en el 5% inferior **y** PL < −0,5 **y** SCS > 3,20 **y** RFI > 50 → `CULL_ALERT`.
   7. **Etiquetas informativas:** `A2_NUCLEUS` (A2/A2), `CHEESE_BB` (BB), `NO_SIRE`.
@@ -634,6 +635,7 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 - **Criterios de aceptación** (con `herd-farm-a`, cupos 25/30, objetivo `BALANCED`):
   - [ ] `BEEF` entre 28% y 31% del total genotipado. **Nunca más del 30% + 1 animal.**
   - [ ] 3031 → `COMMERCIAL` con `MASTITIS_RISK` y `corrective: ['scs']`
+  - [ ] Un animal `ELITE` con SCS en zona gris (3,10–3,18) **se queda en `ELITE`** con `corrective: ['scs']` — no baja de tier
   - [ ] Con objetivo `A2_MILK`, ninguna A2/A2 queda en `BEEF`
   - [ ] Exactamente 2 animales en `CULL_ALERT`
   - [ ] Cada clasificación tiene al menos 1 línea en `reasons`
@@ -874,8 +876,8 @@ Tomadas para destrabar el plan. Si alguna no va, cambia poco y temprano.
 | ~~D5~~ ✅ | **Resuelta: Anthropic Claude, modelo Haiku 4.5** (`claude-haiku-4-5`), con `@anthropic-ai/sdk`, detrás del puerto `LlmClient` | Es el más barato y rápido de la familia (200K de contexto), y alcanza para intake, mapeo de columnas y explicaciones. El puerto deja abierto subir de modelo solo donde haga falta |
 | D6 | Plan automático = **el mejor toro para cada hembra**, sin presupuesto | La optimización con restricciones queda para la hoja de ruta |
 | — | **Persistencia en memoria** con datos semilla | Sin infraestructura; la demo arranca siempre en el mismo estado |
-| — | RN-09 ajustada: **una alerta de salud nunca manda a carne** | Es consistente con el Tier 2 del documento de mercado y sostiene la escena de la ternera 3031 |
-| D1 | Ranking por **CI** hasta confirmar qué es | Es el índice que trae el genotipado |
+| — | RN-09 ajustada: **una alerta de salud nunca manda a carne, y respeta zona gris** ([ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md)) | Es consistente con el Tier 2 del documento de mercado, sostiene la escena de la ternera 3031, y evita que el ruido de la genómica (SCS 3.13 vs 3.18) decida el tier |
+| ~~D1~~ ✅ | **Resuelta: CI es un Índice General compuesto propio**, no Calving Interval — ver [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md) | Confirmado en `insumos/Gestion de genotipados.docx` y en las correlaciones del rodeo real |
 | D3 | Facilidad de parto máxima en vaquillonas: **2,5%** | Valor inicial configurable por tambo |
 
 ---
@@ -905,18 +907,36 @@ Tomadas para destrabar el plan. Si alguna no va, cambia poco y temprano.
 | F6 chat | C6 + B7 |
 | F7 asesor | B6 + D6 |
 
-**Carga estimada por dev, con el núcleo incluido y las P2 ya recortadas:**
+### El chat y el panel del asesor ENTRAN al MVP
 
-| Dev | Núcleo | Vertical | Total |
-|---|---|---|---|
-| A | M2 (2,5) + M3 (1) | A1–A5 (7,5) | **11 h** (+ A6 y M7 si hay aire) |
-| B | M5 (2,5) | B1–B5 (9,5) | **12 h** |
-| C | M4 (2) | C1, C2, C4, C5 (7,5) | **9,5 h** |
-| D | M6 (3) | D1–D5 (11) | **14 h** |
+Decisión del equipo. Como las horas no cambian, se hacen tres cosas: **se recorta el alcance de esas piezas**, **se rebalancea entre devs** y **queda una sola cosa afuera**.
 
-**El alcance creció, así que algo se cae. Fuera del MVP (pasan a hoja de ruta):**
-- **C3** (extracción de catálogos PDF) y **D7** (su pantalla)
-- **C6** (chat sobre el rodeo)
-- **B6** y **D6** (panel del asesor): el relato ahora es el marketplace, no la comparativa entre tambos
+**Alcance recortado de lo que vuelve:**
 
-Si aun así aprieta, el orden de caída es: **A6 → M7 (se usan los semilla) → B7 + C5 (objetivo solo con presets) → D5 (plan sin pantalla propia)**. **Lo P0 no se negocia:** T0, M2, M3, M4, M5, M6, A1–A5, B1–B5, C1, C2, C4, D1–D4.
+| Pieza | Qué entra | Qué NO |
+|---|---|---|
+| **Chat** (C6 + B7 + D8) | Preguntas sobre el rodeo con 3 herramientas: contar por tier, listar hembras por filtro y explicar una clasificación | Que ejecute acciones, arme planes o modifique datos |
+| **Panel del asesor** (B6 + D6) | Lista de tambos con distribución por tier, % A2/A2 y BB, y un gráfico comparativo | Filtros avanzados, exportación, drill-down |
+
+**Rebalanceo: A absorbe las dos pantallas nuevas**, porque termina los motores alrededor de la hora 11 y D es el cuello de botella.
+
+| Dev | Núcleo | Vertical | Suma | Total |
+|---|---|---|---|---|
+| **A** | M2 (2,5) + M3 (1) | A1–A5 (7,5) | **D6** panel (1,5) + **D8** chat (1) | **13,5 h** |
+| **B** | M5 (2,5) | B1–B5 (9,5) | B6 (1) + B7 (0,5) | **13,5 h** |
+| **C** | M4 (2) | C1, C2, C4, C5 (7,5) | C6 (2,5) | **12 h** |
+| **D** | M6 (3) | D1–D5 (11) | — | **14 h** |
+
+**Lo único que queda fuera del MVP:** **C3** (extracción de catálogos PDF) y **D7** (su pantalla). Se sigue mostrando el catálogo curado a mano, que para la demo alcanza.
+
+**Si igual aprieta, el orden de caída es:** A6 (se usan los toros semilla) → M7 (se usan los proveedores semilla) → C5 (objetivo solo con presets) → D5 (el plan se ve dentro del swipe, sin pantalla propia).
+
+**Lo P0 no se negocia:** T0, M2, M3, M4, M5, M6, A1–A5, B1–B5, C1, C2, C4, D1–D4.
+
+#### D8 · Chat sobre el rodeo (pantalla) · P1 · 1 h · Dev A
+- **Archivos:** `apps/frontend/src/features/chat/*`
+- **Entrega:** panel lateral con la pregunta en texto libre, la respuesta y **qué herramientas usó** el modelo.
+- **Criterios de aceptación:**
+  - [ ] "¿cuántas terneras van a carne?" devuelve el número y muestra la herramienta que usó
+  - [ ] Si el modelo responde sin herramienta, la UI lo marca como no verificado
+- **Depende de:** D1. **Blanda:** B7.
