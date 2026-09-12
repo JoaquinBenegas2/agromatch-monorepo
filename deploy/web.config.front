@@ -58,6 +58,9 @@
       <remove fileExtension=".webp" /><mimeMap fileExtension=".webp" mimeType="image/webp" />
       <remove fileExtension=".glb" /><mimeMap fileExtension=".glb" mimeType="model/gltf-binary" />
       <remove fileExtension=".wasm" /><mimeMap fileExtension=".wasm" mimeType="application/wasm" />
+      <!-- Sonido del encuentro (public/sounds/*.mp3): explicito para no depender de la config global -->
+      <remove fileExtension=".mp3" /><mimeMap fileExtension=".mp3" mimeType="audio/mpeg" />
+      <remove fileExtension=".ogg" /><mimeMap fileExtension=".ogg" mimeType="audio/ogg" />
     </staticContent>
 
     <httpProtocol>
