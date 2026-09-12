@@ -31,7 +31,7 @@ Convierte un texto en lenguaje natural en una necesidad estructurada que el prod
 
 ## Contratos
 
-Todo lo que sigue es lo que `mvp-0-foundation/specs/shared-contracts` ya define. Esta spec **consume**; no cambia nada. Lo que le falta se marca en *Preguntas abiertas*.
+Todo lo que sigue parte de `mvp-0-foundation/specs/shared-contracts`. Esta spec corrige un defecto aditivo descubierto al implementar RN-30: `where` y `window` deben ser opcionales para un `DRAFT`, y la confirmación en la API es la que exige su presencia antes de pasar a `OPEN`.
 
 ### Consume de `marketplace.ts`
 
@@ -51,9 +51,9 @@ export interface Need {
   rawText: string;                       // siempre se guarda (RN-39)
   category: NeedCategory;
   what: string;                          // "arar", "control reproductivo", "urea"
-  where: GeoPoint;
+  where?: GeoPoint;                      // obligatorio desde OPEN
   radiusKm?: number;                     // modelo de dominio §5
-  window: TimeWindow;
+  window?: TimeWindow;                   // obligatorio desde OPEN
   magnitude?: Magnitude;
   constraints: string[];                 // "con GPS", "matriculado", "factura A"
   budget?: number;
@@ -134,7 +134,7 @@ export function listVerticals(): VerticalEngine[];                              
 | Método y ruta | Body | Respuesta | Códigos de error propios |
 |---|---|---|---|
 | `POST /needs` | `{ rawText: string; farmId: string }` | `Need` (status `DRAFT`) | 502 `LLM_*` si el intake falla |
-| `PATCH /needs/:id` | `Partial<Need>` + `{ confirm: true }` | `Need` (status `OPEN`) | 404 `NEED_NOT_FOUND` · 409 `NEED_INCOMPLETE` (falta `where` o `window`) |
+| `PATCH /needs/:id` | `Partial<Need>` + `{ confirm?: true }` | `Need` (`DRAFT`, o `OPEN` si confirma) | 404 `NEED_NOT_FOUND` · 409 `NEED_INCOMPLETE` (falta `where` o `window`) |
 | `GET /needs` | `?farmId=` | `Need[]` (nunca los `Need` sintéticos de genética) | — |
 | `POST /needs/:id/matches` | — | `MatchBoard` | 409 `NEED_NOT_CONFIRMED` si sigue en `DRAFT` |
 | `GET /providers` | `?category=` | `Provider[]` (sin `contact`) | — |
@@ -156,6 +156,7 @@ export interface FarmSummary {
 ### Produce
 
 - `NeedIntakePort` real (`packages/ai/src/need-intake.ts`), registrado en `ai.providers.ts` bajo `NEED_INTAKE_PORT`.
+- Corrección aditiva de `NeedSchema`, `UpdateNeedBodySchema` y persistencia Prisma para representar borradores sin `where`/`window`.
 - Los 7 endpoints del núcleo + `GET /advisor/overview`.
 - `features/market/` (ruta `/mercado`) y `features/advisor/` (ruta `/motor-genetico/asesor`) con sus handlers MSW. Las rutas y las barras de tabs las provee `frontend-shell`.
 - `fixtures/providers.json` (M7).
