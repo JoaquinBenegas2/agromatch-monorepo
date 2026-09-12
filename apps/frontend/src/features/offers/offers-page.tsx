@@ -186,8 +186,8 @@ export function OffersPage() {
         }
       />
 
-      <div className="flex items-center gap-2 rounded-lg border border-dashed border-border bg-muted/40 px-3 py-2 text-[11.5px] text-muted-foreground">
-        <VersionTag>vista previa</VersionTag>
+      <div className="flex flex-wrap items-center gap-2 rounded-lg border border-dashed border-border bg-muted/40 px-3 py-2 text-[11.5px] text-muted-foreground">
+        <VersionTag className="shrink-0 whitespace-nowrap">vista previa</VersionTag>
         Esta pantalla todavía no guarda nada en el servidor: es el diseño del flujo, antes de conectarla a una API real.
       </div>
 

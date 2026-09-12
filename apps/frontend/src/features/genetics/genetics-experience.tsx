@@ -166,25 +166,47 @@ export function SceneControls({
   );
 }
 
-/** Animation state never participates in matching calculations or API requests. */
-/** Sonido del encuentro: una sola instancia reutilizada (no un `new Audio()`
- * por click) para que "Repetir el recorrido" reinicie el mismo efecto en
- * vez de superponer instancias. Si el navegador bloquea el autoplay o no
- * hay soporte de audio, el error se ignora: no rompe el recorrido visual
- * por un sonido que no pudo sonar. */
+/**
+ * Sonido del encuentro: una sola instancia, adjunta al DOM (oculta) y
+ * reiniciada en cada play() en vez de un `new Audio()` por click, para que
+ * "Repetir el recorrido" retrigger el mismo efecto sin superponer
+ * instancias. Nunca bloquea el recorrido visual: si falla —autoplay
+ * bloqueado, códec no soportado, lo que sea— se traga el error y sólo
+ * queda un aviso en consola para poder diagnosticarlo.
+ */
 let encounterSound: HTMLAudioElement | null = null;
+
+function getEncounterSound(): HTMLAudioElement {
+  if (encounterSound) return encounterSound;
+  const audio = new Audio();
+  audio.src = '/sounds/encounter-reveal.mp3';
+  audio.preload = 'auto';
+  audio.volume = 0.6;
+  // Adjunto (oculto) en vez de un elemento suelto: algunas versiones de
+  // Chrome son más estrictas con la política de autoplay para audio que
+  // nunca formó parte del documento.
+  audio.style.display = 'none';
+  document.body.appendChild(audio);
+  audio.addEventListener('error', () => {
+    console.warn('[genetics] no se pudo cargar el sonido del encuentro', audio.error);
+  });
+  encounterSound = audio;
+  return audio;
+}
 
 function playEncounterSound() {
   try {
-    encounterSound ??= new Audio('/sounds/encounter-reveal.mp3');
-    encounterSound.currentTime = 0;
-    encounterSound.volume = 0.6;
-    void encounterSound.play().catch(() => undefined);
-  } catch {
-    // Sin soporte de Audio en este entorno: el recorrido sigue sin sonido.
+    const audio = getEncounterSound();
+    audio.currentTime = 0;
+    audio.play().catch((err: unknown) => {
+      console.warn('[genetics] el navegador bloqueó la reproducción del sonido', err);
+    });
+  } catch (err) {
+    console.warn('[genetics] Audio no disponible en este entorno', err);
   }
 }
 
+/** Animation state never participates in matching calculations or API requests. */
 export function useEncounterSequence() {
   const { still } = useGeneticsMotion();
   const [sequence, setSequence] = useState(0);
