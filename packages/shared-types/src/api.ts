@@ -27,7 +27,7 @@ import {
  * | PATCH /needs/:id                                                       | `UpdateNeedBody`                         | `Need` (OPEN)                                   | mvp-b-need          |
  * | GET /needs?farmId=                                                     | —                                        | `Need[]` (sin sintéticos)                       | mvp-b-need          |
  * | POST /needs/:id/matches                                                | —                                        | `MatchBoard`                                    | mvp-b-need          |
- * | GET /providers?category=                                               | —                                        | `Provider[]` (sin `contact`)                    | mvp-b-need          |
+ * | GET /providers?category=                                               | —                                        | `PublicProvider[]` (sin `contact`)              | mvp-b-need          |
  * | POST /needs/:id/requests                                               | `CreateServiceRequestBody`               | `ServiceRequest` (con `contact`)                | mvp-b-need          |
  * | POST /requests/:id/review                                              | `CreateReviewBody`                       | `Review`                                        | mvp-b-need          |
  * | GET /advisor/overview                                                  | —                                        | `FarmSummary[]`                                 | mvp-b-need (anexo)  |
