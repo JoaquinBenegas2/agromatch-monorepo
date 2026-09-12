@@ -16,7 +16,13 @@
     "db:deploy": "nx run @org/backend:db-deploy",
     "db:studio": "nx run @org/backend:db-studio",
     "db:seed": "nx run @org/backend:db-seed",
-    "db:reset": "nx run @org/backend:db-reset"
+    "db:reset": "nx run @org/backend:db-reset",
+    "db:validate:railway": "dotenv -e .env.railway -- nx run @org/backend:db-validate",
+    "db:migrate:railway": "dotenv -e .env.railway -- nx run @org/backend:db-migrate",
+    "db:deploy:railway": "dotenv -e .env.railway -- nx run @org/backend:db-deploy",
+    "db:studio:railway": "dotenv -e .env.railway -- nx run @org/backend:db-studio",
+    "db:seed:railway": "dotenv -e .env.railway -- nx run @org/backend:db-seed",
+    "dev:railway": "dotenv -e .env.railway -- nx run @org/backend:serve"
   },
   "private": true,
   "devDependencies": {
@@ -48,6 +54,7 @@
     "@vitejs/plugin-react": "^6.0.0",
     "@vitest/coverage-v8": "~4.1.0",
     "@vitest/ui": "~4.1.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.32.0",

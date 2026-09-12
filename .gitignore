@@ -54,6 +54,7 @@ test-output
 
 # environment variables
 .env
+.env.railway
 
 # Prisma
 apps/backend/src/generated
