@@ -1,382 +1,601 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Compass, Dna } from 'lucide-react';
-import type { BreedingGoal, ExplanationFacts, GoalPreset, MatchCandidate, TraitKey } from '@org/shared-types';
-import { EmptyState } from '@/components/ui/empty-state';
-import { Skeleton } from '@/components/ui/skeleton';
+import { ArrowRight, MessageCircle, Plus } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { useContactGeneticMatch } from './match-contact.api';
+import { TorinderMark } from './torinder-mark';
+import { useProviders } from '../market/market.api';
+import {
+  BreedingGoalSchema,
+  ExplanationFactsSchema,
+  type BreedingGoal,
+  type GoalPreset,
+  type TraitKey,
+} from '@org/shared-types';
+import { Button } from '@/components/ui/button';
 import { ErrorMessage } from '@/components/ui/error-message';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
 import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
-import { cn } from '@/lib/utils';
-import { useActiveFarmId } from '../../shared/user/user-context.js';
-import { useMatchBoard } from '../../shared/api/hooks/use-match-board.js';
-import { useAddPlanItem, useRemovePlanItem } from '../../shared/api/hooks/use-plan-item-mutations.js';
-import { useExplanation } from '../../shared/api/hooks/use-explanation.js';
-import { useFemales } from '../../shared/api/hooks/use-herd.js';
-import { usePlan } from '../../shared/api/hooks/use-plan.js';
-import { MatchRow } from './match-row.js';
-import '../_futuros/futuros-mockup.css';
-
-const TRAIT_LABEL: Record<string, string> = {
-  ci: 'CI',
-  milk: 'Litros',
-  fat: 'Grasa',
-  pro: 'Proteína',
-  pl: 'PL',
-  scs: 'SCS',
-  fs: 'FS',
-  rfi: 'RFI',
-};
-
-/**
- * Anima 0→1 (o 1→0) en ~1.2s; se lee por ref en cada frame, sin re-render.
- * `replayKey` fuerza que la animación arranque de nuevo aunque `active` no
- * cambie (para "Repetir escena" sobre el mismo candidato).
- */
-function useRevealProgress(active: boolean, replayKey: number) {
-  const progressRef = useRef(active ? 1 : 0);
-  useEffect(() => {
-    const from = active ? 0 : progressRef.current;
-    const target = active ? 1 : 0;
-    const duration = 1200;
-    const start = performance.now();
-    let raf = 0;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
-      progressRef.current = from + (target - from) * t;
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- replayKey es el disparador intencional
-  }, [active, replayKey]);
-  return progressRef;
-}
+import { useActiveFarmId } from '@/shared/user/user-context';
+import { useMatchBoard } from '@/shared/api/hooks/use-match-board';
+import {
+  useAddPlanItem,
+  useRemovePlanItem,
+} from '@/shared/api/hooks/use-plan-item-mutations';
+import { useExplanation } from '@/shared/api/hooks/use-explanation';
+import { useFemales } from '@/shared/api/hooks/use-herd';
+import { usePlan } from '@/shared/api/hooks/use-plan';
+import {
+  GeneticsHeading,
+  SceneControls,
+  useEncounterSequence,
+  useGeneticsMotion,
+} from '../genetics/genetics-experience';
 
 const PRESETS: { id: GoalPreset; label: string }[] = [
-  { id: 'BALANCED', label: 'Balanceado' },
-  { id: 'SOLIDS_CHEESE', label: 'Más sólidos (quesera)' },
+  { id: 'BALANCED', label: 'Equilibrado' },
+  { id: 'SOLIDS_CHEESE', label: 'Más sólidos' },
   { id: 'A2_MILK', label: 'Leche A2' },
   { id: 'VOLUME', label: 'Volumen' },
   { id: 'HEALTH_LONGEVITY', label: 'Salud y longevidad' },
-  { id: 'EFFICIENCY', label: 'Eficiencia (RFI)' },
+  { id: 'EFFICIENCY', label: 'Eficiencia' },
 ];
-
-function presetGoal(preset: GoalPreset): BreedingGoal {
-  return { preset, weights: {}, wantBetaA2: preset === 'A2_MILK', wantKappaBB: false };
-}
-
-/** El home del mercado (M6) deriva una necesidad GENETICS acá con su objetivo ya interpretado. */
-function isBreedingGoal(value: unknown): value is BreedingGoal {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    'preset' in value &&
-    'weights' in value &&
-    typeof (value as { weights: unknown }).weights === 'object'
-  );
-}
+const TRAITS: Record<TraitKey, string> = {
+  ci: 'CI',
+  milk: 'Leche',
+  fat: 'Grasa',
+  pro: 'Proteína',
+  pl: 'Vida productiva',
+  scs: 'SCS',
+  fs: 'Fertilidad',
+  rfi: 'RFI',
+};
+const makeGoal = (preset: GoalPreset): BreedingGoal => ({
+  preset,
+  weights: {},
+  wantBetaA2: preset === 'A2_MILK',
+  wantKappaBB: false,
+});
+const number = (value: number) =>
+  value.toLocaleString('es-AR', { maximumFractionDigits: 2 });
 
 export function MatchingScreen() {
-  const { femaleId } = useParams<{ femaleId?: string }>();
-  const navigate = useNavigate();
+  const { femaleId } = useParams();
+  const [farmId] = useActiveFarmId();
   const location = useLocation();
-  const [activeFarmId] = useActiveFarmId();
-  const farmId = activeFarmId ?? '';
-  const incomingGoal = isBreedingGoal((location.state as { goal?: unknown } | null)?.goal)
-    ? (location.state as { goal: BreedingGoal }).goal
-    : null;
-  const [preset, setPreset] = useState<GoalPreset>(
-    incomingGoal && incomingGoal.preset !== 'CUSTOM' ? incomingGoal.preset : 'BALANCED',
+  const incoming = BreedingGoalSchema.safeParse(
+    (location.state as { goal?: unknown } | null)?.goal,
   );
-  const [goal, setGoal] = useState<BreedingGoal>(incomingGoal ?? presetGoal('BALANCED'));
-  // Candidato con foco en el ranking: maneja tanto qué detalle se ve en el
-  // result-panel como qué se proyecta en la escena.
-  const [selectedNaab, setSelectedNaab] = useState<string | null>(null);
-  const [previewNaab, setPreviewNaab] = useState<string | null>(null);
-  const [previewKey, setPreviewKey] = useState(0);
+  const goal = incoming.success ? incoming.data : makeGoal('BALANCED');
+  if (!farmId)
+    return (
+      <section className="gx-state">
+        <h2>Elegí un establecimiento</h2>
+        <p>El motor necesita un rodeo activo.</p>
+      </section>
+    );
+  return (
+    <MatchingEncounter
+      key={`${farmId}:${femaleId ?? ''}:${JSON.stringify(goal)}`}
+      farmId={farmId}
+      femaleId={femaleId}
+      initialGoal={goal}
+    />
+  );
+}
 
+function MatchingEncounter({
+  farmId,
+  femaleId,
+  initialGoal,
+}: {
+  farmId: string;
+  femaleId?: string;
+  initialGoal: BreedingGoal;
+}) {
+  const navigate = useNavigate();
+  const [goal, setGoal] = useState(initialGoal);
+  const [selectedNaab, setSelectedNaab] = useState<string | null>(null);
+  const [camera, setCamera] = useState<'orbit' | 'top' | 'front'>('orbit');
+  const [exploded, setExploded] = useState(false);
+  const [explain, setExplain] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false),
+    [message, setMessage] = useState('');
+  const { still } = useGeneticsMotion();
+  const sequence = useEncounterSequence();
+  const resultVisible = sequence.active && sequence.progress >= 1;
   const females = useFemales(farmId);
   const board = useMatchBoard(farmId, femaleId, goal);
-  const addItem = useAddPlanItem(farmId);
-  const removeItem = useRemovePlanItem(farmId);
-  // REQ-D-14: el toro "En el plan" sale del plan real (B5), no de un estado
-  // local — así al entrar desde /negociacion/plan ya viene marcado.
-  const plan = usePlan(activeFarmId);
-  const chosenNaab = plan.data?.items.find((item) => item.femaleId === femaleId)?.bullNaab ?? null;
-  const projectedNaab = previewNaab ?? chosenNaab;
-  const revealRef = useRevealProgress(Boolean(projectedNaab), previewKey);
-
-  // Sin hembra en la URL: entramos directo con la primera del rodeo en vez
-  // de mostrar un buscador por ID.
-  useEffect(() => {
-    if (!femaleId && females.data && females.data.length > 0) {
-      navigate(`/motor-genetico/matching/${females.data[0].id}`, { replace: true });
-    }
-  }, [femaleId, females.data, navigate]);
-
-  useEffect(() => {
-    setPreviewNaab(null);
-    setSelectedNaab(null);
-  }, [femaleId]);
-
-  function handlePreview(candidate: MatchCandidate) {
-    setPreviewNaab(candidate.capabilityId);
-    setPreviewKey((key) => key + 1);
-  }
-
-  function handleChoose(candidate: MatchCandidate) {
-    if (!femaleId) return;
-    if (chosenNaab === candidate.capabilityId) {
-      removeItem.mutate(femaleId);
-      return;
-    }
-    const facts = candidate.verticalFacts as { semenType?: string } | undefined;
-    // El precio lo completa el backend desde el catálogo (los hechos no lo traen).
-    addItem.mutate({
-      femaleId,
-      bullNaab: candidate.capabilityId,
-      semenType: (facts?.semenType as never) ?? 'CONVENTIONAL',
-      compatibility: candidate.compatibility,
-      pricePerDose: null,
-    });
-  }
-
-  const planError = addItem.error ?? removeItem.error;
-
-  const ranked = board.data?.ranked ?? [];
-  const excluded = board.data?.excluded ?? [];
-  const selectedCandidate = ranked.find((c) => c.capabilityId === selectedNaab) ?? ranked[0];
-  const sceneCandidate = ranked.find((c) => c.capabilityId === projectedNaab) ?? selectedCandidate;
-  const sceneBullName =
-    (sceneCandidate?.verticalFacts as ExplanationFacts | undefined)?.bull.name ??
-    sceneCandidate?.capabilityId;
-  const selectedFacts = selectedCandidate?.verticalFacts as ExplanationFacts | undefined;
-  const currentFemale = females.data?.find((f) => f.id === femaleId);
-
+  const plan = usePlan(farmId);
+  const add = useAddPlanItem(farmId);
+  const remove = useRemovePlanItem(farmId);
+  const openConversation = useContactGeneticMatch(farmId);
+  const providers = useProviders('GENETICS');
+  const ranked = board.data?.ranked ?? [],
+    excluded = board.data?.excluded ?? [];
+  const candidate =
+    ranked.find((c) => c.capabilityId === selectedNaab) ?? ranked[0];
+  const parsed = ExplanationFactsSchema.safeParse(candidate?.verticalFacts);
+  const facts = parsed.success ? parsed.data : undefined;
+  const female = females.data?.find((f) => f.id === femaleId);
+  const chosen = plan.data?.items.find((item) => item.femaleId === femaleId);
+  const isChosen = chosen?.bullNaab === candidate?.capabilityId;
+  const providerName =
+    providers.data?.find((p) => p.id === candidate?.providerId)?.name ??
+    'el proveedor del toro';
   const explanation = useExplanation(
     farmId,
     femaleId ?? '',
-    selectedCandidate?.capabilityId ?? '',
+    candidate?.capabilityId ?? '',
     goal,
-    Boolean(femaleId && selectedCandidate),
+    Boolean(resultVisible && explain && facts),
   );
-
-  const traitKeys = (
-    selectedFacts?.expectedProgeny
-      ? (Object.keys(selectedFacts.expectedProgeny) as TraitKey[])
-      : []
-  ).filter((key) => selectedFacts?.damTraits?.[key] != null && selectedFacts?.expectedProgeny?.[key] != null);
-
-  if (females.isLoading) {
-    return (
-      <div className="futuros-page">
-        <Skeleton className="h-24 w-full" />
-      </div>
-    );
+  useEffect(() => {
+    if (!femaleId && females.data?.length)
+      navigate(
+        `/motor-genetico/matching/${encodeURIComponent(females.data[0].id)}`,
+        { replace: true, state: { goal: initialGoal } },
+      );
+  }, [femaleId, females.data, navigate, initialGoal]);
+  function resetScene() {
+    sequence.reset();
+    setExploded(false);
+    setExplain(false);
+    add.reset();
+    remove.reset();
   }
-
-  if (!femaleId) {
+  function save() {
+    if (!femaleId || !candidate || !facts) return;
+    if (isChosen) {
+      remove.mutate(femaleId);
+      return;
+    }
+    add.mutate({
+      femaleId,
+      bullNaab: candidate.capabilityId,
+      semenType: facts.semenType,
+      compatibility: candidate.compatibility,
+      pricePerDose: null,
+      goal,
+    });
+  }
+  function contact() {
+    setMessage(
+      `Hola, me interesa ${facts?.bull.name ?? candidate?.capabilityId} para la vaca ${female?.visualId}. Quisiera consultar disponibilidad, precio por dosis y entrega.`,
+    );
+    openConversation.reset();
+    setContactOpen(true);
+  }
+  if (females.isPending)
     return (
-      <div className="futuros-page">
-        <EmptyState
-          icon={<Dna />}
-          title="Todavía no cargaste tu rodeo"
-          description="Subí el Excel del rodeo para elegir una hembra y ver sus candidatos."
-          action={
-            <Link to="/motor-genetico/importar" className="btn primary">
-              Subir Excel
-            </Link>
-          }
+      <section className="gx-state" aria-label="Cargando rodeo">
+        <Skeleton className="h-28 w-full" />
+      </section>
+    );
+  if (females.error)
+    return (
+      <section className="gx-state">
+        <ErrorMessage message={females.error.message} />
+        <Button onClick={() => void females.refetch()}>Reintentar</Button>
+      </section>
+    );
+  if (!females.data?.length)
+    return (
+      <section className="gx-view">
+        <GeneticsHeading
+          index="02"
+          eyebrow="CRUZA / EL ORIGEN"
+          title="El futuro"
+          accent="se encuentra."
+          description="Cada encuentro empieza con una historia. Traé tu rodeo y explorá lo que podría venir."
         />
-      </div>
-    );
-  }
-
-  return (
-    <div className="futuros-page">
-      <div className="pagehead" style={{ marginBottom: 18 }}>
-        <div>
-          <span className="eyebrow muted">Motor genético / Torinder</span>
-          <h1>
-            El futuro se <span className="serif">diseña.</span>
-          </h1>
-          <p>Una vaca. Un aporte. Explorá lo que podría cambiar en la próxima generación.</p>
+        <div className="gx-state">
+          <Button asChild>
+            <Link to="/motor-genetico/importar">
+              Dar vida a mi rodeo <ArrowRight />
+            </Link>
+          </Button>
         </div>
-        <div className="row" style={{ gap: 10 }}>
-          {females.data && females.data.length > 0 && (
-            <Select value={femaleId} onValueChange={(id) => navigate(`/motor-genetico/matching/${id}`)}>
-              <SelectTrigger className="w-[170px]">
-                <SelectValue placeholder="Elegir hembra" />
-              </SelectTrigger>
-              <SelectContent>
-                {females.data.map((f) => (
-                  <SelectItem key={f.id} value={f.id}>
-                    {f.visualId}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-          <div className="goals">
-            {PRESETS.map((p) => (
+      </section>
+    );
+  if (!femaleId)
+    return (
+      <section className="gx-state">
+        <p>Abriendo el primer encuentro…</p>
+      </section>
+    );
+  if (!female)
+    return (
+      <section className="gx-state">
+        <h2>No encontramos esa vaca</h2>
+        <p>No pertenece al rodeo activo o ya no está disponible.</p>
+        <Button asChild>
+          <Link to="/motor-genetico/tablero">Volver al rodeo</Link>
+        </Button>
+      </section>
+    );
+  return (
+    <section className="gx-view gx-match" aria-label="Matching genético">
+      <Dialog open={contactOpen} onOpenChange={setContactOpen}>
+        <DialogContent className="max-w-[calc(100vw-32px)] sm:max-w-lg">
+          <DialogTitle>Conversar con {providerName}</DialogTitle>
+          <DialogDescription>
+            Vaca {female.visualId} × {facts?.bull.name}. Enviá tu consulta para
+            iniciar el chat con la central.
+          </DialogDescription>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!facts || !candidate || openConversation.isPending) return;
+              openConversation.mutate(
+                { femaleId, bullNaab: candidate.capabilityId, goal, message },
+                { onSuccess: (c) => navigate(`/negociacion/matches/${c.id}`) },
+              );
+            }}
+          >
+            <label
+              htmlFor="first-provider-message"
+              className="text-sm font-medium"
+            >
+              Tu primera consulta
+            </label>
+            <textarea
+              id="first-provider-message"
+              className="mt-2 min-h-32 w-full rounded-xl border bg-background p-3 text-sm"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              maxLength={4000}
+              disabled={openConversation.isPending}
+            />
+            {openConversation.error && (
+              <ErrorMessage message={openConversation.error.message} />
+            )}
+            <Button
+              className="mt-4 w-full"
+              type="submit"
+              disabled={!message.trim() || openConversation.isPending}
+            >
+              <MessageCircle />
+              {openConversation.isPending
+                ? 'Abriendo conversación…'
+                : 'Enviar consulta y abrir chat'}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+      <GeneticsHeading
+        index="02"
+        eyebrow="CRUZA / ENCUENTRO GENÉTICO"
+        title="Torinder"
+        accent=""
+        mark={<TorinderMark />}
+        description="Un origen. Otro futuro. Explorá el encuentro entre tu vaca y lo que querés aportar."
+      >
+        <div className="gx-fields">
+          <label>
+            Tu vaca
+            <select
+              aria-label="Elegir hembra"
+              value={femaleId}
+              onChange={(e) =>
+                navigate(
+                  `/motor-genetico/matching/${encodeURIComponent(e.target.value)}`,
+                  { state: { goal } },
+                )
+              }
+            >
+              {females.data.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.visualId}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div className="gx-goals" aria-label="Objetivo del encuentro">
+          {PRESETS.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              aria-pressed={goal.preset === p.id}
+              onClick={() => {
+                resetScene();
+                setSelectedNaab(null);
+                setGoal(makeGoal(p.id));
+              }}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+        {goal.preset === 'CUSTOM' && (
+          <p className="gx-note">
+            Objetivo personalizado recibido desde tu necesidad.
+          </p>
+        )}
+        <div
+          className="gx-candidates"
+          aria-label="Toros candidatos"
+          aria-busy={board.isFetching}
+        >
+          {ranked.map((c) => {
+            const result = ExplanationFactsSchema.safeParse(c.verticalFacts);
+            return (
               <button
-                key={p.id}
+                className="gx-candidate"
+                key={c.capabilityId}
                 type="button"
-                className={preset === p.id ? 'active' : ''}
+                aria-pressed={candidate?.capabilityId === c.capabilityId}
                 onClick={() => {
-                  setPreset(p.id);
-                  setGoal(presetGoal(p.id));
+                  resetScene();
+                  setSelectedNaab(c.capabilityId);
                 }}
               >
-                {p.label}
+                <span>{String(c.rank).padStart(2, '0')}</span>
+                <div>
+                  <strong>
+                    {result.success ? result.data.bull.name : c.capabilityId}
+                  </strong>
+                  <small>
+                    {result.success
+                      ? result.data.bull.company
+                      : 'Central no disponible'}{' '}
+                    {resultVisible && candidate?.capabilityId === c.capabilityId
+                      ? ` · ${number(c.compatibility)} puntos`
+                      : ''}
+                  </small>
+                </div>
+                <ArrowRight />
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      </div>
-
-      {ranked.length > 0 && (
-        <div className="matching-grid">
-          <section>
-            <div className={cn('encounter', Boolean(projectedNaab) && 'projected')}>
-              <div className="giant-type">futuros.</div>
-              <SpatialScene
-                kind="genetic"
-                options={{ progress: () => revealRef.current, projected: () => true }}
-              >
-                <SpatialLabel anchor="mother" className="-translate-x-1/2">
-                  <span className="wl-over" style={{ display: 'block', fontSize: 8, opacity: 0.75, textTransform: 'uppercase' }}>
-                    Tu hembra
-                  </span>
-                  <strong>{currentFemale?.visualId ?? femaleId}</strong>
-                </SpatialLabel>
-                <SpatialLabel anchor="bull" className="-translate-x-1/2">
-                  <span className="wl-over" style={{ display: 'block', fontSize: 8, opacity: 0.75, textTransform: 'uppercase' }}>
-                    {chosenNaab === sceneCandidate?.capabilityId
-                      ? 'Toro elegido'
-                      : previewNaab
-                        ? 'Proyectando'
-                        : 'Toro seleccionado'}
-                  </span>
-                  <strong>{sceneBullName}</strong>
-                </SpatialLabel>
-                <SpatialLabel anchor="calf" className="calf-label -translate-x-1/2">
-                  <span className="wl-over" style={{ display: 'block', fontSize: 8, textTransform: 'uppercase' }}>
-                    Próxima generación
-                  </span>
-                  <strong className="serif">Cría proyectada.</strong>
-                </SpatialLabel>
-              </SpatialScene>
-              <span className="concept-note">
-                Representación conceptual. No predice sexo, pelaje, aspecto ni resultado reproductivo.
-              </span>
-            </div>
-
-            <div className="decision-bar">
-              <p className="decision-copy">
-                La escena conecta el origen con el aporte de {sceneBullName}. Compará el escenario antes de
-                llevarlo al plan.
-              </p>
-              {selectedCandidate && (
-                <button type="button" className="btn primary" onClick={() => handlePreview(selectedCandidate)}>
-                  {projectedNaab === selectedCandidate.capabilityId ? 'Repetir escena' : 'Proyectar cría'}
-                </button>
-              )}
-            </div>
-
-            {selectedCandidate && (
-              <div className="result-panel">
-                <div className="result-title">
-                  <h2>Por qué matchea</h2>
-                  <span className="badge">
-                    #{selectedCandidate.rank} de {selectedFacts?.totalCandidates ?? '—'} · {selectedCandidate.compatibility}
-                  </span>
-                </div>
-                <p className="result-reasons">{selectedCandidate.reasons.join(' · ')}</p>
-                {traitKeys.length > 0 && (
-                  <div className="bars">
-                    {traitKeys.map((key) => {
-                      const from = selectedFacts!.damTraits![key]!;
-                      const to = selectedFacts!.expectedProgeny![key]!;
-                      const spread = Math.max(Math.abs(from), Math.abs(to), 1) * 1.4;
-                      const pct = Math.min(100, Math.max(0, ((to + spread) / (spread * 2)) * 100));
-                      return (
-                        <Fragment key={key}>
-                          <span>{TRAIT_LABEL[key] ?? key}</span>
-                          <div className="bar-track">
-                            <div className="bar-fill projected-bar" style={{ width: `${pct}%` }} />
-                          </div>
-                          <span>
-                            {from.toFixed(2)} → {to.toFixed(2)}
-                          </span>
-                        </Fragment>
-                      );
-                    })}
-                  </div>
-                )}
-                <p className="note">
-                  A2/A2: {selectedFacts?.caseinOdds.betaA2A2 != null ? `${selectedFacts.caseinOdds.betaA2A2}%` : 'sin dato'} · BB:{' '}
-                  {selectedFacts?.caseinOdds.kappaBB != null ? `${selectedFacts.caseinOdds.kappaBB}%` : 'sin dato'}
-                </p>
-                {explanation.isPending && <p className="note">Generando explicación…</p>}
-                {explanation.isError && <ErrorMessage message={(explanation.error as Error).message} />}
-                {explanation.data && <p className="note serif" style={{ fontSize: 13 }}>{explanation.data.text}</p>}
-
-                <div className="row between" style={{ marginTop: 14 }}>
-                  {chosenNaab === selectedCandidate.capabilityId ? (
-                    <>
-                      <span className="badge">En el plan</span>
-                      <button type="button" className="btn ghost" onClick={() => handleChoose(selectedCandidate)} disabled={addItem.isPending || removeItem.isPending}>
-                        Quitar del plan
-                      </button>
-                    </>
-                  ) : (
-                    <button type="button" className="btn" onClick={() => handleChoose(selectedCandidate)} disabled={addItem.isPending || removeItem.isPending}>
-                      Elegir para el plan
-                    </button>
-                  )}
-                </div>
-              </div>
+        {excluded.length > 0 && (
+          <details className="gx-excluded">
+            <summary>{excluded.length} toros excluidos · ver motivos</summary>
+            <ul>
+              {excluded.map((c) => (
+                <li key={c.capabilityId}>
+                  <strong>{c.capabilityId}</strong>
+                  <br />
+                  {c.filters
+                    .filter((f) => !f.passed)
+                    .map((f) => f.detail)
+                    .join(' · ') || c.reasons.join(' · ')}
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+        <p className="gx-note mt-4">
+          Orden calculado por el motor. El score es un índice de compatibilidad,
+          no una probabilidad.
+        </p>
+      </GeneticsHeading>
+      {candidate && (
+        <>
+          <SpatialScene
+            kind="genetic"
+            className="gx-world"
+            options={{
+              immersive: true,
+              progress: () => sequence.progressRef.current,
+              projected: () => sequence.active,
+              explode: () => exploded,
+              camera: () => camera,
+              reduced: () => still,
+              paused: () => still,
+            }}
+          >
+            <SpatialLabel anchor="mother">
+              <small>El origen / tu rodeo</small>
+              <strong>{female.visualId}</strong>
+            </SpatialLabel>
+            <SpatialLabel anchor="bull">
+              <small>El aporte</small>
+              <strong>{facts?.bull.name ?? candidate.capabilityId}</strong>
+            </SpatialLabel>
+            <SpatialLabel anchor="mother-data" className="gx-tag">
+              {female.profile?.betaCasein ?? 'SIN GENOTIPO'}
+            </SpatialLabel>
+            <SpatialLabel anchor="bull-data" className="gx-tag">
+              {facts?.bull.company ?? candidate.capabilityId}
+            </SpatialLabel>
+          </SpatialScene>
+          <div className="gx-decision">
+            {resultVisible && isChosen && (
+              <Button className="gx-contact-button" onClick={contact}>
+                <MessageCircle />
+                Conversar con el proveedor
+              </Button>
             )}
-
-            {planError && <ErrorMessage message={(planError as Error).message} />}
-          </section>
-
-          <aside className="ranking">
-            <div className="ranking-head">
-              <h2>Toros candidatos</h2>
-              <span className="badge">{ranked.length} elegibles</span>
-            </div>
-            {ranked.map((candidate) => (
-              <MatchRow
-                key={candidate.capabilityId}
-                candidate={candidate}
-                active={selectedCandidate?.capabilityId === candidate.capabilityId}
-                onSelect={(c) => setSelectedNaab(c.capabilityId)}
+            <Button
+              onClick={() => (resultVisible ? save() : sequence.play())}
+              disabled={
+                (sequence.active && !resultVisible) ||
+                add.isPending ||
+                remove.isPending ||
+                plan.isPending ||
+                plan.isError ||
+                !facts
+              }
+            >
+              {add.isPending || remove.isPending
+                ? 'Guardando…'
+                : sequence.active
+                  ? resultVisible
+                    ? isChosen
+                      ? 'Quitar del plan'
+                      : 'Guardar este encuentro'
+                    : 'Explorando el encuentro…'
+                  : 'Explorar el encuentro'}
+              {sequence.active ? <Plus /> : <ArrowRight />}
+            </Button>
+            <div className="gx-sequence">
+              <span>ORIGEN</span>
+              <input
+                aria-label="Recorrer el encuentro"
+                type="range"
+                min="0"
+                max="100"
+                value={Math.round(sequence.progress * 100)}
+                disabled={!sequence.active}
+                onChange={(e) => sequence.scrub(Number(e.target.value) / 100)}
               />
-            ))}
-            {excluded.length > 0 && (
-              <p className="note" style={{ margin: '12px 16px' }}>
-                {excluded.length} excluidos · {excluded[0]?.filters.find((f) => !f.passed)?.detail}
+              <output>{Math.round(sequence.progress * 100)}%</output>
+              <span>FUTURO</span>
+            </div>
+            <p className="gx-note">
+              Cría conceptual. Forma, sexo y pelaje no representan una
+              predicción.
+            </p>
+          </div>
+          <SceneControls
+            camera={camera}
+            onCamera={() =>
+              setCamera((c) =>
+                c === 'orbit' ? 'top' : c === 'top' ? 'front' : 'orbit',
+              )
+            }
+            exploded={exploded}
+            onExplode={
+              sequence.active ? () => setExploded(!exploded) : undefined
+            }
+            onReset={sequence.active ? sequence.play : undefined}
+          />
+          {resultVisible && (
+            <aside
+              className="gx-result"
+              aria-label="Resultado del encuentro"
+              aria-live="polite"
+            >
+              <p className="gx-rank">
+                #{candidate.rank} DE {facts?.totalCandidates ?? ranked.length} /{' '}
+                {number(candidate.compatibility)} PUNTOS
               </p>
-            )}
-          </aside>
-        </div>
+              <h2>Lo que podría cambiar.</h2>
+              <p className="gx-reasons">
+                {(facts?.reasons ?? candidate.reasons).slice(0, 2).join(' · ')}
+              </p>
+              <div className="gx-traits">
+                {(Object.keys(TRAITS) as TraitKey[]).map((key) => {
+                  const from = facts?.damTraits?.[key],
+                    to = facts?.expectedProgeny?.[key];
+                  return (
+                    <div className="gx-trait" key={key}>
+                      <span>{TRAITS[key]}</span>
+                      <span>
+                        {from != null && to != null
+                          ? `${number(from)} → ${number(to)}`
+                          : 'No estimable'}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="gx-note">
+                Valores en escala CDCB. Madre → cría esperada; los faltantes no
+                se completan.
+              </p>
+              <div className="gx-metric">
+                <span>Probabilidad A2/A2 / BB de la cría</span>
+                <strong>
+                  {facts?.caseinOdds.betaA2A2 != null
+                    ? `${number(facts.caseinOdds.betaA2A2 * 100)}%`
+                    : 'Sin dato'}{' '}
+                  /{' '}
+                  {facts?.caseinOdds.kappaBB != null
+                    ? `${number(facts.caseinOdds.kappaBB * 100)}%`
+                    : 'Sin dato'}
+                </strong>
+                <p className="gx-note">
+                  Calculado por el motor según los genotipos disponibles.
+                </p>
+              </div>
+              <details
+                open={explain}
+                onToggle={(e) => {
+                  if (e.currentTarget.open !== explain)
+                    setExplain(e.currentTarget.open);
+                }}
+              >
+                <summary>Por qué matchea · explicación</summary>
+                {explanation.isFetching && <p>Generando explicación…</p>}
+                {explanation.error && (
+                  <>
+                    <ErrorMessage message={explanation.error.message} />
+                    <Button
+                      variant="ghost"
+                      onClick={() => void explanation.refetch()}
+                    >
+                      Reintentar explicación
+                    </Button>
+                  </>
+                )}
+                {explanation.data && <p>{explanation.data.text}</p>}
+              </details>
+              <div className="gx-plan-feedback" aria-live="polite">
+                {isChosen && (
+                  <p className="gx-note">
+                    ✓ Este encuentro está guardado en tu plan.
+                  </p>
+                )}
+                {chosen && !isChosen && (
+                  <p className="gx-note">
+                    Al guardar, reemplazás el toro {chosen.bullNaab} para esta
+                    vaca.
+                  </p>
+                )}
+                {(add.error || remove.error || plan.error) && (
+                  <ErrorMessage
+                    message={
+                      (add.error ?? remove.error ?? plan.error)?.message ??
+                      'No se pudo actualizar el plan'
+                    }
+                  />
+                )}
+                <Link className="gx-note" to="/negociacion/plan">
+                  Ver plan de servicios ↗
+                </Link>
+              </div>
+            </aside>
+          )}
+        </>
       )}
-
       {board.isPending && (
-        <div className="stack">
-          <Skeleton className="h-24 w-full" />
-          <Skeleton className="h-24 w-full" />
+        <div className="gx-result">
+          <Skeleton className="h-40 w-full" />
+          <p className="gx-note mt-4">
+            El motor está comparando los candidatos…
+          </p>
         </div>
       )}
-
-      {board.isError && <ErrorMessage message={(board.error as Error).message} />}
-
-      {board.isSuccess && ranked.length === 0 && excluded.length === 0 && (
-        <EmptyState icon={<Compass />} title="Sin candidatos" description="No hay toros evaluados todavía para esta hembra." />
+      {board.error && (
+        <div className="gx-result">
+          <ErrorMessage message={board.error.message} />
+          <Button asChild className="mt-4">
+            <Link to="/motor-genetico/tablero">Revisar clasificación</Link>
+          </Button>
+          <Button variant="ghost" onClick={() => void board.refetch()}>
+            Reintentar
+          </Button>
+        </div>
       )}
-    </div>
+      {board.isSuccess && !ranked.length && (
+        <div className="gx-result">
+          <h2>Sin candidatos elegibles</h2>
+          <p className="gx-note">
+            {excluded.length
+              ? 'Revisá los motivos de exclusión. Podés explorar otro objetivo o elegir otra vaca.'
+              : 'El catálogo no contiene candidatos para esta clasificación.'}
+          </p>
+        </div>
+      )}
+    </section>
   );
 }

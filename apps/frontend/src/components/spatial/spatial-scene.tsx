@@ -2,7 +2,13 @@ import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { Spatial } from './world-engine';
 
-export type SpatialSceneKind = 'genetic' | 'market' | 'herd' | 'import' | 'advisor' | 'plan';
+export type SpatialSceneKind =
+  'genetic' | 'market' | 'herd' | 'import' | 'advisor' | 'plan';
+export interface SpatialAnimal {
+  id: string;
+  group: 'ELITE' | 'COMMERCIAL' | 'BEEF' | 'CULL_ALERT' | 'UNCLASSIFIED';
+  visible?: boolean;
+}
 
 /**
  * Todos los callbacks son opcionales y se leen en cada frame (no en el
@@ -10,6 +16,8 @@ export type SpatialSceneKind = 'genetic' | 'market' | 'herd' | 'import' | 'advis
  * memoizarlos.
  */
 export interface SpatialSceneOptions {
+  immersive?: boolean;
+  animals?: () => SpatialAnimal[];
   progress?: () => number;
   projected?: () => boolean;
   explode?: () => boolean;
@@ -43,11 +51,20 @@ export interface SpatialSceneProps {
  * puramente ilustrativa: no representa un resultado genético real ni
  * predice sexo, pelaje o aspecto (mismo criterio que el mockup de origen).
  */
-export function SpatialScene({ kind, options, className, children, fallback }: SpatialSceneProps) {
+export function SpatialScene({
+  kind,
+  options,
+  className,
+  children,
+  fallback,
+}: SpatialSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const optionsRef = useRef(options);
-  optionsRef.current = options;
+  const worldRef = useRef<InstanceType<typeof Spatial.World> | null>(null);
+  useEffect(() => {
+    optionsRef.current = options;
+  }, [options]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -57,6 +74,8 @@ export function SpatialScene({ kind, options, className, children, fallback }: S
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const world = new Spatial.World(canvas, kind, {
+      immersive: () => optionsRef.current?.immersive ?? false,
+      animals: () => optionsRef.current?.animals?.(),
       progress: () => optionsRef.current?.progress?.() ?? 0,
       projected: () => optionsRef.current?.projected?.() ?? false,
       explode: () => optionsRef.current?.explode?.() ?? false,
@@ -73,17 +92,57 @@ export function SpatialScene({ kind, options, className, children, fallback }: S
       count: () => optionsRef.current?.count?.() ?? 1,
       intro: optionsRef.current?.intro,
     });
+    worldRef.current = world;
 
-    return () => world.dispose();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- options se leen por ref en cada frame
+    return () => {
+      world.dispose();
+      worldRef.current = null;
+    };
   }, [kind]);
 
   return (
-    <div ref={containerRef} className={cn('spatial-world relative isolate overflow-hidden', className)}>
-      <canvas ref={canvasRef} className="spatial-world-canvas" aria-hidden />
+    <div
+      ref={containerRef}
+      className={cn(
+        'spatial-world relative isolate overflow-hidden',
+        className,
+      )}
+    >
+      <canvas
+        ref={canvasRef}
+        className="spatial-world-canvas"
+        tabIndex={options?.immersive ? 0 : undefined}
+        aria-hidden={options?.immersive ? undefined : true}
+        aria-label={
+          options?.immersive
+            ? 'Escena 3D. Arrastrá o usá las flechas para cambiar la perspectiva. Inicio restablece la vista.'
+            : undefined
+        }
+        onKeyDown={(event) => {
+          const world = worldRef.current;
+          if (!world) return;
+          const keys: Record<string, number[]> = {
+            ArrowLeft: [-0.12, 0],
+            ArrowRight: [0.12, 0],
+            ArrowUp: [0, 0.08],
+            ArrowDown: [0, -0.08],
+          };
+          const direction = keys[event.key];
+          if (direction) {
+            event.preventDefault();
+            world.pan(direction[0], direction[1]);
+          }
+          if (event.key === 'Home') {
+            event.preventDefault();
+            world.resetCamera();
+          }
+        }}
+      />
       {children}
       <div className="spatial-world-fallback">
-        {fallback ?? <p className="text-[11px]">Vista de respaldo · WebGL no disponible</p>}
+        {fallback ?? (
+          <p className="text-[11px]">Vista de respaldo · WebGL no disponible</p>
+        )}
       </div>
     </div>
   );
@@ -94,5 +153,11 @@ export function SpatialLabel({
   className,
   ...props
 }: React.ComponentProps<'div'> & { anchor: string }) {
-  return <div data-anchor={anchor} className={cn('spatial-label', className)} {...props} />;
+  return (
+    <div
+      data-anchor={anchor}
+      className={cn('spatial-label', className)}
+      {...props}
+    />
+  );
 }

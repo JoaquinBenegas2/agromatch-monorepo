@@ -54,6 +54,12 @@ import {
  * | POST /catalog-imports/:importId/confirm                                | —                                        | `{ added: number; updated: number }`            | fuera del MVP (C3) |
  */
 export const API_PREFIX = '/api';
+export type SavePlanItem = z.infer<
+  typeof import('./schemas.js').SavePlanItemSchema
+>;
+export type ContactGeneticMatch = z.infer<
+  typeof import('./schemas.js').ContactGeneticMatchSchema
+>;
 
 export type MeResponse = z.infer<typeof MeResponseSchema>;
 export type CreateNeedBody = z.infer<typeof CreateNeedBodySchema>;

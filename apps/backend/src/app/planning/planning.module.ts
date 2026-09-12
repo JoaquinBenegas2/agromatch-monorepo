@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { GoalsController } from './goals.controller.js';
 import { PlanController } from './plan.controller.js';
 import { PlanService } from './plan.service.js';
+import { GeneticMatchingModule } from '../genetic-matching/genetic-matching.module.js';
 
 /**
  * C5 (`GoalsController`, `POST /goals/parse`) + B5/D5 (`PlanController`/
@@ -10,6 +11,7 @@ import { PlanService } from './plan.service.js';
  * en orden (recomendado: #23 antes que esta).
  */
 @Module({
+  imports: [GeneticMatchingModule],
   controllers: [GoalsController, PlanController],
   providers: [PlanService],
 })

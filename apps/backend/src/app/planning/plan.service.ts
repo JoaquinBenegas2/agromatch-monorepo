@@ -1,15 +1,31 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { buildAutoPlan } from '@org/genetics-core';
 import { computeTraitStats } from '@org/genetics-core';
-import type { BreedingGoal, BreedingPlan, GenomicProfile, PlanItem, SemenType } from '@org/shared-types';
+import {
+  ExplanationFactsSchema,
+  type BreedingGoal,
+  type BreedingPlan,
+  type GenomicProfile,
+  type PlanItem,
+  type SavePlanItem,
+  type SemenType,
+} from '@org/shared-types';
+import { GeneticMatchingService } from '../genetic-matching/genetic-matching.service.js';
 import { DomainError } from '../../common/errors/domain-error.js';
 import { BULL_REPO, type BullRepo } from '../../repos/bull.port.js';
-import { CLASSIFICATION_REPO, type ClassificationRepo } from '../../repos/classification.port.js';
+import {
+  CLASSIFICATION_REPO,
+  type ClassificationRepo,
+} from '../../repos/classification.port.js';
 import { FARM_REPO, type FarmRepo } from '../../repos/farm.port.js';
 import { FEMALE_REPO, type FemaleRepo } from '../../repos/female.port.js';
 import { PLAN_REPO, type PlanRepo } from '../../repos/plan.port.js';
 
-const EMPTY_DOSES: Record<SemenType, number> = { SEXED: 0, CONVENTIONAL: 0, BEEF: 0 };
+const EMPTY_DOSES: Record<SemenType, number> = {
+  SEXED: 0,
+  CONVENTIONAL: 0,
+  BEEF: 0,
+};
 
 /** B5 — Plan de servicios: alta/baja manual (REQ-D-12), plan automático
  * (REQ-D-10) y totales recalculados en el server (REQ-D-11). */
@@ -18,9 +34,11 @@ export class PlanService {
   constructor(
     @Inject(PLAN_REPO) private readonly planRepo: PlanRepo,
     @Inject(FEMALE_REPO) private readonly femaleRepo: FemaleRepo,
-    @Inject(CLASSIFICATION_REPO) private readonly classificationRepo: ClassificationRepo,
+    @Inject(CLASSIFICATION_REPO)
+    private readonly classificationRepo: ClassificationRepo,
     @Inject(BULL_REPO) private readonly bullRepo: BullRepo,
     @Inject(FARM_REPO) private readonly farmRepo: FarmRepo,
+    private readonly matchingService: GeneticMatchingService,
   ) {}
 
   getPlan(farmId: string): Promise<BreedingPlan> {
@@ -28,21 +46,61 @@ export class PlanService {
   }
 
   /** REQ-D-12: una hembra, un toro — reemplaza si ya tenía uno elegido. */
-  async addItem(farmId: string, item: PlanItem): Promise<BreedingPlan> {
-    const [plan, bull] = await Promise.all([
-      this.planRepo.getOrCreate(farmId),
+  async addItem(farmId: string, item: SavePlanItem): Promise<BreedingPlan> {
+    const [female, bull, stored] = await Promise.all([
+      this.femaleRepo.findById(farmId, item.femaleId),
       this.bullRepo.findByNaab(item.bullNaab),
+      this.classificationRepo.listByFarm(farmId),
     ]);
+    if (!female)
+      throw new DomainError(
+        'FEMALE_NOT_FOUND',
+        'No encontramos esa hembra en el tambo',
+        404,
+      );
     if (!bull) {
-      throw new DomainError('BULL_NOT_FOUND', 'No encontramos ese toro en el catálogo', 404, {
-        naab: item.bullNaab,
-      });
+      throw new DomainError(
+        'BULL_NOT_FOUND',
+        'No encontramos ese toro en el catálogo',
+        404,
+        {
+          naab: item.bullNaab,
+        },
+      );
     }
-    // El precio sale del catálogo, no del cliente: la pantalla de matching no
-    // lo conoce (los hechos no lo traen) y lo manda en null. Si el catálogo
-    // tampoco lo tiene, queda null y `totals.cost` lo ignora (REQ-D-11).
-    const resolved: PlanItem = { ...item, pricePerDose: item.pricePerDose ?? bull.pricePerDose };
-    const items = [...plan.items.filter((i) => i.femaleId !== item.femaleId), resolved];
+    if (!stored?.items.length)
+      throw new DomainError(
+        'HERD_NOT_CLASSIFIED',
+        'Clasificá el rodeo antes de guardar un encuentro',
+        409,
+      );
+    const board = await this.matchingService.getBoard(
+      farmId,
+      item.femaleId,
+      item.goal ?? stored.goal,
+    );
+    const candidate = board.ranked.find(
+      (c) => c.capabilityId === item.bullNaab,
+    );
+    const facts = ExplanationFactsSchema.safeParse(candidate?.verticalFacts);
+    if (!candidate || !facts.success)
+      throw new DomainError(
+        'CANDIDATE_NOT_ELIGIBLE',
+        'Este toro ya no es elegible para la vaca y el objetivo. Actualizá el encuentro.',
+        409,
+      );
+    const resolved: PlanItem = {
+      femaleId: female.id,
+      bullNaab: bull.naab,
+      semenType: facts.data.semenType,
+      compatibility: candidate.compatibility,
+      pricePerDose: bull.pricePerDose,
+    };
+    const plan = await this.planRepo.getOrCreate(farmId);
+    const items = [
+      ...plan.items.filter((i) => i.femaleId !== item.femaleId),
+      resolved,
+    ];
     return this.planRepo.save({ ...plan, items, totals: totalsFor(items) });
   }
 
@@ -61,7 +119,11 @@ export class PlanService {
       this.classificationRepo.listByFarm(farmId),
       this.bullRepo.list(),
     ]);
-    if (!farm || !classificationRecord || classificationRecord.items.length === 0) {
+    if (
+      !farm ||
+      !classificationRecord ||
+      classificationRecord.items.length === 0
+    ) {
       throw new DomainError(
         'HERD_NOT_CLASSIFIED',
         'Clasificá el rodeo antes de armar el plan automático',
@@ -75,9 +137,20 @@ export class PlanService {
       .filter((p): p is GenomicProfile => p !== null);
     const stats = computeTraitStats(profiles);
 
-    const built = buildAutoPlan(farm, females, classificationRecord.items, bulls, goal, stats);
+    const built = buildAutoPlan(
+      farm,
+      females,
+      classificationRecord.items,
+      bulls,
+      goal,
+      stats,
+    );
     const plan = await this.planRepo.getOrCreate(farmId);
-    return this.planRepo.save({ ...plan, items: built.items, totals: built.totals });
+    return this.planRepo.save({
+      ...plan,
+      items: built.items,
+      totals: built.totals,
+    });
   }
 }
 
