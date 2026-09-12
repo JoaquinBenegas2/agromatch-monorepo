@@ -7,10 +7,11 @@ import { PrismaModule } from '../prisma/prisma.module.js';
 import { RepositoriesModule } from '../repos/repositories.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { PlanningModule } from './planning/planning.module.js';
 import { SmokeController } from './smoke.controller.js';
 
 @Module({
-  imports: [PrismaModule, RepositoriesModule, AuthModule, AiModule],
+  imports: [PrismaModule, RepositoriesModule, AuthModule, AiModule, PlanningModule],
   controllers: [AppController, SmokeController],
   providers: [AppService, { provide: APP_FILTER, useClass: ApiExceptionFilter }],
 })
