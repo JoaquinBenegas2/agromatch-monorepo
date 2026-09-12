@@ -88,8 +88,6 @@ export const FakeNeedIntake: NeedIntakePort = {
       rawText,
       category: 'OTHER',
       what: rawText,
-      where: { lat: 0, lng: 0, label: 'Sin ubicación' },
-      window: { from: '', to: '' },
       constraints: [],
       status: 'DRAFT',
       missingFields: ['category', 'what', 'where', 'window'],

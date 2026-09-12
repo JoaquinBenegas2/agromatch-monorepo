@@ -1,5 +1,5 @@
 import { bullsSeed, herdFarmA } from '@org/shared-types/fixtures';
-import type { Bull, Capability, Classification, Farm, Need, Provider, TraitStats } from '@org/shared-types';
+import type { Capability, Classification, Farm, Need, Provider, TraitStats } from '@org/shared-types';
 import { matchNeed } from '@org/matching-core';
 import { GOAL_PRESETS } from '../src/matching/presets.js';
 import { scoreCandidates } from '../src/matching/score.js';
@@ -52,7 +52,6 @@ describe('GeneticsVertical (RN-35, ADR-0002, REQ-A-10)', () => {
 
     const direct = scoreCandidates(female, classification, bullsSeed, goal, farm, dairyStats);
 
-    const bullsByNaab: Record<string, Bull> = Object.fromEntries(bullsSeed.map((b) => [b.naab, b]));
     const need: Need = {
       id: 'need-genetics-3031',
       farmId: farm.id,
@@ -91,13 +90,74 @@ describe('GeneticsVertical (RN-35, ADR-0002, REQ-A-10)', () => {
       },
     ];
 
-    const viaVertical = matchNeed(need, caps, provs, [GeneticsVertical], { female, classification, farm, stats: dairyStats, bullsByNaab });
+    const viaVertical = matchNeed(need, caps, provs, [GeneticsVertical], { female, classification, farm, stats: dairyStats, bulls: bullsSeed });
 
     expect(viaVertical.ranked.map((c) => c.capabilityId)).toEqual(direct.ranked.map((c) => c.capabilityId));
     expect(viaVertical.ranked.map((c) => c.compatibility)).toEqual(direct.ranked.map((c) => c.compatibility));
     expect(viaVertical.ranked.map((c) => (c.verticalFacts as { expectedProgeny: unknown }).expectedProgeny)).toEqual(
       direct.ranked.map((c) => (c.verticalFacts as { expectedProgeny: unknown }).expectedProgeny),
     );
+  });
+
+  it('funciona sin farm en el ctx (forma real que usa GeneticMatchingService, B4): RN-06 no se aplica, documentado', () => {
+    const female = herdFarmA.females.find((f) => f.visualId === '3031')!;
+    const classification: Classification = {
+      femaleId: female.id,
+      tier: 'COMMERCIAL',
+      semenType: 'CONVENTIONAL',
+      ciPercentile: 50,
+      tags: [],
+      corrective: ['scs'],
+      reasons: [],
+    };
+    const goal = GOAL_PRESETS.SOLIDS_CHEESE;
+    const need: Need = {
+      id: 'need-genetics-3031',
+      farmId: 'farm-a',
+      rawText: 'matching genético para 3031',
+      category: 'GENETICS',
+      what: 'matching genético',
+      where: { lat: 0, lng: 0, label: 'Establecimiento' },
+      window: { from: '2026-01-01', to: '2026-12-31' },
+      constraints: [],
+      status: 'OPEN',
+      goal,
+      createdAt: '2026-01-01T00:00:00.000Z',
+      synthetic: true,
+    };
+    const caps: Capability[] = bullsSeed.map((b) => ({
+      id: b.naab,
+      providerId: 'prov-genetics',
+      category: 'GENETICS',
+      serviceType: 'semen',
+      coverageRadiusKm: 500,
+      availability: [],
+      priceModel: 'PER_UNIT',
+      certifications: [],
+      attributes: {},
+    }));
+    const provs: Provider[] = [
+      {
+        id: 'prov-genetics',
+        name: 'Central Genética',
+        type: 'SEMEN_COMPANY',
+        base: { lat: 0, lng: 0, label: 'Central' },
+        verified: false,
+        reputation: { avg: 4, jobs: 10 },
+        contact: {},
+        source: 'test',
+      },
+    ];
+
+    // Sin `farm`: exactamente la forma de ctx que arma GeneticMatchingService.
+    const board = matchNeed(need, caps, provs, [GeneticsVertical], {
+      female,
+      classification,
+      stats: dairyStats,
+      bulls: bullsSeed,
+    });
+
+    expect(board.ranked.length).toBeGreaterThan(0);
   });
 
   it('sin need.goal o sin GeneticsMatchContext válido, lanza un error claro', () => {

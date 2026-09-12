@@ -261,9 +261,11 @@ export const NeedSchema = z.object({
   rawText: z.string(),
   category: NeedCategorySchema,
   what: z.string(),
-  where: GeoPointSchema,
+  // Puede faltar solo mientras la necesidad está en DRAFT (RN-30).
+  where: GeoPointSchema.optional(),
   radiusKm: z.number().optional(),
-  window: TimeWindowSchema,
+  // Puede faltar solo mientras la necesidad está en DRAFT (RN-30).
+  window: TimeWindowSchema.optional(),
   magnitude: MagnitudeSchema.optional(),
   constraints: z.array(z.string()),
   budget: z.number().optional(),
@@ -317,6 +319,9 @@ export const ProviderSchema = z.object({
   contact: ProviderContactSchema,
   source: z.string(),
 });
+
+/** Proyección segura para listados y matching: RN-36 prohíbe exponer contacto. */
+export const PublicProviderSchema = ProviderSchema.omit({ contact: true });
 
 export const CapabilitySchema = z.object({
   id: z.string(),
@@ -481,16 +486,16 @@ export const CreateNeedBodySchema = z.object({
 });
 
 export const UpdateNeedBodySchema = NeedSchema.partial().extend({
-  confirm: z.literal(true),
+  confirm: z.literal(true).optional(),
 });
 
 export const CreateServiceRequestBodySchema = z.object({
   providerId: z.string(),
-  message: z.string(),
+  message: z.string().min(1),
 });
 
 export const CreateReviewBodySchema = z.object({
-  rating: z.number(),
+  rating: z.number().int().min(1).max(5),
   comment: z.string(),
 });
 

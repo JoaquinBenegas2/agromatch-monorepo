@@ -38,6 +38,9 @@ export function scoreCandidate(
   cap: Capability,
   prov: Provider,
 ): { score: number; fit: FitBreakdown; reasons: string[] } {
+  if (!need.where || !need.window) {
+    throw new Error('Cannot score an unconfirmed need without location and time window');
+  }
   const distanceKm = haversineKm(need.where, prov.base);
   const radiusKm = cap.coverageRadiusKm || need.radiusKm || 100;
   const proximity = clamp01(1 - distanceKm / Math.max(radiusKm, 1));
@@ -90,6 +93,9 @@ export function matchNeed(
   verticals: VerticalEngine[] = listVerticals(),
   ctx?: unknown,
 ): MatchBoard {
+  if (!need.where || !need.window) {
+    throw new Error('Cannot match an unconfirmed need without location and time window');
+  }
   const vertical = verticals.find((v) => v.canHandle(need));
   const relevantCaps = caps.filter((c) => c.category === need.category);
   const excluded: MatchCandidate[] = [];

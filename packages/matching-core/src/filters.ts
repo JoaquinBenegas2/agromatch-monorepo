@@ -26,6 +26,10 @@ function daysInWindow(window: TimeWindow): number {
  * cualquiera de estos va a `excluded` con el motivo en `detail`.
  */
 export function hardFilters(need: Need, cap: Capability, prov: Provider): FilterResult[] {
+  const { where, window } = need;
+  if (!where || !window) {
+    throw new Error('Cannot evaluate hardFilters on an unconfirmed need without location and time window');
+  }
   const results: FilterResult[] = [];
 
   results.push(
@@ -34,7 +38,7 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
       : { rule: 'RN-31', passed: false, detail: `Categoría ${cap.category} no coincide con la necesidad ${need.category}` },
   );
 
-  const distanceKm = haversineKm(need.where, prov.base);
+  const distanceKm = haversineKm(where, prov.base);
   const radiusKm = cap.coverageRadiusKm;
   results.push(
     distanceKm <= radiusKm
@@ -42,7 +46,7 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
       : { rule: 'RN-31', passed: false, detail: `A ${distanceKm.toFixed(1)} km, fuera del radio de cobertura de ${radiusKm} km` },
   );
 
-  const hasOverlap = cap.availability.length === 0 || cap.availability.some((slot) => overlaps(need.window, slot));
+  const hasOverlap = cap.availability.length === 0 || cap.availability.some((slot) => overlaps(window, slot));
   results.push(
     hasOverlap
       ? { rule: 'RN-31', passed: true, detail: 'Disponible dentro de la ventana solicitada' }
@@ -50,7 +54,7 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
   );
 
   if (need.magnitude && cap.capacityPerDay) {
-    const days = daysInWindow(need.window);
+    const days = daysInWindow(window);
     const capacityInWindow = cap.capacityPerDay.value * days;
     const enough = capacityInWindow >= need.magnitude.value;
     results.push(
