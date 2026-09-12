@@ -16,7 +16,7 @@ interface ServiceRequestRow {
   contactEmail: string | null;
 }
 
-function toDomain(row: ServiceRequestRow): ServiceRequest {
+export function serviceRequestToDomain(row: ServiceRequestRow): ServiceRequest {
   return {
     id: row.id,
     needId: row.needId,
@@ -67,11 +67,11 @@ export class PrismaServiceRequestRepo implements ServiceRequestRepo {
       });
       return created;
     });
-    return toDomain(row);
+    return serviceRequestToDomain(row);
   }
 
   async findById(id: string): Promise<ServiceRequest | null> {
     const row = await this.prisma.serviceRequest.findUnique({ where: { id } });
-    return row ? toDomain(row) : null;
+    return row ? serviceRequestToDomain(row) : null;
   }
 }

@@ -5,6 +5,7 @@ import { AuthModule } from '../auth/auth.module.js';
 import { ApiExceptionFilter } from '../common/errors/api-exception.filter.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
 import { RepositoriesModule } from '../repos/repositories.module.js';
+import { useMemoryRepositories } from '../repos/repository-mode.js';
 import { ClassificationModule } from '../classification/classification.module.js';
 import { HerdImportModule } from '../herd-import/herd-import.module.js';
 import { HerdModule } from '../herd/herd.module.js';
@@ -23,7 +24,7 @@ import { NegotiationsModule } from './negotiations/negotiations.module.js';
 
 @Module({
   imports: [
-    PrismaModule,
+    ...(useMemoryRepositories ? [] : [PrismaModule]),
     RepositoriesModule,
     AuthModule,
     AiModule,

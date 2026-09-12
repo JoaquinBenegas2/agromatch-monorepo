@@ -1,222 +1,346 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, UploadCloud } from 'lucide-react';
-import type { ColumnMapping, MappingProposal } from '@org/shared-types';
-import { Badge } from '@/components/ui/badge';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowRight, UploadCloud } from 'lucide-react';
+import {
+  FemaleFieldSchema,
+  type ColumnMapping,
+  type MappingProposal,
+} from '@org/shared-types';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { EmptyState } from '@/components/ui/empty-state';
+import { Checkbox } from '@/components/ui/checkbox';
 import { ErrorMessage } from '@/components/ui/error-message';
-import { PageHeader } from '@/components/ui/page-header';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
-import { cn } from '@/lib/utils';
-import { useConfirmHerd, useUploadHerd } from '../../shared/api/hooks/use-herd.js';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { SpatialScene } from '@/components/spatial/spatial-scene';
+import { useConfirmHerd, useUploadHerd } from '@/shared/api/hooks/use-herd';
+import {
+  GeneticsHeading,
+  useGeneticsMotion,
+} from '../genetics/genetics-experience';
 
+const FIELDS = [
+  'visualId',
+  'birthDate',
+  'sireNaab',
+  'ci',
+  'milk',
+  'fat',
+  'pro',
+  'pl',
+  'scs',
+  'fs',
+  'rfi',
+  'betaCasein',
+  'kappaCasein',
+  'IGNORE',
+] as const;
+const FIELD_LABEL: Record<string, string> = {
+  visualId: 'Caravana',
+  birthDate: 'Fecha de nacimiento',
+  sireNaab: 'Padre / NAAB',
+  betaCasein: 'Beta caseína',
+  kappaCasein: 'Kappa caseína',
+  IGNORE: 'No usar',
+  ci: 'CI',
+  milk: 'Leche',
+  fat: 'Grasa',
+  pro: 'Proteína',
+  pl: 'Vida productiva',
+  scs: 'SCS',
+  fs: 'Fertilidad',
+  rfi: 'RFI',
+};
 export function UploadHerdButton() {
   const navigate = useNavigate();
   return (
-    <Button variant="secondary" onClick={() => navigate('/motor-genetico/importar')}>
+    <Button
+      variant="secondary"
+      onClick={() => navigate('/motor-genetico/importar')}
+    >
       Subir Excel
     </Button>
   );
 }
 
 export function HerdImportPage({ farmId }: { farmId: string }) {
-  const upload = useUploadHerd(farmId);
-  const confirm = useConfirmHerd(farmId);
-  const navigate = useNavigate();
+  const upload = useUploadHerd(farmId),
+    confirm = useConfirmHerd(farmId);
   const [proposal, setProposal] = useState<MappingProposal | null>(null);
-  const [importId, setImportId] = useState('');
-  const [reviewed, setReviewed] = useState<string[]>([]);
-
+  const [importId, setImportId] = useState(''),
+    [filename, setFilename] = useState('');
+  const [reviewed, setReviewed] = useState<string[]>([]),
+    [fileError, setFileError] = useState('');
+  const { still } = useGeneticsMotion();
   const low = Object.entries(proposal?.confidence ?? {})
-    .filter(([, value]) => value < 0.8)
+    .filter(([, n]) => n < 0.8)
     .map(([header]) => header);
-
-  const step = confirm.data ? 2 : proposal ? 1 : 0;
-  const steps = ['Elegir archivo', 'Confirmar columnas', 'Explorar el rodeo'];
-  const stepPills = (
-    <div className="flex flex-wrap gap-2">
-      {steps.map((label, index) => (
-        <span
-          key={label}
-          className={cn(
-            'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10.5px] font-medium',
-            index === step
-              ? 'border-secondary-border bg-accent text-primary'
-              : index < step
-                ? 'border-border-soft text-ink-3'
-                : 'border-border-soft text-ink-4',
-          )}
-        >
-          {String(index + 1).padStart(2, '0')} / {label}
-        </span>
-      ))}
-    </div>
+  const fields = Object.values(proposal?.columns ?? {}).filter(
+    (v) => v !== 'IGNORE',
   );
-
-  const submit = async (file: File) => {
-    const result = await upload.mutateAsync(file);
-    setProposal(result.proposal);
-    setImportId(result.importId);
-  };
-
-  if (confirm.data) {
-    return (
-      <div className="flex flex-col gap-5">
-        <PageHeader
-          title={
-            <>
-              Tu planilla ahora tiene <span className="font-serif text-primary italic">decisiones.</span>
-            </>
-          }
-        />
-        {stepPills}
-        <SpatialScene
-          kind="herd"
-          options={{ imported: () => true }}
-          className="h-[300px] w-full rounded-lg border border-border bg-[#d7e2c5]"
-        >
-          <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#4f6b45]">
-            Clasificación ilustrativa · datos de demostración
-          </span>
-        </SpatialScene>
-        <EmptyState
-          icon={<CheckCircle2 />}
-          title="Rodeo importado"
-          description={
-            // Honestidad: lo que quedó afuera se dice, con la fila y el motivo.
-            `${confirm.data.rowsOk} filas importadas` +
-            (confirm.data.rowsRejected.length
-              ? ` · ${confirm.data.rowsRejected.length} rechazada${confirm.data.rowsRejected.length === 1 ? '' : 's'}: ` +
-                confirm.data.rowsRejected.map((r) => `fila ${r.row} (${r.reason})`).join('; ')
-              : '') +
-            (confirm.data.warnings.length ? ` · ${confirm.data.warnings.length} avisos` : '') +
-            '.'
-          }
-          action={<Button onClick={() => navigate('/motor-genetico/tablero')}>Ir al tablero</Button>}
-        />
-        {confirm.data.warnings.length > 0 && (
-          <details className="rounded-lg border border-border bg-card px-4 py-3 text-[12px] text-muted-foreground">
-            <summary className="cursor-pointer font-semibold">Avisos de la importación ({confirm.data.warnings.length})</summary>
-            <ul className="mt-2 list-disc pl-5">
-              {confirm.data.warnings.map((w) => (
-                <li key={w}>{w}</li>
-              ))}
-            </ul>
-          </details>
-        )}
-      </div>
-    );
+  const mappingValid =
+    fields.includes('visualId') &&
+    fields.includes('birthDate') &&
+    new Set(fields).size === fields.length;
+  const step = confirm.data ? 2 : proposal ? 1 : 0;
+  function submit(file: File) {
+    if (upload.isPending || confirm.isPending) return;
+    if (!/\.xlsx?$/i.test(file.name)) {
+      setFileError('Elegí un archivo Excel .xls o .xlsx.');
+      return;
+    }
+    setFileError('');
+    setReviewed([]);
+    setProposal(null);
+    confirm.reset();
+    setFilename(file.name);
+    upload.mutate(file, {
+      onSuccess: (result) => {
+        setProposal(result.proposal);
+        setImportId(result.importId);
+      },
+    });
   }
-
   return (
-    <div className="flex flex-col gap-5">
-      <PageHeader
-        title={
-          <>
-            Del Excel al <span className="font-serif text-primary italic">rodeo vivo.</span>
-          </>
-        }
-        description="Cada fila es un animal. Cada animal, una decisión."
-      />
-      {stepPills}
-
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_1fr]">
-        <SpatialScene
-          kind="import"
-          className="h-[280px] w-full rounded-lg border border-border bg-[#d7e2c5] lg:h-auto"
-        >
-          <SpatialLabel anchor="sheet" className="-translate-x-1/2">
-            <span className="inline-flex items-center rounded-full bg-[#1e3a2bcc] px-2.5 py-1 text-[9px] font-semibold tracking-[0.08em] text-lime uppercase backdrop-blur">
-              El archivo es el punto de partida
+    <section className="gx-view gx-import">
+      <GeneticsHeading
+        index="00"
+        eyebrow="ORIGEN / DE DATOS A POSIBILIDADES"
+        title="Una planilla."
+        accent="Un mundo."
+        description="Las filas se desprenden del papel. Cada una encuentra su lugar en el paisaje."
+      >
+        <div className="gx-import-steps">
+          {['ARCHIVO', 'COLUMNAS', 'RODEO VIVO'].map((label, i) => (
+            <span key={label} aria-current={step === i ? 'step' : undefined}>
+              0{i + 1} / {label}
             </span>
-          </SpatialLabel>
-          <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#4f6b45]">
-            Vista conceptual, no representa tu planilla real
-          </span>
-        </SpatialScene>
-
-        <Card
-          role="button"
-          tabIndex={0}
-          onDragOver={(event) => event.preventDefault()}
-          onDrop={(event) => {
-            event.preventDefault();
-            const file = event.dataTransfer.files[0];
-            if (file && /\.xlsx?$/i.test(file.name)) void submit(file);
+          ))}
+        </div>
+      </GeneticsHeading>
+      <SpatialScene
+        kind={confirm.data ? 'herd' : 'import'}
+        className="gx-world"
+        options={{
+          immersive: true,
+          reduced: () => still,
+          paused: () => still,
+          animals: confirm.data
+            ? () =>
+                confirm.data.females.map((f) => ({
+                  id: f.id,
+                  group: 'UNCLASSIFIED' as const,
+                }))
+            : undefined,
+        }}
+      />
+      {!proposal && !confirm.data && (
+        <div
+          className="gx-upload gx-panel"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            e.preventDefault();
+            const file = e.dataTransfer.files[0];
+            if (file) submit(file);
           }}
-          className="flex flex-col items-center justify-center gap-3 border-dashed p-10 text-center"
         >
-          <UploadCloud className="size-8 text-ink-4" />
-          <p className="text-[13.5px]">Soltá aquí tu Excel o elegilo desde tu equipo.</p>
+          <UploadCloud className="text-primary" />
+          <h2 className="mt-4 text-xl">Tu rodeo empieza acá.</h2>
+          <label htmlFor="herd-file">
+            Soltá tu Excel o elegilo desde tu equipo.
+          </label>
           <input
+            id="herd-file"
             aria-label="Archivo Excel"
             type="file"
             accept=".xls,.xlsx"
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-              if (file) void submit(file);
+            disabled={upload.isPending}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) submit(file);
             }}
-            className="text-[11.5px] text-muted-foreground file:mr-3 file:rounded-full file:border-0 file:bg-primary file:px-3.5 file:py-2 file:text-[12.5px] file:font-semibold file:text-primary-foreground"
           />
-        </Card>
-      </div>
-
-      {(upload.error || confirm.error) && (
-        <ErrorMessage message={((upload.error ?? confirm.error) as Error).message} />
+          <p className="gx-note mt-4" aria-live="polite">
+            {upload.isPending
+              ? `Leyendo ${filename} y proponiendo las columnas…`
+              : 'Primero revisás las columnas. El rodeo se actualiza al confirmar.'}
+          </p>
+        </div>
       )}
-
-      {proposal && (
-        <Card className="p-4">
-          <h2 className="mb-3 text-[15.5px] font-semibold tracking-[-0.01em]">Revisá el mapeo</h2>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Columna</TableHead>
-                <TableHead>Campo</TableHead>
-                <TableHead className="num">Confianza</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Object.entries(proposal.columns).map(([header, target]) => {
-                const confidence = proposal.confidence[header];
-                const isLow = confidence !== undefined && confidence < 0.8;
-                return (
+      {(fileError || upload.error || confirm.error) && (
+        <div className="gx-panel mt-5 max-w-md">
+          <ErrorMessage
+            message={
+              fileError ||
+              ((upload.error ?? confirm.error)?.message ??
+                'No se pudo importar el archivo')
+            }
+          />
+        </div>
+      )}
+      {proposal && !confirm.data && (
+        <section className="gx-mapping gx-panel">
+          <p className="gx-eyebrow">02 / {filename}</p>
+          <h2>Dale sentido a cada columna.</h2>
+          <div className="max-h-[330px] overflow-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Columna</TableHead>
+                  <TableHead>Interpretación</TableHead>
+                  <TableHead>Revisión</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {Object.entries(proposal.columns).map(([header, target]) => (
                   <TableRow key={header}>
-                    <TableCell className="font-semibold">{header}</TableCell>
+                    <TableCell>{header}</TableCell>
                     <TableCell>
                       <select
+                        aria-label={`Interpretación de ${header}`}
                         value={target}
-                        onChange={() => setReviewed((current) => [...new Set([...current, header])])}
-                        className="rounded-sm border border-input bg-card px-2 py-1.5 text-[12.5px] text-foreground outline-none"
+                        onChange={(e) => {
+                          const next =
+                            e.target.value === 'IGNORE'
+                              ? 'IGNORE'
+                              : FemaleFieldSchema.parse(e.target.value);
+                          setProposal({
+                            ...proposal,
+                            columns: { ...proposal.columns, [header]: next },
+                          });
+                          setReviewed((current) => [
+                            ...new Set([...current, header]),
+                          ]);
+                        }}
                       >
-                        <option>{target}</option>
+                        {FIELDS.map((f) => (
+                          <option key={f} value={f}>
+                            {FIELD_LABEL[f]}
+                          </option>
+                        ))}
                       </select>
                     </TableCell>
-                    <TableCell className="num">
-                      <Badge variant={isLow ? 'warn' : 'ok'}>{confidence?.toFixed(2)}</Badge>
+                    <TableCell>
+                      {low.includes(header) ? (
+                        <label className="flex items-center gap-2">
+                          <Checkbox
+                            checked={reviewed.includes(header)}
+                            onCheckedChange={(value) =>
+                              setReviewed((current) =>
+                                value
+                                  ? [...new Set([...current, header])]
+                                  : current.filter((h) => h !== header),
+                              )
+                            }
+                            aria-label={`Revisé ${header}`}
+                          />
+                          <span>Revisé</span>
+                        </label>
+                      ) : (
+                        '✓'
+                      )}
                     </TableCell>
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          <Button
-            className="mt-4"
-            disabled={low.some((header) => !reviewed.includes(header)) || confirm.isPending}
-            onClick={() =>
-              void confirm.mutateAsync({
-                importId,
-                mapping: { headerRow: proposal.headerRow, columns: proposal.columns } as ColumnMapping,
-              })
-            }
-          >
-            Confirmar
-          </Button>
-        </Card>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          {!mappingValid && (
+            <p className="gx-note mt-4" role="alert">
+              Incluí caravana y fecha de nacimiento. Cada destino se usa una
+              sola vez.
+            </p>
+          )}
+          {proposal.warnings.length > 0 && (
+            <ul className="gx-note mt-3 list-disc pl-4">
+              {proposal.warnings.map((w) => (
+                <li key={w}>{w}</li>
+              ))}
+            </ul>
+          )}
+          <p className="gx-note my-5">
+            Confirmar reemplaza el rodeo activo. Se reinician su clasificación y
+            plan para trabajar con los datos nuevos.
+          </p>
+          <div className="flex justify-between gap-3">
+            <Button
+              variant="ghost"
+              disabled={confirm.isPending}
+              onClick={() => {
+                setProposal(null);
+                setReviewed([]);
+                upload.reset();
+              }}
+            >
+              Otro archivo
+            </Button>
+            <Button
+              disabled={
+                !mappingValid ||
+                low.some((h) => !reviewed.includes(h)) ||
+                confirm.isPending
+              }
+              onClick={() =>
+                confirm.mutate({
+                  importId,
+                  mapping: {
+                    headerRow: proposal.headerRow,
+                    columns: proposal.columns,
+                  } satisfies ColumnMapping,
+                })
+              }
+            >
+              {confirm.isPending ? 'Guardando rodeo…' : 'Darles vida'}
+              <ArrowRight />
+            </Button>
+          </div>
+        </section>
       )}
-    </div>
+      {confirm.data && (
+        <section className="gx-import-success gx-panel">
+          <h2>Ya tienen su lugar.</h2>
+          <p>
+            {confirm.data.rowsOk} filas importadas. Ahora podés clasificar el
+            rodeo y descubrir los candidatos de cada vaca.
+          </p>
+          {confirm.data.rowsRejected.length > 0 && (
+            <details>
+              <summary>
+                {confirm.data.rowsRejected.length} filas rechazadas
+              </summary>
+              <ul className="gx-note">
+                {confirm.data.rowsRejected.map((r) => (
+                  <li key={r.row}>
+                    Fila {r.row}: {r.reason}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
+          {confirm.data.warnings.length > 0 && (
+            <details className="my-4">
+              <summary>
+                {confirm.data.warnings.length} avisos de importación
+              </summary>
+              <ul className="gx-note">
+                {confirm.data.warnings.map((w, i) => (
+                  <li key={`${i}:${w}`}>{w}</li>
+                ))}
+              </ul>
+            </details>
+          )}
+          <Button asChild>
+            <Link to="/motor-genetico/tablero">
+              Entrar al rodeo <ArrowRight />
+            </Link>
+          </Button>
+        </section>
+      )}
+    </section>
   );
 }

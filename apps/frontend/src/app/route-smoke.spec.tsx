@@ -28,15 +28,59 @@ const ROUTES = [
 
 const USERS = {
   'tambero-a': {
-    user: { id: 'tambero-a', name: 'Tambero A', role: 'FARMER', farmIds: ['farm-a'] },
-    farms: [{ id: 'farm-a', name: 'Tambo A', location: 'Córdoba', tierQuotas: { sexedPct: 25, beefPct: 30 }, calvingEaseMaxHeifer: 2.5, scsGrayZone: { from: 3.1, to: 3.18 }, plGrayZone: { from: 0, to: 0.2 } }],
+    user: {
+      id: 'tambero-a',
+      name: 'Tambero A',
+      role: 'FARMER',
+      farmIds: ['farm-a'],
+    },
+    farms: [
+      {
+        id: 'farm-a',
+        name: 'Tambo A',
+        location: 'Córdoba',
+        tierQuotas: { sexedPct: 25, beefPct: 30 },
+        calvingEaseMaxHeifer: 2.5,
+        scsGrayZone: { from: 3.1, to: 3.18 },
+        plGrayZone: { from: 0, to: 0.2 },
+      },
+    ],
   },
   'asesor-1': {
-    user: { id: 'asesor-1', name: 'Asesor 1', role: 'ADVISOR', farmIds: ['farm-a', 'farm-b', 'farm-c'] },
+    user: {
+      id: 'asesor-1',
+      name: 'Asesor 1',
+      role: 'ADVISOR',
+      farmIds: ['farm-a', 'farm-b', 'farm-c'],
+    },
     farms: [
-      { id: 'farm-a', name: 'Tambo A', location: 'Córdoba', tierQuotas: { sexedPct: 25, beefPct: 30 }, calvingEaseMaxHeifer: 2.5, scsGrayZone: { from: 3.1, to: 3.18 }, plGrayZone: { from: 0, to: 0.2 } },
-      { id: 'farm-b', name: 'Tambo B', location: 'Santa Fe', tierQuotas: { sexedPct: 25, beefPct: 30 }, calvingEaseMaxHeifer: 2.5, scsGrayZone: { from: 3.1, to: 3.18 }, plGrayZone: { from: 0, to: 0.2 } },
-      { id: 'farm-c', name: 'Tambo C', location: 'Buenos Aires', tierQuotas: { sexedPct: 25, beefPct: 30 }, calvingEaseMaxHeifer: 2.5, scsGrayZone: { from: 3.1, to: 3.18 }, plGrayZone: { from: 0, to: 0.2 } },
+      {
+        id: 'farm-a',
+        name: 'Tambo A',
+        location: 'Córdoba',
+        tierQuotas: { sexedPct: 25, beefPct: 30 },
+        calvingEaseMaxHeifer: 2.5,
+        scsGrayZone: { from: 3.1, to: 3.18 },
+        plGrayZone: { from: 0, to: 0.2 },
+      },
+      {
+        id: 'farm-b',
+        name: 'Tambo B',
+        location: 'Santa Fe',
+        tierQuotas: { sexedPct: 25, beefPct: 30 },
+        calvingEaseMaxHeifer: 2.5,
+        scsGrayZone: { from: 3.1, to: 3.18 },
+        plGrayZone: { from: 0, to: 0.2 },
+      },
+      {
+        id: 'farm-c',
+        name: 'Tambo C',
+        location: 'Buenos Aires',
+        tierQuotas: { sexedPct: 25, beefPct: 30 },
+        calvingEaseMaxHeifer: 2.5,
+        scsGrayZone: { from: 3.1, to: 3.18 },
+        plGrayZone: { from: 0, to: 0.2 },
+      },
     ],
   },
 } as const;
@@ -47,7 +91,9 @@ function renderAt(path: string, userId: keyof typeof USERS) {
     'fetch',
     vi.fn().mockResolvedValue({ ok: true, json: async () => USERS[userId] }),
   );
-  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
   return render(
     <QueryClientProvider client={queryClient}>
       <UserProvider>
@@ -59,15 +105,30 @@ function renderAt(path: string, userId: keyof typeof USERS) {
   );
 }
 
-describe.each(['tambero-a', 'asesor-1'] as const)('recorrido de rutas como %s', (userId) => {
-  it.each(ROUTES)('%s monta sin romper y el sidebar tiene 5 módulos', async (path) => {
-    const { baseElement, unmount } = renderAt(path, userId);
-    expect(baseElement.querySelector('[data-slot="sidebar"]')).toBeTruthy();
-    const navItems = baseElement.querySelectorAll('[data-slot="sidebar-nav-item"]');
-    expect(navItems.length).toBe(5);
-    unmount();
-  });
-});
+describe.each(['tambero-a', 'asesor-1'] as const)(
+  'recorrido de rutas como %s',
+  (userId) => {
+    it.each(ROUTES)(
+      '%s monta y mantiene acceso a los 5 módulos',
+      async (path) => {
+        const { baseElement, unmount } = renderAt(path, userId);
+        const immersive = /^\/motor-genetico\/(matching|tablero|importar)/.test(
+          path,
+        );
+        expect(baseElement.querySelector('[data-slot="sidebar"]')).toBeTruthy();
+        if (immersive)
+          expect(
+            baseElement.querySelector('.genetics-experience'),
+          ).toBeTruthy();
+        const navItems = baseElement.querySelectorAll(
+          '[data-slot="sidebar-nav-item"]',
+        );
+        expect(navItems.length).toBe(5);
+        unmount();
+      },
+    );
+  },
+);
 
 describe('REQ-FS-03: la tab del asesor', () => {
   it('un FARMER en /motor-genetico/asesor ve la explicación, no la pantalla real', () => {

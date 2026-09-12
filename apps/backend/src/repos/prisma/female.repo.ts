@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import type { Female, FemaleCategory, GenomicProfile } from '@org/shared-types';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import type { FemaleRepo } from '../female.port.js';
+import { Prisma } from '../../generated/prisma/client.js';
 
 interface FemaleRow {
   id: string;
@@ -41,29 +42,31 @@ export class PrismaFemaleRepo implements FemaleRepo {
 
   async upsertMany(farmId: string, females: Female[]): Promise<number> {
     const visualIds = females.map((female) => female.visualId);
-    await this.prisma.female.deleteMany({ where: { farmId, visualId: { notIn: visualIds } } });
-    let count = 0;
-    for (const f of females) {
-      await this.prisma.female.upsert({
-        where: { farmId_visualId: { farmId, visualId: f.visualId } },
-        create: {
-          id: f.id,
-          farmId,
-          visualId: f.visualId,
-          birthDate: f.birthDate,
-          sireNaab: f.sireNaab,
-          category: f.category,
-          profile: f.profile ?? undefined,
-        },
-        update: {
-          birthDate: f.birthDate,
-          sireNaab: f.sireNaab,
-          category: f.category,
-          profile: f.profile ?? undefined,
-        },
-      });
-      count += 1;
-    }
-    return count;
+    await this.prisma.$transaction([
+      this.prisma.female.deleteMany({
+        where: { farmId, visualId: { notIn: visualIds } },
+      }),
+      ...females.map((f) =>
+        this.prisma.female.upsert({
+          where: { farmId_visualId: { farmId, visualId: f.visualId } },
+          create: {
+            id: f.id,
+            farmId,
+            visualId: f.visualId,
+            birthDate: f.birthDate,
+            sireNaab: f.sireNaab,
+            category: f.category,
+            profile: f.profile ?? Prisma.DbNull,
+          },
+          update: {
+            birthDate: f.birthDate,
+            sireNaab: f.sireNaab,
+            category: f.category,
+            profile: f.profile ?? Prisma.DbNull,
+          },
+        }),
+      ),
+    ]);
+    return females.length;
   }
 }

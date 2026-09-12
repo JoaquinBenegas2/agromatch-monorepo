@@ -192,6 +192,14 @@ export const PlanItemSchema = z.object({
   pricePerDose: z.number().nullable(),
 });
 
+export const SavePlanItemSchema = PlanItemSchema.extend({
+  goal: BreedingGoalSchema.optional(),
+});
+export const ContactGeneticMatchSchema = z.object({
+  goal: BreedingGoalSchema,
+  message: z.string().trim().min(1).max(4000),
+});
+
 export const BreedingPlanSchema = z.object({
   id: z.string(),
   farmId: z.string(),
