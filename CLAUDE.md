@@ -64,7 +64,7 @@ Es una hackathon: **~20 horas, 4 devs**, track AGRO.
 3. **Escala única CDCB** en todo valor genético. Lo que no la declara, no entra al motor (RN-01).
 4. **Los contratos se congelan al cerrar T0.** Después, solo cambios aditivos. **Renombrar o borrar frena a los 4 devs**: se avisa y se acuerda.
 5. **Honestidad en la UI.** La compatibilidad es un **ranking relativo** ("#1 de 12"), nunca una probabilidad. Un proveedor no verificado se muestra como tal.
-6. **La demo funciona sin internet.** Las respuestas del LLM del recorrido de la demo van en caché.
+6. **La demo corre 100% real.** Claude en vivo, nada pregrabado. Lo que se muestra es lo que el producto hace.
 
 ## Dónde va cada cosa (estructura real, Nx)
 

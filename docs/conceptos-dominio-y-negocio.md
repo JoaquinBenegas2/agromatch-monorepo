@@ -27,7 +27,7 @@ Antes eso se sabía recién cuando la vaca ordeñaba, años después. Ahora se s
 | VISUALID | ID del animal (caravana) | — |
 | Fecha Nacimiento | Fecha de nacimiento | — |
 | Padre | Código del toro padre | — |
-| CI | Índice general compuesto (**definición pendiente**) | ↑ |
+| CI | **Índice General compuesto**, propio (definido en `insumos/Gestion de genotipados.docx`, no es Calving Interval). Correlaciona fuerte con PL, FAT, PRO y SCS — ver [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md) | ↑ |
 | MILK / FAT / PRO | Leche / grasa / proteína que transmite | ↑ |
 | PL | Vida productiva (longevidad) | ↑ |
 | SCS | Células somáticas (propensión a mastitis) | **↓** |

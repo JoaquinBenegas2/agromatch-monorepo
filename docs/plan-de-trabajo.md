@@ -18,7 +18,7 @@
 - **La IA nunca produce números del motor** (RN-17). Toda salida de un LLM pasa por validación.
 - Persistencia MVP: **repositorios en memoria** con datos semilla que se cargan al arrancar. No hay base de datos.
 - Usuarios MVP: **simulados** con el header `x-user-id`. No hay login.
-- La demo **funciona sin internet**: las respuestas del LLM del recorrido de la demo quedan en caché.
+- La demo corre **100% real**: Claude en vivo, nada pregrabado. Se prueba la conexión en el lugar antes de presentar.
 - Commits convencionales. Una tarea = una rama = un PR chico. `main` siempre en verde.
 
 ---
@@ -179,20 +179,10 @@ export type RuleId = 'RN-05' | 'RN-06' | 'RN-13';
 export interface FilterResult { rule: RuleId; passed: boolean; detail: string }
 export interface CaseinOdds { betaA2A2: number | null; kappaBB: number | null } // 0..1
 
-export interface MatchResult {
-  femaleId: string;
-  bullNaab: string;
-  semenType: SemenType;
-  expectedProgeny: TraitVector | null;        // null en toros de carne
-  deltaVsDam: Partial<TraitVector> | null;
-  score: number;
-  compatibility: number;                      // 0..100 relativo (RN-15)
-  rank: number;                               // 1 = mejor
-  caseinOdds: CaseinOdds;
-  filters: FilterResult[];
-  reasons: string[];
-}
-export interface MatchSet { ranked: MatchResult[]; excluded: MatchResult[] }
+// MatchResult / MatchSet se eliminaron (ADR-0002): el vertical genético usa
+// MatchCandidate / MatchBoard, igual que el núcleo. Lo específico de genética
+// (expectedProgeny, deltaVsDam, caseinOdds) vive en ExplanationFacts, colgado
+// de MatchCandidate.verticalFacts.
 
 export interface ExplanationFacts {
   femaleVisualId: string;
@@ -325,14 +315,15 @@ export function caseinOdds(dam: GenomicProfile, sire: GenomicProfile): CaseinOdd
 export function inbreedingFilter(female: Female, bull: Bull): FilterResult;                         // A3
 export function calvingEaseFilter(female: Female, bull: Bull, farm: Farm): FilterResult;            // A3
 export function classifyHerd(females: Female[], farm: Farm, goal: BreedingGoal): Classification[]; // B2
+export function scoreOneCandidate(                                                                  // A4 (ADR-0002)
+  female: Female, classification: Classification, bull: Bull,
+  goal: BreedingGoal, stats: TraitStats,
+): { score: number; facts: ExplanationFacts; reasons: string[] };
 export function scoreCandidates(
   female: Female, classification: Classification, bulls: Bull[],
   goal: BreedingGoal, farm: Farm, stats: TraitStats,
-): MatchSet;                                                                                        // A4
-export function toExplanationFacts(
-  female: Female, classification: Classification, bull: Bull,
-  match: MatchResult, goal: BreedingGoal, totalCandidates: number,
-): ExplanationFacts;                                                                                // A5
+): MatchBoard;                                                                                      // A4, sobre scoreOneCandidate
+export function makeGeneticsNeed(farmId: string, femaleId: string, goal: BreedingGoal): Need;       // B4 (ADR-0002)
 export function buildAutoPlan(
   farm: Farm, females: Female[], classifications: Classification[],
   bulls: Bull[], goal: BreedingGoal, stats: TraitStats,
@@ -485,11 +476,12 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 
 #### M3 · Genética como vertical · P0 · 1 h · Dev A
 - **Archivos:** `packages/genetics-core/src/vertical.ts`
-- **Produce:** `GeneticsVertical: VerticalEngine<ExplanationFacts>` que envuelve `scoreCandidates` y `toExplanationFacts`
+- **Produce:** `GeneticsVertical: VerticalEngine<ExplanationFacts>` que envuelve `scoreOneCandidate` (A4). Ver [ADR-0002](adr/0002-vertical-genetico-enchufado-al-nucleo.md): el vertical se enchufa de verdad, no es un subsistema aparte.
 - **Criterios de aceptación:**
   - [ ] `canHandle` devuelve `true` solo para `category: 'GENETICS'`
   - [ ] Una necesidad genética devuelve toros rankeados por el motor del vertical, no por el score genérico
   - [ ] `matching-core` no importa nada de `genetics-core` (test de dependencias)
+  - [ ] **Prueba de integración real:** llamar a `POST /matches` (B4) y confirmar que internamente pasó por `matchNeed` con `GeneticsVertical` registrado — no alcanza con el test aislado del vertical
 - **Depende de:** M2, A4.
 
 #### M4 · Intake de necesidades con IA · P0 · 2 h · Dev C
@@ -564,9 +556,9 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 #### A4 · Score y compatibilidad · P0 · 2,5 h
 - **Archivos:** `src/matching/score.ts`, `src/matching/presets.ts`, `test/matching.test.ts`
 - **Consume:** A1, A2, A3 (del mismo dev: sin espera).
-- **Produce:** `scoreCandidates`, `GOAL_PRESETS`
+- **Produce:** `scoreOneCandidate` (par hembra×toro — es lo que envuelve `GeneticsVertical.score` en M3, [ADR-0002](adr/0002-vertical-genetico-enchufado-al-nucleo.md)), `scoreCandidates` (batch sobre `scoreOneCandidate`), `GOAL_PRESETS`
 - **Algoritmo:**
-  1. **Catálogo por tier (RN-13):** `ELITE` → toros lecheros con `SEXED`. `COMMERCIAL` → lecheros con `CONVENTIONAL`. `BEEF` → razas de carne. `CULL_ALERT` → `MatchSet` vacío.
+  1. **Catálogo por tier (RN-13):** `ELITE` → toros lecheros con `SEXED`. `COMMERCIAL` → lecheros con `CONVENTIONAL`. `BEEF` → razas de carne. `CULL_ALERT` → sin candidatos.
   2. **Filtros A3 primero:** los toros que no pasan van a `excluded` con sus `filters`.
   3. **Lecheros:**
      - `score = Σ w_i · normalize(cría_i)`
@@ -583,7 +575,7 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 
 #### A5 · Hechos para la explicación · P0 · 1 h
 - **Archivos:** `src/facts.ts`, `test/facts.test.ts`
-- **Produce:** `toExplanationFacts` + textos determinísticos de `reasons` (por ejemplo, "La cría esperada mejora SCS de 3,19 a 2,95").
+- **Produce:** `toExplanationFacts` + textos determinísticos de `reasons` (por ejemplo, "La cría esperada mejora SCS de 3,19 a 2,95"). Desde [ADR-0002](adr/0002-vertical-genetico-enchufado-al-nucleo.md), `scoreOneCandidate` (A4) llama a `toExplanationFacts` internamente — ya no se invoca aparte con un `MatchResult`.
 - **Criterios de aceptación:**
   - [ ] Todo número de `reasons` aparece literal dentro de `ExplanationFacts`. **C4 usa este invariante para el control de alucinación.**
   - [ ] Snapshot del caso 3031 × toro #1
@@ -610,7 +602,7 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 - **Entrega:**
   - `UserGuard`: lee `x-user-id`, carga el `User` y devuelve 403 si `farmId ∉ user.farmIds` (RN-21).
   - Repositorios en memoria (`FarmRepo`, `FemaleRepo`, `BullRepo`, `ClassificationRepo`, `PlanRepo`) cargados desde los fixtures al arrancar.
-  - Inyección de los puertos de IA con **fakes por defecto** (`AI_MODE=fake`).
+  - Inyección de los puertos de IA. Arranca con los **fakes** hasta que exista el adaptador real de C1; a partir de ahí, `AI_MODE=live`.
   - `GET /me` y `GET /bulls`.
 - **Criterios de aceptación:**
   - [ ] Test e2e: `tambero-b` pide `/farms/farm-a/females` → 403
@@ -647,14 +639,15 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
   - [ ] Test e2e: clasificar farm-a y luego el resumen suma 293 menos las hembras sin perfil
 - **Depende de:** B1. Dependencia blanda con B2 (usa el stub hasta que B2 termina).
 
-#### B4 · Endpoints de matching y explicación · P0 · 1,5 h
-- **Entrega:**
-  - `POST /matches`: busca la clasificación y `computeTraitStats` del tambo, y llama a `scoreCandidates`.
+#### B4 · Endpoints de matching y explicación · P0 · 1,5-2 h
+- **Entrega ([ADR-0002](adr/0002-vertical-genetico-enchufado-al-nucleo.md)):**
+  - `POST /matches`: busca la clasificación y `computeTraitStats` del tambo, arma (o reutiliza) un `Need` sintético con `makeGeneticsNeed` y llama a `matchNeed` de `matching-core` con `GeneticsVertical` registrado — **ya no llama a `scoreCandidates` directo.** El contrato de respuesta para el frontend no cambia.
   - `POST /matches/:naab/explanation`: `toExplanationFacts` → `ExplainerPort`. Cachea por hash de los hechos.
 - **Criterios de aceptación:**
   - [ ] Pedir un match de una hembra sin clasificar → 409 "clasificá el rodeo primero"
   - [ ] Dos llamadas iguales a la explicación → el `ExplainerPort` se invoca una sola vez
-- **Depende de:** B1. Dependencias blandas con A4, A5 y C4.
+  - [ ] El `Need` sintético se crea con `category: 'GENETICS'` y nunca queda expuesto como necesidad "real" en `GET /needs` del productor
+- **Depende de:** B1, **M2**. Dependencias blandas con A4, A5 y C4.
 
 #### B5 · Plan de servicios · P1 · 2 h
 - **Archivos:** `genetics-core/src/planning/auto-plan.ts` + endpoints `plan/*`
@@ -682,17 +675,17 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 
 ### Dev C: IA y carga de archivos (`packages/ai` + `herd-import` y `catalog-import` en la API)
 
-#### C1 · Cliente del LLM y caché · P0 · 1,5 h
+#### C1 · Cliente del LLM · P0 · 1,5 h
 - **Archivos:** `packages/ai/src/{llm-client,cache}.ts`
 - **Entrega:**
   - Interfaz `LlmClient { completeJson<T>(prompt, schema): Promise<T>; completeText(prompt): Promise<string> }`, con adaptador a **Anthropic Claude** (`@anthropic-ai/sdk`, modelo `claude-haiku-4-5`) y validación de esquema en toda salida JSON.
   - **Para el JSON, usar salidas estructuradas** (`output_config.format`) o `strict: true` en las herramientas, en vez de pedirle "devolveme JSON" y parsear a mano.
   - ⚠️ **Ojo con Haiku 4.5:** no acepta `thinking: {type: 'adaptive'}` ni `output_config.effort` (son de los modelos Opus y Sonnet). Si hace falta razonamiento, es `thinking: {type: 'enabled', budget_tokens: N}`, con `budget_tokens` menor que `max_tokens` y mínimo 1024.
   - **Caché de prompts** (`cache_control`) en la parte fija del prompt: baja costo y latencia en las llamadas repetidas de la demo.
-  - **Caché en disco** por hash de (prompt + modelo), para que la demo funcione sin internet.
-  - Variable `AI_MODE = fake | live | cache-only`.
+  - Variable `AI_MODE = fake | live`. **`live` es el modo por defecto y el de la demo**; `fake` es solo para los tests de los núcleos y para trabajar sin clave.
+  - Memoización por hash de (prompt + modelo) **dentro de la misma sesión**, para no repetir una llamada idéntica. No es una grabación: si el pedido cambia, se llama a Claude.
 - **Criterios de aceptación:**
-  - [ ] En `cache-only`, una clave inexistente → error explícito, nunca una llamada de red
+  - [ ] En `live`, dos llamadas idénticas seguidas golpean a Claude una sola vez
   - [ ] Un JSON que no cumple el esquema → reintento 1 vez y después error tipado
 - **Depende de:** T0.
 
@@ -846,7 +839,7 @@ flowchart LR
 | **13** | **I2: integración 2** | **F3 + F4 + F7 reales:** swipe con `scoreCandidates` real + explicación del LLM + plan + panel del asesor |
 | 13 – 16 | P1 y P2 + pulido | Catálogo real (A6), objetivo en lenguaje natural, chat, carga de catálogo |
 | **16** | 🔒 **Congelamiento** | A partir de acá, solo bugs |
-| 16 – 18 | Demo | Grabar la caché del LLM para el recorrido de la demo (`AI_MODE=cache-only`) + 3 ensayos con cronómetro |
+| 16 – 18 | Demo | 3 ensayos con cronómetro **contra Claude en vivo**, probando la conexión del lugar |
 | 18 – 20 | Pitch | Ensayo final y margen |
 
 **En cada hito:** 15 minutos con los 4 juntos, cambiar los sustitutos por lo real y correr el recorrido de la demo completo.

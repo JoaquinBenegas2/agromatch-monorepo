@@ -62,7 +62,7 @@
 | D5 | **LLM: Claude Haiku 4.5** (`claude-haiku-4-5`, `@anthropic-ai/sdk`), detrás del puerto `LlmClient` |
 | D9 | Persistencia del MVP: **repos en memoria** detrás de interfaces, cargados de fixtures. Prisma queda intacto. *(A confirmar en T0)* |
 | — | Usuarios **simulados** con header `x-user-id`. Sin login |
-| — | La demo **funciona sin internet**: respuestas del LLM en caché |
+| — | La demo corre **100% real**: Claude en vivo, nada pregrabado |
 | RN-09 | Una **alerta de salud nunca manda una vaca a carne**: baja un nivel o activa apareamiento correctivo. Carne se decide solo por cupo |
 
 ---
