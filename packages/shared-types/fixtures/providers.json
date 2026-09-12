@@ -985,6 +985,91 @@
       },
       "contact": {},
       "source": "https://grupoagroempresa.com.ar/logistica"
+    },
+    {
+      "id": "prov-agrifly",
+      "name": "AgriFly",
+      "type": "CONTRACTOR",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.agrifly.com.ar/"
+    },
+    {
+      "id": "prov-dronios",
+      "name": "Dronios Argentina",
+      "type": "CONTRACTOR",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.dronios.com/ar/servicios/drones-para-la-agricultura/"
+    },
+    {
+      "id": "prov-estudio-contable-agro",
+      "name": "Estudio Contable Agro (Mirian L. Pili)",
+      "type": "ADVISOR",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.estudiocontableagro.com.ar/"
+    },
+    {
+      "id": "prov-tangoid",
+      "name": "TangoID",
+      "type": "OTHER",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.tangoid.com.ar/"
+    },
+    {
+      "id": "prov-villanueva-allflex",
+      "name": "Villanueva (distribuidor oficial Allflex)",
+      "type": "DISTRIBUTOR",
+      "base": {
+        "lat": -34.6037,
+        "lng": -58.3816,
+        "label": "Buenos Aires, CABA"
+      },
+      "verified": false,
+      "reputation": {
+        "avg": null,
+        "jobs": 0
+      },
+      "contact": {},
+      "source": "https://www.villanueva.com.ar/"
     }
   ],
   "capabilities": [
@@ -2434,6 +2519,96 @@
       "category": "OTHER",
       "serviceType": "logística de granos y semillas",
       "coverageRadiusKm": 400,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-agrifly",
+      "providerId": "prov-agrifly",
+      "category": "MACHINERY",
+      "serviceType": "fumigación y pulverización con drones",
+      "coverageRadiusKm": 350,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-dronios",
+      "providerId": "prov-dronios",
+      "category": "MACHINERY",
+      "serviceType": "siembra y aplicaciones con drones",
+      "coverageRadiusKm": 350,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-estudio-contable-agro",
+      "providerId": "prov-estudio-contable-agro",
+      "category": "ADVISORY",
+      "serviceType": "contaduría e impuestos del campo",
+      "coverageRadiusKm": 600,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-tangoid",
+      "providerId": "prov-tangoid",
+      "category": "VET",
+      "serviceType": "identificación electrónica y trazabilidad ganadera (RFID)",
+      "coverageRadiusKm": 1500,
+      "availability": [
+        {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        }
+      ],
+      "priceModel": "QUOTE",
+      "certifications": [],
+      "attributes": {
+        "seed": true
+      }
+    },
+    {
+      "id": "cap-villanueva-allflex",
+      "providerId": "prov-villanueva-allflex",
+      "category": "VET",
+      "serviceType": "caravanas electrónicas y chip para identificación animal",
+      "coverageRadiusKm": 1500,
       "availability": [
         {
           "from": "2026-01-01",

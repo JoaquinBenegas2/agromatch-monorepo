@@ -61,4 +61,9 @@ export const providerImageUrls: Record<string, string> = {
   'prov-provincias-unidas': 'https://images.pexels.com/photos/2965707/pexels-photo-2965707.jpeg?auto=compress&fit=crop&w=1200&h=675',
   'prov-rutazo': 'https://images.pexels.com/photos/18468416/pexels-photo-18468416.jpeg?auto=compress&fit=crop&w=1200&h=675',
   'prov-agroempresa': 'https://images.pexels.com/photos/15733306/pexels-photo-15733306.jpeg?auto=compress&fit=crop&w=1200&h=675',
+  'prov-agrifly': 'https://images.pexels.com/photos/34182370/pexels-photo-34182370.jpeg?auto=compress&fit=crop&w=1200&h=675',
+  'prov-dronios': 'https://images.pexels.com/photos/34182315/pexels-photo-34182315.jpeg?auto=compress&fit=crop&w=1200&h=675',
+  'prov-estudio-contable-agro': 'https://images.pexels.com/photos/6694492/pexels-photo-6694492.jpeg?auto=compress&fit=crop&w=1200&h=675',
+  'prov-tangoid': 'https://images.pexels.com/photos/35259958/pexels-photo-35259958.jpeg?auto=compress&fit=crop&w=1200&h=675',
+  'prov-villanueva-allflex': 'https://images.pexels.com/photos/9270599/pexels-photo-9270599.jpeg?auto=compress&fit=crop&w=1200&h=675',
 };
