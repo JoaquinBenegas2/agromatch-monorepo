@@ -38,6 +38,17 @@ C:\shared\hackaton\actualizar-vm06.ps1 -AnthropicKey 'sk-ant-...'    # fuerza la
 El script copia `backend\.env` del share a `C:\apps\hackaton\backend\.env`; el
 servicio lo lee al arrancar. `deploy-vm06.ps1` nunca pisa ese `.env` del share.
 
+## HTTPS (Cloudflare delante)
+
+El dominio pasa por Cloudflare, que le pega al origen **por 443** cuando el visitante
+entra por `https://`. Sin binding 443 en el sitio, esa request cae en otro sitio de la
+VM y devuelve **404** (por `http://` funciona igual). Una sola vez, en la VM:
+
+```powershell
+C:\shared\hackaton\https-binding-vm06.ps1          # crea el binding 443 (SNI) reutilizando el cert *.vylaris.com.ar
+C:\shared\hackaton\https-binding-vm06.ps1 -Check   # solo lista certificados y bindings
+```
+
 ## Verificar
 
 ```powershell

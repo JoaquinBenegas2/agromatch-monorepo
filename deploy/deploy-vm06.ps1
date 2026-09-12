@@ -106,7 +106,7 @@ try {
 
     # ── Scripts y doc para el lado VM ────────────────────────────────────────
     Paso 'scripts de la VM'
-    foreach ($f in 'actualizar-vm06.ps1', 'LEEME-vm06.md') {
+    foreach ($f in 'actualizar-vm06.ps1', 'https-binding-vm06.ps1', 'LEEME-vm06.md') {
         $src = Join-Path $PSScriptRoot $f
         if ($PSCmdlet.ShouldProcess((Join-Path $Share $f), "copiar $f")) {
             Copy-Item -LiteralPath $src -Destination (Join-Path $Share $f) -Force
