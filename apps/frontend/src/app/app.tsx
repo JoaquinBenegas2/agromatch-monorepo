@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppShell } from './shell/app-shell.js';
 import { ModulePage } from './shell/module-page.js';
 import { UiKitPreview } from './ui-kit-preview.js';
+import { AdvisorRoute } from '../features/advisor/advisor-route.js';
 import { MatchingScreen } from '../features/matching/matching-screen.js';
 
 export function App() {
@@ -11,8 +12,9 @@ export function App() {
       <Route element={<AppShell />}>
         <Route path="/establecimiento" element={<ModulePage />} />
         <Route path="/mercado" element={<ModulePage />} />
-        {/* D4 (mvp-d-match): pantalla real, más específica que el catch-all de abajo. */}
+        {/* D4 (mvp-d-match) y el anexo del asesor (mvp-b-need): pantallas reales, más específicas que el catch-all de abajo. */}
         <Route path="/motor-genetico/matching/:femaleId?" element={<MatchingScreen />} />
+        <Route path="/motor-genetico/asesor" element={<AdvisorRoute />} />
         <Route path="/motor-genetico/*" element={<ModulePage />} />
         <Route path="/negociacion/*" element={<ModulePage />} />
         <Route path="/ofertas" element={<ModulePage />} />
