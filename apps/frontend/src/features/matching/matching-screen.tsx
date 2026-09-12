@@ -12,6 +12,7 @@ import { ErrorMessage } from '@/components/ui/error-message';
 import { useActiveFarmId } from '../../shared/user/user-context.js';
 import { useMatchBoard } from '../../shared/api/hooks/use-match-board.js';
 import { useAddPlanItem, useRemovePlanItem } from '../../shared/api/hooks/use-plan-item-mutations.js';
+import { useGoalParse } from '../../shared/api/hooks/use-goal-parse.js';
 import { MatchRow } from './match-row.js';
 
 const PRESETS: { id: GoalPreset; label: string }[] = [
@@ -43,11 +44,18 @@ export function MatchingScreen() {
   const board = useMatchBoard(farmId, femaleId, goal);
   const addItem = useAddPlanItem(farmId);
   const removeItem = useRemovePlanItem(farmId);
+  const goalParse = useGoalParse();
 
   function handleProcesar() {
-    // REQ-D-07: con texto vacío, usa el preset sin llamar al LLM. El parser
-    // real (C5) se conecta en la sección 3 de tasks.md.
-    setGoal(presetGoal(preset));
+    // REQ-D-07: con texto vacío, usa el preset elegido sin llamar al LLM.
+    if (!text.trim()) {
+      setGoal(presetGoal(preset));
+      return;
+    }
+    goalParse.mutate(text, {
+      onSuccess: (parsed) => setGoal(parsed),
+      onError: () => setGoal(presetGoal(preset)),
+    });
   }
 
   function handleChoose(candidate: MatchCandidate) {
@@ -97,7 +105,9 @@ export function MatchingScreen() {
       <Button variant="secondary" asChild>
         <Link to="/motor-genetico/importar">Subir Excel</Link>
       </Button>
-      <Button onClick={handleProcesar}>Procesar</Button>
+      <Button onClick={handleProcesar} disabled={goalParse.isPending}>
+        {goalParse.isPending ? 'Procesando…' : 'Procesar'}
+      </Button>
     </div>
   );
 
