@@ -9,6 +9,7 @@ import { EmptyState } from '@/components/ui/empty-state';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { PageHeader } from '@/components/ui/page-header';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
 import { useConfirmHerd, useUploadHerd } from '../../shared/api/hooks/use-herd.js';
 
 export function UploadHerdButton() {
@@ -40,43 +41,84 @@ export function HerdImportPage({ farmId }: { farmId: string }) {
 
   if (confirm.data) {
     return (
-      <EmptyState
-        icon={<CheckCircle2 />}
-        title="Rodeo importado"
-        description={`${confirm.data.rowsOk} filas importadas.`}
-        action={<Button onClick={() => navigate('/motor-genetico/tablero')}>Ir al tablero</Button>}
-      />
+      <div className="flex flex-col gap-5">
+        <PageHeader
+          title={
+            <>
+              Tu planilla ahora tiene <span className="font-serif text-primary italic">decisiones.</span>
+            </>
+          }
+        />
+        <SpatialScene
+          kind="herd"
+          options={{ imported: () => true }}
+          className="h-[300px] w-full rounded-lg border border-border bg-[#d7e2c5]"
+        >
+          <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#4f6b45]">
+            Clasificación ilustrativa · datos de demostración
+          </span>
+        </SpatialScene>
+        <EmptyState
+          icon={<CheckCircle2 />}
+          title="Rodeo importado"
+          description={`${confirm.data.rowsOk} filas importadas.`}
+          action={<Button onClick={() => navigate('/motor-genetico/tablero')}>Ir al tablero</Button>}
+        />
+      </div>
     );
   }
 
   return (
     <div className="flex flex-col gap-5">
-      <PageHeader title="Carga del rodeo" description="Subí el Excel de tu rodeo para clasificarlo." />
+      <PageHeader
+        title={
+          <>
+            Del Excel al <span className="font-serif text-primary italic">rodeo vivo.</span>
+          </>
+        }
+        description="Cada fila es un animal. Cada animal, una decisión."
+      />
 
-      <Card
-        role="button"
-        tabIndex={0}
-        onDragOver={(event) => event.preventDefault()}
-        onDrop={(event) => {
-          event.preventDefault();
-          const file = event.dataTransfer.files[0];
-          if (file && /\.xlsx?$/i.test(file.name)) void submit(file);
-        }}
-        className="flex flex-col items-center gap-3 border-dashed p-10 text-center"
-      >
-        <UploadCloud className="size-8 text-ink-4" />
-        <p className="text-[13.5px]">Soltá aquí tu Excel o elegilo desde tu equipo.</p>
-        <input
-          aria-label="Archivo Excel"
-          type="file"
-          accept=".xls,.xlsx"
-          onChange={(event) => {
-            const file = event.target.files?.[0];
-            if (file) void submit(file);
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_1fr]">
+        <SpatialScene
+          kind="import"
+          className="h-[280px] w-full rounded-lg border border-border bg-[#d7e2c5] lg:h-auto"
+        >
+          <SpatialLabel anchor="sheet" className="-translate-x-1/2">
+            <span className="inline-flex items-center rounded-full bg-[#1e3a2bcc] px-2.5 py-1 text-[9px] font-semibold tracking-[0.08em] text-lime uppercase backdrop-blur">
+              El archivo es el punto de partida
+            </span>
+          </SpatialLabel>
+          <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#4f6b45]">
+            Vista conceptual, no representa tu planilla real
+          </span>
+        </SpatialScene>
+
+        <Card
+          role="button"
+          tabIndex={0}
+          onDragOver={(event) => event.preventDefault()}
+          onDrop={(event) => {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            if (file && /\.xlsx?$/i.test(file.name)) void submit(file);
           }}
-          className="text-[11.5px] text-muted-foreground file:mr-3 file:rounded-full file:border-0 file:bg-primary file:px-3.5 file:py-2 file:text-[12.5px] file:font-semibold file:text-primary-foreground"
-        />
-      </Card>
+          className="flex flex-col items-center justify-center gap-3 border-dashed p-10 text-center"
+        >
+          <UploadCloud className="size-8 text-ink-4" />
+          <p className="text-[13.5px]">Soltá aquí tu Excel o elegilo desde tu equipo.</p>
+          <input
+            aria-label="Archivo Excel"
+            type="file"
+            accept=".xls,.xlsx"
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              if (file) void submit(file);
+            }}
+            className="text-[11.5px] text-muted-foreground file:mr-3 file:rounded-full file:border-0 file:bg-primary file:px-3.5 file:py-2 file:text-[12.5px] file:font-semibold file:text-primary-foreground"
+          />
+        </Card>
+      </div>
 
       {(upload.error || confirm.error) && (
         <ErrorMessage message={((upload.error ?? confirm.error) as Error).message} />

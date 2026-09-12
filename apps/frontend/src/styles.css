@@ -136,11 +136,6 @@ body {
  * world-engine usa para ubicar las anclas de texto (data-anchor) sobre
  * el canvas WebGL.
  */
-.spatial-world {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-}
 .spatial-world-canvas {
   position: absolute;
   inset: 0;

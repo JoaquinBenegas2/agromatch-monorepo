@@ -143,36 +143,21 @@ export function MarketplacePage() {
   }
 
   return (
-    <div className="relative isolate flex min-h-[calc(100vh-112px)] items-center justify-center overflow-hidden px-4 py-12">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_42%,var(--card)_0,transparent_46%)]" />
-      <div className="flex w-full max-w-[680px] flex-col items-center gap-8 text-center">
-        <SpatialScene
-          kind="market"
-          className="hidden h-[220px] w-full rounded-xl border border-border bg-primary sm:block"
-        >
-          <SpatialLabel anchor="need" className="-translate-x-1/2">
-            <span className="inline-flex items-center rounded-full bg-[#0d3027cc] px-2.5 py-1 text-[9px] font-semibold tracking-[0.08em] text-lime uppercase backdrop-blur">
-              Tu necesidad
-            </span>
-          </SpatialLabel>
-          <span className="pointer-events-none absolute bottom-2 right-3 z-[2] text-[9px] text-[#d4e9b5]">
-            Vista conceptual, no representa proveedores reales
-          </span>
-        </SpatialScene>
-
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold tracking-[0.12em] text-muted-foreground uppercase">Hora de empezar, {user.name}</p>
-          <h1 className="text-balance text-[30px] leading-tight font-bold tracking-[-0.035em] sm:text-[38px]">
-            ¿Qué necesita tu establecimiento hoy?
-          </h1>
-          <p className="mx-auto max-w-lg text-[12.5px] text-muted-foreground">
-            Contanos qué buscás. AgroMatch lo ordena y vos confirmás cada dato antes de buscar.
-          </p>
-        </div>
+    <div className="relative isolate overflow-hidden rounded-2xl bg-[#dfe7d1] p-8 md:min-h-[540px] md:p-12">
+      <div className="relative z-[5] flex max-w-[540px] flex-col gap-5">
+        <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+          Hora de empezar, {user.name}
+        </p>
+        <h1 className="text-balance text-[36px] leading-[1.02] font-semibold tracking-[-0.03em] sm:text-[48px]">
+          ¿Qué necesita tu establecimiento hoy?
+        </h1>
+        <p className="max-w-[360px] text-[13px] text-muted-foreground">
+          Contanos qué buscás. AgroMatch lo ordena y vos confirmás cada dato antes de buscar.
+        </p>
 
         {error ? <ErrorMessage className="text-left" message={error.message} /> : null}
 
-        <Card className="flex w-full items-center gap-2 p-2 pl-4 shadow-[0_16px_50px_rgba(27,28,27,0.08)]">
+        <Card className="flex w-full max-w-[420px] items-center gap-2 border-[#aac092] bg-[#f2f5e7]/95 p-2 pl-4 shadow-[0_18px_40px_rgba(35,69,50,0.10)] backdrop-blur">
           <Input
             aria-label="Necesidad"
             className="h-11 flex-1 border-0 bg-transparent px-0 shadow-none focus-visible:ring-0"
@@ -191,7 +176,7 @@ export function MarketplacePage() {
           </Button>
         </Card>
 
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap gap-4">
           {QUICK_NEEDS.map(({ label, prompt, icon: Icon }) => (
             <button
               key={label}
@@ -200,13 +185,27 @@ export function MarketplacePage() {
                 setQuery(prompt);
                 void ask(prompt).catch(() => undefined);
               }}
-              className="group inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-[11.5px] font-medium text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-secondary-border hover:text-primary hover:shadow-sm"
+              className="group inline-flex items-center gap-1.5 border-b border-[#b3c2a7] pb-0.5 text-[11px] font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               <Icon className="size-3.5" /> {label} <ArrowUpRight className="size-3 opacity-0 transition-opacity group-hover:opacity-100" />
             </button>
           ))}
         </div>
       </div>
+
+      <SpatialScene
+        kind="market"
+        className="absolute top-8 right-[-4%] hidden h-[460px] w-[62%] rounded-xl md:block"
+      >
+        <SpatialLabel anchor="need" className="-translate-x-1/2">
+          <span className="inline-flex items-center rounded-full bg-[#f2f5e7ee] px-2.5 py-1 text-[9px] font-semibold tracking-[0.08em] text-[#1e4c3a] uppercase shadow-sm backdrop-blur">
+            Tu necesidad
+          </span>
+        </SpatialLabel>
+        <span className="pointer-events-none absolute right-3 bottom-2 z-[2] text-[9px] text-[#4f6b45]">
+          Vista conceptual, no representa proveedores reales
+        </span>
+      </SpatialScene>
     </div>
   );
 }
