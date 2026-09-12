@@ -19,6 +19,8 @@ module.exports = {
       optimization: false,
       outputHashing: 'none',
       generatePackageJson: false,
+      // BUNDLE_ALL=1: un solo main.js autocontenido para el deploy en VM (sin node_modules).
+      externalDependencies: process.env.BUNDLE_ALL === '1' ? 'none' : 'all',
       sourceMap: true,
     }),
   ],

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  web.config del front de AgroMatch en IIS (sitio hackaton.vylaris.com.ar).
+  Viaja DENTRO de la carpeta del front: el build de Vite no lo genera y un
+  robocopy /MIR lo borraria del destino si estuviera afuera.
+
+  Hace tres cosas:
+    1. Manda /api al backend Node (ARR). El front llama por rutas RELATIVAS
+       (`fetch('/api/...')`), asi que sin esto carga pero no habla con nadie.
+    2. Fallback de SPA: cualquier ruta que no sea un archivo real cae en
+       index.html (si no, /motor-genetico/tablero da 404 al recargar).
+    3. Cache: los bundles llevan hash en el nombre, se cachean fuerte;
+       index.html NUNCA, porque es el que avisa que hay version nueva.
+-->
+<configuration>
+  <system.webServer>
+
+    <rewrite>
+      <rules>
+        <!-- 1) API al backend. Va PRIMERO: si cayera despues del fallback de
+             SPA, las llamadas al API terminarian devolviendo el index.html. -->
+        <rule name="api-al-backend" stopProcessing="true">
+          <match url="^api(/.*)?$" />
+          <action type="Rewrite" url="http://localhost:8095/api{R:1}" />
+          <serverVariables>
+            <set name="HTTP_X_FORWARDED_HOST" value="{HTTP_HOST}" />
+            <set name="HTTP_X_FORWARDED_PROTO" value="{MapProtocol:{HTTPS}}" />
+          </serverVariables>
+        </rule>
+
+        <!-- 2) Fallback de SPA -->
+        <rule name="spa-fallback" stopProcessing="true">
+          <match url=".*" />
+          <conditions logicalGrouping="MatchAll">
+            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+          </conditions>
+          <action type="Rewrite" url="/index.html" />
+        </rule>
+      </rules>
+
+      <rewriteMaps>
+        <rewriteMap name="MapProtocol">
+          <add key="on"  value="https" />
+          <add key="off" value="http" />
+        </rewriteMap>
+      </rewriteMaps>
+    </rewrite>
+
+    <!-- 3) Cache -->
+    <caching enabled="true" enableKernelCache="true" />
+    <staticContent>
+      <clientCache cacheControlMode="UseMaxAge" cacheControlMaxAge="365.00:00:00" />
+      <!-- IIS no conoce estos por default y sin el MIME devuelve 404 -->
+      <remove fileExtension=".json" /><mimeMap fileExtension=".json" mimeType="application/json" />
+      <remove fileExtension=".webmanifest" /><mimeMap fileExtension=".webmanifest" mimeType="application/manifest+json" />
+      <remove fileExtension=".woff2" /><mimeMap fileExtension=".woff2" mimeType="font/woff2" />
+      <remove fileExtension=".webp" /><mimeMap fileExtension=".webp" mimeType="image/webp" />
+      <remove fileExtension=".glb" /><mimeMap fileExtension=".glb" mimeType="model/gltf-binary" />
+      <remove fileExtension=".wasm" /><mimeMap fileExtension=".wasm" mimeType="application/wasm" />
+    </staticContent>
+
+    <httpProtocol>
+      <customHeaders>
+        <add name="X-Content-Type-Options" value="nosniff" />
+      </customHeaders>
+    </httpProtocol>
+
+    <!-- La carga del rodeo sube un Excel; 50 MB de margen. -->
+    <security>
+      <requestFiltering>
+        <requestLimits maxAllowedContentLength="52428800" />
+      </requestFiltering>
+    </security>
+
+  </system.webServer>
+
+  <location path="index.html">
+    <system.webServer>
+      <staticContent>
+        <clientCache cacheControlMode="DisableCache" />
+      </staticContent>
+    </system.webServer>
+  </location>
+
+</configuration>
