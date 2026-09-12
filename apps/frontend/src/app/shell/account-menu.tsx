@@ -14,6 +14,7 @@ const ROLE_LABEL: Record<string, string> = {
   FARMER: 'Tambero',
   ADVISOR: 'Asesor',
   ADMIN: 'Admin',
+  PROVIDER: 'Proveedor',
 };
 
 function initials(name: string): string {
@@ -43,11 +44,18 @@ export function AccountMenu() {
             meta={`${ROLE_LABEL[user.role]} · simulado`}
           />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" side="top" className="w-56">
+        <DropdownMenuContent
+          align="start"
+          side="top"
+          className="max-h-80 w-64 overflow-y-auto"
+        >
           <DropdownMenuLabel>Cambiar de usuario simulado</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {users.map((candidate) => (
-            <DropdownMenuItem key={candidate.id} onSelect={() => setUserId(candidate.id)}>
+            <DropdownMenuItem
+              key={candidate.id}
+              onSelect={() => setUserId(candidate.id)}
+            >
               <div className="flex min-w-0 flex-col">
                 <span className="truncate font-medium">{candidate.name}</span>
                 <span className="text-ink-3">{ROLE_LABEL[candidate.role]}</span>

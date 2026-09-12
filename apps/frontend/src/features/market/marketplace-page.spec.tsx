@@ -27,7 +27,14 @@ function wrapper(children: React.ReactNode) {
         <MemoryRouter initialEntries={['/mercado']}>
           <Routes>
             <Route path="/mercado" element={children} />
-            <Route path="/motor-genetico/matching" element={<p>Matching genético dedicado</p>} />
+            <Route
+              path="/negociacion/matches/:id"
+              element={<p>Negociación abierta</p>}
+            />
+            <Route
+              path="/motor-genetico/matching"
+              element={<p>Matching genético dedicado</p>}
+            />
           </Routes>
         </MemoryRouter>
       </UserProvider>
@@ -36,16 +43,25 @@ function wrapper(children: React.ReactNode) {
 }
 
 describe('MarketplacePage', () => {
-  beforeEach(() => window.localStorage.setItem('agromatch:userId', 'tambero-a'));
+  beforeEach(() =>
+    window.localStorage.setItem('agromatch:userId', 'tambero-a'),
+  );
 
   it('empieza en cero sin crear una necesidad', () => {
     const requestUrls: string[] = [];
-    server.events.on('request:start', ({ request }) => requestUrls.push(request.url));
+    server.events.on('request:start', ({ request }) =>
+      requestUrls.push(request.url),
+    );
 
     render(wrapper(<MarketplacePage />));
 
-    expect(screen.getByText('¿Qué necesita tu establecimiento hoy?')).toBeTruthy();
-    expect(screen.getByLabelText('Audio no disponible todavía')).toHaveProperty('disabled', true);
+    expect(
+      screen.getByText('¿Qué necesita tu establecimiento hoy?'),
+    ).toBeTruthy();
+    expect(screen.getByLabelText('Audio no disponible todavía')).toHaveProperty(
+      'disabled',
+      true,
+    );
     expect(requestUrls.some((url) => url.endsWith('/api/needs'))).toBe(false);
   });
 
@@ -54,7 +70,9 @@ describe('MarketplacePage', () => {
 
     fireEvent.click(screen.getByText('Contratistas de arada cerca tuyo'));
     expect(screen.queryByText('Lo que AgroMatch entendió')).toBeNull();
-    expect(await screen.findByText('Soluciones para tu necesidad')).toBeTruthy();
+    expect(
+      await screen.findByText('Soluciones para tu necesidad'),
+    ).toBeTruthy();
     expect(screen.getByText('Fecha deducida del texto')).toBeTruthy();
     expect(await screen.findByText('#1 de 7')).toBeTruthy();
     expect(screen.queryByText('+54 9 3537 424031')).toBeNull();
@@ -75,17 +93,7 @@ describe('MarketplacePage', () => {
     });
     fireEvent.click(screen.getByText('Enviar solicitud'));
 
-    expect(await screen.findByText('+54 9 3537 424031')).toBeTruthy();
-    expect(screen.getByText('Solicitud enviada')).toBeTruthy();
-    expect(screen.getByText('Ver solicitud · Valorar')).toBeTruthy();
-
-    // N4: la reseña cierra el ciclo desde la misma solicitud.
-    fireEvent.click(screen.getByLabelText('4 de 5'));
-    fireEvent.change(screen.getByLabelText('Comentario de la valoración'), {
-      target: { value: 'Cumplió la fecha.' },
-    });
-    fireEvent.click(screen.getByText('Enviar valoración'));
-    expect(await screen.findByRole('status')).toHaveProperty('textContent', expect.stringContaining('Valoración enviada'));
+    expect(await screen.findByText('Negociación abierta')).toBeTruthy();
   });
 
   it('deriva genética al motor dedicado sin mostrar resultados genéricos', async () => {
@@ -100,18 +108,23 @@ describe('MarketplacePage', () => {
   it('muestra el error real de interpretación', async () => {
     render(wrapper(<MarketplacePage />));
 
-    fireEvent.change(screen.getByLabelText('Necesidad'), { target: { value: '[error]' } });
+    fireEvent.change(screen.getByLabelText('Necesidad'), {
+      target: { value: '[error]' },
+    });
     fireEvent.click(screen.getByText('Preguntar'));
 
     expect(
-      await screen.findByText('El asistente de interpretación no está disponible'),
+      await screen.findByText(
+        'El asistente de interpretación no está disponible',
+      ),
     ).toBeTruthy();
   });
 });
 
 describe('MarketResults states', () => {
   const firstSample = needsSamples[0];
-  if (!firstSample) throw new Error('Falta el fixture de necesidad de maquinaria');
+  if (!firstSample)
+    throw new Error('Falta el fixture de necesidad de maquinaria');
   const need = firstSample.need;
 
   it('renderiza el estado sin proveedores', () => {
@@ -128,7 +141,9 @@ describe('MarketResults states', () => {
         onReview={() => Promise.reject(new Error('No se usa'))}
       />,
     );
-    expect(screen.getByText('Todavía no hay proveedores para esta categoría')).toBeTruthy();
+    expect(
+      screen.getByText('Todavía no hay proveedores para esta categoría'),
+    ).toBeTruthy();
   });
 
   it('renderiza esqueletos mientras carga proveedores', () => {

@@ -6,6 +6,8 @@ import {
   MagnitudeSchema,
   MatchBoardSchema,
   MatchCandidateSchema,
+  NegotiationMessageSchema,
+  NegotiationSchema,
   NeedCategorySchema,
   NeedSchema,
   NeedStatusSchema,
@@ -43,6 +45,8 @@ export type MatchBoard = z.infer<typeof MatchBoardSchema>;
 
 export type ServiceRequestStatus = z.infer<typeof ServiceRequestStatusSchema>;
 export type ServiceRequest = z.infer<typeof ServiceRequestSchema>;
+export type NegotiationMessage = z.infer<typeof NegotiationMessageSchema>;
+export type Negotiation = z.infer<typeof NegotiationSchema>;
 export type Review = z.infer<typeof ReviewSchema>;
 
 /** Un vertical se registra; el núcleo no lo conoce (RN-35, ADR-0002). */
