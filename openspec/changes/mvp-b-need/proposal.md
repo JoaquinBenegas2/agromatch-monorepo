@@ -10,13 +10,13 @@ La demo arranca por acá: el productor escribe *"necesito quien me are 40 hectá
 
 ## What Changes
 
-- **Intake con IA (M4):** `NeedIntakePort` real sobre `LlmClient`: texto libre → `Need` en `DRAFT`, con confianza por campo y campos faltantes marcados. Nunca inventa fecha ni lugar.
+- **Intake con IA (M4):** `NeedIntakePort` real sobre `LlmClient`: texto libre → `Need` en `DRAFT`, con confianza por campo y campos faltantes marcados. Nunca inventa fecha ni lugar. Incluye la corrección aditiva de `contracts-v1` para que `where` y `window` puedan estar ausentes únicamente antes de confirmar.
 - **API del núcleo (M5):** `POST /needs`, `PATCH /needs/:id` (confirmar → `OPEN`), `GET /needs`, `POST /needs/:id/matches` → `MatchBoard`, `GET /providers` (sin contacto), `POST /needs/:id/requests` → `ServiceRequest` (con contacto), `POST /requests/:id/review`. Módulos `needs/`, `providers/`, `matching/`, `requests/`.
 - **Pantalla "Home marketplace general" (M6):** `features/market/`, ruta `/mercado`, tab única del módulo "Mercado y oportunidades" del sidebar de 5 módulos (`AgroMatch Home Conversacional.dc.html`, PR #11). Tres estados: cero (saludo + caja conversacional + chips) → ficha "Lo que AgroMatch entendió" editable → resultados en grilla de `OfferCard` (ranking "#n de N", badge de verificación, explicación con indicador, "Pedir fecha") + excluidos con motivo. Si la categoría es `GENETICS`, lleva al motor genético (`/motor-genetico/matching`).
 - **Proveedores semilla reales (M7, P1):** ~30 proveedores públicos de maquinaria y veterinaria, más las centrales de semen como proveedores de `GENETICS`, todos `verified: false` y con `source`.
 - **Anexo reasignable — Panel del asesor (B6 + D6, P1):** `GET /advisor/overview` → `FarmSummary[]` y la tab "Panel del asesor" del módulo Motor genético (`/motor-genetico/asesor`, solo `ADVISOR`/`ADMIN`) con una tarjeta por tambo.
 
-No cambia ningún contrato de `mvp-0-foundation`. Lo que este flujo necesita y no está, se marca en *Preguntas abiertas* de la spec como cambio aditivo.
+Corrige de forma aditiva un defecto de `contracts-v1`: `Need.where` y `Need.window` pasan a opcionales para representar un `DRAFT` incompleto, y el esquema de PATCH permite guardar correcciones sin confirmar. La API sigue exigiendo ambos campos para pasar a `OPEN`; no cambian las firmas de los puertos ni las rutas.
 
 ## Capabilities
 
@@ -33,6 +33,8 @@ Ninguna.
 - **`packages/ai`:** `src/need-intake.ts` (adaptador real de `NeedIntakePort`). Cambia una línea de `apps/backend/src/ai/ai.providers.ts` (`NEED_INTAKE_PORT`).
 - **`apps/backend`:** módulos `needs/`, `providers/`, `matching/`, `requests/` y, para el anexo, `advisor/`. Usan `NeedRepo`, `ProviderRepo`, `ServiceRequestRepo`, `ReviewRepo`, `FarmRepo`, `FemaleRepo`, `ClassificationRepo` de `api-skeleton`. Llaman a `matchNeed` de `@org/matching-core` (el stub hasta I2).
 - **`apps/frontend`:** `features/market/` y, para el anexo, `features/advisor/`. Handlers MSW propios de cada feature. Las rutas y la barra de tabs las deja `frontend-shell`; este flujo llena `/mercado` y `/motor-genetico/asesor`.
+- **`packages/shared-types`:** `NeedSchema` admite `where`/`window` ausentes en `DRAFT`; `UpdateNeedBodySchema.confirm` es opcional; `PublicProvider` representa la respuesta sin contacto.
+- **`apps/backend/prisma`:** las columnas JSON de lugar y ventana admiten `NULL` mientras la necesidad está en `DRAFT`, y `lastMatchBoard` conserva la trazabilidad RN-39.
 - **`packages/shared-types/fixtures/providers.json`:** M7 reemplaza la semilla de T0 con el mismo esquema.
 - **Sin dependencias nuevas.**
 
