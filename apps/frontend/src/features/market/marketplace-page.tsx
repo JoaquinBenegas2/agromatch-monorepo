@@ -7,9 +7,11 @@ import { CowLoader } from '@/components/ui/cow-loader';
 import { EmptyState } from '@/components/ui/empty-state';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
+import { cn } from '@/lib/utils';
 import { useActiveFarmId, useUser } from '../../shared/user/user-context.js';
 import { NeedFilterBar } from './need-filter-bar.js';
 import { MarketResults } from './market-results.js';
+import { useSpeechToText } from './use-speech-to-text.js';
 import {
   useCreateNeed,
   useCreateReview,
@@ -67,6 +69,9 @@ export function MarketplacePage() {
   const createReview = useCreateReview();
   const providers = useProviders(need?.category);
   const error = mutationError(createNeed.error, updateNeed.error, matchNeed.error);
+  const speech = useSpeechToText((transcript) =>
+    setQuery((current) => (current.trim() ? `${current.trim()} ${transcript}` : transcript)),
+  );
 
   async function ask(rawText: string) {
     if (!farmId || !rawText.trim()) return;
@@ -185,7 +190,26 @@ export function MarketplacePage() {
             <div className="row between">
               <span className="note">En tus palabras. Como a un vecino.</span>
               <div className="row" style={{ gap: 8 }}>
-                <button type="button" className="btn ghost" disabled title="Audio: hoja de ruta" aria-label="Audio no disponible todavía">
+                <button
+                  type="button"
+                  className={cn('btn ghost', speech.listening && 'listening')}
+                  disabled={!speech.supported}
+                  onClick={speech.toggle}
+                  title={
+                    speech.supported
+                      ? speech.listening
+                        ? 'Escuchando… tocá para detener'
+                        : 'Dictar por voz'
+                      : 'Tu navegador no soporta dictado por voz'
+                  }
+                  aria-label={
+                    speech.supported
+                      ? speech.listening
+                        ? 'Detener dictado'
+                        : 'Dictar necesidad por voz'
+                      : 'Audio no disponible en este navegador'
+                  }
+                >
                   <Mic className="icon" style={{ width: 16, height: 16 }} />
                 </button>
                 <button className="btn primary" type="submit" disabled={!query.trim()}>

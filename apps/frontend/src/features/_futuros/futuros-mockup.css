@@ -47,6 +47,8 @@
   .futuros-page .btn.primary:hover{background:#286949}
   .futuros-page .btn.lime{background:var(--lime);color:var(--ink);border-color:var(--lime)}
   .futuros-page .btn.ghost{background:transparent}
+  .futuros-page .btn.ghost.listening{color:#b23b3b;border-color:#e0a79b;background:#fbeceb;animation:mic-pulse 1.1s ease-in-out infinite}
+  @keyframes mic-pulse{0%,100%{box-shadow:0 0 0 0 #b23b3b26}50%{box-shadow:0 0 0 6px #b23b3b00}}
   .futuros-page .btn.compact{min-height:31px;padding:5px 11px;font-size:10px}
   .futuros-page .text-btn{border:0;background:none;padding:7px 0;text-decoration:underline;text-underline-offset:4px;font-size:12px}
   .futuros-page .row{display:flex;align-items:center;gap:12px}
@@ -126,13 +128,13 @@
   .futuros-page .scene-caption{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:#769361}
 
   /* Mercado: hero de necesidad. */
-  .futuros-page .market-hero{min-height:560px;border:0;border-radius:16px;background:#dfe7d1;display:block;position:relative;overflow:hidden}
-  .futuros-page .market-copy{padding:45px 0 35px 34px;width:48%;position:relative;z-index:5}
+  .futuros-page .market-hero{min-height:500px;border:0;border-radius:16px;background:#dfe7d1;display:block;position:relative;overflow:hidden}
+  .futuros-page .market-copy{padding:38px 0 30px 34px;width:48%;position:relative;z-index:5}
   .futuros-page .market-copy .eyebrow{font-size:9px}
-  .futuros-page .market-copy h1{font-size:64px;line-height:.99;letter-spacing:-3.8px;margin:22px 0;max-width:560px}
+  .futuros-page .market-copy h1{font-size:58px;line-height:.99;letter-spacing:-3.4px;margin:18px 0;max-width:560px}
   .futuros-page .market-copy h1 .serif{color:#5b7445}
   .futuros-page .market-copy>p{font-size:13px;max-width:325px;color:var(--muted)}
-  .futuros-page .need-form{margin-top:25px;border:1px solid #aac092;background:#f2f5e7d9;backdrop-filter:blur(14px);border-radius:13px;width:calc(100% + 56px);padding:17px;box-shadow:0 18px 40px #23453210}
+  .futuros-page .need-form{margin-top:20px;border:1px solid #aac092;background:#f2f5e7b3;backdrop-filter:blur(14px);border-radius:13px;width:calc(100% + 56px);padding:17px;box-shadow:0 18px 40px #23453210}
   .futuros-page .need-form textarea{width:100%;border:0;resize:vertical;min-height:72px;max-height:150px;color:var(--ink);font-size:15px;line-height:1.6;background:none}
   .futuros-page .need-form .row{margin-top:12px}
   .futuros-page .need-form .row .note{font-size:9px}
