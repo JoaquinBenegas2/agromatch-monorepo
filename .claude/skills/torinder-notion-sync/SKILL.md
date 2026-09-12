@@ -1,6 +1,6 @@
 ---
 name: torinder-notion-sync
-description: Sincroniza cada tarea del MVP de Torinder con la base "Tareas Torinder" de Notion y publica los contratos que otras tareas consumen. Trigger - SIEMPRE que se arranque, avance, bloquee o termine una tarea de Torinder (IDs T0, A1-A6, B1-B7, C1-C6, D1-D7, I1, I2, DEMO), que la rama sea feat/<ID>-*, o que se toque packages/contracts o una firma pública que otra tarea consume.
+description: Sincroniza cada tarea del MVP de Torinder con la base "Tareas Torinder" de Notion y publica los contratos que otras tareas consumen. Trigger - SIEMPRE que se arranque, avance, bloquee o termine una tarea de Torinder (IDs T0, A1-A6, B1-B7, C1-C6, D1-D7, I1, I2, DEMO), que la rama sea feature/<ID>-*, o que se toque packages/shared-types o una firma pública que otra tarea consume.
 ---
 
 # Torinder: sincronización con Notion
@@ -38,7 +38,7 @@ description: Sincroniza cada tarea del MVP de Torinder con la base "Tareas Torin
 
 ## 1. ARRANQUE (antes de escribir la primera línea)
 
-1. **Identificar la tarea.** Sale de la rama (`feat/B2-classification` → `B2`) o del pedido del dev. Si hay dudas, **preguntá** y no adivines.
+1. **Identificar la tarea.** Sale de la rama (`feature/B2-classification` → `B2`) o del pedido del dev. Si hay dudas, **preguntá** y no adivines.
 2. **Buscar la fila:**
    ```sql
    SELECT url, "Tarea", "Estado", "Responsable", "Produce (contrato)", "Depende de"
@@ -50,7 +50,7 @@ description: Sincroniza cada tarea del MVP de Torinder con la base "Tareas Torin
    - Cualquier otra sin `Hecha` → seguir **usando el sustituto** (stub, fake o MSW) y avisarle al dev cuál estás usando.
 5. **Tomar la tarea** con `update_properties`: `Estado = "En curso"`, `Responsable` (si está vacío) y `Rama / PR`.
 6. **Confirmar** con la consulta del paso 2.
-7. **Comentar en la página:** `▶️ Arranqué · rama feat/<ID>-… · sustitutos en uso: …`
+7. **Comentar en la página:** `▶️ Arranqué · rama feature/<ID>-… · sustitutos en uso: …`
 
 ## 2. DURANTE
 
@@ -59,7 +59,7 @@ description: Sincroniza cada tarea del MVP de Torinder con la base "Tareas Torin
   - `Estado = "Bloqueada"`.
   - Comentario con la causa, qué se necesita y de quién, mencionando la tarea que bloquea con `<mention-page>`.
   - Al destrabarse → `Estado = "En curso"` y un comentario de una línea.
-- **Cambio en `packages/contracts` o en una firma pública:**
+- **Cambio en `packages/shared-types` o en una firma pública:**
   - **Aditivo** (campo opcional, tipo nuevo, endpoint nuevo): se permite. Agregá una entrada en la sección `## Cambios de contrato` de la página, con un diff corto, y comentá en **cada** tarea de `Bloquea a`.
   - **Incompatible** (renombrar, borrar o cambiar un tipo): **FRENAR.** No lo hagas. Avisale al dev que tiene que acordarlo con los 4.
 
@@ -71,7 +71,7 @@ Solo cuando **todos** los criterios de aceptación están tildados y los tests p
    1. Insertá al final de la página (`insert_content`) una sección con esta forma:
       ````md
       ## Contrato entregado
-      **Importar desde:** `@torinder/genetics-core` (o el paquete o endpoint que corresponda)
+      **Importar desde:** `@org/genetics-core` (o el paquete o endpoint que corresponda)
       **PR:** <url>
       ```ts
       // firmas EXACTAS tal como quedaron en el código

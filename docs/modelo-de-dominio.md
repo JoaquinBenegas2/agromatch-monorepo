@@ -223,7 +223,7 @@ flowchart TB
         G2[Clasificación]
         G3[Score genético]
     end
-    subgraph api["apps/api (NestJS)"]
+    subgraph api["apps/backend (NestJS)"]
         NEEDS[needs]
         PROVS[providers]
         MATCH[matching]
@@ -232,7 +232,7 @@ flowchart TB
         PLAN[planning]
         AI[ai · adaptador del LLM]
     end
-    WEB[apps/web · React]
+    WEB[apps/frontend · React]
     MATCH --> core
     core --> gen
     MATCH --> AI

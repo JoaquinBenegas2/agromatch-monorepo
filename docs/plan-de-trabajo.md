@@ -8,7 +8,7 @@
 
 **Arquitectura:** monorepo con un paquete de **contratos** compartido, un **núcleo de matcheo** (`matching-core`) y un **motor genético** (`genetics-core`), los dos en TypeScript puro; una API en NestJS que orquesta, una capa de **IA detrás de puertos** y un frontend React. El paralelismo sale de un principio: **después de la hora 0, nadie depende del código de otro, solo de los contratos.**
 
-**Stack:** pnpm workspaces · TypeScript · NestJS · React (Vite) · Vitest · MSW (mocks en el front) · SheetJS (Excel) · **`@anthropic-ai/sdk` con Claude Haiku 4.5** (`claude-haiku-4-5`).
+**Stack (el que ya está en `develop`):** **Nx 23 + npm workspaces** · TypeScript · NestJS (`apps/backend`, puerto 3333, prefijo `/api`) · React + Vite + Tailwind (`apps/frontend`, puerto 4200) · `packages/shared-types` · MSW (mocks en el front) · SheetJS (Excel) · **`@anthropic-ai/sdk` con Claude Haiku 4.5** (`claude-haiku-4-5`).
 
 **Spec:** [modelo-de-dominio.md](modelo-de-dominio.md) (reglas RN-xx y flujos Fx). Este plan implementa ese documento.
 
@@ -40,9 +40,9 @@ Toda dependencia entre devs se reemplaza por un **sustituto** hasta que llega la
 | Si necesitás… | …y todavía no está, usá… | Lo provee |
 |---|---|---|
 | Funciones de genética (`classifyHerd`, `scoreCandidates`…) | **Stubs** con la firma final y una implementación ingenua | T0, en `packages/genetics-core` |
-| Adaptadores de IA (mapeo, explicación, objetivo, chat) | **Fakes** determinísticos que implementan el mismo puerto | T0, en `packages/contracts/testing` |
+| Adaptadores de IA (mapeo, explicación, objetivo, chat) | **Fakes** determinísticos que implementan el mismo puerto | T0, en `packages/shared-types/testing` |
 | Endpoints de la API | **MSW** (mocks de red) que devuelven los fixtures | T0 + D1 |
-| Datos | **Fixtures** JSON: rodeo real, toros, tambos y usuarios | T0, en `packages/contracts/fixtures` |
+| Datos | **Fixtures** JSON: rodeo real, toros, tambos y usuarios | T0, en `packages/shared-types/fixtures` |
 
 **Consecuencia:** las únicas dependencias **duras** aparecen en los hitos de integración (I1, I2), cuando se cambia el sustituto por la pieza real. Durante el desarrollo, **cero dependencias**.
 
@@ -70,26 +70,33 @@ Toda dependencia entre devs se reemplaza por un **sustituto** hasta que llega la
 
 **Nadie escribe lógica antes de cerrar T0.** Se hace en conjunto: el líder escribe y los otros tres revisan cada archivo en vivo.
 
-### T0.1 Andamiaje del monorepo
-```
-torinder-app/
-├── apps/
-│   ├── api/                  # NestJS
-│   └── web/                  # React + Vite
-├── packages/
-│   ├── contracts/            # tipos, puertos, rutas, fixtures, fakes
-│   ├── genetics-core/        # TS puro: stubs en T0, lógica real después
-│   └── ai/                   # adaptadores del LLM (Dev C)
-├── scripts/
-│   └── excel-to-fixture.ts   # convierte el Excel real a JSON
-├── pnpm-workspace.yaml
-└── tsconfig.base.json
-```
-- [ ] `pnpm -r build` y `pnpm -r test` corren en verde (con tests vacíos).
-- [ ] `apps/api` levanta en `:3000` y `apps/web` en `:5173`.
-- [ ] La skill `torinder/skills/torinder-notion-sync/` está copiada en `.claude/skills/` del monorepo, y los 4 devs tienen el MCP de Notion conectado al workspace.
+### T0.1 Adaptar el monorepo que YA existe
 
-### T0.2 Dominio: `packages/contracts/src/domain.ts`
+⚠️ **`develop` ya tiene el scaffold** (Nx 23 + npm workspaces, PR #1). **No se arma de cero: se completa.**
+
+```
+agromatch-monorepo/
+├── .claude/skills/torinder-notion-sync/   # ya está en la rama docs
+├── apps/
+│   ├── backend/              # NestJS + Prisma (SQLite), /api, puerto 3333   ← existe
+│   └── frontend/             # React + Vite + Tailwind, puerto 4200          ← existe
+├── packages/
+│   ├── shared-types/         # LOS CONTRATOS: domain, marketplace, ports, api, fixtures, fakes  ← existe, se llena
+│   ├── matching-core/        # TS puro: núcleo      ← npx nx g @nx/js:lib packages/matching-core
+│   ├── genetics-core/        # TS puro: vertical    ← npx nx g @nx/js:lib packages/genetics-core
+│   └── ai/                   # adaptadores del LLM  ← npx nx g @nx/js:lib packages/ai
+├── fixtures/herd-farm-a.json # rodeo real anonimizado  ← ya está en la rama docs
+└── scripts/excel-to-fixture.ts
+```
+
+**Equivalencias con el plan original:** `apps/api` → `apps/backend`, `apps/web` → `apps/frontend`, `packages/shared-types` → **`packages/shared-types`** (se importa como `@org/shared-types`).
+- [ ] `npx nx run-many -t build` y `-t test` corren en verde.
+- [ ] `npm run dev` levanta backend en `:3333` y frontend en `:4200`.
+- [ ] Los 3 paquetes nuevos (`matching-core`, `genetics-core`, `ai`) están generados y se importan desde `apps/backend`.
+- [ ] Los 4 devs tienen el MCP de Notion conectado al workspace (la skill ya está en `.claude/skills/`).
+- [ ] **D9 confirmada:** repositorios detrás de interfaces, en memoria y cargados desde los fixtures. Prisma queda intacto para después.
+
+### T0.2 Dominio: `packages/shared-types/src/domain.ts`
 ```ts
 export type Scale = 'CDCB';
 export type TraitKey = 'ci' | 'milk' | 'fat' | 'pro' | 'pl' | 'scs' | 'fs' | 'rfi';
@@ -229,7 +236,7 @@ export type Role = 'FARMER' | 'ADVISOR' | 'ADMIN';
 export interface User { id: string; name: string; role: Role; farmIds: string[] }
 ```
 
-### T0.3 Puertos de IA e ingesta: `packages/contracts/src/ports.ts`
+### T0.3 Puertos de IA e ingesta: `packages/shared-types/src/ports.ts`
 ```ts
 import type { BreedingGoal, Bull, ExplanationFacts, Explanation, Female, TraitKey } from './domain';
 
@@ -269,7 +276,7 @@ export interface ChatAnswer { text: string; usedTools: string[] }
 export interface ChatPort { ask(farmId: string, question: string, tools: HerdQueryTools): Promise<ChatAnswer> }
 ```
 
-### T0.4 Rutas de la API: `packages/contracts/src/api.ts`
+### T0.4 Rutas de la API: `packages/shared-types/src/api.ts`
 
 Todas las rutas llevan el header `x-user-id`. Un tambo que no pertenece al usuario devuelve **403** (RN-21).
 
@@ -341,7 +348,7 @@ export interface TraitStats { mean: TraitVector; std: TraitVector }
 - `buildAutoPlan`: primer toro para cada hembra.
 - El resto: la fórmula obvia, sin filtros.
 
-### T0.5b Contratos del núcleo: `packages/contracts/src/marketplace.ts`
+### T0.5b Contratos del núcleo: `packages/shared-types/src/marketplace.ts`
 
 ```ts
 export type NeedCategory =
@@ -432,7 +439,7 @@ export function matchNeed(need: Need, caps: Capability[], provs: Provider[], ver
 export function registerVertical(engine: VerticalEngine): void;                              // M2
 ```
 
-### T0.6 Fixtures y fakes: `packages/contracts/{fixtures,testing}`
+### T0.6 Fixtures y fakes: `packages/shared-types/{fixtures,testing}`
 
 | Archivo | Contenido |
 |---|---|
@@ -446,7 +453,7 @@ export function registerVertical(engine: VerticalEngine): void;                 
 | `testing/fakes.ts` | `FakeHerdIngestion` (lee el fixture y propone el mapeo exacto), `FakeCatalogIngestion`, `FakeExplainer` (arma el texto a partir de `reasons`), `FakeGoalParser` (palabras clave → preset), `FakeChat` (respuesta fija) |
 
 **Criterio de cierre de T0:**
-- [ ] Los 4 devs importan `@torinder/contracts` y `@torinder/genetics-core` sin errores.
+- [ ] Los 4 devs importan `@org/shared-types` y `@org/genetics-core` sin errores.
 - [ ] La API arranca con los fakes y responde `GET /me` y `GET /bulls`.
 - [ ] El front levanta con MSW y muestra el nombre del usuario.
 - [ ] **Se congelan los contratos** (tag `contracts-v1`).
@@ -513,7 +520,7 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 - **Depende de:** D1. **Blanda:** M5.
 
 #### M7 · Proveedores semilla · P1 · 1,5 h · Dev A o analista
-- **Archivos:** `packages/contracts/fixtures/providers.json`
+- **Archivos:** `packages/shared-types/fixtures/providers.json`
 - **Entrega:** ~30 proveedores **reales y públicos** de 3 categorías (contratistas de maquinaria, veterinarios de grandes animales, distribuidores de insumos) con base geográfica, radio, precios de referencia y `verified: false` (RN-37). Más las centrales de semen como proveedores de `GENETICS`.
 - **Criterios de aceptación:**
   - [ ] Valida contra los tipos `Provider` y `Capability`
@@ -583,7 +590,7 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 - **Depende de:** A4.
 
 #### A6 · Catálogo real de toros · P1 · 2,5 h
-- **Archivos:** `packages/contracts/fixtures/bulls.json` (reemplaza a `bulls.seed.json`), `docs/fuentes-toros.md`
+- **Archivos:** `packages/shared-types/fixtures/bulls.json` (reemplaza a `bulls.seed.json`), `docs/fuentes-toros.md`
 - **Entrega:** 20 a 30 toros reales de los catálogos de ABS, Genex y Semex Argentina, cruzados con las consultas de CDCB. Cada toro con `source` citada. Incluye:
   - los padres del Excel,
   - al menos 2 hijos de `029HO19531`,
@@ -743,7 +750,7 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 - **Entrega:**
   - Router con las pantallas.
   - Selector de usuario (tambero, asesor): guarda `x-user-id`.
-  - Cliente de la API tipado con `@torinder/contracts`.
+  - Cliente de la API tipado con `@org/shared-types`.
   - **MSW** con los fixtures de T0, activado con `VITE_MOCKS=true`.
 - **Criterios de aceptación:**
   - [ ] Con mocks, las 6 pantallas navegan sin la API levantada
@@ -848,7 +855,7 @@ flowchart LR
 
 | Tema | Regla |
 |---|---|
-| Ramas | `feat/<id>-<nombre>`, por ejemplo `feat/B2-classification`. Una tarea = un PR. |
+| Ramas | **`feature/<ID>-<nombre>` desde `develop`** (Git Flow del repo), por ejemplo `feature/B2-classification`. Una tarea = un PR. |
 | PR | Chico, con los tests de los criterios de aceptación en verde. Lo revisa **otro dev en menos de 10 minutos**. |
 | Contratos | Dueño: el líder. Después de T0 solo se aceptan cambios aditivos. Un cambio incompatible → se para y se avisa por el canal del equipo. |
 | Definición de terminado | Tests en verde + criterios de aceptación tildados + sin `any` en los bordes públicos + mergeado a `main`. |
