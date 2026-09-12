@@ -1,12 +1,10 @@
 import type { HerdQueryTools, LlmClient, LlmPrompt } from '@org/shared-types';
-import type { ZodType } from 'zod';
 import { GeneticsChatPort } from './chat.js';
 
-function makeLlm(overrides: Partial<LlmClient> = {}): LlmClient {
+function makeLlm(overrides: { completeJson?: unknown; completeText?: LlmClient['completeText'] } = {}): LlmClient {
   return {
-    completeJson: vi.fn(async <T>(_prompt: LlmPrompt, _schema: ZodType<T>) => ({}) as T),
-    completeText: vi.fn(async () => 'texto fijo'),
-    ...overrides,
+    completeJson: (overrides.completeJson ?? vi.fn(async () => ({}))) as LlmClient['completeJson'],
+    completeText: overrides.completeText ?? vi.fn(async () => 'texto fijo'),
   };
 }
 
