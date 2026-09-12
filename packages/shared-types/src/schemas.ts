@@ -256,9 +256,11 @@ export const NeedSchema = z.object({
   rawText: z.string(),
   category: NeedCategorySchema,
   what: z.string(),
-  where: GeoPointSchema,
+  // Puede faltar solo mientras la necesidad está en DRAFT (RN-30).
+  where: GeoPointSchema.optional(),
   radiusKm: z.number().optional(),
-  window: TimeWindowSchema,
+  // Puede faltar solo mientras la necesidad está en DRAFT (RN-30).
+  window: TimeWindowSchema.optional(),
   magnitude: MagnitudeSchema.optional(),
   constraints: z.array(z.string()),
   budget: z.number().optional(),
@@ -476,7 +478,7 @@ export const CreateNeedBodySchema = z.object({
 });
 
 export const UpdateNeedBodySchema = NeedSchema.partial().extend({
-  confirm: z.literal(true),
+  confirm: z.literal(true).optional(),
 });
 
 export const CreateServiceRequestBodySchema = z.object({

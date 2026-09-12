@@ -17,9 +17,9 @@ interface NeedRow {
   rawText: string;
   category: string;
   what: string;
-  where: unknown;
+  where: unknown | null;
   radiusKm: number | null;
-  window: unknown;
+  window: unknown | null;
   magnitude: unknown;
   constraints: string[];
   budget: number | null;
@@ -38,9 +38,9 @@ function toDomain(row: NeedRow): Need {
     rawText: row.rawText,
     category: row.category as NeedCategory,
     what: row.what,
-    where: row.where as GeoPoint,
+    where: (row.where as GeoPoint | null) ?? undefined,
     radiusKm: row.radiusKm ?? undefined,
-    window: row.window as TimeWindow,
+    window: (row.window as TimeWindow | null) ?? undefined,
     magnitude: (row.magnitude as Magnitude | null) ?? undefined,
     constraints: row.constraints,
     budget: row.budget ?? undefined,
@@ -60,9 +60,9 @@ function toRow(n: Need) {
     rawText: n.rawText,
     category: n.category,
     what: n.what,
-    where: n.where,
+    where: n.where ?? undefined,
     radiusKm: n.radiusKm ?? null,
-    window: n.window,
+    window: n.window ?? undefined,
     magnitude: n.magnitude ?? undefined,
     constraints: n.constraints,
     budget: n.budget ?? null,
