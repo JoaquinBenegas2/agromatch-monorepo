@@ -2,6 +2,7 @@ import type {
   Bull,
   Capability,
   Classification,
+  Farm,
   Female,
   GenomicProfile,
   Need,
@@ -32,6 +33,16 @@ const female: Female = {
   sireNaab: null,
   category: 'COW',
   profile,
+};
+
+const farm: Farm = {
+  id: 'farm-a',
+  name: 'Tambo A',
+  location: 'Córdoba',
+  tierQuotas: { sexedPct: 25, beefPct: 30 },
+  calvingEaseMaxHeifer: 2.5,
+  scsGrayZone: { from: 3.1, to: 3.18 },
+  plGrayZone: { from: 0, to: 0.2 },
 };
 
 const classification: Classification = {
@@ -85,12 +96,16 @@ const provider: Provider = {
 function makeService(overrides: {
   classificationItems?: Classification[];
   needs?: Map<string, Need>;
+  female?: Female;
+  farm?: Farm | null;
 } = {}) {
   const needs = overrides.needs ?? new Map<string, Need>();
+  const theFemale = overrides.female ?? female;
+  const theFarm = overrides.farm === undefined ? farm : overrides.farm;
 
   const femaleRepo: FemaleRepo = {
-    findById: jest.fn(async (_farmId: string, id: string) => (id === female.id ? female : null)),
-    listByFarm: jest.fn(async () => [female]),
+    findById: jest.fn(async (_farmId: string, id: string) => (id === theFemale.id ? theFemale : null)),
+    listByFarm: jest.fn(async () => [theFemale]),
     upsertMany: jest.fn(),
   };
   const classificationRepo: ClassificationRepo = {
@@ -125,11 +140,11 @@ function makeService(overrides: {
     updateReputation: jest.fn(async () => provider),
   };
 
-  // Sin `farm` el vertical no aplica RN-06 (facilidad de parto): estos tests
-  // cubren contrato y flujo, no ese filtro.
+  // El servicio exige el `farm`: sin su umbral de parto el vertical no podría
+  // aplicar RN-06 y una vaquillona recibiría toros prohibidos.
   const farmRepo: FarmRepo = {
-    findById: jest.fn(async () => null),
-    findByIds: jest.fn(async () => []),
+    findById: jest.fn(async () => theFarm),
+    findByIds: jest.fn(async () => (theFarm ? [theFarm] : [])),
   };
 
   const service = new GeneticMatchingService(
@@ -171,6 +186,21 @@ describe('GeneticMatchingService (B4, ADR-0002, REQ-D-01/02/03)', () => {
     expect(board.ranked.length).toBe(1);
     expect(board.ranked[0].capabilityId).toBe(bull.naab);
     expect(board.ranked[0].providerId).toBe(provider.id);
+  });
+
+  it('RN-06 llega al motor: para una vaquillona, el toro con parto 2.8 > 2.5 del tambo queda excluido', async () => {
+    const { service } = makeService({ female: { ...female, category: 'HEIFER' } });
+    const board = await service.getBoard('farm-a', 'fem-3031', goal);
+    expect(board.ranked).toHaveLength(0);
+    expect(board.excluded).toHaveLength(1);
+    const rn06 = board.excluded[0].filters.find((f) => f.rule === 'RN-06');
+    expect(rn06?.passed).toBe(false);
+    expect(rn06?.detail).toContain('2.8');
+  });
+
+  it('sin establecimiento → 404 FARM_NOT_FOUND, nunca se matchea sin el umbral de parto', async () => {
+    const { service } = makeService({ farm: null });
+    await expect(service.getBoard('farm-a', 'fem-3031', goal)).rejects.toMatchObject({ code: 'FARM_NOT_FOUND' });
   });
 
   it('el Need sintético se reutiliza (REQ-D-03): dos llamadas, un solo create', async () => {

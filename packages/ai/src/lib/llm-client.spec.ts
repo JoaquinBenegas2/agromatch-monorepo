@@ -31,7 +31,9 @@ beforeEach(() => {
 
 describe('AnthropicLlmClient (REQ-LC-01..06)', () => {
   it('construye sin clave falla con mensaje en español', () => {
-    expect(() => new AnthropicLlmClient(undefined)).toThrow(/ANTHROPIC_API_KEY/);
+    // `''` y no `undefined`: con undefined el parámetro por defecto lee
+    // process.env, y Nx inyecta el .env raíz (con clave) al correr los tests.
+    expect(() => new AnthropicLlmClient('')).toThrow(/ANTHROPIC_API_KEY/);
   });
 
   it('completeJson devuelve el objeto tipado cuando la respuesta valida', async () => {

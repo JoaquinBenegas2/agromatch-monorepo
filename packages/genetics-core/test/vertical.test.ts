@@ -1,6 +1,7 @@
 import { bullsSeed, herdFarmA } from '@org/shared-types/fixtures';
 import type { Capability, Classification, Farm, Need, Provider, TraitStats } from '@org/shared-types';
 import { matchNeed } from '@org/matching-core';
+import { makeGeneticsNeed } from '../src/legacy-stubs.js';
 import { GOAL_PRESETS } from '../src/matching/presets.js';
 import { scoreCandidates } from '../src/matching/score.js';
 import { computeTraitStats } from '../src/traits.js';
@@ -99,7 +100,7 @@ describe('GeneticsVertical (RN-35, ADR-0002, REQ-A-10)', () => {
     );
   });
 
-  it('funciona sin farm en el ctx (forma real que usa GeneticMatchingService, B4): RN-06 no se aplica, documentado', () => {
+  it('la Need de makeGeneticsNeed matchea contra proveedores reales argentinos, sin farm en el ctx (forma real de GeneticMatchingService, B4)', () => {
     const female = herdFarmA.females.find((f) => f.visualId === '3031')!;
     const classification: Classification = {
       femaleId: female.id,
@@ -111,27 +112,19 @@ describe('GeneticsVertical (RN-35, ADR-0002, REQ-A-10)', () => {
       reasons: [],
     };
     const goal = GOAL_PRESETS.SOLIDS_CHEESE;
-    const need: Need = {
-      id: 'need-genetics-3031',
-      farmId: 'farm-a',
-      rawText: 'matching genético para 3031',
-      category: 'GENETICS',
-      what: 'matching genético',
-      where: { lat: 0, lng: 0, label: 'Establecimiento' },
-      window: { from: '2026-01-01', to: '2026-12-31' },
-      constraints: [],
-      status: 'OPEN',
-      goal,
-      createdAt: '2026-01-01T00:00:00.000Z',
-      synthetic: true,
-    };
+
+    // La Need REAL, la que arma B4: no declara `where` ni `window`.
+    const need = makeGeneticsNeed('farm-a', female.id, goal);
+    expect(need.where).toBeUndefined();
+    expect(need.window).toBeUndefined();
+
     const caps: Capability[] = bullsSeed.map((b) => ({
       id: b.naab,
       providerId: 'prov-genetics',
       category: 'GENETICS',
       serviceType: 'semen',
       coverageRadiusKm: 500,
-      availability: [],
+      availability: [{ from: '2026-01-01', to: '2027-12-31' }],
       priceModel: 'PER_UNIT',
       certifications: [],
       attributes: {},
@@ -139,9 +132,12 @@ describe('GeneticsVertical (RN-35, ADR-0002, REQ-A-10)', () => {
     const provs: Provider[] = [
       {
         id: 'prov-genetics',
-        name: 'Central Genética',
+        name: 'Central Genética Rosario',
         type: 'SEMEN_COMPANY',
-        base: { lat: 0, lng: 0, label: 'Central' },
+        // Ubicación real de una central argentina, a miles de km del viejo
+        // placeholder {lat:0,lng:0}: si RN-31 volviera a medir distancia
+        // contra un origen inventado, este test se pone rojo.
+        base: { lat: -32.944, lng: -60.65, label: 'Rosario' },
         verified: false,
         reputation: { avg: 4, jobs: 10 },
         contact: {},

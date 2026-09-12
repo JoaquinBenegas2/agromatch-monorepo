@@ -27,9 +27,6 @@ function daysInWindow(window: TimeWindow): number {
  */
 export function hardFilters(need: Need, cap: Capability, prov: Provider): FilterResult[] {
   const { where, window } = need;
-  if (!where || !window) {
-    throw new Error('Cannot evaluate hardFilters on an unconfirmed need without location and time window');
-  }
   const results: FilterResult[] = [];
 
   results.push(
@@ -38,13 +35,16 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
       : { rule: 'RN-31', passed: false, detail: `Categoría ${cap.category} no coincide con la necesidad ${need.category}` },
   );
 
-  // Una necesidad sintética (la arma un vertical para una hembra puntual,
-  // ADR-0002) no tiene un lugar ni una fecha reales: el `where`/`window` son
-  // marcadores. Radio y ventana no aplican; el vertical decide con sus
-  // propios filtros (RN-05/RN-06/RN-13).
+  // Una necesidad que no declara dónde (el matching genético: el semen viaja
+  // por correo) no se puede medir contra un radio de cobertura. Lo mismo para
+  // una necesidad sintética (la arma un vertical para una hembra puntual,
+  // ADR-0002) aunque traiga un `where` de marcador. No se inventa una
+  // ubicación ni se descarta al candidato: el filtro no aplica y el vertical
+  // decide con sus propios filtros (RN-05/RN-06/RN-13).
   if (need.synthetic) {
     results.push({ rule: 'RN-31', passed: true, detail: 'Necesidad sintética: la cobertura geográfica no aplica' });
-    results.push({ rule: 'RN-31', passed: true, detail: 'Necesidad sintética: la ventana de fechas no aplica' });
+  } else if (!where) {
+    results.push({ rule: 'RN-31', passed: true, detail: 'La necesidad no declara ubicación: no se evalúa cobertura' });
   } else {
     const distanceKm = haversineKm(where, prov.base);
     const radiusKm = cap.coverageRadiusKm;
@@ -53,7 +53,13 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
         ? { rule: 'RN-31', passed: true, detail: `A ${distanceKm.toFixed(1)} km, dentro del radio de cobertura de ${radiusKm} km` }
         : { rule: 'RN-31', passed: false, detail: `A ${distanceKm.toFixed(1)} km, fuera del radio de cobertura de ${radiusKm} km` },
     );
+  }
 
+  if (need.synthetic) {
+    results.push({ rule: 'RN-31', passed: true, detail: 'Necesidad sintética: la ventana de fechas no aplica' });
+  } else if (!window) {
+    results.push({ rule: 'RN-31', passed: true, detail: 'La necesidad no declara ventana: no se evalúa disponibilidad' });
+  } else {
     const hasOverlap = cap.availability.length === 0 || cap.availability.some((slot) => overlaps(window, slot));
     results.push(
       hasOverlap
@@ -62,7 +68,7 @@ export function hardFilters(need: Need, cap: Capability, prov: Provider): Filter
     );
   }
 
-  if (need.magnitude && cap.capacityPerDay) {
+  if (need.magnitude && cap.capacityPerDay && window) {
     const days = daysInWindow(window);
     const capacityInWindow = cap.capacityPerDay.value * days;
     const enough = capacityInWindow >= need.magnitude.value;

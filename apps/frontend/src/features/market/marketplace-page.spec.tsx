@@ -49,16 +49,14 @@ describe('MarketplacePage', () => {
     expect(requestUrls.some((url) => url.endsWith('/api/needs'))).toBe(false);
   });
 
-  it('permite revisar campos dudosos, matchear y desbloquear el contacto al solicitar', async () => {
+  it('busca directo, sin pantalla intermedia, y desbloquea el contacto al solicitar', async () => {
     render(wrapper(<MarketplacePage />));
 
     fireEvent.click(screen.getByText('Contratistas de arada cerca tuyo'));
-    expect(await screen.findByText('Lo que AgroMatch entendió')).toBeTruthy();
-    expect(screen.getByText('Fecha deducida del texto')).toBeTruthy();
-
-    fireEvent.click(screen.getByText('Confirmar y buscar soluciones'));
+    expect(screen.queryByText('Lo que AgroMatch entendió')).toBeNull();
     expect(await screen.findByText('Soluciones para tu necesidad')).toBeTruthy();
-    expect(screen.getByText('#1 de 7')).toBeTruthy();
+    expect(screen.getByText('Fecha deducida del texto')).toBeTruthy();
+    expect(await screen.findByText('#1 de 7')).toBeTruthy();
     expect(screen.queryByText('+54 9 3537 424031')).toBeNull();
 
     const matchRequestsBefore = performance
@@ -78,14 +76,22 @@ describe('MarketplacePage', () => {
     fireEvent.click(screen.getByText('Enviar solicitud'));
 
     expect(await screen.findByText('+54 9 3537 424031')).toBeTruthy();
-    expect(screen.getAllByText('Solicitud enviada')).toHaveLength(2);
+    expect(screen.getByText('Solicitud enviada')).toBeTruthy();
+    expect(screen.getByText('Ver solicitud · Valorar')).toBeTruthy();
+
+    // N4: la reseña cierra el ciclo desde la misma solicitud.
+    fireEvent.click(screen.getByLabelText('4 de 5'));
+    fireEvent.change(screen.getByLabelText('Comentario de la valoración'), {
+      target: { value: 'Cumplió la fecha.' },
+    });
+    fireEvent.click(screen.getByText('Enviar valoración'));
+    expect(await screen.findByRole('status')).toHaveProperty('textContent', expect.stringContaining('Valoración enviada'));
   });
 
   it('deriva genética al motor dedicado sin mostrar resultados genéricos', async () => {
     render(wrapper(<MarketplacePage />));
 
     fireEvent.click(screen.getByText('Mejorar los sólidos de mi tambo'));
-    fireEvent.click(await screen.findByText('Ir al motor genético'));
 
     expect(await screen.findByText('Matching genético dedicado')).toBeTruthy();
     expect(screen.queryByText('Soluciones para tu necesidad')).toBeNull();
@@ -116,8 +122,10 @@ describe('MarketResults states', () => {
         providers={[]}
         providersLoading={false}
         requesting={false}
+        reviewing={false}
         onEdit={() => undefined}
         onRequest={() => Promise.reject(new Error('No se usa'))}
+        onReview={() => Promise.reject(new Error('No se usa'))}
       />,
     );
     expect(screen.getByText('Todavía no hay proveedores para esta categoría')).toBeTruthy();
@@ -130,8 +138,10 @@ describe('MarketResults states', () => {
         board={{ ranked: [], excluded: [] }}
         providersLoading
         requesting={false}
+        reviewing={false}
         onEdit={() => undefined}
         onRequest={() => Promise.reject(new Error('No se usa'))}
+        onReview={() => Promise.reject(new Error('No se usa'))}
       />,
     );
     expect(screen.getByLabelText('Cargando proveedores')).toBeTruthy();

@@ -1,8 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { samples } from '@org/shared-types/fixtures';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { UserProvider } from '../../shared/user/user-context.js';
 import { advisorHandlers } from '../../mocks/handlers/advisor.js';
 import { AdvisorPage } from './advisor-page.js';
 
@@ -14,7 +16,19 @@ afterAll(() => server.close());
 
 function wrapper(children: React.ReactNode) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
+  // El panel navega al tablero del tambo elegido: necesita router y usuario.
+  return (
+    <QueryClientProvider client={client}>
+      <UserProvider>
+        <MemoryRouter initialEntries={['/motor-genetico/asesor']}>
+          <Routes>
+            <Route path="/motor-genetico/asesor" element={children} />
+            <Route path="/motor-genetico/tablero" element={<p>Tablero del tambo activo</p>} />
+          </Routes>
+        </MemoryRouter>
+      </UserProvider>
+    </QueryClientProvider>
+  );
 }
 
 describe('AdvisorPage (REQ-B-ADV-02)', () => {
@@ -28,6 +42,12 @@ describe('AdvisorPage (REQ-B-ADV-02)', () => {
     expect(screen.getAllByText('Tambo C (demo sintético)').length).toBeGreaterThan(0);
     expect(screen.getByText('Comparación de rasgos promedio')).toBeTruthy();
     expect(screen.getByText('293')).toBeTruthy();
+  });
+
+  it('cada tambo se abre en su tablero (F7: del resumen a la acción)', async () => {
+    render(wrapper(<AdvisorPage />));
+    fireEvent.click(await screen.findByLabelText('Abrir el tablero de Tambo B (demo sintético)'));
+    expect(await screen.findByText('Tablero del tambo activo')).toBeTruthy();
   });
 
   it('muestra el estado sin tambos', async () => {

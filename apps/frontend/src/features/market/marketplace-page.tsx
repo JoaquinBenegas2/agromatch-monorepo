@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import type { MatchBoard, Need, PublicProvider, ServiceRequest, UpdateNeedBody } from '@org/shared-types';
-import { Mic, Send, Sparkles, Stethoscope, Tractor } from 'lucide-react';
+import { Filter, Mic, Send, Sparkles, Stethoscope, Tractor } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { CowLoader } from '@/components/ui/cow-loader';
+import { EmptyState } from '@/components/ui/empty-state';
 import { ErrorMessage } from '@/components/ui/error-message';
-import { Skeleton } from '@/components/ui/skeleton';
 import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
 import { useActiveFarmId, useUser } from '../../shared/user/user-context.js';
-import { NeedInterpretation } from './need-interpretation.js';
+import { NeedFilterBar } from './need-filter-bar.js';
 import { MarketResults } from './market-results.js';
 import {
   useCreateNeed,
+  useCreateReview,
   useCreateServiceRequest,
   useMatchNeed,
   useProviders,
@@ -44,10 +47,8 @@ function toUpdateBody(need: Need): UpdateNeedBody {
 
 function LoadingInterpretation() {
   return (
-    <div className="mx-auto flex w-full max-w-[640px] flex-col gap-4 py-10" aria-label="Interpretando necesidad">
-      <Skeleton className="h-12 w-full" />
-      <Skeleton className="h-72 w-full" />
-      <Skeleton className="h-11 w-full" />
+    <div className="mx-auto flex w-full max-w-[640px] flex-col gap-4 py-10">
+      <CowLoader label="Interpretando tu necesidad…" />
     </div>
   );
 }
@@ -63,6 +64,7 @@ export function MarketplacePage() {
   const updateNeed = useUpdateNeed();
   const matchNeed = useMatchNeed();
   const createRequest = useCreateServiceRequest();
+  const createReview = useCreateReview();
   const providers = useProviders(need?.category);
   const error = mutationError(createNeed.error, updateNeed.error, matchNeed.error);
 
@@ -73,18 +75,18 @@ export function MarketplacePage() {
     matchNeed.reset();
     setBoard(undefined);
     const created = await createNeed.mutateAsync({ rawText: rawText.trim(), farmId });
-    setNeed(created);
-  }
-
-  async function confirm() {
-    if (!need) return;
-    if (need.category === 'GENETICS') {
-      navigate('/motor-genetico/matching', { state: { needId: need.id, goal: need.goal } });
+    if (created.category === 'GENETICS') {
+      navigate('/motor-genetico/matching', { state: { needId: created.id, goal: created.goal } });
       return;
     }
+    setNeed(created);
+    await search(created);
+  }
+
+  async function search(target: Need) {
     updateNeed.reset();
     matchNeed.reset();
-    const confirmed = await updateNeed.mutateAsync({ id: need.id, body: toUpdateBody(need) });
+    const confirmed = await updateNeed.mutateAsync({ id: target.id, body: toUpdateBody(target) });
     setNeed(confirmed);
     const nextBoard = await matchNeed.mutateAsync(confirmed.id);
     setBoard(nextBoard);
@@ -106,33 +108,46 @@ export function MarketplacePage() {
 
   if (createNeed.isPending) return <LoadingInterpretation />;
 
-  if (need && board) {
-    return (
-      <MarketResults
-        need={need}
-        board={board}
-        providers={providers.data}
-        providersLoading={providers.isLoading}
-        requestError={createRequest.error}
-        requesting={createRequest.isPending}
-        onEdit={() => setBoard(undefined)}
-        onRequest={requestProvider}
-      />
-    );
-  }
-
   if (need) {
+    const searching = updateNeed.isPending || matchNeed.isPending;
     return (
-      <>
-        {error ? <div className="mx-auto mt-5 w-full max-w-[640px]"><ErrorMessage message={error.message} /></div> : null}
-        <NeedInterpretation
+      <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-4 py-5 sm:py-7">
+        <NeedFilterBar
           need={need}
           onChange={setNeed}
           onEditQuery={editQuery}
-          onConfirm={() => void confirm().catch(() => undefined)}
-          busy={updateNeed.isPending || matchNeed.isPending}
+          onSearch={() => void search(need).catch(() => undefined)}
+          busy={searching}
         />
-      </>
+
+        {error ? <ErrorMessage message={error.message} /> : null}
+
+        {searching ? <CowLoader /> : null}
+
+        {!searching && board ? (
+          <MarketResults
+            need={need}
+            board={board}
+            providers={providers.data}
+            providersLoading={providers.isLoading}
+            requestError={createRequest.error ?? createReview.error}
+            requesting={createRequest.isPending}
+            reviewing={createReview.isPending}
+            onEdit={() => setBoard(undefined)}
+            onRequest={requestProvider}
+            onReview={(requestId, body) => createReview.mutateAsync({ requestId, body }).then(() => undefined)}
+          />
+        ) : null}
+
+        {!searching && !board ? (
+          <EmptyState
+            icon={<Filter />}
+            title="No pudimos completar la búsqueda"
+            description="Ajustá los filtros de arriba y tocá Buscar para reintentar."
+            action={<Button variant="secondary" onClick={() => void search(need).catch(() => undefined)}>Reintentar</Button>}
+          />
+        ) : null}
+      </div>
     );
   }
 
@@ -142,7 +157,7 @@ export function MarketplacePage() {
         <div className="market-copy">
           <span className="eyebrow muted">Mercado y oportunidades</span>
           <h1>¿Qué necesita tu establecimiento hoy?</h1>
-          <p>Hora de empezar, {user.name}. Contanos qué buscás y AgroMatch lo ordena antes de buscar.</p>
+          <p>Hora de empezar, {user.name}. Contanos qué buscás y AgroMatch busca al instante, con filtros que podés ajustar arriba.</p>
 
           {error ? (
             <div className="stack" style={{ marginTop: 12 }}>

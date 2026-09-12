@@ -55,7 +55,11 @@ function makeService(overrides: {
   };
   const bullRepo: BullRepo = {
     list: jest.fn(async () => []),
-    findByNaab: jest.fn(),
+    // `addItem` valida el toro contra el catálogo (BULL_NOT_FOUND) y resuelve
+    // el precio desde ahí cuando el cliente no lo manda. Un toro mínimo por
+    // naab alcanza; el precio del catálogo se deja null para que el precio
+    // que manda el ítem sea el que cuenta en `totals.cost`.
+    findByNaab: jest.fn(async (naab: string) => ({ naab, pricePerDose: null }) as never),
     upsertMany: jest.fn(),
   };
   const farmRepo: FarmRepo = {

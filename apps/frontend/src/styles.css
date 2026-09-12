@@ -171,3 +171,8 @@ body {
   text-align: center;
   will-change: left, top;
 }
+
+@keyframes cow-leg {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
