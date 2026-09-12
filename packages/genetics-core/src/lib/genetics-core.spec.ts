@@ -124,7 +124,7 @@ describe('genetics-core stubs (REQ-SC-06)', () => {
     );
   });
 
-  it('classifyHerd reparte en tercios por CI', () => {
+  it('classifyHerd usa cupos por CI sin incluir CULL_ALERT fuera de reglas de descarte', () => {
     const females = [
       makeFemale({ id: 'f-1', profile: { ...makeFemale().profile!, traits: { ...makeFemale().profile!.traits, ci: 900 } } }),
       makeFemale({ id: 'f-2', profile: { ...makeFemale().profile!, traits: { ...makeFemale().profile!.traits, ci: 500 } } }),
@@ -133,7 +133,7 @@ describe('genetics-core stubs (REQ-SC-06)', () => {
     const classifications = classifyHerd(females, farm, GOAL_PRESETS.BALANCED);
     expect(classifications).toHaveLength(3);
     expect(classifications.find((c) => c.femaleId === 'f-1')?.tier).toBe('ELITE');
-    expect(classifications.find((c) => c.femaleId === 'f-3')?.tier).toBe('CULL_ALERT');
+    expect(classifications.find((c) => c.femaleId === 'f-3')?.tier).toBe('BEEF');
   });
 
   it('scoreCandidates devuelve MatchBoard ordenado con compatibility del #1 en 100 (REQ-SC-06)', () => {

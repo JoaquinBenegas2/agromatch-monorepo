@@ -1,0 +1,1 @@
+import { Module } from '@nestjs/common'; import { HerdController } from './herd.controller.js'; import { HerdService } from './herd.service.js'; @Module({ controllers: [HerdController], providers: [HerdService] }) export class HerdModule {}

@@ -13,14 +13,13 @@ import type {
   GoalPreset,
   PlanItem,
   SemenType,
-  Tag,
-  Tier,
   TraitKey,
   TraitStats,
   TraitVector,
 } from '@org/shared-types';
 import type { MatchBoard, MatchCandidate, Need, VerticalEngine } from '@org/shared-types';
 import { TRAIT_DIRECTION } from '@org/shared-types';
+export { classifyHerd, classifyHerdClassic } from './classification.js';
 
 /**
  * `genetics-core` — vertical genético enchufado al núcleo (ADR-0002). TS
@@ -157,56 +156,6 @@ export function calvingEaseFilter(female: Female, bull: Bull, farm: Farm): Filte
 }
 
 // B2 (mvp-c-herd) --------------------------------------------------------------
-
-function classifyByCiThirds(females: Female[]): Classification[] {
-  const withProfile = females.filter((f): f is Female & { profile: GenomicProfile } => f.profile !== null);
-  const sorted = [...withProfile].sort((a, b) => b.profile.traits.ci - a.profile.traits.ci);
-  const n = sorted.length;
-  const results: Classification[] = [];
-
-  sorted.forEach((f, i) => {
-    const ciPercentile = n <= 1 ? 100 : Math.round((100 * (n - 1 - i)) / (n - 1));
-    const position = i / n;
-    const tier: Tier = position < 1 / 3 ? 'ELITE' : position < 2 / 3 ? 'COMMERCIAL' : 'CULL_ALERT';
-    const semenType: SemenType | null = tier === 'CULL_ALERT' ? null : 'CONVENTIONAL';
-    const tags: Tag[] = f.sireNaab === null ? ['NO_SIRE'] : [];
-
-    results.push({
-      femaleId: f.id,
-      tier,
-      semenType,
-      ciPercentile,
-      tags,
-      corrective: [],
-      reasons: [`CI en el percentil ${ciPercentile} del tambo (stub: tercios por CI)`],
-    });
-  });
-
-  for (const f of females) {
-    if (f.profile === null) {
-      results.push({
-        femaleId: f.id,
-        tier: 'CULL_ALERT',
-        semenType: null,
-        ciPercentile: 0,
-        tags: f.sireNaab === null ? ['NO_SIRE'] : [],
-        corrective: [],
-        reasons: ['Sin perfil genotipado (RN-24): no se puede calcular CI'],
-      });
-    }
-  }
-  return results;
-}
-
-/** Stub: tercios por CI. `goal`/`farm` se ignoran hasta que mvp-c-herd los use. */
-export function classifyHerd(females: Female[], _farm: Farm, _goal: BreedingGoal): Classification[] {
-  return classifyByCiThirds(females);
-}
-
-/** Stub: reglas clásicas, solo para el "47% vs 30%"; hoy es igual a `classifyHerd`. */
-export function classifyHerdClassic(females: Female[]): Classification[] {
-  return classifyByCiThirds(females);
-}
 
 // A4 (ADR-0002) ----------------------------------------------------------------
 
