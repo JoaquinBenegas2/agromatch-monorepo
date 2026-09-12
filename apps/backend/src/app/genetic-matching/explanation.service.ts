@@ -3,7 +3,7 @@ import { InMemoryCache } from '@org/ai';
 import type { BreedingGoal, Explanation, ExplanationFacts, ExplainerPort } from '@org/shared-types';
 import { DomainError } from '../../common/errors/domain-error.js';
 import { EXPLAINER_PORT } from '../../ai/tokens.js';
-import { MatchingService } from './matching.service.js';
+import { GeneticMatchingService } from './genetic-matching.service.js';
 
 /**
  * B4 — REQ-D-05: la explicación se cachea por hash de `ExplanationFacts`, no
@@ -16,7 +16,7 @@ export class ExplanationService {
 
   constructor(
     @Inject(EXPLAINER_PORT) private readonly explainer: ExplainerPort,
-    private readonly matchingService: MatchingService,
+    private readonly matchingService: GeneticMatchingService,
   ) {}
 
   async getExplanation(

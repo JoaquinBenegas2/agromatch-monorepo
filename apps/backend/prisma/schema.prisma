@@ -98,9 +98,9 @@ model Need {
   rawText        String
   category       String
   what           String
-  where          Json
+  where          Json?
   radiusKm       Float?
-  window         Json
+  window         Json?
   magnitude      Json?
   constraints    String[]
   budget         Float?
@@ -110,6 +110,7 @@ model Need {
   missingFields  String[]
   confidence     Json?
   synthetic      Boolean  @default(false)
+  lastMatchBoard Json?
 }
 
 model Provider {

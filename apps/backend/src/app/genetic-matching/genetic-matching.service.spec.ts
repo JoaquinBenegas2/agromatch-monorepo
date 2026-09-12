@@ -7,7 +7,7 @@ import type {
   Need,
   Provider,
 } from '@org/shared-types';
-import { MatchingService } from './matching.service';
+import { GeneticMatchingService } from './genetic-matching.service';
 import { DomainError } from '../../common/errors/domain-error';
 import type { BullRepo } from '../../repos/bull.port';
 import type { ClassificationRepo } from '../../repos/classification.port';
@@ -72,7 +72,7 @@ const provider: Provider = {
   id: 'prov-genetics-norte',
   name: 'Central Genética Norte',
   type: 'SEMEN_COMPANY',
-  base: { lat: -31.4, lng: -64.18 },
+  base: { lat: -31.4, lng: -64.18, label: 'Córdoba' },
   verified: false,
   reputation: { avg: 4.5, jobs: 130 },
   contact: {},
@@ -92,7 +92,7 @@ function makeService(overrides: {
   };
   const classificationRepo: ClassificationRepo = {
     listByFarm: jest.fn(async () => ({
-      goal: { preset: 'BALANCED', weights: {}, wantBetaA2: false, wantKappaBB: false },
+      goal: { preset: 'BALANCED' as const, weights: {}, wantBetaA2: false, wantKappaBB: false },
       items: overrides.classificationItems ?? [classification],
     })),
     replaceForFarm: jest.fn(),
@@ -108,6 +108,7 @@ function makeService(overrides: {
       return n;
     }),
     listByFarm: jest.fn(async () => [...needs.values()]),
+    saveMatchBoard: jest.fn(async () => undefined),
   };
   const bullRepo: BullRepo = {
     list: jest.fn(async () => [bull]),
@@ -118,15 +119,16 @@ function makeService(overrides: {
     list: jest.fn(async () => [provider]),
     findById: jest.fn(async () => provider),
     listCapabilities: jest.fn(async () => [capability]),
+    updateReputation: jest.fn(async () => provider),
   };
 
-  const service = new MatchingService(femaleRepo, classificationRepo, needRepo, bullRepo, providerRepo);
+  const service = new GeneticMatchingService(femaleRepo, classificationRepo, needRepo, bullRepo, providerRepo);
   return { service, needRepo, needs };
 }
 
 const goal = { preset: 'SOLIDS_CHEESE' as const, weights: {}, wantBetaA2: false, wantKappaBB: false };
 
-describe('MatchingService (B4, ADR-0002, REQ-D-01/02/03)', () => {
+describe('GeneticMatchingService (B4, ADR-0002, REQ-D-01/02/03)', () => {
   it('hembra sin clasificación vigente → 409 HERD_NOT_CLASSIFIED', async () => {
     const { service } = makeService({ classificationItems: [] });
     await expect(service.getBoard('farm-a', 'fem-3031', goal)).rejects.toThrow(DomainError);

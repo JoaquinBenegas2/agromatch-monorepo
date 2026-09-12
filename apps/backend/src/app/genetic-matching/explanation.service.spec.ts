@@ -1,7 +1,7 @@
 import type { Explanation, ExplainerPort, MatchBoard } from '@org/shared-types';
 import { ExplanationService } from './explanation.service';
 import { DomainError } from '../../common/errors/domain-error';
-import type { MatchingService } from './matching.service';
+import type { GeneticMatchingService } from './genetic-matching.service';
 
 const facts = { femaleVisualId: '3031', bull: { naab: '029HO20544' } };
 
@@ -30,7 +30,7 @@ describe('ExplanationService (REQ-D-05)', () => {
     const explain = jest.fn(async (): Promise<Explanation> => ({ text: 'ok', source: 'AI' }));
     const explainer: ExplainerPort = { explain };
     const getBoard = jest.fn(async () => board());
-    const matchingService = { getBoard } as unknown as MatchingService;
+    const matchingService = { getBoard } as unknown as GeneticMatchingService;
     const goal = { preset: 'BALANCED' as const, weights: {}, wantBetaA2: false, wantKappaBB: false };
 
     const service = new ExplanationService(explainer, matchingService);
@@ -43,7 +43,7 @@ describe('ExplanationService (REQ-D-05)', () => {
 
   it('toro que no está en el MatchBoard → 404 BULL_NOT_FOUND', async () => {
     const explainer: ExplainerPort = { explain: jest.fn() };
-    const matchingService = { getBoard: jest.fn(async () => board()) } as unknown as MatchingService;
+    const matchingService = { getBoard: jest.fn(async () => board()) } as unknown as GeneticMatchingService;
     const goal = { preset: 'BALANCED' as const, weights: {}, wantBetaA2: false, wantKappaBB: false };
 
     const service = new ExplanationService(explainer, matchingService);
