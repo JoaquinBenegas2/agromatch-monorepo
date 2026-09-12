@@ -79,7 +79,7 @@ Es una hackathon: **~20 horas, 4 devs**, track AGRO.
 
 **Principio de dependencias:** todo apunta a los núcleos. `matching-core` y `genetics-core` **no conocen** Nest, ni la base de datos, ni el LLM. Un vertical no toca el núcleo: se registra con `registerVertical`.
 
-**Persistencia del MVP (D9, a confirmar en T0):** repositorios **detrás de interfaces**, en memoria, cargados desde los fixtures. Prisma y SQLite ya están cableados en el repo, pero el MVP no los usa: la demo tiene que arrancar siempre en el mismo estado. **Usuarios:** simulados con el header `x-user-id`, sin login.
+**Persistencia:** **PostgreSQL + Prisma** (Docker Compose: `npm run db:up`, `npm run db:migrate`). Todo acceso a datos va **detrás de una interfaz de repositorio**, y **nadie importa Prisma fuera de esa implementación**. Los fixtures se cargan con un seed que se puede volver a correr para dejar la demo en su estado inicial. **Usuarios:** simulados con el header `x-user-id`, sin login.
 
 ## LLM: Claude Haiku 4.5
 

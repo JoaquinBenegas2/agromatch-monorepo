@@ -18,7 +18,7 @@
 | 6 | Modo de la IA | **Siempre real**, también en la demo |
 | 7 | Estructura del front | **Por feature** |
 | 8 | Estructura del backend | Controlador delgado → servicio → puerto |
-| 9 | Persistencia | 🟡 **D9 pendiente**. Mientras tanto, todo detrás de interfaces |
+| 9 | Persistencia | ✅ **PostgreSQL + Prisma** (Docker Compose), con todo detrás de interfaces |
 | 10 | Idioma | Código en inglés, UI y errores en español |
 | 11 | Configuración | `.env` en la raíz, claves nunca en el repo |
 | 12 | Contrato de la API | `shared-types` con zod. Sin Swagger |
@@ -52,12 +52,13 @@ Toda llamada a la API pasa por React Query. Nada de estado global, salvo el usua
 - Una clave de query por recurso: `['needs', needId, 'matches']`.
 - La explicación de la IA se cachea por candidato: **no se vuelve a pedir al volver atrás en el swipe**.
 
-## 4. Componentes: shadcn/ui
+## 4. Componentes: shadcn/ui + el design system del equipo
 
 Tailwind ya viene en el scaffold. Los componentes se copian al repo y se tocan.
 
 - **No se instala otra librería de componentes.**
 - Lo compartido vive en `apps/frontend/src/shared/ui`.
+- ⚠️ **Hay un design system del equipo en el repo** (`AgroMatch Design System.dc.html`): colores, tipografía y estilo salen de ahí. shadcn se **configura con esos tokens**, no se usa con el tema por defecto.
 
 ## 5. Errores: formato único
 
@@ -108,17 +109,18 @@ controlador (valida con zod, no piensa)
 - El núcleo **no conoce** Nest, ni la base de datos, ni el LLM.
 - Un módulo por contexto: `needs`, `providers`, `matching`, `requests`, `herd`, `classification`, `planning`, `ai`.
 
-## 9. Persistencia: 🟡 D9 pendiente
+## 9. Persistencia: PostgreSQL + Prisma ✅ (D9 resuelta)
 
-Sin decidir entre repositorios en memoria y Prisma con SQLite.
+El equipo configuró **PostgreSQL con Docker Compose** y Prisma. Se levanta con `npm run db:up` y se migra con `npm run db:migrate`.
 
-**Mientras tanto, la regla que permite decidirlo después sin dolor:**
+**Las reglas que hacen que eso no contamine el motor:**
 
 - Todo acceso a datos pasa por una **interfaz de repositorio** definida en el módulo.
-- **Nadie importa Prisma fuera de la implementación del repositorio.**
-- Los datos semilla se cargan al arrancar desde los fixtures.
+- **Nadie importa Prisma fuera de la implementación del repositorio.** Ni el núcleo, ni los servicios, ni los controladores.
+- Los **fixtures siguen siendo la fuente de la verdad de la demo**: hay un seed que carga el rodeo real (293 animales), los proveedores y los toros. **El seed se puede correr de nuevo en cualquier momento** para volver al estado inicial.
+- Los tests de los núcleos **no tocan la base**: son funciones puras contra los fixtures.
 
-Así, cambiar de una opción a la otra es escribir una implementación nueva, no tocar el resto.
+⚠️ **Lo que hay que cuidar:** que la demo no dependa de un estado de base que se ensució probando. Antes de cada ensayo, `db:migrate reset` + seed.
 
 ## 10. Idioma
 

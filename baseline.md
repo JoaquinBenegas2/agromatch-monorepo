@@ -60,7 +60,7 @@
 | — | La compatibilidad es un **ranking relativo** ("#1 de 12"), nunca una probabilidad |
 | — | **Multi-establecimiento** desde el día uno, con datos aislados |
 | D5 | **LLM: Claude Haiku 4.5** (`claude-haiku-4-5`, `@anthropic-ai/sdk`), detrás del puerto `LlmClient` |
-| D9 | Persistencia del MVP: **repos en memoria** detrás de interfaces, cargados de fixtures. Prisma queda intacto. *(A confirmar en T0)* |
+| D9 | Persistencia: **PostgreSQL + Prisma** con Docker Compose. Todo detrás de interfaces de repositorio; los fixtures entran por un seed que se puede volver a correr |
 | — | Usuarios **simulados** con header `x-user-id`. Sin login |
 | — | La demo corre **100% real**: Claude en vivo, nada pregrabado |
 | RN-09 | Una **alerta de salud nunca manda una vaca a carne**: baja un nivel o activa apareamiento correctivo. Carne se decide solo por cupo |

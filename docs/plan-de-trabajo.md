@@ -16,7 +16,7 @@
 - Un solo idioma de punta a punta: **TypeScript**.
 - **Escala única CDCB** (RN-01). Todo valor genético que entra al motor declara `scale: 'CDCB'`.
 - **La IA nunca produce números del motor** (RN-17). Toda salida de un LLM pasa por validación.
-- Persistencia MVP: **repositorios en memoria** con datos semilla que se cargan al arrancar. No hay base de datos.
+- Persistencia: **PostgreSQL + Prisma** (Docker Compose). Todo detrás de interfaces de repositorio; los datos semilla entran por un seed que se puede volver a correr.
 - Usuarios MVP: **simulados** con el header `x-user-id`. No hay login.
 - La demo corre **100% real**: Claude en vivo, nada pregrabado. Se prueba la conexión en el lugar antes de presentar.
 - Commits convencionales. Una tarea = una rama = un PR chico. `main` siempre en verde.
@@ -94,7 +94,8 @@ agromatch-monorepo/
 - [ ] `npm run dev` levanta backend en `:3333` y frontend en `:4200`.
 - [ ] Los 3 paquetes nuevos (`matching-core`, `genetics-core`, `ai`) están generados y se importan desde `apps/backend`.
 - [ ] Los 4 devs tienen el MCP de Notion conectado al workspace (la skill ya está en `.claude/skills/`).
-- [ ] **D9 confirmada:** repositorios detrás de interfaces, en memoria y cargados desde los fixtures. Prisma queda intacto para después.
+- [ ] **La base levanta:** `npm run db:up` + `npm run db:migrate`, y el seed carga el rodeo real, los proveedores y los toros.
+- [ ] El esquema de Prisma refleja las entidades de los contratos (`Female`, `Bull`, `Need`, `Provider`, `Capability`, `ServiceRequest`).
 
 ### T0.2 Dominio: `packages/shared-types/src/domain.ts`
 ```ts
