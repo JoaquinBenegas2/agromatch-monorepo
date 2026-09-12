@@ -42,7 +42,7 @@ a{color:#23573D}a:hover{color:#194029}
 <div style="padding:40px;display:flex;flex-direction:column;gap:14px" class="tk">
 <div style="display:flex;align-items:baseline;gap:12px">
 <span style="font:600 10.5px/1 var(--sans);letter-spacing:.1em;padding:5px 8px;background:var(--ink);color:var(--card);border-radius:var(--r-sm);white-space:nowrap">1&nbsp;·&nbsp;HOME</span>
-<span style="font:600 13px/1.2 var(--sans)">¿Qué necesitás? (M6, grupo "Necesidad" del sidebar del MVP, docs/pantallas.md §1) — 3 estados: cero, ficha de interpretación editable, resultados. Estilo actualizado a los tokens/clases reales de /designs/tokens.css.</span>
+<span style="font:600 13px/1.2 var(--sans)">Home marketplace general — módulo "Mercado y oportunidades" del sidebar de 5 módulos, tab "Home marketplace general" (equivale a ¿Qué necesitás?/M6 de docs/pantallas.md). 3 estados: cero, ficha de interpretación editable, resultados. Estilo actualizado a los tokens/clases reales de /designs/tokens.css.</span>
 </div>
 
 <div style="display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap">
@@ -51,19 +51,23 @@ a{color:#23573D}a:hover{color:#194029}
 <aside class="sidebar-mini">
 <div class="brand-mini"><span style="width:24px;height:24px;background:var(--action);color:#fff;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font:700 12px/1 var(--sans);flex:none">A</span><span style="font:700 14px/1 var(--sans);letter-spacing:-.02em">AgroMatch</span></div>
 <div style="display:flex;flex-direction:column;gap:14px;padding:0 10px">
-<div class="nav-group"><div class="nav-group-label">Necesidad</div>
-<a class="nav-item active"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/><path d="M19 13l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg><span>¿Qué necesitás?</span></a></div>
-<div class="nav-group"><div class="nav-group-label">Rodeo</div>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg><span>Carga del rodeo</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Tablero del rodeo</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-9.5-9A5 5 0 0112 6a5 5 0 019.5 5c-2.5 4.5-9.5 9-9.5 9z"/></svg><span>Swipe</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="1.5"/><path d="M9 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/><path d="M9 10h6M9 13h6M9 16h4"/></svg><span>Plan de servicios</span></a></div>
-<div class="nav-group"><div class="nav-group-label">Asesor</div>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M4 20h16"/></svg><span>Panel del asesor</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mi establecimiento</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.2 1.8-2.5 3.5"/><circle cx="12" cy="17" r=".2"/></svg><span>Setup conversacional</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mercado y oportunidades</div>
+<a class="nav-item active"><svg class="icon" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 20v-5h6v5"/></svg><span>Home marketplace general</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Motor genético</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg><span>Matching genético</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Negociación y tratos</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M3 12l5-5 3 3 4-4 6 6"/><circle cx="19" cy="6" r="1.6"/><path d="M3 18h18"/></svg><span>Mis matches / mensajes</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mis ofertas</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l5-9 4 6 3-4 6 7"/><path d="M3 20h18"/></svg><span>Cargar lotes / servicios</span></a></div>
 </div>
 </aside>
 <div style="flex:1;min-width:0;display:flex;flex-direction:column">
-<div style="padding:9px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center"><span class="t-meta" style="margin-left:auto">Estado 1 · cero</span></div>
+<div style="padding:9px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
+<span class="btn" style="background:var(--ink);color:var(--card);padding:6px 12px;font-size:11px">Home marketplace general</span>
+<span class="t-meta" style="margin-left:auto">Estado 1 · cero</span>
+</div>
 <div style="padding:70px 50px;display:flex;flex-direction:column;align-items:center;gap:34px;min-height:520px;justify-content:center">
 <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
 <span class="t-meta">Hora de empezar, Tobías</span>
@@ -90,15 +94,16 @@ a{color:#23573D}a:hover{color:#194029}
 <aside class="sidebar-mini">
 <div class="brand-mini"><span style="width:24px;height:24px;background:var(--action);color:#fff;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font:700 12px/1 var(--sans);flex:none">A</span><span style="font:700 14px/1 var(--sans);letter-spacing:-.02em">AgroMatch</span></div>
 <div style="display:flex;flex-direction:column;gap:14px;padding:0 10px">
-<div class="nav-group"><div class="nav-group-label">Necesidad</div>
-<a class="nav-item active"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/><path d="M19 13l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg><span>¿Qué necesitás?</span></a></div>
-<div class="nav-group"><div class="nav-group-label">Rodeo</div>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg><span>Carga del rodeo</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Tablero del rodeo</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-9.5-9A5 5 0 0112 6a5 5 0 019.5 5c-2.5 4.5-9.5 9-9.5 9z"/></svg><span>Swipe</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="1.5"/><path d="M9 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/><path d="M9 10h6M9 13h6M9 16h4"/></svg><span>Plan de servicios</span></a></div>
-<div class="nav-group"><div class="nav-group-label">Asesor</div>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M4 20h16"/></svg><span>Panel del asesor</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mi establecimiento</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.2 1.8-2.5 3.5"/><circle cx="12" cy="17" r=".2"/></svg><span>Setup conversacional</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mercado y oportunidades</div>
+<a class="nav-item active"><svg class="icon" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 20v-5h6v5"/></svg><span>Home marketplace general</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Motor genético</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg><span>Matching genético</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Negociación y tratos</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M3 12l5-5 3 3 4-4 6 6"/><circle cx="19" cy="6" r="1.6"/><path d="M3 18h18"/></svg><span>Mis matches / mensajes</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mis ofertas</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l5-9 4 6 3-4 6 7"/><path d="M3 20h18"/></svg><span>Cargar lotes / servicios</span></a></div>
 </div>
 </aside>
 <div style="flex:1;min-width:0;display:flex;flex-direction:column">
@@ -145,15 +150,16 @@ a{color:#23573D}a:hover{color:#194029}
 <aside class="sidebar-mini">
 <div class="brand-mini"><span style="width:24px;height:24px;background:var(--action);color:#fff;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font:700 12px/1 var(--sans);flex:none">A</span><span style="font:700 14px/1 var(--sans);letter-spacing:-.02em">AgroMatch</span></div>
 <div style="display:flex;flex-direction:column;gap:14px;padding:0 10px">
-<div class="nav-group"><div class="nav-group-label">Necesidad</div>
-<a class="nav-item active"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/><path d="M19 13l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg><span>¿Qué necesitás?</span></a></div>
-<div class="nav-group"><div class="nav-group-label">Rodeo</div>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg><span>Carga del rodeo</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Tablero del rodeo</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-9.5-9A5 5 0 0112 6a5 5 0 019.5 5c-2.5 4.5-9.5 9-9.5 9z"/></svg><span>Swipe</span></a>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="1.5"/><path d="M9 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/><path d="M9 10h6M9 13h6M9 16h4"/></svg><span>Plan de servicios</span></a></div>
-<div class="nav-group"><div class="nav-group-label">Asesor</div>
-<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M4 20h16"/></svg><span>Panel del asesor</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mi establecimiento</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.2 1.8-2.5 3.5"/><circle cx="12" cy="17" r=".2"/></svg><span>Setup conversacional</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mercado y oportunidades</div>
+<a class="nav-item active"><svg class="icon" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 20v-5h6v5"/></svg><span>Home marketplace general</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Motor genético</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg><span>Matching genético</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Negociación y tratos</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M3 12l5-5 3 3 4-4 6 6"/><circle cx="19" cy="6" r="1.6"/><path d="M3 18h18"/></svg><span>Mis matches / mensajes</span></a></div>
+<div class="nav-group"><div class="nav-group-label">Mis ofertas</div>
+<a class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l5-9 4 6 3-4 6 7"/><path d="M3 20h18"/></svg><span>Cargar lotes / servicios</span></a></div>
 </div>
 </aside>
 <div style="flex:1;min-width:0;display:flex;flex-direction:column">
@@ -213,7 +219,7 @@ a{color:#23573D}a:hover{color:#194029}
 
 </div>
 
-<p class="t-meta" style="margin:6px 0 0;max-width:76ch;line-height:1.6">Los resultados solo cargan tras confirmar la ficha del estado 2 — nada se busca sin validar los 4 parámetros (RN-30). Si la categoría fuera GENETICS, "Buscar proveedores" llevaría a Swipe en vez de esta grilla (docs/pantallas.md §3.1). Sidebar alineado 1:1 a <code>docs/pantallas.md §1</code> (grupos Necesidad / Rodeo / Asesor) con "¿Qué necesitás?" activo — reemplaza la versión anterior de este mockup, que usaba un sidebar de 5 módulos de marketplace no alineado al MVP.</p>
+<p class="t-meta" style="margin:6px 0 0;max-width:76ch;line-height:1.6">Los resultados solo cargan tras confirmar la ficha del estado 2 — nada se busca sin validar los 4 parámetros (RN-30). Si la categoría fuera GENETICS, "Buscar proveedores" llevaría al módulo Motor genético (tab Matching genético) en vez de esta grilla (docs/pantallas.md §3.1). Sidebar de 5 módulos estrictos con "Mercado y oportunidades" activo; adentro del módulo, la tab "Home marketplace general" es la pantalla real ¿Qué necesitás? (M6) del MVP.</p>
 </div>
 </x-dc>
 </body>
