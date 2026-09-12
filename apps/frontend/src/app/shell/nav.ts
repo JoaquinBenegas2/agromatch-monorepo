@@ -35,7 +35,7 @@ export const NAV_MODULES: NavModule[] = [
     subtitle: 'mercado general',
     tabs: [
       {
-        label: '¿Qué necesitás?',
+        label: 'Home marketplace general',
         path: '/mercado',
         status: 'not-implemented',
         spec: 'mvp-b-need',

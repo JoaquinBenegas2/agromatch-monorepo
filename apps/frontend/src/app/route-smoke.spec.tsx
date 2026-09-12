@@ -74,4 +74,9 @@ describe('REQ-FS-03: la tab del asesor', () => {
     renderAt('/motor-genetico/asesor', 'tambero-a');
     expect(screen.getByText('Esta pantalla es del asesor')).toBeTruthy();
   });
+
+  it('un ADVISOR en /motor-genetico/asesor no ve la explicación de rol', () => {
+    renderAt('/motor-genetico/asesor', 'asesor-1');
+    expect(screen.queryByText('Esta pantalla es del asesor')).toBeNull();
+  });
 });
