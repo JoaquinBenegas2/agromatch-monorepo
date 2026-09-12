@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type {
   MatchBoard,
   Need,
@@ -20,9 +20,11 @@ import { CowLoader } from '@/components/ui/cow-loader';
 import { EmptyState } from '@/components/ui/empty-state';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { SpatialLabel, SpatialScene } from '@/components/spatial/spatial-scene';
+import { cn } from '@/lib/utils';
 import { useActiveFarmId, useUser } from '../../shared/user/user-context.js';
 import { NeedFilterBar } from './need-filter-bar.js';
 import { MarketResults } from './market-results.js';
+import { useSpeechToText } from './use-speech-to-text.js';
 import {
   useCreateNeed,
   useCreateReview,
@@ -99,6 +101,17 @@ export function MarketplacePage() {
     updateNeed.error,
     matchNeed.error,
   );
+  const queryRef = useRef(query);
+  queryRef.current = query;
+  // Ni bien el reconocimiento de voz termina de interpretar lo que dijiste,
+  // dispara la búsqueda solo — no hace falta tocar "Preguntar" después.
+  const speech = useSpeechToText((transcript) => {
+    const next = queryRef.current.trim()
+      ? `${queryRef.current.trim()} ${transcript}`
+      : transcript;
+    setQuery(next);
+    void ask(next).catch(() => undefined);
+  });
 
   async function ask(rawText: string) {
     if (!farmId || !rawText.trim()) return;
@@ -208,7 +221,7 @@ export function MarketplacePage() {
   }
 
   return (
-    <div className="futuros-page">
+    <div className="futuros-page market-fill">
       <section className="market-hero">
         <div className="market-copy">
           <span className="eyebrow muted">Mercado y oportunidades</span>
@@ -246,10 +259,23 @@ export function MarketplacePage() {
               <div className="row" style={{ gap: 8 }}>
                 <button
                   type="button"
-                  className="btn ghost"
-                  disabled
-                  title="Audio: hoja de ruta"
-                  aria-label="Audio no disponible todavía"
+                  className={cn('btn ghost', speech.listening && 'listening')}
+                  disabled={!speech.supported}
+                  onClick={speech.toggle}
+                  title={
+                    speech.supported
+                      ? speech.listening
+                        ? 'Escuchando… tocá para detener'
+                        : 'Dictar por voz'
+                      : 'Tu navegador no soporta dictado por voz'
+                  }
+                  aria-label={
+                    speech.supported
+                      ? speech.listening
+                        ? 'Detener dictado'
+                        : 'Dictar necesidad por voz'
+                      : 'Audio no disponible en este navegador'
+                  }
                 >
                   <Mic className="icon" style={{ width: 16, height: 16 }} />
                 </button>
@@ -296,17 +322,8 @@ export function MarketplacePage() {
               Tu necesidad
             </span>
           </SpatialLabel>
-          <span className="pointer-events-none absolute bottom-2 left-3 z-[2] text-[9px] text-[#4f6b45]">
-            Vista conceptual, no representa proveedores reales
-          </span>
         </SpatialScene>
       </section>
-      <div className="market-foot">
-        <span>
-          <strong>Prestadores por suscripción.</strong> Sin comisión por trabajo
-          ni pago por posición.
-        </span>
-      </div>
     </div>
   );
 }

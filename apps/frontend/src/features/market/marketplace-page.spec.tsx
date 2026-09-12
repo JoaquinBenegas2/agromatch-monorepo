@@ -58,10 +58,9 @@ describe('MarketplacePage', () => {
     expect(
       screen.getByText('¿Qué necesita tu establecimiento hoy?'),
     ).toBeTruthy();
-    expect(screen.getByLabelText('Audio no disponible todavía')).toHaveProperty(
-      'disabled',
-      true,
-    );
+    expect(
+      screen.getByLabelText('Audio no disponible en este navegador'),
+    ).toHaveProperty('disabled', true);
     expect(requestUrls.some((url) => url.endsWith('/api/needs'))).toBe(false);
   });
 
