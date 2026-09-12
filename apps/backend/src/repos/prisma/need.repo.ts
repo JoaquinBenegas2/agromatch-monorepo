@@ -3,11 +3,13 @@ import type {
   BreedingGoal,
   GeoPoint,
   Magnitude,
+  MatchBoard,
   Need,
   NeedCategory,
   NeedStatus,
   TimeWindow,
 } from '@org/shared-types';
+import type { Prisma } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import type { NeedRepo } from '../need.port.js';
 
@@ -99,5 +101,12 @@ export class PrismaNeedRepo implements NeedRepo {
       where: { farmId, ...(opts?.includeSynthetic ? {} : { synthetic: false }) },
     });
     return rows.map(toDomain);
+  }
+
+  async saveMatchBoard(id: string, board: MatchBoard): Promise<void> {
+    await this.prisma.need.update({
+      where: { id },
+      data: { lastMatchBoard: board as unknown as Prisma.InputJsonValue },
+    });
   }
 }

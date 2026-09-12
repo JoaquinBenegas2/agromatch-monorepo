@@ -110,6 +110,7 @@ model Need {
   missingFields  String[]
   confidence     Json?
   synthetic      Boolean  @default(false)
+  lastMatchBoard Json?
 }
 
 model Provider {
