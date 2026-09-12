@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import type { User } from '@org/shared-types';
+import { UiKitPreview } from './ui-kit-preview';
 
-export function App() {
+function Home() {
   const [users, setUsers] = useState<User[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -58,6 +60,15 @@ export function App() {
         )}
       </div>
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/ui-kit" element={<UiKitPreview />} />
+    </Routes>
   );
 }
 
