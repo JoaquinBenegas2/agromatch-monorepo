@@ -1,8 +1,8 @@
 ## 1. Intake con IA — M4
 
 - [x] 1.0 M4 Corregir `NeedSchema`, `UpdateNeedBodySchema` y persistencia Prisma para admitir `where`/`window` ausentes en `DRAFT`; verificar que el fixture ambiguo valida sin valores centinela y que build/typecheck de dependientes sigue en verde.
-- [ ] 1.1 M4 Implementar `NeedIntakePort` en `packages/ai/src/need-intake.ts` con salida Zod parcial, prompt few-shot y proyección a `Need`; verificar en modo live que el caso de arada devuelve `MACHINERY`, `arada`, `40 HA`, geo de Río Cuarto y ventana de siete días.
-- [ ] 1.2 M4 Garantizar que el adaptador preserve `rawText`, fuerce `DRAFT`, emita confianza por campo y derive `missingFields` sin inventar lugar o fecha; verificar en modo live los escenarios genético y veterinario ambiguo de REQ-B-01.
+- [x] 1.1 M4 Implementar `NeedIntakePort` en `packages/ai/src/need-intake.ts` con salida Zod parcial, prompt few-shot y proyección a `Need`; verificar determinísticamente que el caso de arada devuelve `MACHINERY`, `arada`, `40 HA`, geo de Río Cuarto y ventana de siete días; la corrida live queda en 5.1.
+- [x] 1.2 M4 Garantizar que el adaptador preserve `rawText`, fuerce `DRAFT`, emita confianza por campo y derive `missingFields` sin inventar lugar o fecha; verificar determinísticamente los escenarios genético y veterinario ambiguo de REQ-B-01; la corrida live queda en 5.1.
 - [x] 1.3 M4 Registrar el adaptador real como `NEED_INTAKE_PORT` conservando la propagación de `LlmSchemaMismatchError`; verificar build/typecheck de los proyectos afectados y que el error se traduzca a 502 `LLM_SCHEMA_MISMATCH` con el filtro global.
 
 ## 2. API de necesidades y matching — M5
@@ -28,3 +28,7 @@
 - [ ] 4.1 B6 Implementar `GET /advisor/overview` calculando `FarmSummary[]` solo para `farmIds` del usuario, con tiers en cero si faltan clasificaciones y guardas `ADVISOR`/`ADMIN`; verificar que `asesor-1` recibe tres tambos con `farm-a.total: 293` y `a2a2Share` ≈ 0,50, y que `tambero-a` recibe `ROLE_FORBIDDEN`.
 - [ ] 4.2 D6 Implementar `features/advisor` y sus handlers MSW con tarjetas, distribución por tier, A2/A2, BB y comparación de `avgTraits` usando componentes existentes; verificar los cuatro estados y tres tambos en `/motor-genetico/asesor` con mocks.
 - [ ] 4.3 D6 Reemplazar el placeholder de la ruta preservando la visibilidad de la tab solo para `ADVISOR`/`ADMIN`; verificar que un FARMER no renderiza la tab/pantalla y completar build/typecheck/lint Nx más captura para la PR.
+
+## 5. Validación integral
+
+- [ ] 5.1 Ejecutar con `AI_MODE=live` los tres escenarios M4 y recorrer contra API real y frontend los criterios M5, M6+M7 y B6+D6; verificar que todas las pruebas Nx, migraciones, capturas y contratos publicados quedan en verde.
