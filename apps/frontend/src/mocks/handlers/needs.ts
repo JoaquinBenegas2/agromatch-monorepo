@@ -112,6 +112,13 @@ export const needsHandlers = [
     return HttpResponse.json(need);
   }),
 
+  http.get('/api/needs/:id', ({ params, request }) => {
+    const need = mockNeeds.find((item) => item.id === params['id']);
+    if (!need) return apiError('NEED_NOT_FOUND', 'La necesidad no existe', 404, { needId: params['id'] });
+    if (!ownedFarm(request, need.farmId)) return apiError('FARM_FORBIDDEN', 'No tenés acceso a este establecimiento', 403);
+    return HttpResponse.json(need);
+  }),
+
   http.patch('/api/needs/:id', async ({ params, request }) => {
     const index = mockNeeds.findIndex((need) => need.id === params['id']);
     if (index < 0) return apiError('NEED_NOT_FOUND', 'La necesidad no existe', 404, { needId: params['id'] });

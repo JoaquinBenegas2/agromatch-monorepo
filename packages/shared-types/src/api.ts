@@ -25,6 +25,7 @@ import {
  * | GET /me                                                                | —                                        | `{ user: User; farms: Farm[] }`                | api-skeleton        |
  * | GET /bulls                                                             | —                                        | `Bull[]`                                       | api-skeleton        |
  * | POST /needs                                                            | `CreateNeedBody`                         | `Need` (DRAFT)                                  | mvp-b-need          |
+ * | GET /needs/:id                                                         | —                                        | `Need`                                          | mvp-b-need          |
  * | PATCH /needs/:id                                                       | `UpdateNeedBody`                         | `Need` (OPEN)                                   | mvp-b-need          |
  * | GET /needs?farmId=                                                     | —                                        | `Need[]` (sin sintéticos)                       | mvp-b-need          |
  * | POST /needs/:id/matches                                                | —                                        | `MatchBoard`                                    | mvp-b-need          |

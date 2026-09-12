@@ -66,7 +66,7 @@ function SidebarNavGroup({ className, label, children, ...props }: SidebarNavGro
   return (
     <div data-slot="sidebar-nav-group" className={cn('flex flex-col gap-0.5 px-3', className)} {...props}>
       {label && (
-        <div className="mb-2 px-2.5 font-mono text-[9.5px] font-semibold tracking-[0.12em] text-ink-3 uppercase">
+        <div className="mb-2 px-2.5 text-[9.5px] font-semibold tracking-[0.12em] text-ink-3 uppercase">
           {label}
         </div>
       )}

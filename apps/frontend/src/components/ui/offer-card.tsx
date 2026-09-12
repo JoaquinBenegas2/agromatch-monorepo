@@ -18,7 +18,7 @@ export interface OfferCardProps extends Omit<React.ComponentProps<typeof Card>, 
   badges?: React.ReactNode;
   /** Ranking relativo dentro del catálogo. Nunca una probabilidad (RN-15). */
   rank?: { position: number; total: number };
-  /** Como mucho 2 datos clave, en mono tabular. */
+  /** Como mucho 2 datos clave. */
   stats?: OfferCardStat[];
   price?: React.ReactNode;
   /** Slot para <AiExplanation />, si esta pantalla la necesita. */
@@ -56,7 +56,7 @@ function OfferCard({
             {subtitle && <p className="truncate text-[11.5px] text-muted-foreground">{subtitle}</p>}
           </div>
           {rank && (
-            <span className="inline-flex shrink-0 items-center rounded-sm bg-accent px-2 py-1 font-mono text-[11px] font-semibold text-primary">
+            <span className="inline-flex shrink-0 items-center rounded-sm bg-accent px-2 py-1 text-[11px] font-semibold text-primary">
               #{rank.position} de {rank.total}
             </span>
           )}
@@ -69,7 +69,7 @@ function OfferCard({
             {stats.map((stat, index) => (
               <div key={index} className="flex flex-col gap-0.5">
                 <span className="text-[10.5px] text-muted-foreground">{stat.label}</span>
-                <span className="font-mono text-[12.5px] font-semibold text-foreground">{stat.value}</span>
+                <span className="text-[12.5px] font-semibold text-foreground">{stat.value}</span>
               </div>
             ))}
           </div>
@@ -78,7 +78,7 @@ function OfferCard({
         {price && (
           <div className="flex items-center justify-between border-t border-border-soft pt-3">
             <span className="text-[10.5px] text-muted-foreground">Precio</span>
-            <span className="font-mono text-[15px] font-bold text-foreground">{price}</span>
+            <span className="text-[15px] font-bold text-foreground">{price}</span>
           </div>
         )}
 

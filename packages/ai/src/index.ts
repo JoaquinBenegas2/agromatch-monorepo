@@ -4,6 +4,7 @@ export * from './lib/chat.js';
 export * from './lib/goal-parser.js';
 export * from './lib/cache.js';
 export * from './lib/explainer.js';
+export * from './lib/market-explainer.js';
 export * from './lib/validate-numbers.js';
 export * from './need-intake.js';
 export * from './lib/herd-ingestion.js';

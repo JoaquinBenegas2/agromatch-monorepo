@@ -46,7 +46,7 @@ function ComparisonBar({
     <div data-slot="comparison-bar" className={cn('flex flex-col gap-1.5', className)} {...props}>
       <div className="flex items-center justify-between text-[11px]">
         <span className="text-muted-foreground">{label}</span>
-        <span className="font-mono text-foreground">
+        <span className="text-foreground">
           {format(from)} → {format(to)}{' '}
           <span className={improves ? 'text-primary' : 'text-destructive'}>
             {improves ? 'mejora' : 'empeora'}

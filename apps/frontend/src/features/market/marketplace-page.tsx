@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type {
   MatchBoard,
   Need,
@@ -14,7 +14,7 @@ import {
   Stethoscope,
   Tractor,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { CowLoader } from '@/components/ui/cow-loader';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -30,6 +30,7 @@ import {
   useCreateReview,
   useCreateServiceRequest,
   useMatchNeed,
+  useNeed,
   useProviders,
   useUpdateNeed,
 } from './market.api.js';
@@ -87,9 +88,12 @@ export function MarketplacePage() {
   const navigate = useNavigate();
   const { user } = useUser();
   const [farmId] = useActiveFarmId();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const needIdFromUrl = searchParams.get('needId') ?? undefined;
   const [query, setQuery] = useState('');
   const [need, setNeed] = useState<Need>();
   const [board, setBoard] = useState<MatchBoard>();
+  const restoredNeed = useNeed(needIdFromUrl);
   const createNeed = useCreateNeed();
   const updateNeed = useUpdateNeed();
   const matchNeed = useMatchNeed();
@@ -100,6 +104,7 @@ export function MarketplacePage() {
     createNeed.error,
     updateNeed.error,
     matchNeed.error,
+    restoredNeed.error,
   );
   const queryRef = useRef(query);
   queryRef.current = query;
@@ -112,6 +117,32 @@ export function MarketplacePage() {
     setQuery(next);
     void ask(next).catch(() => undefined);
   });
+
+  // Al recargar la página (F5), la necesidad se recupera por needId desde la
+  // URL y se vuelve a confirmar/matchear contra el motor real, en vez de
+  // volver a "¿Qué necesita tu establecimiento hoy?".
+  useEffect(() => {
+    if (!needIdFromUrl || need) return;
+    if (restoredNeed.isError) {
+      // El needId ya no existe o no es de este usuario: no se puede
+      // restaurar, se vuelve al inicio en vez de quedar cargando siempre.
+      setSearchParams({}, { replace: true });
+      return;
+    }
+    if (!restoredNeed.data) return;
+    const restored = restoredNeed.data;
+    if (restored.category === 'GENETICS') {
+      navigate('/motor-genetico/matching', { state: { needId: restored.id, goal: restored.goal }, replace: true });
+      return;
+    }
+    // Sincroniza el estado editable con un fetch externo (needId → backend):
+    // no hay forma de derivarlo en el render, así que el set en el efecto es
+    // intencional (mismo patrón que matching-screen.tsx:118-121).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setNeed(restored);
+    void search(restored).catch(() => undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [needIdFromUrl, restoredNeed.data, restoredNeed.isError]);
 
   async function ask(rawText: string) {
     if (!farmId || !rawText.trim()) return;
@@ -130,6 +161,7 @@ export function MarketplacePage() {
       return;
     }
     setNeed(created);
+    setSearchParams({ needId: created.id }, { replace: true });
     await search(created);
   }
 
@@ -162,9 +194,11 @@ export function MarketplacePage() {
     setQuery(need?.rawText ?? '');
     setNeed(undefined);
     setBoard(undefined);
+    setSearchParams({}, { replace: true });
   }
 
   if (createNeed.isPending) return <LoadingInterpretation />;
+  if (needIdFromUrl && !need && !restoredNeed.isError) return <LoadingInterpretation />;
 
   if (need) {
     const searching = updateNeed.isPending || matchNeed.isPending;
