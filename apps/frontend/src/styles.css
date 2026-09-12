@@ -1,1 +1,114 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+
+/*
+ * Tokens de AgroMatch (ver /designs/tokens.css, fuente de verdad visual).
+ * Se exponen como variables semánticas al estilo shadcn/ui para que la
+ * librería de componentes en src/components/ui use clases utilitarias
+ * (bg-primary, text-muted-foreground, border-border, etc.) en vez de
+ * hex hardcodeados.
+ */
+:root {
+  --background: #fafafa;
+  --foreground: #1b1c1b;
+
+  --card: #ffffff;
+  --card-foreground: #1b1c1b;
+
+  --popover: #ffffff;
+  --popover-foreground: #1b1c1b;
+
+  --primary: #23573d;
+  --primary-hover: #194029;
+  --primary-foreground: #ffffff;
+
+  --secondary: #eaeeeb;
+  --secondary-foreground: #23573d;
+  --secondary-border: #c8d5cc;
+
+  --muted: #f6f6f5;
+  --muted-foreground: #5a5c59;
+
+  --accent: #eaeeeb;
+  --accent-foreground: #23573d;
+
+  --destructive: #98392b;
+  --destructive-foreground: #ffffff;
+
+  --warning: #6d5a18;
+  --warning-soft: #f1f0ea;
+
+  --border: #e1e1df;
+  --border-soft: #ededec;
+  --input: #e1e1df;
+  --ring: #23573d;
+
+  --ink-3: #6e706c;
+  --ink-4: #9b9d9a;
+  --row-off: #f6f6f5;
+
+  --font-sans: 'Instrument Sans', system-ui, sans-serif;
+
+  --radius: 4px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-border: var(--secondary-border);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+
+  --color-border: var(--border);
+  --color-border-soft: var(--border-soft);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+  --color-row-off: var(--row-off);
+
+  --font-sans: var(--font-sans);
+
+  --radius-sm: calc(var(--radius) - 1px);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
