@@ -16,18 +16,18 @@
 
 ## 3. Home marketplace y proveedores — M6 + M7
 
-- [ ] 3.1 M7 Reemplazar `packages/shared-types/fixtures/providers.json` por al menos 25 proveedores públicos de maquinaria/veterinaria y uno genético por central, todos `verified: false`, con `source` y dos zonas; verificar con el test Nx de `shared-types` y el escenario de cobertura de REQ-B-12.
-- [ ] 3.2 M6 Implementar hooks React Query y handlers MSW de `features/market` para intake, confirmación, matching y solicitud usando los fixtures compartidos; verificar el recorrido completo sin backend y que el contacto no exista antes de pedir fecha.
-- [ ] 3.3 M6 Implementar el estado cero de `/mercado` según la referencia visual, con saludo real, caja, micrófono deshabilitado y los tres chips del MVP; verificar que entrar no haga `POST /needs` y que el sidebar marque Mercado y oportunidades.
-- [ ] 3.4 M6 Implementar la ficha interpretada con cuatro filas editables, avisos para confianza baja/campos faltantes, edición de consulta y confirmación; verificar los escenarios de campo dudoso, corrección y reemplazo de resultados de REQ-B-07.
-- [ ] 3.5 M6 Implementar resultados con resumen, ordenamientos locales, `OfferCard`, `#N de M`, `VerificationBadge`, etiqueta Semilla, `AiExplanation`, excluidos y solicitud; verificar que ordenar por precio no haga una request ni altere los ranks y que pedir fecha revele contacto.
-- [ ] 3.6 M6 Implementar la derivación de `GENETICS` a `/motor-genetico/matching` sin ejecutar matching genérico, más estados vacío, cargando, error real y sin proveedores; verificar todos los escenarios REQ-B-10/11, build/typecheck/lint Nx y capturas de los tres estados para la PR.
+- [x] 3.1 M7 Reemplazar `packages/shared-types/fixtures/providers.json` por al menos 25 proveedores públicos de maquinaria/veterinaria y uno genético por central, todos `verified: false`, con `source` y dos zonas; verificar con el test Nx de `shared-types` y el escenario de cobertura de REQ-B-12.
+- [x] 3.2 M6 Implementar hooks React Query y handlers MSW de `features/market` para intake, confirmación, matching y solicitud usando los fixtures compartidos; verificar el recorrido completo sin backend y que el contacto no exista antes de pedir fecha.
+- [x] 3.3 M6 Implementar el estado cero de `/mercado` según la referencia visual, con saludo real, caja, micrófono deshabilitado y los tres chips del MVP; verificar que entrar no haga `POST /needs` y que el sidebar marque Mercado y oportunidades.
+- [x] 3.4 M6 Implementar la ficha interpretada con cuatro filas editables, avisos para confianza baja/campos faltantes, edición de consulta y confirmación; verificar los escenarios de campo dudoso, corrección y reemplazo de resultados de REQ-B-07.
+- [x] 3.5 M6 Implementar resultados con resumen, ordenamientos locales, `OfferCard`, `#N de M`, `VerificationBadge`, etiqueta Semilla, `AiExplanation`, excluidos y solicitud; verificar que ordenar por precio no haga una request ni altere los ranks y que pedir fecha revele contacto.
+- [x] 3.6 M6 Implementar la derivación de `GENETICS` a `/motor-genetico/matching` sin ejecutar matching genérico, más estados vacío, cargando, error real y sin proveedores; verificar todos los escenarios REQ-B-10/11, build/typecheck/lint Nx y capturas de los tres estados para la PR.
 
 ## 4. Anexo: panel del asesor — B6 + D6
 
-- [ ] 4.1 B6 Implementar `GET /advisor/overview` calculando `FarmSummary[]` solo para `farmIds` del usuario, con tiers en cero si faltan clasificaciones y guardas `ADVISOR`/`ADMIN`; verificar que `asesor-1` recibe tres tambos con `farm-a.total: 293` y `a2a2Share` ≈ 0,50, y que `tambero-a` recibe `ROLE_FORBIDDEN`.
-- [ ] 4.2 D6 Implementar `features/advisor` y sus handlers MSW con tarjetas, distribución por tier, A2/A2, BB y comparación de `avgTraits` usando componentes existentes; verificar los cuatro estados y tres tambos en `/motor-genetico/asesor` con mocks.
-- [ ] 4.3 D6 Reemplazar el placeholder de la ruta preservando la visibilidad de la tab solo para `ADVISOR`/`ADMIN`; verificar que un FARMER no renderiza la tab/pantalla y completar build/typecheck/lint Nx más captura para la PR.
+- [x] 4.1 B6 Implementar `GET /advisor/overview` calculando `FarmSummary[]` solo para `farmIds` del usuario, con tiers en cero si faltan clasificaciones y guardas `ADVISOR`/`ADMIN`; verificar que `asesor-1` recibe tres tambos con `farm-a.total: 293` y `a2a2Share` ≈ 0,50, y que `tambero-a` recibe `ROLE_FORBIDDEN`.
+- [x] 4.2 D6 Implementar `features/advisor` y sus handlers MSW con tarjetas, distribución por tier, A2/A2, BB y comparación de `avgTraits` usando componentes existentes; verificar los cuatro estados y tres tambos en `/motor-genetico/asesor` con mocks.
+- [x] 4.3 D6 Reemplazar el placeholder de la ruta preservando la visibilidad de la tab solo para `ADVISOR`/`ADMIN`; verificar que un FARMER no renderiza la tab/pantalla y completar build/typecheck/lint Nx más captura para la PR.
 
 ## 5. Validación integral
 

@@ -20,7 +20,9 @@ import type {
 
 import farmsJson from './farms.json' with { type: 'json' };
 import usersJson from './users.json' with { type: 'json' };
-import bullsSeedJson from './bulls.seed.json' with { type: 'json' };
+// A6: bulls.json reemplaza bulls.seed.json (mismo esquema, catálogo real citado).
+// El nombre `bullsSeed` se mantiene para no romper a quien ya lo importa.
+import bullsSeedJson from './bulls.json' with { type: 'json' };
 import providersJson from './providers.json' with { type: 'json' };
 import needsSamplesJson from './needs.samples.json' with { type: 'json' };
 import herdFarmAJson from './herd-farm-a.json' with { type: 'json' };
@@ -39,6 +41,7 @@ import breedingPlanJson from './samples/breeding-plan.json' with { type: 'json' 
 import farmSummariesJson from './samples/farm-summaries.json' with { type: 'json' };
 import needDraftJson from './samples/need-draft.json' with { type: 'json' };
 import chatAnswerJson from './samples/chat-answer.json' with { type: 'json' };
+import chatToolChoiceJson from './samples/chat-tool-choice.json' with { type: 'json' };
 
 export const farms = farmsJson as unknown as Farm[];
 export const users = usersJson as unknown as User[];
@@ -73,4 +76,11 @@ export const samples = {
   farmSummaries: farmSummariesJson as unknown as FarmSummary[],
   needDraft: needDraftJson as unknown as Need,
   chatAnswer: chatAnswerJson as unknown as ChatAnswer,
+  chatToolChoice: chatToolChoiceJson as unknown as {
+    tool: 'countByTier' | 'listFemales' | 'explainClassification' | null;
+    tier: string | null;
+    tag: string | null;
+    limit: number | null;
+    femaleId: string | null;
+  },
 };
