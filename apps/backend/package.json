@@ -157,8 +157,8 @@
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
     "@org/ai": "0.0.1",
-    "@org/matching-core": "0.0.1",
     "@org/genetics-core": "0.0.1",
+    "@org/matching-core": "0.0.1",
     "@org/shared-types": "0.0.1",
     "@prisma/adapter-pg": "7.10.0",
     "@prisma/client": "7.10.0",
@@ -170,6 +170,7 @@
   },
   "devDependencies": {
     "@nestjs/testing": "^11.0.0",
+    "@types/multer": "^2.2.0",
     "@types/pg": "8.23.1"
   }
 }

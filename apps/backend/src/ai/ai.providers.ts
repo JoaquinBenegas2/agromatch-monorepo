@@ -1,15 +1,15 @@
 import type { Provider } from '@nestjs/common';
-import type { LlmClient, LlmPrompt, NeedIntakePort } from '@org/shared-types';
+import type { ChatPort, LlmClient, LlmPrompt, NeedIntakePort } from '@org/shared-types';
 import {
   AiNeedIntake,
   AnthropicExplainer,
   AnthropicGoalParser,
   AnthropicLlmClient,
+  GeneticsChatPort,
   HerdIngestion,
 } from '@org/ai';
 import type { ZodType } from 'zod';
 import {
-  FakeChat,
   FakeHerdIngestion,
   FakeLlmClient,
   FakeNeedIntake,
@@ -77,6 +77,10 @@ export const AI_PROVIDERS: Provider[] = [
     useFactory: (llm: LlmClient): NeedIntakePort =>
       isLive() ? new AiNeedIntake(llm) : FakeNeedIntake,
   },
-  // CHAT_PORT: real de mvp-a-core (C6). Hasta que exista, el fake.
-  { provide: CHAT_PORT, useValue: FakeChat },
+  // CHAT_PORT: real de mvp-a-core (C6, anexo del chat).
+  {
+    provide: CHAT_PORT,
+    useFactory: (llm: LlmClient): ChatPort => new GeneticsChatPort(llm),
+    inject: [LLM_CLIENT],
+  },
 ];

@@ -10,6 +10,7 @@ import { HerdImportModule } from '../herd-import/herd-import.module.js';
 import { HerdModule } from '../herd/herd.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { ChatModule } from './chat/chat.module.js';
 import { GeneticMatchingModule } from './genetic-matching/genetic-matching.module.js';
 import { MatchingModule } from './matching/matching.module.js';
 import { NeedsModule } from './needs/needs.module.js';
@@ -24,6 +25,7 @@ import { SmokeController } from './smoke.controller.js';
     RepositoriesModule,
     AuthModule,
     AiModule,
+    ChatModule,
     NeedsModule,
     ProvidersModule,
     MatchingModule,

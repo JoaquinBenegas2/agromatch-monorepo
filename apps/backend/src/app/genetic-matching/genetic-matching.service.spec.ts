@@ -72,7 +72,11 @@ const provider: Provider = {
   id: 'prov-genetics-norte',
   name: 'Central Genética Norte',
   type: 'SEMEN_COMPANY',
-  base: { lat: -31.4, lng: -64.18, label: 'Córdoba' },
+  // `makeGeneticsNeed` (B4) arma la Need sintética con `where: {lat:0,lng:0}`
+  // (placeholder, no la ubicación real del tambo todavía) -- el proveedor se
+  // ubica ahí mismo para que el filtro de cobertura real de M2 (hardFilters)
+  // no descarte al candidato por distancia.
+  base: { lat: 0, lng: 0, label: 'Establecimiento' },
   verified: false,
   reputation: { avg: 4.5, jobs: 130 },
   contact: {},

@@ -51,15 +51,27 @@ describe('fixtures validate against their zod schemas (REQ-SC-05)', () => {
     ]);
   });
 
-  it('bulls.seed.json → 12 toros válidos', () => {
+  it('bulls.json → entre 20 y 30 toros reales, todos válidos (REQ-A-11)', () => {
     const parsed = z.array(BullSchema).parse(bullsSeed);
-    expect(parsed).toHaveLength(12);
+    expect(parsed.length).toBeGreaterThanOrEqual(20);
+    expect(parsed.length).toBeLessThanOrEqual(30);
 
+    // Scenario "Validación del catálogo real": ningún lechero sin CDCB, source citada.
+    for (const bull of parsed) {
+      if (bull.profile) expect(bull.profile.scale).toBe('CDCB');
+      expect(bull.source.length).toBeGreaterThan(0);
+    }
+
+    // Scenario "Cobertura de la demo": los padres de herd-farm-a.json están, con ≥2 hijos de 029HO19531.
     const fundador = parsed.find((b) => b.naab === '029HO19531');
     expect(fundador).toBeDefined();
     const sons = parsed.filter((b) => b.sireNaab === '029HO19531');
     expect(sons.length).toBeGreaterThanOrEqual(2);
     expect(parsed.some((b) => b.naab === '029HO21010')).toBe(true);
+
+    // A2/A2 y BB presentes (parte del "incluir" de REQ-A-11).
+    expect(parsed.some((b) => b.profile?.betaCasein === 'A2/A2')).toBe(true);
+    expect(parsed.some((b) => b.profile?.kappaCasein === 'BB')).toBe(true);
 
     const dairyWithLowScs = parsed.filter(
       (b) =>
@@ -71,15 +83,14 @@ describe('fixtures validate against their zod schemas (REQ-SC-05)', () => {
     expect(dairyWithLowScs.length).toBeGreaterThanOrEqual(3);
 
     const beefBulls = parsed.filter((b) => b.semenTypes.includes('BEEF'));
-    expect(beefBulls).toHaveLength(3);
+    expect(beefBulls.length).toBeGreaterThanOrEqual(4);
     for (const bull of beefBulls) {
       expect(bull.profile).toBeNull();
-      expect(bull.calvingEase).not.toBeNull();
       expect(bull.semenTypes).toEqual(['BEEF']);
     }
-    for (const bull of parsed) {
-      if (bull.profile) expect(bull.profile.scale).toBe('CDCB');
-    }
+    // Al menos 3 toros de carne tienen calvingEase real y comparable (los nuevos
+    // reales de GENEX publican CED/CE en una escala distinta, ver bulls.json).
+    expect(beefBulls.filter((b) => b.calvingEase !== null).length).toBeGreaterThanOrEqual(3);
   });
 
   it('providers.json → proveedores no verificados', () => {
