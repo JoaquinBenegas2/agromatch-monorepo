@@ -8,7 +8,7 @@
 
 **Arquitectura:** monorepo con un paquete de **contratos** compartido, un **núcleo de matcheo** (`matching-core`) y un **motor genético** (`genetics-core`), los dos en TypeScript puro; una API en NestJS que orquesta, una capa de **IA detrás de puertos** y un frontend React. El paralelismo sale de un principio: **después de la hora 0, nadie depende del código de otro, solo de los contratos.**
 
-**Stack:** pnpm workspaces · TypeScript · NestJS · React (Vite) · Vitest · MSW (mocks en el front) · SheetJS (Excel) · SDK del LLM elegido (D5).
+**Stack:** pnpm workspaces · TypeScript · NestJS · React (Vite) · Vitest · MSW (mocks en el front) · SheetJS (Excel) · **`@anthropic-ai/sdk` con Claude Haiku 4.5** (`claude-haiku-4-5`).
 
 **Spec:** [modelo-de-dominio.md](modelo-de-dominio.md) (reglas RN-xx y flujos Fx). Este plan implementa ese documento.
 
@@ -676,7 +676,10 @@ Formato de cada tarea: prioridad · estimación · qué entrega · qué consume 
 #### C1 · Cliente del LLM y caché · P0 · 1,5 h
 - **Archivos:** `packages/ai/src/{llm-client,cache}.ts`
 - **Entrega:**
-  - Interfaz `LlmClient { completeJson<T>(prompt, schema): Promise<T>; completeText(prompt): Promise<string> }`, con adaptador al proveedor elegido (D5) y validación de esquema en toda salida JSON.
+  - Interfaz `LlmClient { completeJson<T>(prompt, schema): Promise<T>; completeText(prompt): Promise<string> }`, con adaptador a **Anthropic Claude** (`@anthropic-ai/sdk`, modelo `claude-haiku-4-5`) y validación de esquema en toda salida JSON.
+  - **Para el JSON, usar salidas estructuradas** (`output_config.format`) o `strict: true` en las herramientas, en vez de pedirle "devolveme JSON" y parsear a mano.
+  - ⚠️ **Ojo con Haiku 4.5:** no acepta `thinking: {type: 'adaptive'}` ni `output_config.effort` (son de los modelos Opus y Sonnet). Si hace falta razonamiento, es `thinking: {type: 'enabled', budget_tokens: N}`, con `budget_tokens` menor que `max_tokens` y mínimo 1024.
+  - **Caché de prompts** (`cache_control`) en la parte fija del prompt: baja costo y latencia en las llamadas repetidas de la demo.
   - **Caché en disco** por hash de (prompt + modelo), para que la demo funcione sin internet.
   - Variable `AI_MODE = fake | live | cache-only`.
 - **Criterios de aceptación:**
@@ -861,7 +864,7 @@ Tomadas para destrabar el plan. Si alguna no va, cambia poco y temprano.
 | # | Decisión por defecto | Por qué |
 |---|---|---|
 | D4 | **Usuarios simulados** con `x-user-id`, sin login | El login no suma nada al pitch y cuesta horas |
-| D5 | Proveedor del LLM **a definir**, detrás de `LlmClient` | El puerto aísla la decisión; se elige antes de C1 |
+| ~~D5~~ ✅ | **Resuelta: Anthropic Claude, modelo Haiku 4.5** (`claude-haiku-4-5`), con `@anthropic-ai/sdk`, detrás del puerto `LlmClient` | Es el más barato y rápido de la familia (200K de contexto), y alcanza para intake, mapeo de columnas y explicaciones. El puerto deja abierto subir de modelo solo donde haga falta |
 | D6 | Plan automático = **el mejor toro para cada hembra**, sin presupuesto | La optimización con restricciones queda para la hoja de ruta |
 | — | **Persistencia en memoria** con datos semilla | Sin infraestructura; la demo arranca siempre en el mismo estado |
 | — | RN-09 ajustada: **una alerta de salud nunca manda a carne** | Es consistente con el Tier 2 del documento de mercado y sostiene la escena de la ternera 3031 |
