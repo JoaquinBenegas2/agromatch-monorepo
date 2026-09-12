@@ -108,6 +108,7 @@ function MatchingEncounter({
     [message, setMessage] = useState('');
   const { still } = useGeneticsMotion();
   const sequence = useEncounterSequence();
+  const resultVisible = sequence.active && sequence.progress >= 1;
   const females = useFemales(farmId);
   const board = useMatchBoard(farmId, femaleId, goal);
   const plan = usePlan(farmId);
@@ -132,7 +133,7 @@ function MatchingEncounter({
     femaleId ?? '',
     candidate?.capabilityId ?? '',
     goal,
-    Boolean(explain && facts),
+    Boolean(resultVisible && explain && facts),
   );
   useEffect(() => {
     if (!femaleId && females.data?.length)
@@ -344,7 +345,9 @@ function MatchingEncounter({
                     {result.success
                       ? result.data.bull.company
                       : 'Central no disponible'}{' '}
-                    · {number(c.compatibility)} puntos
+                    {resultVisible && candidate?.capabilityId === c.capabilityId
+                      ? ` · ${number(c.compatibility)} puntos`
+                      : ''}
                   </small>
                 </div>
                 <ArrowRight />
@@ -405,15 +408,16 @@ function MatchingEncounter({
             </SpatialLabel>
           </SpatialScene>
           <div className="gx-decision">
-            {isChosen && (
+            {resultVisible && isChosen && (
               <Button className="gx-contact-button" onClick={contact}>
                 <MessageCircle />
                 Conversar con el proveedor
               </Button>
             )}
             <Button
-              onClick={() => (sequence.active ? save() : sequence.play())}
+              onClick={() => (resultVisible ? save() : sequence.play())}
               disabled={
+                (sequence.active && !resultVisible) ||
                 add.isPending ||
                 remove.isPending ||
                 plan.isPending ||
@@ -424,9 +428,11 @@ function MatchingEncounter({
               {add.isPending || remove.isPending
                 ? 'Guardando…'
                 : sequence.active
-                  ? isChosen
-                    ? 'Quitar del plan'
-                    : 'Guardar este encuentro'
+                  ? resultVisible
+                    ? isChosen
+                      ? 'Quitar del plan'
+                      : 'Guardar este encuentro'
+                    : 'Explorando el encuentro…'
                   : 'Explorar el encuentro'}
               {sequence.active ? <Plus /> : <ArrowRight />}
             </Button>
@@ -462,97 +468,103 @@ function MatchingEncounter({
             }
             onReset={sequence.active ? sequence.play : undefined}
           />
-          <aside className="gx-result" aria-label="Resultado del encuentro">
-            <p className="gx-rank">
-              #{candidate.rank} DE {facts?.totalCandidates ?? ranked.length} /{' '}
-              {number(candidate.compatibility)} PUNTOS
-            </p>
-            <h2>Lo que podría cambiar.</h2>
-            <p className="gx-reasons">
-              {(facts?.reasons ?? candidate.reasons).slice(0, 2).join(' · ')}
-            </p>
-            <div className="gx-traits">
-              {(Object.keys(TRAITS) as TraitKey[]).map((key) => {
-                const from = facts?.damTraits?.[key],
-                  to = facts?.expectedProgeny?.[key];
-                return (
-                  <div className="gx-trait" key={key}>
-                    <span>{TRAITS[key]}</span>
-                    <span>
-                      {from != null && to != null
-                        ? `${number(from)} → ${number(to)}`
-                        : 'No estimable'}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-            <p className="gx-note">
-              Valores en escala CDCB. Madre → cría esperada; los faltantes no se
-              completan.
-            </p>
-            <div className="gx-metric">
-              <span>Probabilidad A2/A2 / BB de la cría</span>
-              <strong>
-                {facts?.caseinOdds.betaA2A2 != null
-                  ? `${number(facts.caseinOdds.betaA2A2 * 100)}%`
-                  : 'Sin dato'}{' '}
-                /{' '}
-                {facts?.caseinOdds.kappaBB != null
-                  ? `${number(facts.caseinOdds.kappaBB * 100)}%`
-                  : 'Sin dato'}
-              </strong>
-              <p className="gx-note">
-                Calculado por el motor según los genotipos disponibles.
-              </p>
-            </div>
-            <details
-              open={explain}
-              onToggle={(e) => {
-                if (e.currentTarget.open !== explain)
-                  setExplain(e.currentTarget.open);
-              }}
+          {resultVisible && (
+            <aside
+              className="gx-result"
+              aria-label="Resultado del encuentro"
+              aria-live="polite"
             >
-              <summary>Por qué matchea · explicación</summary>
-              {explanation.isFetching && <p>Generando explicación…</p>}
-              {explanation.error && (
-                <>
-                  <ErrorMessage message={explanation.error.message} />
-                  <Button
-                    variant="ghost"
-                    onClick={() => void explanation.refetch()}
-                  >
-                    Reintentar explicación
-                  </Button>
-                </>
-              )}
-              {explanation.data && <p>{explanation.data.text}</p>}
-            </details>
-            <div className="gx-plan-feedback" aria-live="polite">
-              {isChosen && (
+              <p className="gx-rank">
+                #{candidate.rank} DE {facts?.totalCandidates ?? ranked.length} /{' '}
+                {number(candidate.compatibility)} PUNTOS
+              </p>
+              <h2>Lo que podría cambiar.</h2>
+              <p className="gx-reasons">
+                {(facts?.reasons ?? candidate.reasons).slice(0, 2).join(' · ')}
+              </p>
+              <div className="gx-traits">
+                {(Object.keys(TRAITS) as TraitKey[]).map((key) => {
+                  const from = facts?.damTraits?.[key],
+                    to = facts?.expectedProgeny?.[key];
+                  return (
+                    <div className="gx-trait" key={key}>
+                      <span>{TRAITS[key]}</span>
+                      <span>
+                        {from != null && to != null
+                          ? `${number(from)} → ${number(to)}`
+                          : 'No estimable'}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="gx-note">
+                Valores en escala CDCB. Madre → cría esperada; los faltantes no
+                se completan.
+              </p>
+              <div className="gx-metric">
+                <span>Probabilidad A2/A2 / BB de la cría</span>
+                <strong>
+                  {facts?.caseinOdds.betaA2A2 != null
+                    ? `${number(facts.caseinOdds.betaA2A2 * 100)}%`
+                    : 'Sin dato'}{' '}
+                  /{' '}
+                  {facts?.caseinOdds.kappaBB != null
+                    ? `${number(facts.caseinOdds.kappaBB * 100)}%`
+                    : 'Sin dato'}
+                </strong>
                 <p className="gx-note">
-                  ✓ Este encuentro está guardado en tu plan.
+                  Calculado por el motor según los genotipos disponibles.
                 </p>
-              )}
-              {chosen && !isChosen && (
-                <p className="gx-note">
-                  Al guardar, reemplazás el toro {chosen.bullNaab} para esta
-                  vaca.
-                </p>
-              )}
-              {(add.error || remove.error || plan.error) && (
-                <ErrorMessage
-                  message={
-                    (add.error ?? remove.error ?? plan.error)?.message ??
-                    'No se pudo actualizar el plan'
-                  }
-                />
-              )}
-              <Link className="gx-note" to="/negociacion/plan">
-                Ver plan de servicios ↗
-              </Link>
-            </div>
-          </aside>
+              </div>
+              <details
+                open={explain}
+                onToggle={(e) => {
+                  if (e.currentTarget.open !== explain)
+                    setExplain(e.currentTarget.open);
+                }}
+              >
+                <summary>Por qué matchea · explicación</summary>
+                {explanation.isFetching && <p>Generando explicación…</p>}
+                {explanation.error && (
+                  <>
+                    <ErrorMessage message={explanation.error.message} />
+                    <Button
+                      variant="ghost"
+                      onClick={() => void explanation.refetch()}
+                    >
+                      Reintentar explicación
+                    </Button>
+                  </>
+                )}
+                {explanation.data && <p>{explanation.data.text}</p>}
+              </details>
+              <div className="gx-plan-feedback" aria-live="polite">
+                {isChosen && (
+                  <p className="gx-note">
+                    ✓ Este encuentro está guardado en tu plan.
+                  </p>
+                )}
+                {chosen && !isChosen && (
+                  <p className="gx-note">
+                    Al guardar, reemplazás el toro {chosen.bullNaab} para esta
+                    vaca.
+                  </p>
+                )}
+                {(add.error || remove.error || plan.error) && (
+                  <ErrorMessage
+                    message={
+                      (add.error ?? remove.error ?? plan.error)?.message ??
+                      'No se pudo actualizar el plan'
+                    }
+                  />
+                )}
+                <Link className="gx-note" to="/negociacion/plan">
+                  Ver plan de servicios ↗
+                </Link>
+              </div>
+            </aside>
+          )}
         </>
       )}
       {board.isPending && (
