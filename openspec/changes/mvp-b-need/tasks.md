@@ -7,12 +7,12 @@
 
 ## 2. API de necesidades y matching — M5
 
-- [ ] 2.1 M5 Implementar el módulo `needs` con `POST /needs`, `PATCH /needs/:id` y `GET /needs`, transiciones `DRAFT` → `OPEN`, actualización sin confirmar y aislamiento por `farmIds`; verificar por curl los escenarios crear/confirmar, `NEED_INCOMPLETE`, `FARM_FORBIDDEN` y exclusión de necesidades sintéticas.
-- [ ] 2.2 M5 Implementar el módulo `providers` con filtro por categoría y proyección pública sin `contact`; verificar por curl que ningún elemento de `GET /providers` contiene la clave `contact`.
-- [ ] 2.3 M5 Implementar el módulo `matching` para validar pertenencia/estado, cargar repositorios, llamar exclusivamente a `matchNeed(need, caps, provs, listVerticals())` y persistir `MATCHED`; verificar por curl que un borrador devuelve `NEED_NOT_CONFIRMED` y una necesidad abierta devuelve un `MatchBoard` cuyo primer rankeado tiene compatibilidad 100.
-- [ ] 2.4 M5 Implementar creación de solicitudes en `requests` con estado `SENT` y contacto, validando proveedor, necesidad, estado y pertenencia; verificar por curl que el contacto aparece recién en `POST /needs/:id/requests`.
-- [ ] 2.5 M5 Implementar reviews 1..5 y actualización incremental de reputación; verificar el escenario de primera valoración (`avg: 4`, `jobs: 1`) y el error `VALIDATION_ERROR` fuera de rango.
-- [ ] 2.6 M5 Registrar los cuatro módulos en backend y completar la verificación manual integrada de todos los escenarios M5, además del build/typecheck/lint Nx de los proyectos afectados.
+- [x] 2.1 M5 Implementar el módulo `needs` con `POST /needs`, `PATCH /needs/:id` y `GET /needs`, transiciones `DRAFT` → `OPEN`, actualización sin confirmar y aislamiento por `farmIds`; verificar por curl los escenarios crear/confirmar, `NEED_INCOMPLETE`, `FARM_FORBIDDEN` y exclusión de necesidades sintéticas.
+- [x] 2.2 M5 Implementar el módulo `providers` con filtro por categoría y proyección pública sin `contact`; verificar por curl que ningún elemento de `GET /providers` contiene la clave `contact`.
+- [x] 2.3 M5 Implementar el módulo `matching` para validar pertenencia/estado, cargar repositorios, llamar exclusivamente a `matchNeed(need, caps, provs, listVerticals())` y persistir `MATCHED`; verificar por curl que un borrador devuelve `NEED_NOT_CONFIRMED` y una necesidad abierta devuelve un `MatchBoard` cuyo primer rankeado tiene compatibilidad 100.
+- [x] 2.4 M5 Implementar creación de solicitudes en `requests` con estado `SENT` y contacto, validando proveedor, necesidad, estado y pertenencia; verificar por curl que el contacto aparece recién en `POST /needs/:id/requests`.
+- [x] 2.5 M5 Implementar reviews 1..5 y actualización incremental de reputación; verificar el escenario de primera valoración (`avg: 4`, `jobs: 1`) y el error `VALIDATION_ERROR` fuera de rango.
+- [x] 2.6 M5 Registrar los cuatro módulos en backend y completar la verificación manual integrada de todos los escenarios M5, además del build/typecheck/lint Nx de los proyectos afectados.
 
 ## 3. Home marketplace y proveedores — M6 + M7
 

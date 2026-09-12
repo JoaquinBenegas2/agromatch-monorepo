@@ -25,7 +25,7 @@ Las restricciones determinantes son RN-30 a RN-39 y ADR-0002: no se busca antes 
 
 ### 0. `Need` representa la incompletitud sin valores centinela
 
-`NeedSchema.where` y `NeedSchema.window` son opcionales porque RN-30 exige que un `DRAFT` conserve su ausencia real. La API valida ambos al confirmar y ninguna necesidad puede llegar a `OPEN`, `MATCHED` o `CLOSED` sin ellos. Prisma refleja esa temporalidad con columnas JSON anulables. `UpdateNeedBodySchema.confirm` es opcional para permitir correcciones que siguen en `DRAFT`.
+`NeedSchema.where` y `NeedSchema.window` son opcionales porque RN-30 exige que un `DRAFT` conserve su ausencia real. La API valida ambos al confirmar una necesidad general; `GENETICS` puede pasar a `OPEN` sin ellos porque se deriva al vertical, mientras el endpoint de matching genérico conserva la precondición. Prisma refleja esa temporalidad con columnas JSON anulables. `UpdateNeedBodySchema.confirm` es opcional para permitir correcciones que siguen en `DRAFT`.
 
 Se descartan coordenadas `0,0`, etiquetas como “Sin ubicación”, fechas vacías y casts que oculten campos ausentes: los primeros inventan datos y los últimos rompen Zod/persistencia. Los consumidores que calculan matching deben estrechar la precondición antes de usar ubicación o ventana.
 
@@ -51,7 +51,7 @@ Durante el stub T0 se acepta que `excluded` esté vacío contra backend. MSW usa
 
 ### 4. Los DTO públicos de proveedor se sanitizan en el límite de lectura
 
-El repositorio conserva `Provider.contact` porque `RequestsService` lo necesita, pero `ProvidersService.listPublic` devuelve una proyección sin la clave `contact`. Matching tampoco incorpora objetos `Provider` en los candidatos. Solo `RequestsService.create` copia el contacto a la `ServiceRequest` luego de validar proveedor, necesidad, pertenencia y estado.
+El repositorio conserva `Provider.contact` porque `RequestsService` lo necesita, pero `ProvidersService.listPublic` devuelve `PublicProvider`, una proyección Zod sin la clave `contact`. Matching tampoco incorpora objetos `Provider` en los candidatos. Solo `RequestsService.create` copia el contacto a la `ServiceRequest` luego de validar proveedor, necesidad, pertenencia y estado.
 
 La alternativa de borrar el contacto al cargar el repositorio impide crear la solicitud; confiar en que el frontend no lo muestre filtraría datos sensibles por red y contradice RN-36.
 
@@ -60,6 +60,8 @@ La alternativa de borrar el contacto al cargar el repositorio impide crear la so
 `RequestsService.review` valida rango 1..5, propiedad de la necesidad asociada y existencia de la solicitud. Crea la `Review` y actualiza la reputación con media incremental `(avg * jobs + rating) / (jobs + 1)`. Las dos escrituras quedan detrás de puertos; no se introduce una abstracción transaccional nueva para el MVP.
 
 La alternativa de recalcular desde todas las reviews requiere ampliar `ReviewRepo`, cambio que esta spec no autoriza.
+
+`ProviderRepo.updateReputation(id, reputation)` es el único aditivo necesario para persistir el resultado sin importar Prisma desde el servicio. `NeedRepo.saveMatchBoard(id, board)` guarda el último tablero completo para cumplir RN-39 sin ensanchar el DTO público de `Need`.
 
 ### 6. La pantalla `/mercado` es una máquina de estados local respaldada por React Query
 
