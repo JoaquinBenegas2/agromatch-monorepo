@@ -36,24 +36,25 @@ async function main(): Promise<void> {
   });
   console.log(`bulls: ${bullsSeed.length}`);
 
-  await prisma.$transaction(
-    providers.map((p) => {
-      const data = {
-        id: p.id,
-        name: p.name,
-        type: p.type,
-        imageUrl: p.imageUrl,
-        base: p.base,
-        verified: p.verified,
-        reputationAvg: p.reputation.avg,
-        reputationJobs: p.reputation.jobs,
-        contactPhone: p.contact.phone ?? null,
-        contactEmail: p.contact.email ?? null,
-        source: p.source,
-      };
-      return prisma.provider.upsert({ where: { id: p.id }, create: data, update: data });
-    }),
-  );
+  // Upserts uno por uno, SIN $transaction: cada upsert ya es idempotente y no
+  // necesitan atomicidad entre sí. Contra una base remota (Railway) los 29 en
+  // una transacción interactiva superaban el timeout de 5 s de Prisma (P2028).
+  for (const p of providers) {
+    const data = {
+      id: p.id,
+      name: p.name,
+      type: p.type,
+      imageUrl: p.imageUrl,
+      base: p.base,
+      verified: p.verified,
+      reputationAvg: p.reputation.avg,
+      reputationJobs: p.reputation.jobs,
+      contactPhone: p.contact.phone ?? null,
+      contactEmail: p.contact.email ?? null,
+      source: p.source,
+    };
+    await prisma.provider.upsert({ where: { id: p.id }, create: data, update: data });
+  }
   console.log(`providers: ${providers.length}`);
 
   await prisma.capability.createMany({

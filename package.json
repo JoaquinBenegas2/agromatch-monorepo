@@ -22,7 +22,10 @@
     "db:deploy:railway": "dotenv -e .env.railway -- nx run @org/backend:db-deploy",
     "db:studio:railway": "dotenv -e .env.railway -- nx run @org/backend:db-studio",
     "db:seed:railway": "dotenv -e .env.railway -- nx run @org/backend:db-seed",
-    "dev:railway": "dotenv -e .env.railway -- nx run @org/backend:serve"
+    "dev:railway": "dotenv -e .env.railway -- nx run @org/backend:serve",
+    "deploy:vm06": "powershell -NoProfile -ExecutionPolicy Bypass -File deploy/deploy-vm06.ps1",
+    "deploy:vm06:front": "powershell -NoProfile -ExecutionPolicy Bypass -File deploy/deploy-vm06.ps1 -Solo front",
+    "deploy:vm06:back": "powershell -NoProfile -ExecutionPolicy Bypass -File deploy/deploy-vm06.ps1 -Solo back"
   },
   "private": true,
   "devDependencies": {

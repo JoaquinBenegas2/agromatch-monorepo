@@ -25,6 +25,13 @@ export default defineConfig(() => ({
   preview: {
     port: 4300,
     host: 'localhost',
+    // Mismo proxy que en dev: permite hacer QA del build real (dist) contra el backend local.
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3333',
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [react(), tailwindcss()],
   // Uncomment this if you are using workers.

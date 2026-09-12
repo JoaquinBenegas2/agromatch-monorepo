@@ -41,7 +41,7 @@ npm run db:migrate
 npm run db:seed      # carga el rodeo real, toros, proveedores
 ```
 
-> ⚠️ **Si no tenés Docker**, ver §6: hay una alternativa verificada que no necesita base.
+> ⚠️ **Si no tenés Docker**, ver §6: hay una alternativa verificada que no necesita base (modo `REPOSITORY_MODE=memory`, real y commiteado — no un cambio local).
 
 ### 3.2 Backend (`:3333`, prefijo `/api`)
 
@@ -207,8 +207,22 @@ Si no hay Docker, **no se cambia el motor de base**. Convertir el esquema a MySQ
 Dos caminos:
 
 1. **PostgreSQL nativo en Windows** (instalador de postgresql.org, sin Docker) y apuntar `DATABASE_URL` ahí. Cero cambios de código, esquema idéntico al de producción. Es la opción fiel.
-2. **Repos en memoria**, solo para probar API + pantalla + IA: reemplazar los providers de `apps/backend/src/repos/repositories.module.ts` por implementaciones en memoria sembradas con los fixtures, y sacar `PrismaModule` de `app.module.ts`. Levanta todo el backend real — guards, controllers, filtro de errores, motor genético y chat — sin base.
-   **Esto NO verifica la capa Prisma**: es un cambio local, nunca se commitea, y se revierte apenas termina el QA.
+2. **Modo `REPOSITORY_MODE=memory`**, solo para probar API + pantalla + IA: repositorios en memoria (`apps/backend/src/repos/memory.providers.ts`) sembrados en el arranque con los mismos fixtures de `@org/shared-types/fixtures` que usa `prisma/seed.ts`. `repositories.module.ts` registra estas implementaciones en vez de las de Prisma cuando `useMemoryRepositories` (`apps/backend/src/repos/repository-mode.ts`) da `true`, y `app.module.ts` ni importa `PrismaModule` en ese modo. Levanta todo el backend real — guards, controllers, filtro de errores, motor genético, chat y negociaciones — sin base:
+
+   ```bash
+   npx nx build backend
+   REPOSITORY_MODE=memory node apps/backend/dist/main.js
+   ```
+
+   En PowerShell:
+
+   ```powershell
+   npx nx build backend
+   $env:REPOSITORY_MODE='memory'; node apps/backend/dist/main.js
+   ```
+
+   Es un modo real y commiteado, gateado por la variable de entorno `REPOSITORY_MODE` (default `prisma`) — no un cambio local para revertir a mano. Es el modo con el que corre la demo desplegada en VM06 (`deploy/LEEME-vm06.md`). Los datos viven solo en memoria del proceso: se pierden al reiniciar, por diseño. `apps/backend/src/repos/memory-profile.e2e.spec.ts` levanta el `AppModule` completo en este modo y verifica los números de §4.2 y §4.5.
+   **Esto NO verifica la capa Prisma** (ver §7).
 
 ## 7. Qué NO cubre este QA
 
