@@ -57,7 +57,7 @@ Salen de lo que aprendimos analizando Torinder. Una idea tiene que pasar **todos
 - **Datos inventados presentados como reales.**
 - **Competir contra algo gratis** sin explicar por qué pagarían.
 - **Idea sin usuario:** nadie la pidió y nadie la validó.
-- **Demo que depende del wifi o de una API externa** sin respuestas en caché.
+- **Demo en vivo sin ensayar en el lugar:** si depende de internet o de una API externa, se prueba la conexión del evento y se ensaya ahí, no en casa.
 
 ---
 

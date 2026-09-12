@@ -24,6 +24,7 @@
 | [analisis-idea-04-matching-reproductivo.md](analisis-idea-04-matching-reproductivo.md) | Análisis de la idea y del documento de mercado, simulación de las reglas sobre el rodeo real, fórmula de compatibilidad y arquitectura |
 | [validacion-mercado.md](validacion-mercado.md) | Competidores, mercado argentino, diferencial y evidencia del dolor |
 | [fuentes-datos-toros.md](fuentes-datos-toros.md) | De dónde salen los datos de toros, la restricción de escala y la estrategia |
+| [adr/](adr/) | **Decisiones de arquitectura (ADR).** Una por decisión, con contexto, alternativas y consecuencias |
 | `insumos/` | Documento de mercado original (`.docx`) y Excel real de 293 animales (`.xlsx`) |
 
 ## Decisiones tomadas
@@ -54,7 +55,7 @@
 1. **¿Cuántos tambos genotipan en Argentina?** Es el riesgo de mercado más grande.
 2. **Estimar el valor genético sin genotipado**, a partir del padre y del padre de la madre. Abre el producto a todo tambo que insemina.
 3. ¿Quién paga? La hipótesis es el asesor multi-tambo.
-4. Definición del **CI** y **proveedor del genotipado**. La hipótesis es Neogen Igenity, en escala CDCB.
+4. ~~Definición del **CI**~~ ✅ Resuelta: es un Índice General compuesto propio, no Calving Interval. Ver [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md). **Proveedor del genotipado** sigue sin confirmar (hipótesis Neogen Igenity, en escala CDCB).
 5. A qué central corresponden los prefijos NAAB `029` y `094`.
-6. Corregir las reglas de clasificación: hoy mandan el 47% del rodeo a carne cuando la intención era 30%.
+6. ~~Corregir las reglas de clasificación~~ ✅ Resuelta con RN-07 a RN-12 + [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md) (zona gris en las alertas de salud). Falta escribir el test del rodeo completo (293 animales) contra las reglas nuevas para confirmar los porcentajes reales.
 7. Página de producto (one-pager) para el equipo y el jurado.

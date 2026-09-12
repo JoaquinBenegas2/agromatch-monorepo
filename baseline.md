@@ -60,9 +60,9 @@
 | — | La compatibilidad es un **ranking relativo** ("#1 de 12"), nunca una probabilidad |
 | — | **Multi-establecimiento** desde el día uno, con datos aislados |
 | D5 | **LLM: Claude Haiku 4.5** (`claude-haiku-4-5`, `@anthropic-ai/sdk`), detrás del puerto `LlmClient` |
-| D9 | Persistencia del MVP: **repos en memoria** detrás de interfaces, cargados de fixtures. Prisma queda intacto. *(A confirmar en T0)* |
+| D9 | Persistencia: **PostgreSQL + Prisma** con Docker Compose. Todo detrás de interfaces de repositorio; los fixtures entran por un seed que se puede volver a correr |
 | — | Usuarios **simulados** con header `x-user-id`. Sin login |
-| — | La demo **funciona sin internet**: respuestas del LLM en caché |
+| — | La demo corre **100% real**: Claude en vivo, nada pregrabado |
 | RN-09 | Una **alerta de salud nunca manda una vaca a carne**: baja un nivel o activa apareamiento correctivo. Carne se decide solo por cupo |
 
 ---
@@ -158,7 +158,9 @@ Todavía **no tenemos catálogo real** (tarea A6). La ficha mínima que hay que 
 
 **Cómo no se pisan:** después de T0 cada uno trabaja contra **sustitutos** (stubs, fakes, MSW). Las dependencias reales se resuelven en **I1 (hora 9)** e **I2 (hora 13)**. Congelamiento en la hora 16.
 
-**Fuera del MVP por falta de horas:** extracción de catálogos PDF, chat sobre el rodeo y panel del asesor.
+**Dentro del MVP, con alcance recortado:** el **chat sobre el rodeo** (3 herramientas de consulta, no ejecuta acciones) y el **panel del asesor** (tambos, distribución por tier y comparativa). A absorbe las dos pantallas porque termina los motores antes.
+
+**Lo único fuera del MVP:** extracción de catálogos PDF y su pantalla. El catálogo va curado a mano.
 
 ---
 

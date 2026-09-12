@@ -45,12 +45,15 @@ description: Sincroniza cada tarea del MVP de Torinder con la base "Tareas Torin
    FROM "collection://c51a6976-fe7d-4ee2-a7d6-8c915d101e51" WHERE "userDefined:ID" = ?
    ```
 3. **Leer la página completa** con `notion-fetch`. Ahí están los archivos, las interfaces y los **criterios de aceptación**, que son los primeros tests.
-4. **Revisar las dependencias** (`Depende de`):
+   - **Leer también los comentarios** de la tarea: ahí avisan los cambios de contrato.
+   - **Si la tarea menciona un ADR** (`docs/adr/`), leerlo antes de escribir código. **El ADR gana sobre cualquier documento más viejo**, y decírselo al dev si detectás la contradicción.
+4. **Leer el contexto de los otros devs.** De cada tarea en `Depende de`: su `Estado`, su campo `Produce (contrato)` y, si está `Hecha`, la sección **"Contrato entregado"** de su página (ahí están las firmas reales y qué sustituto se puede borrar). De cada tarea en `Bloquea a`: quién va a consumir lo que escribas.
+5. **Revisar las dependencias** (`Depende de`):
    - `T0` sin `Hecha` → **FRENAR**. Es la única dependencia dura.
    - Cualquier otra sin `Hecha` → seguir **usando el sustituto** (stub, fake o MSW) y avisarle al dev cuál estás usando.
-5. **Tomar la tarea** con `update_properties`: `Estado = "En curso"`, `Responsable` (si está vacío) y `Rama / PR`.
-6. **Confirmar** con la consulta del paso 2.
-7. **Comentar en la página:** `▶️ Arranqué · rama feature/<ID>-… · sustitutos en uso: …`
+6. **Tomar la tarea** con `update_properties`: `Estado = "En curso"`, `Responsable` (si está vacío) y `Rama / PR`.
+7. **Confirmar** con la consulta del paso 2.
+8. **Comentar en la página:** `▶️ Arranqué · rama feature/<ID>-… · sustitutos en uso: …`
 
 ## 2. DURANTE
 
@@ -87,7 +90,7 @@ Solo cuando **todos** los criterios de aceptación están tildados y los tests p
    3. **Avisar a cada tarea de `Bloquea a`** con un comentario en su página:
       `🔔 <ID> entregó <qué>. Contrato: <mention-page url="…"/>. Ya podés sacar el sustituto.`
 2. **Pasar a revisión:** `Estado = "En revisión"`, con la URL del PR en `Rama / PR`.
-3. **Después del merge a `main`:** `Estado = "Hecha"`.
+3. **Después del merge a `develop`:** `Estado = "Hecha"`.
 4. **Confirmar** cada cambio con la consulta de la base y **reportarle al dev** qué quedó en Notion.
 
 ## Nunca

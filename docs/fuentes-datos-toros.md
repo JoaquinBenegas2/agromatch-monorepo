@@ -56,7 +56,8 @@ Promediar los valores de la madre y del toro **solo tiene sentido si están en l
 
 ## 4. Riesgos abiertos
 
-1. ⚠️ Confirmar el **proveedor del genotipado** y **qué es el CI**. Se puede averiguar mirando los metadatos del Excel original o preguntándole al tambero.
-2. ⚠️ Usar comercialmente datos de CDCB **sin licencia** es riesgoso. Para la demo alcanza; para el producto hace falta el acuerdo.
-3. ⚠️ Toros sin evaluación CDCB (por ejemplo, genética local) no se pueden comparar hasta resolver la conversión de escalas.
+1. ~~⚠️ Confirmar qué es el CI~~ ✅ Resuelto: es un Índice General compuesto propio, no Calving Interval — ver [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md). El **proveedor del genotipado** sigue sin confirmar (hipótesis Neogen Igenity).
+2. ~~⚠️ Usar comercialmente datos de CDCB sin licencia~~ Resuelto como plan en [ADR-0003](adr/0003-fuente-y-licencia-datos-de-toros.md): se persigue la licencia desde el día uno, pero **el producto no depende de conseguirla** para operar (canales 2 y 3 alcanzan para lanzar).
+3. ~~⚠️ Toros sin evaluación CDCB~~ Resuelto en [ADR-0003](adr/0003-fuente-y-licencia-datos-de-toros.md): quedan **explícitamente fuera** del catálogo en el MVP y el v1, sin conversión casera. Es una brecha conocida, se dice así en el pitch.
 4. ⚠️ Las caseínas no aparecen en todos los catálogos, así que puede haber toros sin dato A2 o BB.
+5. **Nuevo (ADR-0003):** cuando un tambo/asesor suba su propio catálogo (canal 3), entra como privado a ese establecimiento y se promueve al catálogo neutral compartido recién después de revisión humana — falta implementar el campo `visibility: 'private' | 'global'` en la ficha del toro (post-hackathon).

@@ -114,8 +114,8 @@ erDiagram
     FEMALE ||--o| GENOMIC_PROFILE : tiene
     FEMALE ||--o{ CLASSIFICATION : recibe
     PROVIDER ||--o{ BULL : vende
-    FEMALE ||--o{ MATCH_RESULT : evalua
-    BULL ||--o{ MATCH_RESULT : evalua
+    FEMALE ||--o{ MATCH_CANDIDATE : evalua
+    BULL ||--o{ MATCH_CANDIDATE : evalua
     FARM ||--o{ BREEDING_PLAN : arma
 ```
 
@@ -141,7 +141,7 @@ erDiagram
 | **RN-32** | **Score determinístico** = suma ponderada de cercanía, ajuste de disponibilidad, ajuste de capacidad, precio y reputación. **Sin LLM en el cálculo.** |
 | **RN-33** | **Compatibilidad %** = score reescalado de 0 a 100 entre los candidatos de esa necesidad, mostrado como ranking ("#1 de N"), nunca como probabilidad. |
 | **RN-34** | **Neutralidad.** El ranking no se compra. Si alguna vez hay posiciones patrocinadas, van **fuera del ranking y etiquetadas**. |
-| **RN-35** | **Verticales enchufables.** Si la categoría tiene un `VerticalEngine`, su score reemplaza al componente genérico y sus hechos entran en la explicación. El núcleo no conoce la genética: conoce la interfaz. |
+| **RN-35** | **Verticales enchufables.** Si la categoría tiene un `VerticalEngine`, su score reemplaza al componente genérico y sus hechos entran en la explicación. El núcleo no conoce la genética: conoce la interfaz. **El vertical genético (Torinder) cumple esto de verdad, no como subsistema aparte** — ver [ADR-0002](adr/0002-vertical-genetico-enchufado-al-nucleo.md). |
 | **RN-36** | **Retención antes que comisión.** El valor que retiene vive en la plataforma: historial, planes, recordatorios y verticales. El dato de contacto se muestra al crear la `ServiceRequest`; la valoración se pide después del trabajo. |
 | **RN-37** | **Arranque en frío honesto.** Un proveedor cargado desde una fuente pública y sin confirmar se marca `verified: false` y **se muestra como tal**. Nunca se presenta un proveedor no verificado como cliente de la plataforma. |
 | **RN-38** | **Aislamiento.** Los datos de un establecimiento no se ven desde otro. El asesor ve solo los suyos. |
@@ -168,7 +168,7 @@ erDiagram
 | **RN-06** | **Facilidad de parto.** En `HEIFER` y `CALF`, solo toros dentro del umbral del establecimiento. Sin dato, queda excluido con aviso. |
 | **RN-07** | **Percentil dentro del rodeo**, nunca umbrales absolutos fijos. |
 | **RN-08** | **Cupos por reposición.** Top `sexedPct`% → `ELITE`; bottom `beefPct`% → `BEEF`; el resto → `COMMERCIAL`. Por defecto 25% / 30%. |
-| **RN-09** | **Las alertas de salud NUNCA mandan a carne.** SCS > 3,18 o PL < 0: una `ELITE` baja a `COMMERCIAL`; una `COMMERCIAL` se queda con **apareamiento correctivo** (el rasgo entra en `corrective` y pesa el doble). |
+| **RN-09** | **Las alertas de salud NUNCA mandan a carne, y respetan una zona gris.** SCS > 3,18 o PL < 0: una `ELITE` baja a `COMMERCIAL`; una `COMMERCIAL` se queda con **apareamiento correctivo** (el rasgo entra en `corrective` y pesa el doble). SCS entre 3,10 y 3,18, o PL entre 0,00 y 0,20 (**zona gris**): el tier no cambia, pero el rasgo entra igual en `corrective`. Ver [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md). |
 | **RN-10** | **Protección por objetivo.** Con objetivo A2 o quesería, una A2/A2 o BB no cae en `BEEF` solo por percentil. |
 | **RN-11** | **Alerta de descarte** (`CULL_ALERT`): condición simultánea extrema. Es una alerta, nunca una acción automática. |
 | **RN-12** | **Precedencia explícita:** cupo → salud → protección por objetivo → alerta de descarte. Todo queda en `reasons`. |
@@ -282,8 +282,8 @@ export interface VerticalEngine<TFacts> {
 
 | # | Decisión | Impacta en |
 |---|---|---|
-| D1 | Qué es el **CI** | RN-07, RN-08 |
-| D2 | Validar el algoritmo de clasificación | RN-08, RN-09 |
+| ~~D1~~ ✅ | **Resuelta:** CI es un **Índice General compuesto** propio (`insumos/Gestion de genotipados.docx`), no Calving Interval. Correlaciona 0,84 con PL, 0,58 con FAT, 0,54 con PRO, −0,47 con SCS. Ver [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md) | RN-07, RN-08 |
+| ~~D2~~ ✅ | **Resuelta:** el doble conteo entre CI y las alertas de salud (RN-09) es intencional (índice + niveles de descarte independientes), pero se le agregó zona gris para evitar cortes por ruido. Ver [ADR-0001](adr/0001-clasificacion-tiers-y-alertas-de-salud.md) | RN-08, RN-09 |
 | D3 | Umbral de facilidad de parto | RN-06 |
 | D4 | Login real o usuarios simulados | RN-38 |
 | ~~D5~~ ✅ | **Resuelta:** Anthropic Claude, modelo **Haiku 4.5** (`claude-haiku-4-5`), vía `@anthropic-ai/sdk`, detrás del puerto `LlmClient` | Módulo `ai` |
