@@ -26,9 +26,12 @@
 .step-dot.now{background:var(--action);outline:3px solid var(--action-soft)}
 [data-panel]{display:none;flex-direction:column;gap:16px}
 [data-panel].active{display:flex}
+.bubble{transition:transform .25s,opacity .25s}
+.bubble:not(.shown){opacity:0;transform:translateY(6px)}
 </style>
 </head>
 <body>
+<a href="#main" id="skip-link">Saltar al contenido</a>
 <div class="shell">
   <aside class="sidebar">
     <div class="brand">
@@ -86,23 +89,23 @@
       <div class="crumb">Mi establecimiento / <b>Setup conversacional</b></div>
       <div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JB</div></div>
     </div>
-    <div class="content">
+    <main class="content" id="main">
 
-      <div class="tabbar">
-        <button class="active" type="button" onclick="showTab('onboarding', this)">Onboarding</button>
-        <button type="button" onclick="showTab('perfil', this)">Mi perfil</button>
+      <div class="tabbar" role="tablist" aria-label="Vistas de Setup conversacional">
+        <button class="active" type="button" role="tab" aria-selected="true" onclick="showTab('onboarding', this)">Onboarding</button>
+        <button type="button" role="tab" aria-selected="false" onclick="showTab('perfil', this)">Mi perfil</button>
       </div>
 
       <div data-panel="onboarding" class="active">
         <div><h1 class="t-title" style="font-size:22px">Dejemos listo tu establecimiento</h1><p class="t-meta" style="margin:4px 0 0">3 preguntas cortas. Nada de formularios largos — después ajustás todo en Mi perfil.</p></div>
 
-        <div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px">
-          <div style="align-self:flex-start;max-width:82%;background:var(--action-soft);border-radius:4px;padding:10px 12px" class="t-body">¡Hola! Soy el asistente de AgroMatch. Para arrancar: ¿cómo se llama tu establecimiento y qué tipo de producción hacen?</div>
-          <div style="align-self:flex-end;max-width:82%;background:#fff;border:1px solid var(--border);border-radius:4px;padding:10px 12px" class="t-body">Tambo La Esperanza, somos un tambo lechero con cría propia en Río Cuarto.</div>
-          <div style="align-self:flex-start;max-width:82%;background:var(--action-soft);border-radius:4px;padding:10px 12px" class="t-body">Perfecto. ¿Aproximadamente cuántas hembras tenés en el rodeo?</div>
-          <div style="align-self:flex-end;max-width:82%;background:#fff;border:1px solid var(--border);border-radius:4px;padding:10px 12px" class="t-body">Unas 290, más o menos.</div>
-          <div style="align-self:flex-start;max-width:82%;background:var(--action-soft);border-radius:4px;padding:10px 12px" class="t-body">Anotado. Última: ¿cuál es tu objetivo principal con el rodeo hoy?</div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px" id="chat-log">
+          <div class="bubble t-body" style="align-self:flex-start;max-width:82%;background:var(--action-soft);border-radius:4px;padding:10px 12px">¡Hola! Soy el asistente de AgroMatch. Para arrancar: ¿cómo se llama tu establecimiento y qué tipo de producción hacen?</div>
+          <div class="bubble t-body" style="align-self:flex-end;max-width:82%;background:#fff;border:1px solid var(--border);border-radius:4px;padding:10px 12px">Tambo La Esperanza, somos un tambo lechero con cría propia en Río Cuarto.</div>
+          <div class="bubble t-body" style="align-self:flex-start;max-width:82%;background:var(--action-soft);border-radius:4px;padding:10px 12px">Perfecto. ¿Aproximadamente cuántas hembras tenés en el rodeo?</div>
+          <div class="bubble t-body" style="align-self:flex-end;max-width:82%;background:#fff;border:1px solid var(--border);border-radius:4px;padding:10px 12px">Unas 290, más o menos.</div>
+          <div class="bubble t-body" style="align-self:flex-start;max-width:82%;background:var(--action-soft);border-radius:4px;padding:10px 12px">Anotado. Última: ¿cuál es tu objetivo principal con el rodeo hoy?</div>
+          <div id="goal-options" style="display:flex;flex-wrap:wrap;gap:8px">
             <span class="btn btn-ghost" style="cursor:pointer" onclick="finishOnboarding(this,'Mejorar sólidos')">Mejorar sólidos</span>
             <span class="btn btn-ghost" style="cursor:pointer" onclick="finishOnboarding(this,'Reducir mastitis')">Reducir mastitis</span>
             <span class="btn btn-ghost" style="cursor:pointer" onclick="finishOnboarding(this,'Facilidad de parto')">Facilidad de parto</span>
@@ -140,7 +143,7 @@
 
         <div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">
           <span class="t-label">SELECTOR DE USUARIO</span>
-          <div class="tabbar">
+          <div class="tabbar" id="panel-perfil-role" role="radiogroup" aria-label="Rol simulado">
             <button class="active" type="button" onclick="setRole(this,'Tambero')">Tambero</button>
             <button type="button" onclick="setRole(this,'Asesor')">Asesor</button>
           </div>
@@ -148,27 +151,41 @@
         </div>
       </div>
 
-    </div>
+    </main>
   </div>
 </div>
+<div id="toast" role="status" aria-live="polite" style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:var(--r-lg);font:500 12.5px/1 var(--sans);box-shadow:0 10px 30px rgba(27,28,27,.2);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s"></div>
 <script>
-function showTab(name, btn){
-  document.querySelectorAll('.tabbar button').forEach(function(b){ if(b.closest('.tabbar')===btn.closest('.tabbar')) b.classList.remove('active'); });
-  btn.classList.add('active');
-  document.querySelectorAll('[data-panel]').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelector('[data-panel="'+name+'"]').classList.add('active');
+function toast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.style.opacity = 1; t.style.transform = 'translateX(-50%) translateY(-4px)';
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(function(){ t.style.opacity = 0; t.style.transform = 'translateX(-50%)'; }, 2200);
 }
-function setRole(btn){
-  document.querySelectorAll('.tabbar button').forEach(function(b){ if(b.closest('.tabbar')===btn.closest('.tabbar')) b.classList.remove('active'); });
+function showTab(name, btn){
+  document.querySelectorAll('.tabbar[role="tablist"] button').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+  document.querySelectorAll('[data-panel]').forEach(function(p){ p.classList.remove('active','reveal'); });
+  var panel = document.querySelector('[data-panel="'+name+'"]');
+  panel.classList.add('active');
+  requestAnimationFrame(function(){ panel.classList.add('reveal'); });
+}
+function setRole(btn, role){
+  document.querySelectorAll('#panel-perfil-role button').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
+  toast('Usuario simulado: ' + role);
 }
 function finishOnboarding(btn, goal){
   document.getElementById('progress-fill').style.width = '100%';
   document.getElementById('progress-label').textContent = '3 de 3 pasos · ¡listo!';
   document.getElementById('step3').classList.remove('now');
   document.getElementById('step3').classList.add('done');
-  btn.parentElement.insertAdjacentHTML('beforeend', '<span class="badge badge-ok" style="margin-left:6px">Objetivo: '+goal+'</span>');
+  document.getElementById('goal-options').innerHTML = '<span class="badge badge-ok">Objetivo elegido: ' + goal + '</span>';
+  toast('Setup listo · objetivo "' + goal + '" guardado');
 }
+document.querySelectorAll('#chat-log .bubble').forEach(function(el, i){
+  setTimeout(function(){ el.classList.add('shown'); }, 120 * i);
+});
 </script>
 </body>
 </html>

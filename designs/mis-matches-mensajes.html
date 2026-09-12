@@ -23,12 +23,15 @@
 .tabbar button{font:600 12.5px/1 var(--sans);padding:8px 14px;border-radius:var(--r-lg);border:1px solid var(--border);background:var(--card);color:var(--ink);cursor:pointer}
 .tabbar button.active{background:var(--ink);color:var(--card);border-color:var(--ink)}
 .tabbar button[disabled]{cursor:not-allowed;color:var(--ink-4)}
-.match-item{cursor:pointer}
+.match-item{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.match-item:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(27,28,27,.06)}
 [data-view]{display:none;flex-direction:column;gap:16px}
 [data-view].active{display:flex}
+#thread-body .bubble{transition:opacity .2s,transform .2s}
 </style>
 </head>
 <body>
+<a href="#main" id="skip-link">Saltar al contenido</a>
 <div class="shell">
   <aside class="sidebar">
     <div class="brand">
@@ -86,9 +89,9 @@
       <div class="crumb">Negociación y tratos / <b>Mis matches / mensajes</b></div>
       <div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JB</div></div>
     </div>
-    <div class="content">
+    <main class="content" id="main">
 
-      <div class="tabbar">
+      <div class="tabbar" role="tablist" aria-label="Pantallas de Negociación y tratos">
         <button class="active" type="button">Mis matches / mensajes</button>
         <button type="button" disabled>Plan de servicios <span class="tag-version" style="margin-left:4px">pendiente</span></button>
       </div>
@@ -138,17 +141,24 @@
             <div style="display:flex;flex-direction:column">
               <div id="thread-header" style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px"></div>
               <div id="thread-body" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;background:var(--bg)"></div>
-              <div style="padding:10px;border-top:1px solid var(--border);display:flex;gap:8px"><input style="flex:1;border:1px solid var(--border);border-radius:4px;padding:9px 11px;font:400 12.5px/1 var(--sans)" placeholder="Escribí un mensaje…"><span class="btn btn-primary">Enviar</span></div>
+              <div style="padding:10px;border-top:1px solid var(--border);display:flex;gap:8px"><input id="chat-input" style="flex:1;border:1px solid var(--border);border-radius:4px;padding:9px 11px;font:400 12.5px/1 var(--sans)" placeholder="Escribí un mensaje…" onkeydown="if(event.key==='Enter')sendMessage()"><span class="btn btn-primary" onclick="sendMessage()">Enviar</span></div>
             </div>
             <div id="thread-summary" style="border-left:1px solid var(--border);padding:14px;display:flex;flex-direction:column;gap:10px"></div>
           </div>
         </div>
       </div>
 
-    </div>
+    </main>
   </div>
 </div>
+<div id="toast" role="status" aria-live="polite" style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:var(--r-lg);font:500 12.5px/1 var(--sans);box-shadow:0 10px 30px rgba(27,28,27,.2);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s"></div>
 <script>
+function toast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.style.opacity = 1; t.style.transform = 'translateX(-50%) translateY(-4px)';
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(function(){ t.style.opacity = 0; t.style.transform = 'translateX(-50%)'; }, 2200);
+}
 var threads = {
   dr: {
     header: '<div class="avatar avatar-square" style="width:30px;height:30px;font-size:11px">DR</div><div><div class="t-body" style="font-weight:600;font-size:12.5px">Cabaña La Esperanza</div><div class="t-meta">Don Rufino 4012 · Angus negro</div></div>',
@@ -189,11 +199,15 @@ function bubble(side, text){
   var bg = side==='right' ? 'var(--action-soft)' : '#fff';
   var border = side==='right' ? '' : 'border:1px solid var(--border);';
   var align = side==='right' ? 'flex-end' : 'flex-start';
-  return '<div style="align-self:'+align+';max-width:75%;background:'+bg+';'+border+'border-radius:4px;padding:9px 11px" class="t-body">'+text+'</div>';
+  return '<div class="bubble t-body" style="align-self:'+align+';max-width:75%;background:'+bg+';'+border+'border-radius:4px;padding:9px 11px">'+text+'</div>';
 }
+var activeThread = null;
 function openChat(id){
-  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active'); });
-  document.querySelector('[data-view="chat"]').classList.add('active');
+  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active','reveal'); });
+  var view = document.querySelector('[data-view="chat"]');
+  view.classList.add('active');
+  requestAnimationFrame(function(){ view.classList.add('reveal'); });
+  activeThread = id;
   var t = threads[id];
   document.getElementById('thread-header').innerHTML = t.header;
   document.getElementById('thread-body').innerHTML = t.messages.map(function(m){ return bubble(m[0], m[1]); }).join('');
@@ -201,9 +215,21 @@ function openChat(id){
   document.querySelectorAll('[data-thread-nav]').forEach(function(el){ el.style.background = el.getAttribute('data-thread-nav')===id ? 'var(--action-soft)' : ''; });
   window.scrollTo(0,0);
 }
+function sendMessage(){
+  var input = document.getElementById('chat-input');
+  var text = input.value.trim();
+  if (!text || !activeThread) return;
+  var body = document.getElementById('thread-body');
+  body.insertAdjacentHTML('beforeend', bubble('right', text));
+  body.scrollTop = body.scrollHeight;
+  input.value = '';
+  toast('Mensaje enviado');
+}
 function backToList(){
-  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active'); });
-  document.querySelector('[data-view="lista"]').classList.add('active');
+  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active','reveal'); });
+  var view = document.querySelector('[data-view="lista"]');
+  view.classList.add('active');
+  requestAnimationFrame(function(){ view.classList.add('reveal'); });
 }
 </script>
 </body>

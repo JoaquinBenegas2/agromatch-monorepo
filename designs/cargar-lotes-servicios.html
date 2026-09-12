@@ -20,9 +20,14 @@
 .content{padding:28px 32px;display:flex;flex-direction:column;gap:16px;width:100%;max-width:1000px}
 [data-view]{display:none;flex-direction:column;gap:16px}
 [data-view].active{display:flex}
+.offer-icon{width:52px;height:52px;border-radius:var(--r-sm);flex:none;background:var(--action-soft);display:flex;align-items:center;justify-content:center}
+.offer-icon svg{width:26px;height:26px;color:var(--action)}
+tbody tr{transition:background .5s}
+tbody tr.reveal{background:var(--action-soft)}
 </style>
 </head>
 <body>
+<a href="#main" id="skip-link">Saltar al contenido</a>
 <div class="shell">
   <aside class="sidebar">
     <div class="brand">
@@ -80,7 +85,7 @@
       <div class="crumb">Mis ofertas / <b>Cargar lotes / servicios</b></div>
       <div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JB</div></div>
     </div>
-    <div class="content">
+    <main class="content" id="main">
 
       <!-- Vista catálogo -->
       <div data-view="catalogo" class="active">
@@ -99,7 +104,7 @@
         <div class="card" style="padding:16px">
           <table class="table">
             <thead><tr><th>Título</th><th>Categoría</th><th>Estado</th><th class="num">Vistas</th><th class="num">Matches</th><th class="num"></th></tr></thead>
-            <tbody>
+            <tbody id="offers-body">
               <tr><td style="font-weight:600">Semen Don Rufino 4012 · Angus negro</td><td>Genética</td><td><span style="color:var(--action);font-weight:600">Activa</span></td><td class="num mono">214</td><td class="num mono">9</td><td class="num"><span class="btn btn-ghost">Editar</span></td></tr>
               <tr><td style="font-weight:600">Arado de rejas · disponible en Córdoba</td><td>Maquinaria</td><td><span style="color:var(--action);font-weight:600">Activa</span></td><td class="num mono">156</td><td class="num mono">4</td><td class="num"><span class="btn btn-ghost">Editar</span></td></tr>
               <tr><td style="font-weight:600">Vaquillonas Braford preñadas</td><td>Hacienda</td><td><span style="color:var(--ink-3);font-weight:600">Pausada</span></td><td class="num mono">88</td><td class="num mono">1</td><td class="num"><span class="btn btn-ghost">Editar</span></td></tr>
@@ -120,27 +125,58 @@
           <div style="display:flex;gap:8px"><span class="btn btn-secondary">Subir fotos</span><span class="btn btn-primary" onclick="generatePreview()">Generar publicación con IA</span></div>
         </div>
 
-        <div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px" id="preview-card" hidden>
+        <div id="preview-loading" class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px" hidden>
           <span class="t-label">VISTA PREVIA</span>
           <div style="display:flex;gap:12px;align-items:center">
-            <span style="width:52px;height:52px;border-radius:3px;flex:none;background:repeating-linear-gradient(135deg,#E6E6E4 0 6px,#F2F2F1 6px 12px);display:block"></span>
+            <div class="skeleton" style="width:52px;height:52px;border-radius:var(--r-sm)"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px"><div class="skeleton" style="width:70%;height:12px"></div><div class="skeleton" style="width:50%;height:11px"></div></div>
+          </div>
+        </div>
+
+        <div class="card reveal" style="padding:16px;display:flex;flex-direction:column;gap:10px" id="preview-card" hidden>
+          <span class="t-label">VISTA PREVIA</span>
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10c-1.5 0-2.5-1.5-1.5-3M18 10c1.5 0 2.5-1.5 1.5-3"/><ellipse cx="12" cy="13" rx="7" ry="6"/><circle cx="9.3" cy="12" r=".6" fill="currentColor"/><circle cx="14.7" cy="12" r=".6" fill="currentColor"/><path d="M10 15.2c.6.5 1.4.5 2 0"/></svg></div>
             <div style="flex:1"><div class="t-body" style="font-weight:600">Semen Don Rufino 4012 · Angus negro</div><div class="t-meta">Genética · DEP PN top 1% · US$ 16/dosis · Río Cuarto</div></div>
           </div>
-          <div style="display:flex;justify-content:flex-end;gap:8px"><span class="btn btn-ghost">Guardar borrador</span><span class="btn btn-primary" onclick="showView('catalogo')">Publicar</span></div>
+          <div style="display:flex;justify-content:flex-end;gap:8px"><span class="btn btn-ghost" onclick="toast('Borrador guardado')">Guardar borrador</span><span class="btn btn-primary" onclick="publicar()">Publicar</span></div>
         </div>
       </div>
 
-    </div>
+    </main>
   </div>
 </div>
+<div id="toast" role="status" aria-live="polite" style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:var(--r-lg);font:500 12.5px/1 var(--sans);box-shadow:0 10px 30px rgba(27,28,27,.2);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s"></div>
 <script>
+function toast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.style.opacity = 1; t.style.transform = 'translateX(-50%) translateY(-4px)';
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(function(){ t.style.opacity = 0; t.style.transform = 'translateX(-50%)'; }, 2200);
+}
 function showView(name){
-  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active'); });
-  document.querySelector('[data-view="'+name+'"]').classList.add('active');
+  document.querySelectorAll('[data-view]').forEach(function(v){ v.classList.remove('active','reveal'); });
+  var el = document.querySelector('[data-view="'+name+'"]');
+  el.classList.add('active');
+  requestAnimationFrame(function(){ el.classList.add('reveal'); });
   window.scrollTo(0,0);
 }
 function generatePreview(){
-  document.getElementById('preview-card').hidden = false;
+  document.getElementById('preview-card').hidden = true;
+  document.getElementById('preview-loading').hidden = false;
+  setTimeout(function(){
+    document.getElementById('preview-loading').hidden = true;
+    document.getElementById('preview-card').hidden = false;
+  }, 650);
+}
+function publicar(){
+  var row = document.createElement('tr');
+  row.className = 'reveal';
+  row.innerHTML = '<td style="font-weight:600">Semen Don Rufino 4012 · Angus negro</td><td>Genética</td><td><span style="color:var(--action);font-weight:600">Activa</span></td><td class="num mono">0</td><td class="num mono">0</td><td class="num"><span class="btn btn-ghost">Editar</span></td>';
+  document.getElementById('offers-body').prepend(row);
+  setTimeout(function(){ row.classList.remove('reveal'); }, 1600);
+  showView('catalogo');
+  toast('Oferta publicada');
 }
 </script>
 </body>
