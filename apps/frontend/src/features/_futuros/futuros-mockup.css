@@ -252,6 +252,20 @@
     .futuros-page .herd-side{border:0;padding:0}
     .futuros-page .import-stage{grid-template-columns:1fr}
   }
+  @media(max-width:1050px){
+    .futuros-page.market-fill{height:auto;flex:1}
+    .futuros-page.market-fill .market-copy{height:auto}
+    .futuros-page .market-hero .spatial-world{position:relative;inset:auto;width:100%;height:260px}
+    .futuros-page .need-form .row{flex-wrap:wrap}
+  }
+  @media(max-width:640px){
+    .futuros-page .market-copy{padding:24px 16px}
+    .futuros-page .market-copy h1{font-size:clamp(32px,9vw,40px);letter-spacing:-1.5px}
+    .futuros-page .need-form{padding:12px}
+    .futuros-page .need-form textarea{font-size:16px}
+    .futuros-page .need-form .row .row{width:100%;justify-content:flex-end}
+    .futuros-page .examples button,.futuros-page .need-form .btn{min-height:44px}
+  }
   @media(prefers-reduced-motion:reduce){
     .futuros-page *, .futuros-page *:before, .futuros-page *:after{animation:none!important;transition:none!important}
   }

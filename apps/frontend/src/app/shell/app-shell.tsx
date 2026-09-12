@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Building2,
   Dna,
@@ -7,6 +7,7 @@ import {
   Menu,
   Package,
   Store,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -63,6 +64,26 @@ export function AppShell() {
   const [farmId] = useActiveFarmId();
   const { user } = useUser();
 
+  useEffect(() => {
+    if (!sidebarOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const close = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSidebarOpen(false);
+    };
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const resize = () => {
+      if (desktop.matches) setSidebarOpen(false);
+    };
+    window.addEventListener('keydown', close);
+    desktop.addEventListener('change', resize);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener('keydown', close);
+      desktop.removeEventListener('change', resize);
+    };
+  }, [sidebarOpen]);
+
   return (
     <Shell>
       {sidebarOpen && (
@@ -73,8 +94,18 @@ export function AppShell() {
         />
       )}
       <Sidebar
+        id="app-navigation"
         className={`fixed inset-y-0 left-0 z-40 bg-card md:sticky md:flex ${sidebarOpen ? 'flex' : 'hidden'}`}
       >
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-2 top-2 md:hidden"
+          aria-label="Cerrar menú"
+          onClick={() => setSidebarOpen(false)}
+        >
+          <X />
+        </Button>
         <SidebarBrand
           mark={<Leaf className="size-4" />}
           name="AgroMatch"
@@ -108,9 +139,11 @@ export function AppShell() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-3 top-3 z-20 md:hidden"
+            className="ml-4 mt-2 md:hidden"
             onClick={() => setSidebarOpen(true)}
             aria-label="Abrir navegación"
+            aria-expanded={sidebarOpen}
+            aria-controls="app-navigation"
           >
             <Menu />
           </Button>
@@ -124,10 +157,11 @@ export function AppShell() {
               onClick={() => setSidebarOpen(!sidebarOpen)}
               aria-label="Abrir navegación"
               aria-expanded={sidebarOpen}
+              aria-controls="app-navigation"
             >
               <Menu />
             </Button>
-            <Breadcrumb>
+            <Breadcrumb className="min-w-0 flex-1">
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink>{activeModule?.label ?? ''}</BreadcrumbLink>
@@ -142,7 +176,7 @@ export function AppShell() {
                 )}
               </BreadcrumbList>
             </Breadcrumb>
-            <div className="flex items-center gap-3">
+            <div className="flex w-full min-w-0 items-center justify-end gap-3 empty:hidden sm:w-auto">
               <FarmSelect />
               <ChatToggleButton onClick={() => setChatOpen((open) => !open)} />
             </div>
